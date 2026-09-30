@@ -1,0 +1,10 @@
+{% extends "auth/base.html" %}
+{% block title %}{{ _('An unexpected error occurred. Please try again later.') }} · {{ app_name }}{% endblock %}
+{% block auth_content %}
+<section class="auth-panel auth-message" role="alert" aria-labelledby="error-heading">
+  <p class="eyebrow">{{ _('NEXHAAT MARKETPLACE') }}</p>
+  <span class="auth-message__code" aria-hidden="true">500</span>
+  <h1 id="error-heading">{{ _('An unexpected error occurred. Please try again later.') }}</h1>
+  <a class="auth-submit auth-message__link" href="{{ url_for('main.index') }}">{{ _('Return to home') }}</a>
+</section>
+{% endblock %}

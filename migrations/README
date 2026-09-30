@@ -1,0 +1,3 @@
+Database migrations are applied with `flask db upgrade` before production traffic.
+The first revision adopts the current schema safely for databases created by the
+prototype app and creates missing tables for new databases.

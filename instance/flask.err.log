@@ -1,0 +1,12 @@
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:5000
+Press CTRL+C to quit
+127.0.0.1 - - [29/Sep/2026 06:46:38] "GET /menu?category_id=1&q=milk HTTP/1.1" 200 -
+127.0.0.1 - - [29/Sep/2026 06:47:46] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [29/Sep/2026 06:47:47] "GET /static/css/app.css HTTP/1.1" 200 -
+127.0.0.1 - - [29/Sep/2026 06:47:48] "GET /static/logo.svg HTTP/1.1" 304 -
+127.0.0.1 - - [29/Sep/2026 06:47:48] "GET /static/js/app.js HTTP/1.1" 304 -
+127.0.0.1 - - [29/Sep/2026 06:47:54] "GET /menu HTTP/1.1" 200 -
+127.0.0.1 - - [29/Sep/2026 06:47:54] "GET /static/css/app.css HTTP/1.1" 304 -
+127.0.0.1 - - [29/Sep/2026 06:47:54] "GET /static/js/app.js HTTP/1.1" 304 -
+127.0.0.1 - - [29/Sep/2026 06:47:54] "GET /static/logo.svg HTTP/1.1" 304 -

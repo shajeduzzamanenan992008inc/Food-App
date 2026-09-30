@@ -1,0 +1,50 @@
+{% extends "auth/base.html" %}
+{% block title %}{{ _('Accept invitation') }} · {{ app_name }}{% endblock %}
+{% block auth_content %}
+<section class="simple-auth-card">
+  <p class="eyebrow">{{ _('SECURE TEAM INVITATION') }}</p>
+  <h1>{{ _('Set up your account') }}</h1>
+  <p class="auth-subtitle">{{ _('You are setting up a %(role)s account for %(email)s.', role=_(invitation.role|capitalize), email=invitation.email) }}</p>
+  <form class="auth-form" method="post" action="{{ url_for('auth.accept_invitation', token=request.view_args.token) }}" data-validate-form>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="locale" value="{{ invitation.locale or current_locale }}">
+    <div class="form-field">
+      <label for="invitation-name">{{ _('Full name') }}</label>
+      <input id="invitation-name" name="full_name" type="text" autocomplete="name" minlength="2" maxlength="120" required data-validate
+             data-required-message="{{ _('This field is required.') }}" aria-describedby="invitation-name-error">
+      <span class="field-error" id="invitation-name-error" data-field-error aria-live="polite"></span>
+    </div>
+    {% if invitation.role == 'rider' %}
+    <div class="form-field">
+      <label for="invitation-phone">{{ _('Phone number') }}</label>
+      <input id="invitation-phone" name="phone" type="tel" autocomplete="tel" minlength="7" maxlength="30" required data-validate
+             data-required-message="{{ _('This field is required.') }}" aria-describedby="invitation-phone-error">
+      <span class="field-error" id="invitation-phone-error" data-field-error aria-live="polite"></span>
+    </div>
+    {% endif %}
+    <div class="form-field">
+      <label for="invitation-password">{{ _('Password') }}</label>
+      <input id="invitation-password" name="password" type="password" autocomplete="new-password"
+             minlength="{{ min_password_length }}" maxlength="{{ max_password_length }}" required data-validate
+             data-required-message="{{ _('This field is required.') }}"
+             data-too-short-message="{{ _('Password must contain at least %(minimum)s characters.', minimum=min_password_length) }}"
+             data-too-long-message="{{ _('Password must contain no more than %(maximum)s characters.', maximum=max_password_length) }}"
+             aria-describedby="invitation-password-error">
+      <span class="field-error" id="invitation-password-error" data-field-error aria-live="polite"></span>
+    </div>
+    <div class="form-field">
+      <label for="invitation-confirm">{{ _('Confirm password') }}</label>
+      <input id="invitation-confirm" name="password_confirmation" type="password" autocomplete="new-password"
+             maxlength="{{ max_password_length }}" required data-validate data-confirm-for="invitation-password"
+             data-required-message="{{ _('This field is required.') }}"
+             data-mismatch-message="{{ _('Passwords do not match.') }}"
+             aria-describedby="invitation-confirm-error">
+      <span class="field-error" id="invitation-confirm-error" data-field-error aria-live="polite"></span>
+    </div>
+    <button class="auth-submit" type="submit" data-loading-label="{{ _('Creating account…') }}" aria-busy="false">
+      <span data-submit-label>{{ _('Accept invitation') }}</span><span class="submit-spinner" aria-hidden="true"></span>
+    </button>
+  </form>
+  <p class="auth-switch"><a href="{{ url_for('auth.login') }}">{{ _('Back to sign in') }}</a></p>
+</section>
+{% endblock %}

@@ -1,0 +1,6 @@
+{{ _('You have been invited to join the NexHaat team as %(role)s.', role=_(role|capitalize)) }}
+{{ _('Use the secure link below to create your account password. This invitation expires in 24 hours and can only be used once.') }}
+
+{{ invitation_url }}
+
+{{ _('If you were not expecting this invitation, you can ignore this email.') }}

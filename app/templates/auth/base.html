@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block extra_head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css', v='20261004') }}">
+  <script src="{{ url_for('static', filename='js/auth.js') }}" defer></script>
+{% endblock %}
+{% block site_header %}
+  {% if request.endpoint in ('auth.login', 'auth.register', 'auth.forgot_password', 'auth.verify_reset_code', 'auth.reset_password', 'auth.seller_application', 'auth.accept_invitation') %}
+  <header class="auth-topbar">
+    <a class="brand-lockup" href="{{ url_for('main.index') }}" aria-label="{{ app_name }} home">
+      <span class="brand-lockup__mark"><img src="{{ url_for('static', filename=app_logo) }}" alt=""></span>
+      <span class="brand-lockup__name">{{ app_name }}</span>
+    </a>
+    <form class="locale-form" method="post" action="{{ url_for('main.set_language') }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <input type="hidden" name="next" value="{{ request.full_path if request.query_string else request.path }}">
+      <label class="visually-hidden" for="auth-language">{{ _('Language') }}</label>
+      <select id="auth-language" name="locale" aria-label="{{ _('Language') }}">
+        {% for locale, label in supported_locales.items() %}
+        <option value="{{ locale }}" {% if current_locale == locale %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+      <button class="locale-form__submit" type="submit">{{ _('Go') }}</button>
+    </form>
+  </header>
+  {% else %}
+    {{ super() }}
+  {% endif %}
+{% endblock %}
+{% block site_footer %}
+  {% if request.endpoint in ('auth.login', 'auth.register', 'auth.forgot_password', 'auth.verify_reset_code', 'auth.reset_password', 'auth.seller_application', 'auth.accept_invitation') %}
+  <footer class="auth-footer">© {{ app_name }} · {{ _('All rights reserved.') }}</footer>
+  {% else %}
+    {{ super() }}
+  {% endif %}
+{% endblock %}
+{% block body_class %}auth-body{% endblock %}
+{% block page_content %}
+<div class="auth-ambient auth-ambient--one" aria-hidden="true"></div>
+<div class="auth-ambient auth-ambient--two" aria-hidden="true"></div>
+<div class="auth-ambient auth-ambient--three" aria-hidden="true"></div>
+<div class="auth-layout">
+  <main class="auth-main" id="auth-main">{% block auth_content %}{% endblock %}</main>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+# Environment variables (নিরাপত্তার জন্য অতি জরুরি)
+.env
+.env.*
+!.env.example
+
+# Python cache & compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+
+# Database files (SQLite)
+instance/*.sqlite3
+instance/*.db
+instance/datasets/
+*.sqlite3
+*.db
+
+# User uploads & temporary files
+uploads/*
+!uploads/.gitkeep
+app/static/uploads/profiles/*
+!app/static/uploads/profiles/.gitkeep
+app/static/uploads/branding/*
+!app/static/uploads/branding/.gitkeep
+
+# IDE / Editor settings
+.vscode/
+.idea/
+
+# OS specific files
+.DS_Store
+Thumbs.db

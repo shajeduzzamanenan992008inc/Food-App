@@ -1,0 +1,2196 @@
+# Bangla (Bangladesh) translations for PROJECT.
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-09-30 08:23+0600\n"
+"PO-Revision-Date: 2026-09-29 15:24+0600\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: bn_BD\n"
+"Language-Team: bn_BD <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: app/routes/auth.py:107
+msgid "Please provide valid name, email, and phone details."
+msgstr "সঠিক নাম, ইমেইল ও ফোন নম্বর দিন।"
+
+#: app/routes/auth.py:111 app/routes/auth.py:151 app/routes/auth.py:283
+#: app/routes/auth.py:513 app/routes/auth.py:581 app/routes/auth.py:636
+#: app/templates/auth/_auth_card.html:108
+#: app/templates/auth/accept_invitation.html:40
+#: app/templates/auth/account.html:48 app/templates/auth/admin_account.html:33
+#: app/templates/auth/reset_password.html:32
+#: app/templates/auth/seller_application.html:59
+msgid "Passwords do not match."
+msgstr "পাসওয়ার্ড দুটি মেলেনি।"
+
+#: app/routes/auth.py:113 app/routes/auth.py:153 app/routes/auth.py:328
+msgid "An account with this email already exists."
+msgstr "এই ইমেইল দিয়ে একটি অ্যাকাউন্ট আগে থেকেই আছে।"
+
+#: app/routes/auth.py:124
+msgid "Account created. You can now sign in."
+msgstr "অ্যাকাউন্ট তৈরি হয়েছে। এখন সাইন ইন করতে পারেন।"
+
+#: app/routes/auth.py:147
+msgid "Please provide valid store, contact, email, and phone details."
+msgstr "দোকান, যোগাযোগ, ইমেইল ও ফোনের সঠিক তথ্য দিন।"
+
+#: app/routes/auth.py:170
+msgid "Your seller application is submitted. Sign in to check its review status."
+msgstr "আপনার বিক্রেতা আবেদন জমা হয়েছে। পর্যালোচনার অবস্থা দেখতে সাইন ইন করুন।"
+
+#: app/routes/auth.py:192 app/templates/auth/_auth_card.html:91
+#: app/templates/auth/accept_invitation.html:30
+#: app/templates/auth/reset_password.html:17
+#: app/templates/auth/seller_application.html:49
+#, python-format
+msgid "Password must contain at least %(minimum)s characters."
+msgstr "পাসওয়ার্ডে অন্তত %(minimum)sটি অক্ষর থাকতে হবে।"
+
+#: app/routes/auth.py:194 app/templates/auth/_auth_card.html:92
+#: app/templates/auth/accept_invitation.html:31
+#: app/templates/auth/reset_password.html:18
+#: app/templates/auth/seller_application.html:50
+#, python-format
+msgid "Password must contain no more than %(maximum)s characters."
+msgstr "পাসওয়ার্ডে %(maximum)sটির বেশি অক্ষর রাখা যাবে না।"
+
+#: app/routes/auth.py:219
+msgid "Invalid email or password."
+msgstr "ইমেইল বা পাসওয়ার্ড সঠিক নয়।"
+
+#: app/routes/auth.py:267
+msgid "This invitation is invalid, expired, or already used."
+msgstr "এই আমন্ত্রণটি অবৈধ, মেয়াদোত্তীর্ণ বা ইতিমধ্যে ব্যবহৃত হয়েছে।"
+
+#: app/routes/auth.py:277
+msgid "Please provide a valid name for this account."
+msgstr "এই অ্যাকাউন্টের জন্য সঠিক নাম দিন।"
+
+#: app/routes/auth.py:279
+msgid "Please provide a valid phone number."
+msgstr "সঠিক ফোন নম্বর দিন।"
+
+#: app/routes/auth.py:286
+msgid ""
+"An account with this email already exists. Ask an administrator to resend"
+" the invitation."
+msgstr "এই ইমেইলে অ্যাকাউন্ট আছে। অ্যাডমিনকে আমন্ত্রণটি আবার পাঠাতে বলুন।"
+
+#: app/routes/auth.py:306
+msgid "Your account is ready. Sign in to continue."
+msgstr "আপনার অ্যাকাউন্ট প্রস্তুত। এগিয়ে যেতে সাইন ইন করুন।"
+
+#: app/routes/auth.py:325
+msgid "Enter a valid email and choose Rider or Admin."
+msgstr "সঠিক ইমেইল দিন এবং রাইডার বা অ্যাডমিন নির্বাচন করুন।"
+
+#: app/routes/auth.py:331 app/routes/auth.py:375
+msgid "Staff invitations need a configured email provider and sender address."
+msgstr "কর্মী আমন্ত্রণ পাঠাতে ইমেইল সেবা ও প্রেরকের ঠিকানা কনফিগার করতে হবে।"
+
+#: app/routes/auth.py:343
+msgid "A valid invitation already exists for this email and role."
+msgstr "এই ইমেইল ও ভূমিকার জন্য একটি কার্যকর আমন্ত্রণ ইতিমধ্যে আছে।"
+
+#: app/routes/auth.py:358 app/routes/auth.py:388
+msgid "Staff invitations are unavailable until the public site URL is configured."
+msgstr "সাইটের পাবলিক URL সেট না করা পর্যন্ত কর্মী আমন্ত্রণ পাঠানো যাবে না।"
+
+#: app/routes/auth.py:363
+msgid "The account invitation was created and queued for email."
+msgstr "অ্যাকাউন্টের আমন্ত্রণ তৈরি হয়েছে এবং ইমেইলে পাঠানোর জন্য রাখা হয়েছে।"
+
+#: app/routes/auth.py:380
+msgid "This invitation was closed because an account already exists."
+msgstr "এই ইমেইলে অ্যাকাউন্ট থাকায় আমন্ত্রণটি বন্ধ করা হয়েছে।"
+
+#: app/routes/auth.py:394
+msgid "A fresh invitation link was queued for email."
+msgstr "নতুন আমন্ত্রণ লিংক ইমেইলে পাঠানোর জন্য রাখা হয়েছে।"
+
+#: app/routes/auth.py:406
+msgid "The account invitation was revoked."
+msgstr "অ্যাকাউন্টের আমন্ত্রণ বাতিল করা হয়েছে।"
+
+#: app/routes/auth.py:448
+msgid ""
+"If an active account exists for that email, a verification code has been "
+"sent."
+msgstr "এই ইমেইলে সক্রিয় অ্যাকাউন্ট থাকলে একটি যাচাইকরণ কোড পাঠানো হয়েছে।"
+
+#: app/routes/auth.py:458
+msgid "This password reset code is invalid or has expired."
+msgstr "পাসওয়ার্ড রিসেট কোডটি ভুল অথবা মেয়াদ শেষ হয়েছে।"
+
+#: app/routes/auth.py:478
+msgid "Too many incorrect codes. Request a new verification code."
+msgstr "অনেকবার ভুল কোড দিয়েছেন। নতুন যাচাইকরণ কোডের অনুরোধ করুন।"
+
+#: app/routes/auth.py:481
+msgid "The verification code is incorrect."
+msgstr "যাচাইকরণ কোডটি সঠিক নয়।"
+
+#: app/routes/auth.py:500
+msgid "Please verify a valid password reset code first."
+msgstr "আগে একটি বৈধ পাসওয়ার্ড রিসেট কোড যাচাই করুন।"
+
+#: app/routes/auth.py:504
+msgid "This password reset request is invalid or has expired."
+msgstr "পাসওয়ার্ড রিসেটের অনুরোধটি ভুল অথবা মেয়াদ শেষ হয়েছে।"
+
+#: app/routes/auth.py:522
+msgid "Password updated. You can now sign in."
+msgstr "পাসওয়ার্ড আপডেট হয়েছে। এখন সাইন ইন করতে পারেন।"
+
+#: app/routes/auth.py:538
+msgid "Please provide a valid name and phone number."
+msgstr "সঠিক নাম ও ফোন নম্বর দিন।"
+
+#: app/routes/auth.py:540
+msgid "Please provide a complete address."
+msgstr "সম্পূর্ণ ঠিকানা দিন।"
+
+#: app/routes/auth.py:542
+msgid "Please provide a valid city."
+msgstr "সঠিক শহরের নাম দিন।"
+
+#: app/routes/auth.py:564
+msgid "Your account details were updated."
+msgstr "আপনার অ্যাকাউন্টের তথ্য আপডেট হয়েছে।"
+
+#: app/routes/auth.py:577 app/routes/auth.py:632
+msgid "Your current password is incorrect."
+msgstr "আপনার বর্তমান পাসওয়ার্ডটি সঠিক নয়।"
+
+#: app/routes/auth.py:587
+msgid "Your password was changed. Sign in again on this device."
+msgstr "পাসওয়ার্ড পরিবর্তন হয়েছে। এই ডিভাইসে আবার সাইন ইন করুন।"
+
+#: app/routes/auth.py:605
+msgid "Please provide a valid admin name."
+msgstr "সঠিক অ্যাডমিন নাম দিন।"
+
+#: app/routes/auth.py:619
+msgid "Admin profile updated."
+msgstr "অ্যাডমিন প্রোফাইল আপডেট হয়েছে।"
+
+#: app/routes/auth.py:642
+msgid "Admin password changed. Sign in again on this device."
+msgstr "অ্যাডমিন পাসওয়ার্ড পরিবর্তন হয়েছে। এই ডিভাইসে আবার সাইন ইন করুন।"
+
+#: app/routes/auth.py:658
+msgid "You have been signed out."
+msgstr "আপনি সাইন আউট করেছেন।"
+
+#: app/routes/main.py:53
+msgid "We could not save your language preference. Please try again."
+msgstr "আপনার ভাষার পছন্দ সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।"
+
+#: app/routes/main.py:57
+msgid "Language preference updated."
+msgstr "ভাষার পছন্দ আপডেট হয়েছে।"
+
+#: app/routes/orders.py:207
+msgid "This seller application has already been reviewed."
+msgstr "এই বিক্রেতা আবেদনটি ইতিমধ্যে পর্যালোচনা করা হয়েছে।"
+
+#: app/routes/orders.py:214 app/routes/orders.py:240
+msgid "The review note must be 500 characters or fewer."
+msgstr "পর্যালোচনা নোট ৫০০ অক্ষরের বেশি হতে পারবে না।"
+
+#: app/routes/orders.py:222
+msgid "Seller application approved."
+msgstr "বিক্রেতার আবেদন অনুমোদিত হয়েছে।"
+
+#: app/routes/orders.py:223
+msgid "Seller application rejected."
+msgstr "বিক্রেতার আবেদন প্রত্যাখ্যান করা হয়েছে।"
+
+#: app/routes/orders.py:249
+msgid "Product listing approved."
+msgstr "পণ্যের তালিকা অনুমোদিত হয়েছে।"
+
+#: app/routes/orders.py:250
+msgid "Product listing rejected."
+msgstr "পণ্যের তালিকা প্রত্যাখ্যান করা হয়েছে।"
+
+#: app/routes/seller.py:189 app/routes/seller.py:207
+msgid "Please check the product details and try again."
+msgstr "পণ্যের তথ্য যাচাই করে আবার চেষ্টা করুন।"
+
+#: app/routes/seller.py:191
+msgid "Product submitted for Admin review."
+msgstr "পণ্যটি অ্যাডমিনের পর্যালোচনার জন্য জমা হয়েছে।"
+
+#: app/routes/seller.py:209
+msgid "Updated product details were sent for Admin review."
+msgstr "পণ্যের হালনাগাদ তথ্য অ্যাডমিনের পর্যালোচনার জন্য পাঠানো হয়েছে।"
+
+#: app/routes/seller.py:222
+msgid "The product is no longer visible in the marketplace."
+msgstr "পণ্যটি এখন মার্কেটপ্লেসে দেখা যাবে না।"
+
+#: app/routes/seller.py:253
+msgid "Please check the variant details and try again."
+msgstr "ভ্যারিয়েন্টের তথ্য যাচাই করে আবার চেষ্টা করুন।"
+
+#: app/routes/seller.py:255
+msgid "Product variant added."
+msgstr "পণ্যের ভ্যারিয়েন্ট যোগ হয়েছে।"
+
+#: app/routes/seller.py:270
+msgid "Variant availability updated."
+msgstr "ভ্যারিয়েন্টের সক্রিয়তা হালনাগাদ হয়েছে।"
+
+#: app/routes/seller.py:287
+msgid "Enter a valid non-negative stock quantity."
+msgstr "শূন্য বা তার বেশি সঠিক মজুদের পরিমাণ লিখুন।"
+
+#: app/routes/seller.py:291
+msgid "Variant stock updated."
+msgstr "ভ্যারিয়েন্টের মজুদ হালনাগাদ হয়েছে।"
+
+#: app/services/mail.py:162 app/templates/email/password_reset_code.html:3
+#: app/templates/email/password_reset_code.html:7
+#: app/templates/email/password_reset_code.txt:3
+msgid "Your NexHaat password reset code"
+msgstr "NexHaat পাসওয়ার্ড রিসেট কোড"
+
+#: app/templates/_product_card.html:18
+#, python-format
+msgid "Add %(name)s to cart"
+msgstr ""
+
+#: app/templates/base.html:7
+msgid "Discover neighborhood food, groceries, and local stores on NexHaat."
+msgstr ""
+
+#: app/templates/base.html:14
+msgid "Skip to content"
+msgstr ""
+
+#: app/templates/base.html:20
+msgid "Toggle navigation"
+msgstr ""
+
+#: app/templates/base.html:22
+#, fuzzy
+msgid "Main navigation"
+msgstr "আমন্ত্রণ গ্রহণ করুন"
+
+#: app/templates/base.html:23
+#, fuzzy
+msgid "Home"
+msgstr "ফোন"
+
+#: app/templates/base.html:24 app/templates/catalog/menu.html:2
+#, fuzzy
+msgid "Explore"
+msgstr "মেয়াদ শেষ"
+
+#: app/templates/base.html:26 app/templates/customer/dashboard.html:8
+#: app/templates/orders/my_orders.html:2 app/templates/orders/my_orders.html:5
+#: app/templates/portals/dashboard.html:9
+msgid "My orders"
+msgstr "আমার অর্ডার"
+
+#: app/templates/admin/settings.html:4 app/templates/base.html:27
+#, fuzzy
+msgid "Operations"
+msgstr "নেক্সহাট পরিচালনা"
+
+#: app/templates/base.html:28 app/templates/seller/catalog.html:5
+#: app/templates/seller/dashboard.html:5
+msgid "Seller space"
+msgstr ""
+
+#: app/templates/base.html:29 app/templates/rider/dashboard.html:5
+#, fuzzy
+msgid "Rider space"
+msgstr "রাইডার কর্মক্ষেত্র"
+
+#: app/templates/base.html:36 app/templates/base.html:37
+msgid "Language"
+msgstr "ভাষা"
+
+#: app/templates/base.html:42
+msgid "Go"
+msgstr ""
+
+#: app/templates/base.html:44 app/templates/customer/dashboard.html:9
+#: app/templates/orders/cart.html:2 app/templates/portals/dashboard.html:12
+msgid "Shopping cart"
+msgstr "শপিং কার্ট"
+
+#: app/templates/base.html:45
+msgid "Cart"
+msgstr ""
+
+#: app/templates/base.html:49
+#, fuzzy
+msgid "Account"
+msgstr "অ্যাকাউন্টের ভূমিকা"
+
+#: app/templates/admin/dashboard.html:151 app/templates/auth/account.html:53
+#: app/templates/auth/admin_account.html:38 app/templates/base.html:50
+msgid "Sign out"
+msgstr "সাইন আউট"
+
+#: app/templates/auth/login.html:2 app/templates/base.html:52
+msgid "Sign in"
+msgstr "সাইন ইন"
+
+#: app/templates/base.html:66
+msgid "Good food and thoughtful finds, close to home."
+msgstr ""
+
+#: app/templates/base.html:67
+msgid "All rights reserved."
+msgstr "সর্বস্বত্ব সংরক্ষিত।"
+
+#: app/templates/home.html:2
+msgid "Local finds, delivered with care"
+msgstr ""
+
+#: app/templates/home.html:6
+msgid "A little closer to home"
+msgstr ""
+
+#: app/templates/home.html:7
+msgid "Good things,"
+msgstr ""
+
+#: app/templates/home.html:7
+msgid "from nearby."
+msgstr ""
+
+#: app/templates/home.html:8
+msgid "Explore food and everyday finds from local sellers, all in one easy place."
+msgstr ""
+
+#: app/templates/catalog/menu.html:6 app/templates/home.html:10
+#, fuzzy
+msgid "Explore the marketplace"
+msgstr "নেক্সহাট মার্কেটপ্লেস"
+
+#: app/templates/home.html:11
+#, fuzzy
+msgid "Open a store"
+msgstr "দোকান খোলার আবেদন করুন"
+
+#: app/templates/home.html:17
+msgid "Local sellers"
+msgstr ""
+
+#: app/templates/home.html:18
+msgid "Made for your day"
+msgstr ""
+
+#: app/templates/home.html:25
+msgid "Browse your way"
+msgstr ""
+
+#: app/templates/home.html:25
+msgid "Explore categories"
+msgstr ""
+
+#: app/templates/home.html:25
+msgid "See everything"
+msgstr ""
+
+#: app/templates/home.html:30
+msgid "Find something good"
+msgstr ""
+
+#: app/templates/home.html:38
+msgid "Handpicked for you"
+msgstr ""
+
+#: app/templates/home.html:38
+msgid "Popular near you"
+msgstr ""
+
+#: app/templates/home.html:38
+#, fuzzy
+msgid "View marketplace"
+msgstr "মার্কেটপ্লেস ঘুরে দেখুন"
+
+#: app/templates/home.html:40
+msgid "Fresh finds are on their way"
+msgstr ""
+
+#: app/templates/home.html:40
+msgid "Explore the marketplace while local sellers prepare their listings."
+msgstr ""
+
+#: app/templates/home.html:40
+#, fuzzy
+msgid "Browse all"
+msgstr "মার্কেটপ্লেস ঘুরে দেখুন"
+
+#: app/templates/home.html:44
+msgid "For local sellers"
+msgstr ""
+
+#: app/templates/home.html:44
+#, fuzzy
+msgid "Bring your store to NexHaat"
+msgstr "NexHaat-এর সঙ্গে আপনার যাত্রা শুরু করুন"
+
+#: app/templates/home.html:45
+msgid ""
+"Share your products with nearby customers and manage your catalog in one "
+"place."
+msgstr ""
+
+#: app/templates/auth/seller_application.html:2
+#: app/templates/auth/seller_application.html:6 app/templates/home.html:45
+msgid "Apply to sell"
+msgstr "বিক্রেতা হওয়ার আবেদন"
+
+#: app/templates/admin/category_form.html:3
+msgid "Category details"
+msgstr ""
+
+#: app/templates/admin/category_form.html:5
+#: app/templates/admin/product_form.html:5
+#, fuzzy
+msgid "Catalog management"
+msgstr "পণ্য তালিকা পর্যালোচনা"
+
+#: app/templates/admin/category_form.html:5
+msgid "Edit category"
+msgstr ""
+
+#: app/templates/admin/category_form.html:5
+#: app/templates/admin/dashboard.html:17
+msgid "New category"
+msgstr ""
+
+#: app/templates/admin/category_form.html:7
+#, fuzzy
+msgid "Category name"
+msgstr "দোকানের নাম"
+
+#: app/templates/admin/category_form.html:8
+#: app/templates/admin/product_form.html:8
+#: app/templates/seller/product_form.html:11
+#, fuzzy
+msgid "Page address slug"
+msgstr "ইমেইল ঠিকানা"
+
+#: app/templates/admin/category_form.html:9
+msgid "Description (optional)"
+msgstr ""
+
+#: app/templates/admin/category_form.html:10
+msgid "Save category"
+msgstr ""
+
+#: app/templates/admin/category_form.html:10
+#: app/templates/admin/customer_form.html:10
+#: app/templates/admin/product_form.html:14 app/templates/admin/settings.html:8
+#: app/templates/seller/product_form.html:28
+msgid "Cancel"
+msgstr ""
+
+#: app/templates/admin/customer_form.html:2
+#: app/templates/admin/customer_form.html:4
+#: app/templates/admin/dashboard.html:18
+#, fuzzy
+msgid "Add customer"
+msgstr "গ্রাহক"
+
+#: app/templates/admin/customer_form.html:4
+#, fuzzy
+msgid "Customer accounts"
+msgstr "গ্রাহক পৃষ্ঠা"
+
+#: app/templates/admin/customer_form.html:4
+msgid "Create a customer account with a password they can change later."
+msgstr ""
+
+#: app/templates/admin/customer_form.html:6
+#: app/templates/auth/_auth_card.html:61
+#: app/templates/auth/accept_invitation.html:12
+#: app/templates/auth/account.html:10 app/templates/auth/admin_account.html:10
+#: app/templates/orders/checkout.html:11
+msgid "Full name"
+msgstr "পুরো নাম"
+
+#: app/templates/admin/customer_form.html:7
+#: app/templates/auth/_auth_card.html:78
+#: app/templates/auth/accept_invitation.html:19
+#: app/templates/auth/account.html:20
+#: app/templates/auth/seller_application.html:26
+#: app/templates/orders/checkout.html:12
+msgid "Phone number"
+msgstr "ফোন নম্বর"
+
+#: app/templates/admin/customer_form.html:8
+#: app/templates/admin/dashboard.html:92 app/templates/admin/dashboard.html:116
+#: app/templates/auth/_auth_card.html:14 app/templates/auth/_auth_card.html:69
+#: app/templates/auth/account.html:16 app/templates/auth/admin_account.html:16
+#: app/templates/auth/forgot_password.html:12
+#: app/templates/auth/seller_application.html:37
+msgid "Email address"
+msgstr "ইমেইল ঠিকানা"
+
+#: app/templates/admin/customer_form.html:9
+#: app/templates/auth/_auth_card.html:23 app/templates/auth/_auth_card.html:86
+#: app/templates/auth/accept_invitation.html:26
+#: app/templates/auth/reset_password.html:12
+#: app/templates/auth/seller_application.html:45
+msgid "Password"
+msgstr "পাসওয়ার্ড"
+
+#: app/templates/admin/customer_form.html:10
+#, fuzzy
+msgid "Create customer"
+msgstr "গ্রাহক"
+
+#: app/templates/admin/dashboard.html:2 app/templates/admin/dashboard.html:9
+#: app/templates/admin/dashboard.html:22
+msgid "Admin dashboard"
+msgstr "অ্যাডমিন ড্যাশবোর্ড"
+
+#: app/templates/admin/dashboard.html:8
+msgid "NEXHAAT OPERATIONS"
+msgstr "নেক্সহাট পরিচালনা"
+
+#: app/templates/admin/dashboard.html:10
+msgid "Review seller applications, manage staff access, customers, and orders."
+msgstr "বিক্রেতার আবেদন পর্যালোচনা করুন এবং কর্মী, গ্রাহক ও অর্ডার পরিচালনা করুন।"
+
+#: app/templates/admin/dashboard.html:12 app/templates/auth/account.html:2
+#: app/templates/auth/account.html:6 app/templates/auth/admin_account.html:2
+#: app/templates/auth/admin_account.html:6
+#: app/templates/customer/dashboard.html:5
+#: app/templates/orders/my_orders.html:5
+#: app/templates/portals/dashboard.html:11 app/templates/rider/dashboard.html:6
+msgid "Account settings"
+msgstr "অ্যাকাউন্ট সেটিংস"
+
+#: app/templates/admin/dashboard.html:15
+msgid "Operations shortcuts"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:16 app/templates/seller/catalog.html:5
+msgid "Add product"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:19 app/templates/admin/settings.html:2
+#: app/templates/admin/settings.html:4
+#, fuzzy
+msgid "Marketplace settings"
+msgstr "অ্যাকাউন্ট সেটিংস"
+
+#: app/templates/admin/dashboard.html:23 app/templates/admin/dashboard.html:114
+msgid "Customers"
+msgstr "গ্রাহক"
+
+#: app/templates/admin/dashboard.html:24
+msgid "Total orders"
+msgstr "মোট অর্ডার"
+
+#: app/templates/admin/dashboard.html:25
+msgid "Pending orders"
+msgstr "অপেক্ষমাণ অর্ডার"
+
+#: app/templates/admin/dashboard.html:30
+#: app/templates/auth/seller_application.html:5
+msgid "SELLER ONBOARDING"
+msgstr "বিক্রেতা নিবন্ধন"
+
+#: app/templates/admin/dashboard.html:30
+msgid "Applications awaiting review"
+msgstr "পর্যালোচনার অপেক্ষায় আবেদন"
+
+#: app/templates/admin/dashboard.html:31 app/templates/admin/dashboard.html:60
+msgid "pending"
+msgstr "অপেক্ষমাণ"
+
+#: app/templates/admin/dashboard.html:44 app/templates/admin/dashboard.html:73
+#: app/templates/seller/dashboard.html:10
+msgid "Review note"
+msgstr "পর্যালোচনা মন্তব্য"
+
+#: app/templates/admin/dashboard.html:45 app/templates/admin/dashboard.html:74
+msgid "Optional review note"
+msgstr "ঐচ্ছিক পর্যালোচনা মন্তব্য"
+
+#: app/templates/admin/dashboard.html:46 app/templates/admin/dashboard.html:75
+msgid "Approve"
+msgstr "অনুমোদন"
+
+#: app/templates/admin/dashboard.html:47 app/templates/admin/dashboard.html:76
+msgid "Reject"
+msgstr "প্রত্যাখ্যান"
+
+#: app/templates/admin/dashboard.html:53
+msgid "No seller applications are waiting for review."
+msgstr "পর্যালোচনার জন্য কোনো বিক্রেতা আবেদন অপেক্ষায় নেই।"
+
+#: app/templates/admin/dashboard.html:59
+msgid "CATALOG MODERATION"
+msgstr "পণ্য তালিকা পর্যালোচনা"
+
+#: app/templates/admin/dashboard.html:59
+msgid "Product listings awaiting review"
+msgstr "পর্যালোচনার অপেক্ষায় থাকা পণ্য তালিকা"
+
+#: app/templates/admin/dashboard.html:82
+msgid "No product listings are waiting for review."
+msgstr "পর্যালোচনার অপেক্ষায় কোনো পণ্য নেই।"
+
+#: app/templates/admin/dashboard.html:88
+msgid "TEAM ACCESS"
+msgstr "টিম অ্যাক্সেস"
+
+#: app/templates/admin/dashboard.html:88
+msgid "Invite a Rider or Admin"
+msgstr "রাইডার বা অ্যাডমিনকে আমন্ত্রণ জানান"
+
+#: app/templates/admin/dashboard.html:93
+msgid "Account role"
+msgstr "অ্যাকাউন্টের ভূমিকা"
+
+#: app/templates/admin/dashboard.html:93
+msgid "Rider"
+msgstr "রাইডার"
+
+#: app/templates/admin/dashboard.html:93
+#: app/templates/auth/admin_account.html:5
+msgid "Admin"
+msgstr "অ্যাডমিন"
+
+#: app/templates/admin/dashboard.html:94
+msgid "Invitation language"
+msgstr "আমন্ত্রণের ভাষা"
+
+#: app/templates/admin/dashboard.html:95
+msgid "Send invitation"
+msgstr "আমন্ত্রণ পাঠান"
+
+#: app/templates/admin/dashboard.html:97
+msgid ""
+"Invitation links expire after 24 hours, can be used once, and never store"
+" a plain-text password."
+msgstr ""
+"আমন্ত্রণ লিংকের মেয়াদ ২৪ ঘণ্টা। এটি একবার ব্যবহারযোগ্য এবং এতে কখনো সরল "
+"পাসওয়ার্ড রাখা হয় না।"
+
+#: app/templates/admin/dashboard.html:102
+msgid "Expires"
+msgstr "মেয়াদ শেষ"
+
+#: app/templates/admin/dashboard.html:104
+msgid "Resend link"
+msgstr "লিংক আবার পাঠান"
+
+#: app/templates/admin/dashboard.html:105
+msgid "Revoke"
+msgstr "বাতিল করুন"
+
+#: app/templates/admin/dashboard.html:110
+msgid "No pending invitations."
+msgstr "কোনো অপেক্ষমাণ আমন্ত্রণ নেই।"
+
+#: app/templates/admin/dashboard.html:116
+#, fuzzy
+msgid "Name"
+msgstr "পুরো নাম"
+
+#: app/templates/admin/dashboard.html:116
+msgid "Phone"
+msgstr "ফোন"
+
+#: app/templates/admin/dashboard.html:116
+#: app/templates/admin/dashboard.html:136 app/templates/orders/my_orders.html:6
+msgid "Status"
+msgstr "অবস্থা"
+
+#: app/templates/admin/dashboard.html:116
+#: app/templates/admin/dashboard.html:136
+msgid "Actions"
+msgstr "কার্যক্রম"
+
+#: app/templates/admin/dashboard.html:119
+msgid "Active"
+msgstr "সক্রিয়"
+
+#: app/templates/admin/dashboard.html:119
+msgid "Deactivated"
+msgstr "নিষ্ক্রিয়"
+
+#: app/templates/admin/dashboard.html:120
+msgid "Deactivate"
+msgstr "নিষ্ক্রিয় করুন"
+
+#: app/templates/admin/dashboard.html:120
+msgid "Activate"
+msgstr "সক্রিয় করুন"
+
+#: app/templates/admin/dashboard.html:123
+msgid "No customers yet."
+msgstr "এখনো কোনো গ্রাহক নেই।"
+
+#: app/templates/admin/dashboard.html:124
+msgid "Customer pages"
+msgstr "গ্রাহক পৃষ্ঠা"
+
+#: app/templates/admin/dashboard.html:124
+#: app/templates/admin/dashboard.html:143
+#, python-format
+msgid "Page %(current)s of %(total)s"
+msgstr "পৃষ্ঠা %(current)s / %(total)s"
+
+#: app/templates/admin/dashboard.html:125
+#: app/templates/admin/dashboard.html:144
+msgid "Previous"
+msgstr "আগের"
+
+#: app/templates/admin/dashboard.html:126
+#: app/templates/admin/dashboard.html:145
+msgid "Next"
+msgstr "পরের"
+
+#: app/templates/admin/dashboard.html:131
+msgid "Orders"
+msgstr "অর্ডারসমূহ"
+
+#: app/templates/admin/dashboard.html:132
+msgid "Confirm all pending"
+msgstr "সব অপেক্ষমাণ অর্ডার নিশ্চিত করুন"
+
+#: app/templates/admin/dashboard.html:133
+msgid "Decline all pending"
+msgstr "সব অপেক্ষমাণ অর্ডার বাতিল করুন"
+
+#: app/templates/admin/dashboard.html:136
+#: app/templates/admin/order_detail.html:4
+#: app/templates/orders/my_orders.html:6
+msgid "Order"
+msgstr "অর্ডার"
+
+#: app/templates/admin/dashboard.html:136 app/templates/auth/account.html:5
+msgid "Customer"
+msgstr "গ্রাহক"
+
+#: app/templates/admin/dashboard.html:136
+#: app/templates/admin/order_detail.html:5 app/templates/orders/cart.html:10
+#: app/templates/orders/cart.html:23 app/templates/orders/confirmation.html:7
+#: app/templates/orders/my_orders.html:6
+msgid "Total"
+msgstr "মোট"
+
+#: app/templates/admin/dashboard.html:139
+msgid "Order status"
+msgstr "অর্ডারের অবস্থা"
+
+#: app/templates/admin/dashboard.html:139 app/templates/auth/account.html:37
+#: app/templates/auth/admin_account.html:23
+msgid "Save"
+msgstr "সংরক্ষণ করুন"
+
+#: app/templates/admin/dashboard.html:142
+msgid "No orders yet."
+msgstr "এখনো কোনো অর্ডার নেই।"
+
+#: app/templates/admin/dashboard.html:143
+msgid "Order pages"
+msgstr "অর্ডার পৃষ্ঠা"
+
+#: app/templates/admin/order_detail.html:2
+#, fuzzy
+msgid "Order details"
+msgstr "অর্ডারের অবস্থা"
+
+#: app/templates/admin/order_detail.html:4
+#, fuzzy
+msgid "Back to operations"
+msgstr "নেক্সহাট পরিচালনা"
+
+#: app/templates/admin/order_detail.html:5
+#: app/templates/orders/my_orders.html:6
+msgid "Items"
+msgstr ""
+
+#: app/templates/admin/order_detail.html:5 app/templates/seller/catalog.html:6
+msgid "Product"
+msgstr ""
+
+#: app/templates/admin/order_detail.html:5 app/templates/catalog/food.html:16
+#: app/templates/orders/cart.html:10
+msgid "Quantity"
+msgstr ""
+
+#: app/templates/admin/order_detail.html:5
+#, fuzzy
+msgid "Order total"
+msgstr "অর্ডারের অবস্থা"
+
+#: app/templates/admin/order_detail.html:6 app/templates/orders/checkout.html:5
+#, fuzzy
+msgid "Delivery details"
+msgstr "ডেলিভারি কার্যক্রম"
+
+#: app/templates/admin/order_detail.html:6
+msgid "Payment"
+msgstr ""
+
+#: app/templates/admin/order_detail.html:6
+#: app/templates/orders/checkout.html:15
+#: app/templates/orders/confirmation.html:7
+msgid "Cash on delivery"
+msgstr ""
+
+#: app/templates/admin/order_detail.html:7
+#, fuzzy
+msgid "Update status"
+msgstr "অর্ডারের অবস্থা"
+
+#: app/templates/admin/order_detail.html:7
+#, fuzzy
+msgid "Save status"
+msgstr "অবস্থা"
+
+#: app/templates/admin/product_form.html:3
+#: app/templates/seller/product_form.html:3
+msgid "Product details"
+msgstr ""
+
+#: app/templates/admin/product_form.html:5
+#: app/templates/seller/product_form.html:6
+msgid "Edit product"
+msgstr ""
+
+#: app/templates/admin/product_form.html:5
+#, fuzzy
+msgid "New product"
+msgstr "নতুন পাসওয়ার্ড"
+
+#: app/templates/admin/product_form.html:7
+#: app/templates/seller/product_form.html:10
+#, fuzzy
+msgid "Product name"
+msgstr "যোগাযোগকারীর নাম"
+
+#: app/templates/admin/product_form.html:9
+#: app/templates/catalog/category.html:5 app/templates/catalog/menu.html:27
+#: app/templates/seller/product_form.html:12
+msgid "Category"
+msgstr ""
+
+#: app/templates/admin/product_form.html:10
+#: app/templates/seller/product_form.html:14
+msgid "Price (BDT)"
+msgstr ""
+
+#: app/templates/admin/product_form.html:11
+#: app/templates/seller/product_form.html:15
+msgid "Discount price (optional)"
+msgstr ""
+
+#: app/templates/admin/product_form.html:12
+#: app/templates/seller/product_form.html:18
+msgid "Description"
+msgstr ""
+
+#: app/templates/admin/product_form.html:13
+msgid "Available to customers"
+msgstr ""
+
+#: app/templates/admin/product_form.html:14
+msgid "Save product"
+msgstr ""
+
+#: app/templates/admin/settings.html:4
+msgid "Update the marketplace name and logo."
+msgstr ""
+
+#: app/templates/admin/settings.html:6
+#, fuzzy
+msgid "Marketplace name"
+msgstr "মার্কেটপ্লেস ঘুরে দেখুন"
+
+#: app/templates/admin/settings.html:7
+msgid "Logo image (optional)"
+msgstr ""
+
+#: app/templates/admin/settings.html:8
+#, fuzzy
+msgid "Save settings"
+msgstr "অ্যাকাউন্ট সেটিংস"
+
+#: app/templates/auth/_auth_card.html:6 app/templates/auth/_auth_card.html:54
+#: app/templates/auth/base.html:13 app/templates/errors/404.html:5
+#: app/templates/errors/500.html:5 app/templates/portals/dashboard.html:4
+msgid "NEXHAAT MARKETPLACE"
+msgstr "নেক্সহাট মার্কেটপ্লেস"
+
+#: app/templates/auth/_auth_card.html:7
+msgid "Welcome"
+msgstr "স্বাগতম"
+
+#: app/templates/auth/_auth_card.html:8
+msgid "Sign in to continue your journey"
+msgstr "আপনার যাত্রা চালিয়ে যেতে সাইন ইন করুন"
+
+#: app/templates/auth/_auth_card.html:17 app/templates/auth/_auth_card.html:26
+#: app/templates/auth/_auth_card.html:64 app/templates/auth/_auth_card.html:72
+#: app/templates/auth/_auth_card.html:81 app/templates/auth/_auth_card.html:90
+#: app/templates/auth/_auth_card.html:107
+#: app/templates/auth/accept_invitation.html:14
+#: app/templates/auth/accept_invitation.html:21
+#: app/templates/auth/accept_invitation.html:29
+#: app/templates/auth/accept_invitation.html:39
+#: app/templates/auth/account.html:12 app/templates/auth/account.html:22
+#: app/templates/auth/account.html:44 app/templates/auth/account.html:46
+#: app/templates/auth/account.html:48 app/templates/auth/admin_account.html:12
+#: app/templates/auth/admin_account.html:29
+#: app/templates/auth/admin_account.html:31
+#: app/templates/auth/admin_account.html:33
+#: app/templates/auth/forgot_password.html:14
+#: app/templates/auth/reset_password.html:16
+#: app/templates/auth/reset_password.html:31
+#: app/templates/auth/seller_application.html:15
+#: app/templates/auth/seller_application.html:22
+#: app/templates/auth/seller_application.html:29
+#: app/templates/auth/seller_application.html:40
+#: app/templates/auth/seller_application.html:48
+#: app/templates/auth/seller_application.html:58
+#: app/templates/auth/verify_reset_code.html:15
+msgid "This field is required."
+msgstr "এই ঘরটি পূরণ করুন।"
+
+#: app/templates/auth/_auth_card.html:18 app/templates/auth/_auth_card.html:73
+#: app/templates/auth/forgot_password.html:15
+#: app/templates/auth/seller_application.html:41
+msgid "Enter a valid email address."
+msgstr "সঠিক ইমেইল ঠিকানা লিখুন।"
+
+#: app/templates/auth/_auth_card.html:28 app/templates/auth/_auth_card.html:29
+#: app/templates/auth/_auth_card.html:94 app/templates/auth/_auth_card.html:95
+#: app/templates/auth/_auth_card.html:110
+#: app/templates/auth/_auth_card.html:111
+#: app/templates/auth/reset_password.html:20
+#: app/templates/auth/reset_password.html:21
+#: app/templates/auth/reset_password.html:34
+#: app/templates/auth/reset_password.html:35
+msgid "Show password"
+msgstr "পাসওয়ার্ড দেখান"
+
+#: app/templates/auth/_auth_card.html:29 app/templates/auth/_auth_card.html:95
+#: app/templates/auth/_auth_card.html:111
+#: app/templates/auth/reset_password.html:21
+#: app/templates/auth/reset_password.html:35
+msgid "Hide password"
+msgstr "পাসওয়ার্ড লুকান"
+
+#: app/templates/auth/_auth_card.html:37
+msgid "Remember me"
+msgstr "আমাকে মনে রাখুন"
+
+#: app/templates/auth/_auth_card.html:38
+msgid "Forgot password?"
+msgstr "পাসওয়ার্ড ভুলে গেছেন?"
+
+#: app/templates/auth/_auth_card.html:40
+msgid "Admin accounts are provisioned securely."
+msgstr "অ্যাডমিন অ্যাকাউন্ট নিরাপদভাবে তৈরি করা হয়।"
+
+#: app/templates/auth/_auth_card.html:41
+msgid "Signing in…"
+msgstr "সাইন ইন হচ্ছে…"
+
+#: app/templates/auth/_auth_card.html:42
+msgid "Log in"
+msgstr "লগ ইন"
+
+#: app/templates/auth/_auth_card.html:46
+msgid "Don't have an account?"
+msgstr "অ্যাকাউন্ট নেই?"
+
+#: app/templates/auth/_auth_card.html:47
+msgid "Create an account"
+msgstr "অ্যাকাউন্ট তৈরি করুন"
+
+#: app/templates/auth/_auth_card.html:49
+msgid "Want to sell on NexHaat?"
+msgstr "নেক্সহাটে বিক্রি করতে চান?"
+
+#: app/templates/auth/_auth_card.html:49
+msgid "Apply to open a store"
+msgstr "দোকান খোলার আবেদন করুন"
+
+#: app/templates/auth/_auth_card.html:55 app/templates/auth/register.html:2
+msgid "Create your account"
+msgstr "আপনার অ্যাকাউন্ট তৈরি করুন"
+
+#: app/templates/auth/_auth_card.html:56 app/templates/auth/base.html:13
+msgid "Start your journey with NexHaat"
+msgstr "NexHaat-এর সঙ্গে আপনার যাত্রা শুরু করুন"
+
+#: app/templates/auth/_auth_card.html:103
+#: app/templates/auth/accept_invitation.html:36
+#: app/templates/auth/account.html:47 app/templates/auth/admin_account.html:32
+#: app/templates/auth/reset_password.html:27
+#: app/templates/auth/seller_application.html:55
+msgid "Confirm password"
+msgstr "পাসওয়ার্ড নিশ্চিত করুন"
+
+#: app/templates/auth/_auth_card.html:118
+#: app/templates/auth/accept_invitation.html:44
+msgid "Creating account…"
+msgstr "অ্যাকাউন্ট তৈরি হচ্ছে…"
+
+#: app/templates/auth/_auth_card.html:119
+msgid "Create account"
+msgstr "অ্যাকাউন্ট তৈরি করুন"
+
+#: app/templates/auth/_auth_card.html:123
+msgid "Already have an account?"
+msgstr "আগে থেকেই অ্যাকাউন্ট আছে?"
+
+#: app/templates/auth/_auth_card.html:124
+msgid "Return to sign in"
+msgstr "সাইন ইন-এ ফিরুন"
+
+#: app/templates/auth/accept_invitation.html:2
+#: app/templates/auth/accept_invitation.html:45
+#: app/templates/email/account_invitation.html:3
+#: app/templates/email/account_invitation.html:7
+msgid "Accept invitation"
+msgstr "আমন্ত্রণ গ্রহণ করুন"
+
+#: app/templates/auth/accept_invitation.html:5
+msgid "SECURE TEAM INVITATION"
+msgstr "নিরাপদ টিম আমন্ত্রণ"
+
+#: app/templates/auth/accept_invitation.html:6
+#: app/templates/email/account_invitation.html:10
+msgid "Set up your account"
+msgstr "আপনার অ্যাকাউন্ট তৈরি করুন"
+
+#: app/templates/auth/accept_invitation.html:7
+#, python-format
+msgid "You are setting up a %(role)s account for %(email)s."
+msgstr "আপনি %(email)s-এর জন্য %(role)s অ্যাকাউন্ট তৈরি করছেন।"
+
+#: app/templates/auth/accept_invitation.html:48
+#: app/templates/auth/forgot_password.html:23
+#: app/templates/auth/reset_password.html:44
+#: app/templates/auth/seller_application.html:67
+msgid "Back to sign in"
+msgstr "সাইন ইন-এ ফিরে যান"
+
+#: app/templates/auth/account.html:26
+msgid "Street address"
+msgstr "রাস্তার ঠিকানা"
+
+#: app/templates/auth/account.html:30
+msgid "City"
+msgstr "শহর"
+
+#: app/templates/auth/account.html:34 app/templates/auth/admin_account.html:20
+msgid "Profile image"
+msgstr "প্রোফাইল ছবি"
+
+#: app/templates/auth/account.html:40 app/templates/portals/dashboard.html:11
+msgid "Update your profile, address, and password."
+msgstr "আপনার প্রোফাইল, ঠিকানা ও পাসওয়ার্ড হালনাগাদ করুন।"
+
+#: app/templates/auth/account.html:43 app/templates/auth/admin_account.html:28
+msgid "Current password"
+msgstr "বর্তমান পাসওয়ার্ড"
+
+#: app/templates/auth/account.html:45 app/templates/auth/admin_account.html:30
+msgid "New password"
+msgstr "নতুন পাসওয়ার্ড"
+
+#: app/templates/auth/account.html:49 app/templates/auth/admin_account.html:34
+#: app/templates/auth/reset_password.html:41
+msgid "Update password"
+msgstr "পাসওয়ার্ড আপডেট করুন"
+
+#: app/templates/auth/base.html:13 app/templates/portals/dashboard.html:10
+msgid "Explore the available food and products."
+msgstr "উপলব্ধ খাবার ও পণ্য দেখুন।"
+
+#: app/templates/auth/base.html:19 app/templates/portals/dashboard.html:9
+msgid "Review your order history and updates."
+msgstr "আপনার অর্ডারের ইতিহাস ও আপডেট দেখুন।"
+
+#: app/templates/auth/forgot_password.html:2
+msgid "Forgot password"
+msgstr "পাসওয়ার্ড ভুলে গেছেন"
+
+#: app/templates/auth/forgot_password.html:5
+#: app/templates/auth/reset_password.html:5
+#: app/templates/auth/verify_reset_code.html:5
+msgid "Secure verification"
+msgstr "নিরাপদ যাচাইকরণ"
+
+#: app/templates/auth/forgot_password.html:6
+msgid "Reset your password"
+msgstr "আপনার পাসওয়ার্ড রিসেট করুন"
+
+#: app/templates/auth/forgot_password.html:7
+msgid "Enter your account email and we will send a 6-digit verification code."
+msgstr "অ্যাকাউন্টের ইমেইল দিন, আমরা ৬ সংখ্যার যাচাইকরণ কোড পাঠাব।"
+
+#: app/templates/auth/forgot_password.html:19
+msgid "Sending…"
+msgstr "পাঠানো হচ্ছে…"
+
+#: app/templates/auth/forgot_password.html:20
+msgid "Send verification code"
+msgstr "যাচাইকরণ কোড পাঠান"
+
+#: app/templates/auth/reset_password.html:2
+msgid "Set new password"
+msgstr "নতুন পাসওয়ার্ড সেট করুন"
+
+#: app/templates/auth/reset_password.html:6
+msgid "Set a new password"
+msgstr "নতুন পাসওয়ার্ড দিন"
+
+#: app/templates/auth/reset_password.html:7
+#, python-format
+msgid "Your code is verified. Choose at least %(minimum)s characters."
+msgstr "কোড যাচাই হয়েছে। অন্তত %(minimum)s অক্ষরের পাসওয়ার্ড বেছে নিন।"
+
+#: app/templates/auth/reset_password.html:40
+msgid "Updating…"
+msgstr "আপডেট হচ্ছে…"
+
+#: app/templates/auth/seller_application.html:7
+msgid ""
+"Create your seller account. Our team will review your store before you "
+"can start selling."
+msgstr ""
+"বিক্রেতা অ্যাকাউন্ট তৈরি করুন। বিক্রি শুরু করার আগে আমাদের দল আপনার দোকান"
+" পর্যালোচনা করবে।"
+
+#: app/templates/auth/seller_application.html:12
+msgid "Store name"
+msgstr "দোকানের নাম"
+
+#: app/templates/auth/seller_application.html:19
+msgid "Contact name"
+msgstr "যোগাযোগকারীর নাম"
+
+#: app/templates/auth/seller_application.html:33
+msgid "Business address (optional)"
+msgstr "ব্যবসার ঠিকানা (ঐচ্ছিক)"
+
+#: app/templates/auth/seller_application.html:63
+msgid "Submitting application…"
+msgstr "আবেদন জমা হচ্ছে…"
+
+#: app/templates/auth/seller_application.html:64
+msgid "Submit seller application"
+msgstr "বিক্রেতার আবেদন জমা দিন"
+
+#: app/templates/auth/verify_reset_code.html:2
+#: app/templates/auth/verify_reset_code.html:20
+msgid "Verify code"
+msgstr "কোড যাচাই করুন"
+
+#: app/templates/auth/verify_reset_code.html:6
+msgid "Check your email"
+msgstr "আপনার ইমেইল দেখুন"
+
+#: app/templates/auth/verify_reset_code.html:7
+msgid ""
+"Enter the 6-digit code sent to your account email. It expires in 10 "
+"minutes."
+msgstr "আপনার অ্যাকাউন্টের ইমেইলে পাঠানো ৬ সংখ্যার কোড দিন। এর মেয়াদ ১০ মিনিট।"
+
+#: app/templates/auth/verify_reset_code.html:12
+msgid "Verification code"
+msgstr "যাচাইকরণ কোড"
+
+#: app/templates/auth/verify_reset_code.html:16
+msgid "6-digit verification code"
+msgstr "৬ সংখ্যার যাচাইকরণ কোড"
+
+#: app/templates/auth/verify_reset_code.html:19
+msgid "Verifying…"
+msgstr "যাচাই হচ্ছে…"
+
+#: app/templates/auth/verify_reset_code.html:23
+msgid "Send a new code"
+msgstr "নতুন কোড পাঠান"
+
+#: app/templates/catalog/category.html:5
+msgid "Discover local products in this category."
+msgstr ""
+
+#: app/templates/catalog/category.html:5 app/templates/catalog/menu.html:13
+msgid "All categories"
+msgstr ""
+
+#: app/templates/catalog/category.html:7
+msgid "No active products in this category"
+msgstr ""
+
+#: app/templates/catalog/category.html:7
+msgid "Local sellers will appear here as approved listings become available."
+msgstr ""
+
+#: app/templates/catalog/category.html:8
+#, fuzzy
+msgid "Category pages"
+msgstr "গ্রাহক পৃষ্ঠা"
+
+#: app/templates/catalog/food.html:9
+msgid "Local listing"
+msgstr ""
+
+#: app/templates/catalog/food.html:13
+msgid ""
+"Product details shown in your language when the seller has provided a "
+"translation."
+msgstr ""
+
+#: app/templates/catalog/food.html:17
+msgid "Add to cart"
+msgstr ""
+
+#: app/templates/catalog/food.html:19
+#, python-format
+msgid "In stock: %(count)s"
+msgstr ""
+
+#: app/templates/catalog/menu.html:6
+msgid "Find your next favorite"
+msgstr ""
+
+#: app/templates/catalog/menu.html:6
+msgid "Browse active local listings or search the food reference library."
+msgstr ""
+
+#: app/templates/catalog/menu.html:8
+msgid "Search products"
+msgstr ""
+
+#: app/templates/catalog/menu.html:8
+#, fuzzy
+msgid "Search food and products"
+msgstr "উপলব্ধ খাবার ও পণ্য দেখুন।"
+
+#: app/templates/catalog/menu.html:9
+msgid "Search"
+msgstr ""
+
+#: app/templates/catalog/menu.html:13
+#, fuzzy
+msgid "Product categories"
+msgstr "পণ্যের ভ্যারিয়েন্ট যোগ হয়েছে।"
+
+#: app/templates/catalog/menu.html:16
+#, fuzzy
+msgid "Available to order"
+msgstr "প্রাপ্যতা"
+
+#: app/templates/catalog/menu.html:16
+msgid "Local listings"
+msgstr ""
+
+#: app/templates/catalog/menu.html:18
+#, fuzzy
+msgid "Marketplace pages"
+msgstr "মার্কেটপ্লেস ঘুরে দেখুন"
+
+#: app/templates/catalog/menu.html:19
+msgid "No local listings found yet"
+msgstr ""
+
+#: app/templates/catalog/menu.html:19
+msgid "Try another search, or browse the food reference library below."
+msgstr ""
+
+#: app/templates/catalog/menu.html:23
+msgid "Food data reference"
+msgstr ""
+
+#: app/templates/catalog/menu.html:23
+msgid "Food reference library"
+msgstr ""
+
+#: app/templates/catalog/menu.html:24
+msgid ""
+"Reference records are for information only. They are not seller listings,"
+" have no marketplace price, and cannot be added to your cart."
+msgstr ""
+
+#: app/templates/catalog/menu.html:27
+msgid "Food"
+msgstr ""
+
+#: app/templates/catalog/menu.html:27
+msgid "Data source"
+msgstr ""
+
+#: app/templates/catalog/menu.html:28
+#, fuzzy
+msgid "Reference pages"
+msgstr "অর্ডার পৃষ্ঠা"
+
+#: app/templates/catalog/menu.html:29
+msgid "No reference records match this search."
+msgstr ""
+
+#: app/templates/catalog/menu.html:30
+msgid "Search above to look up a food in the reference library."
+msgstr ""
+
+#: app/templates/customer/dashboard.html:2
+#, fuzzy
+msgid "Customer dashboard"
+msgstr "গ্রাহক পৃষ্ঠা"
+
+#: app/templates/customer/dashboard.html:5
+#, fuzzy
+msgid "Your NexHaat space"
+msgstr "নেক্সহাট মার্কেটপ্লেস"
+
+#: app/templates/customer/dashboard.html:5
+#: app/templates/portals/dashboard.html:5
+#: app/templates/portals/dashboard.html:6 app/templates/rider/dashboard.html:5
+#: app/templates/seller/dashboard.html:5
+#, python-format
+msgid "Welcome, %(name)s"
+msgstr "স্বাগতম, %(name)s"
+
+#: app/templates/customer/dashboard.html:5
+msgid "Pick up where you left off."
+msgstr ""
+
+#: app/templates/customer/dashboard.html:6
+#, fuzzy
+msgid "Customer shortcuts"
+msgstr "গ্রাহক"
+
+#: app/templates/customer/dashboard.html:7 app/templates/orders/cart.html:30
+#: app/templates/orders/my_orders.html:9
+#, fuzzy
+msgid "Explore marketplace"
+msgstr "মার্কেটপ্লেস ঘুরে দেখুন"
+
+#: app/templates/customer/dashboard.html:7
+msgid "Browse local food, groceries, and product listings."
+msgstr ""
+
+#: app/templates/customer/dashboard.html:8
+#, fuzzy
+msgid "Check your order status and previous purchases."
+msgstr "আপনার অর্ডারের ইতিহাস ও আপডেট দেখুন।"
+
+#: app/templates/customer/dashboard.html:9
+msgid "Review saved items and continue to checkout."
+msgstr ""
+
+#: app/templates/email/account_invitation.html:8
+#: app/templates/email/account_invitation.txt:1
+#, python-format
+msgid "You have been invited to join the NexHaat team as %(role)s."
+msgstr "আপনাকে নেক্সহাট টিমে %(role)s হিসেবে যোগ দেওয়ার আমন্ত্রণ জানানো হয়েছে।"
+
+#: app/templates/email/account_invitation.html:9
+#: app/templates/email/account_invitation.txt:2
+msgid ""
+"Use the secure link below to create your account password. This "
+"invitation expires in 24 hours and can only be used once."
+msgstr ""
+"নিচের নিরাপদ লিংক ব্যবহার করে অ্যাকাউন্টের পাসওয়ার্ড তৈরি করুন। "
+"আমন্ত্রণটির মেয়াদ ২৪ ঘণ্টা এবং এটি একবারই ব্যবহার করা যাবে।"
+
+#: app/templates/email/account_invitation.html:11
+#: app/templates/email/account_invitation.txt:6
+msgid "If you were not expecting this invitation, you can ignore this email."
+msgstr "এই আমন্ত্রণের প্রত্যাশা না করলে ইমেইলটি উপেক্ষা করুন।"
+
+#: app/templates/email/password_reset_code.html:8
+#: app/templates/email/password_reset_code.txt:4
+msgid "Use this code to create a new NexHaat account password:"
+msgstr "নেক্সহাট অ্যাকাউন্টের নতুন পাসওয়ার্ড তৈরি করতে এই কোডটি ব্যবহার করুন:"
+
+#: app/templates/email/password_reset_code.html:10
+#: app/templates/email/password_reset_code.txt:8
+msgid ""
+"This code expires in 10 minutes. If you did not request this, you can "
+"ignore this email."
+msgstr ""
+"এই কোডের মেয়াদ ১০ মিনিট। আপনি অনুরোধ না করলে এই ইমেইলটি উপেক্ষা করতে "
+"পারেন।"
+
+#: app/templates/errors/404.html:2 app/templates/errors/404.html:7
+msgid "Page not found"
+msgstr "পাতাটি খুঁজে পাওয়া যায়নি"
+
+#: app/templates/errors/404.html:8
+msgid "The page you requested could not be found."
+msgstr "আপনার চাওয়া পাতাটি খুঁজে পাওয়া যায়নি।"
+
+#: app/templates/errors/404.html:9 app/templates/errors/500.html:8
+msgid "Return to home"
+msgstr "হোম পেজে ফিরুন"
+
+#: app/templates/errors/500.html:2 app/templates/errors/500.html:7
+msgid "An unexpected error occurred. Please try again later."
+msgstr "একটি অপ্রত্যাশিত ত্রুটি হয়েছে। পরে আবার চেষ্টা করুন।"
+
+#: app/templates/orders/cart.html:5
+msgid "Ready when you are"
+msgstr ""
+
+#: app/templates/orders/cart.html:5
+msgid "Your cart"
+msgstr ""
+
+#: app/templates/orders/cart.html:5
+msgid "Review your items before continuing to checkout."
+msgstr ""
+
+#: app/templates/orders/cart.html:10
+msgid "Item"
+msgstr ""
+
+#: app/templates/orders/cart.html:10 app/templates/seller/catalog.html:6
+#, fuzzy
+msgid "Price"
+msgstr "রাইডার"
+
+#: app/templates/orders/cart.html:14
+#, python-format
+msgid "Quantity for %(name)s"
+msgstr ""
+
+#: app/templates/orders/cart.html:16
+#, fuzzy
+msgid "Remove"
+msgstr "বাতিল করুন"
+
+#: app/templates/orders/cart.html:19
+#, fuzzy
+msgid "Update cart"
+msgstr "পাসওয়ার্ড আপডেট করুন"
+
+#: app/templates/orders/cart.html:19
+msgid "Continue browsing"
+msgstr ""
+
+#: app/templates/orders/cart.html:22
+#, fuzzy
+msgid "Order summary"
+msgstr "অর্ডারের অবস্থা"
+
+#: app/templates/orders/cart.html:23 app/templates/orders/checkout.html:21
+#, fuzzy
+msgid "Subtotal"
+msgstr "মোট"
+
+#: app/templates/orders/cart.html:23 app/templates/orders/checkout.html:21
+msgid "Delivery"
+msgstr ""
+
+#: app/templates/orders/cart.html:24
+#, fuzzy
+msgid "Continue to checkout"
+msgstr "আপনার সংরক্ষিত কার্টে যান।"
+
+#: app/templates/orders/cart.html:25
+msgid "Cash on delivery is available at checkout."
+msgstr ""
+
+#: app/templates/orders/cart.html:30
+msgid "Your cart is ready for something good"
+msgstr ""
+
+#: app/templates/orders/cart.html:30
+msgid "Explore local listings and add an item to get started."
+msgstr ""
+
+#: app/templates/orders/checkout.html:2
+msgid "Checkout"
+msgstr ""
+
+#: app/templates/orders/checkout.html:5
+msgid "Almost there"
+msgstr ""
+
+#: app/templates/orders/checkout.html:5
+msgid "We will use these details to deliver your order and send updates."
+msgstr ""
+
+#: app/templates/orders/checkout.html:13
+#, fuzzy
+msgid "Email for order updates"
+msgstr "আপনার অর্ডারের ইতিহাস ও আপডেট দেখুন।"
+
+#: app/templates/orders/checkout.html:14
+#, fuzzy
+msgid "Delivery address"
+msgstr "ইমেইল ঠিকানা"
+
+#: app/templates/orders/checkout.html:15
+msgid "Payment method"
+msgstr ""
+
+#: app/templates/orders/checkout.html:17
+#, fuzzy
+msgid "Place order"
+msgstr "অপেক্ষমাণ অর্ডার"
+
+#: app/templates/orders/checkout.html:17
+msgid "Back to cart"
+msgstr ""
+
+#: app/templates/orders/checkout.html:20
+msgid "Your items"
+msgstr ""
+
+#: app/templates/orders/checkout.html:21
+#, fuzzy
+msgid "Total due on delivery"
+msgstr "মোট অর্ডার"
+
+#: app/templates/orders/confirmation.html:2
+#, fuzzy
+msgid "Order received"
+msgstr "দোকান পর্যালোচনা"
+
+#: app/templates/orders/confirmation.html:5
+msgid "Thank you"
+msgstr ""
+
+#: app/templates/orders/confirmation.html:5
+msgid "Your order is on its way to the team"
+msgstr ""
+
+#: app/templates/orders/confirmation.html:6
+#, fuzzy
+msgid "Order number"
+msgstr "ফোন নম্বর"
+
+#: app/templates/orders/confirmation.html:6
+#, python-format
+msgid "We sent a confirmation to %(email)s."
+msgstr ""
+
+#: app/templates/orders/confirmation.html:8
+msgid "Keep exploring"
+msgstr ""
+
+#: app/templates/orders/confirmation.html:8
+#, fuzzy
+msgid "View my orders"
+msgstr "আমার অর্ডার"
+
+#: app/templates/orders/my_orders.html:5
+msgid "Your NexHaat activity"
+msgstr ""
+
+#: app/templates/orders/my_orders.html:5
+msgid "Keep track of recent purchases and delivery updates."
+msgstr ""
+
+#: app/templates/orders/my_orders.html:6
+msgid "Placed"
+msgstr ""
+
+#: app/templates/orders/my_orders.html:9
+#, fuzzy
+msgid "No orders yet"
+msgstr "এখনো কোনো অর্ডার নেই।"
+
+#: app/templates/orders/my_orders.html:9
+msgid "Your completed checkout orders will appear here."
+msgstr ""
+
+#: app/templates/portals/dashboard.html:2
+msgid "Dashboard"
+msgstr "ড্যাশবোর্ড"
+
+#: app/templates/portals/dashboard.html:7
+#, python-format
+msgid "Your %(role)s workspace is ready."
+msgstr "আপনার %(role)s কর্মক্ষেত্র প্রস্তুত।"
+
+#: app/templates/portals/dashboard.html:10
+msgid "Browse marketplace"
+msgstr "মার্কেটপ্লেস ঘুরে দেখুন"
+
+#: app/templates/portals/dashboard.html:12
+msgid "Continue to your saved cart."
+msgstr "আপনার সংরক্ষিত কার্টে যান।"
+
+#: app/templates/portals/dashboard.html:14
+msgid "STORE REVIEW"
+msgstr "দোকান পর্যালোচনা"
+
+#: app/templates/portals/dashboard.html:14
+msgid "Application status"
+msgstr "আবেদনের অবস্থা"
+
+#: app/templates/portals/dashboard.html:14
+#, python-format
+msgid "Store: %(store)s"
+msgstr "দোকান: %(store)s"
+
+#: app/templates/portals/dashboard.html:15
+msgid ""
+"Your application is in the review queue. Selling tools will unlock after "
+"approval."
+msgstr "আপনার আবেদন পর্যালোচনার সারিতে আছে। অনুমোদনের পর বিক্রির টুল চালু হবে।"
+
+#: app/templates/portals/dashboard.html:16
+#: app/templates/seller/dashboard.html:8
+msgid "Your store is approved. You can add and maintain product listings now."
+msgstr ""
+
+#: app/templates/portals/dashboard.html:16
+#: app/templates/seller/dashboard.html:11
+msgid "Open seller catalog"
+msgstr "বিক্রেতার পণ্য তালিকা খুলুন"
+
+#: app/templates/portals/dashboard.html:17
+#: app/templates/seller/dashboard.html:9
+#, fuzzy
+msgid "Your seller application was rejected."
+msgstr "বিক্রেতার আবেদন প্রত্যাখ্যান করা হয়েছে।"
+
+#: app/templates/portals/dashboard.html:18
+#, python-format
+msgid "Review note: %(note)s"
+msgstr "পর্যালোচনা নোট: %(note)s"
+
+#: app/templates/portals/dashboard.html:20
+msgid "DELIVERY OPERATIONS"
+msgstr "ডেলিভারি কার্যক্রম"
+
+#: app/templates/portals/dashboard.html:20
+msgid "Rider workspace"
+msgstr "রাইডার কর্মক্ষেত্র"
+
+#: app/templates/portals/dashboard.html:20
+#, fuzzy
+msgid ""
+"Delivery assignments and proof-of-delivery tools will be enabled in the "
+"rider operations phase."
+msgstr ""
+"আপনার অ্যাকাউন্ট প্রস্তুত। রাইডার কার্যক্রম ধাপে ডেলিভারি বরাদ্দ ও "
+"ডেলিভারি প্রমাণের টুল চালু হবে।"
+
+#: app/templates/portals/dashboard.html:20
+msgid "Availability"
+msgstr "প্রাপ্যতা"
+
+#: app/templates/rider/dashboard.html:2
+#, fuzzy
+msgid "Rider dashboard"
+msgstr "ড্যাশবোর্ড"
+
+#: app/templates/rider/dashboard.html:5
+#, fuzzy
+msgid "Your rider account is active."
+msgstr "আপনার অ্যাকাউন্ট প্রস্তুত। এগিয়ে যেতে সাইন ইন করুন।"
+
+#: app/templates/rider/dashboard.html:6
+msgid "Delivery tools are being prepared"
+msgstr ""
+
+#: app/templates/rider/dashboard.html:6
+msgid ""
+"Delivery assignments and handoff updates will appear here when rider "
+"operations are enabled."
+msgstr ""
+
+#: app/templates/seller/catalog.html:2 app/templates/seller/product_form.html:6
+#, fuzzy
+msgid "Seller catalog"
+msgstr "বিক্রেতার পণ্য তালিকা খুলুন"
+
+#: app/templates/seller/catalog.html:5 app/templates/seller/dashboard.html:13
+#, fuzzy
+msgid "Your catalog"
+msgstr "বিক্রেতার পণ্য তালিকা খুলুন"
+
+#: app/templates/seller/catalog.html:5
+msgid "Manage your own product details, stock, and seller-written translations."
+msgstr ""
+
+#: app/templates/seller/catalog.html:6 app/templates/seller/variants.html:11
+#: app/templates/seller/variants.html:16
+msgid "Stock"
+msgstr ""
+
+#: app/templates/seller/catalog.html:6
+#, fuzzy
+msgid "Review status"
+msgstr "অর্ডারের অবস্থা"
+
+#: app/templates/seller/catalog.html:6
+#, fuzzy
+msgid "Tools"
+msgstr "মোট"
+
+#: app/templates/seller/catalog.html:7
+msgid "Edit"
+msgstr ""
+
+#: app/templates/seller/catalog.html:7
+msgid "Variants"
+msgstr ""
+
+#: app/templates/seller/catalog.html:7
+#, fuzzy
+msgid "Archive"
+msgstr "সক্রিয়"
+
+#: app/templates/seller/catalog.html:9
+msgid "Your catalog is ready for its first listing"
+msgstr ""
+
+#: app/templates/seller/catalog.html:9
+msgid ""
+"Add a product and send it to Admin for review before it appears in the "
+"marketplace."
+msgstr ""
+
+#: app/templates/seller/catalog.html:9 app/templates/seller/dashboard.html:13
+#: app/templates/seller/product_form.html:6
+msgid "Add a product"
+msgstr ""
+
+#: app/templates/seller/dashboard.html:2
+#, fuzzy
+msgid "Seller dashboard"
+msgstr "বিক্রেতা নিবন্ধন"
+
+#: app/templates/seller/dashboard.html:5
+#, fuzzy
+msgid "Manage your store application and catalog."
+msgstr "বিক্রেতার আবেদন প্রত্যাখ্যান করা হয়েছে।"
+
+#: app/templates/seller/dashboard.html:6
+#, fuzzy
+msgid "Store application"
+msgstr "বিক্রেতার আবেদন জমা দিন"
+
+#: app/templates/seller/dashboard.html:6
+#, fuzzy
+msgid "Contact"
+msgstr "যোগাযোগকারীর নাম"
+
+#: app/templates/seller/dashboard.html:7
+#, fuzzy
+msgid ""
+"Your application is in the review queue. Catalog tools unlock after "
+"approval."
+msgstr "আপনার আবেদন পর্যালোচনার সারিতে আছে। অনুমোদনের পর বিক্রির টুল চালু হবে।"
+
+#: app/templates/seller/dashboard.html:13
+msgid "Update listings, inventory, and translations."
+msgstr ""
+
+#: app/templates/seller/dashboard.html:13
+msgid "Submit a new listing for review."
+msgstr ""
+
+#: app/templates/seller/product_form.html:6
+msgid "Every new listing and edit is reviewed before customers can see it."
+msgstr ""
+
+#: app/templates/seller/product_form.html:11
+msgid "Use lowercase letters, numbers, and hyphens."
+msgstr ""
+
+#: app/templates/seller/product_form.html:12
+msgid "Choose a category"
+msgstr ""
+
+#: app/templates/seller/product_form.html:13
+#, fuzzy
+msgid "Original language"
+msgstr "ভাষা প্রয়োগ করুন"
+
+#: app/templates/seller/product_form.html:16
+#, fuzzy
+msgid "Available stock"
+msgstr "প্রাপ্যতা"
+
+#: app/templates/seller/product_form.html:17
+#, fuzzy
+msgid "Image address (optional)"
+msgstr "ব্যবসার ঠিকানা (ঐচ্ছিক)"
+
+#: app/templates/seller/product_form.html:20
+msgid "Optional seller-written translations"
+msgstr ""
+
+#: app/templates/seller/product_form.html:20
+msgid ""
+"We do not machine-translate product details. Leave a language blank to "
+"show the original text with its language label."
+msgstr ""
+
+#: app/templates/seller/product_form.html:23
+#, fuzzy
+msgid "Translated name"
+msgstr "দোকানের নাম"
+
+#: app/templates/seller/product_form.html:24
+msgid "Translated description"
+msgstr ""
+
+#: app/templates/seller/product_form.html:28
+#, fuzzy
+msgid "Send for Admin review"
+msgstr "পণ্যটি অ্যাডমিনের পর্যালোচনার জন্য জমা হয়েছে।"
+
+#: app/templates/seller/variants.html:2
+#, fuzzy
+msgid "Product variants"
+msgstr "পণ্যের ভ্যারিয়েন্ট যোগ হয়েছে।"
+
+#: app/templates/seller/variants.html:5
+msgid "Inventory"
+msgstr ""
+
+#: app/templates/seller/variants.html:5
+msgid "Manage SKU options and available stock for this product."
+msgstr ""
+
+#: app/templates/seller/variants.html:5
+#, fuzzy
+msgid "Back to catalog"
+msgstr "সাইন ইন-এ ফিরে যান"
+
+#: app/templates/seller/variants.html:6
+msgid "Add a variant"
+msgstr ""
+
+#: app/templates/seller/variants.html:8
+msgid "SKU"
+msgstr ""
+
+#: app/templates/seller/variants.html:9
+#, fuzzy
+msgid "Option name"
+msgstr "দোকানের নাম"
+
+#: app/templates/seller/variants.html:9
+msgid "Size, pack, color…"
+msgstr ""
+
+#: app/templates/seller/variants.html:10
+msgid "Option value"
+msgstr ""
+
+#: app/templates/seller/variants.html:12
+#, fuzzy
+msgid "Price override (optional)"
+msgstr "ব্যবসার ঠিকানা (ঐচ্ছিক)"
+
+#: app/templates/seller/variants.html:13
+msgid "Add variant"
+msgstr ""
+
+#: app/templates/seller/variants.html:15
+msgid "Existing variants"
+msgstr ""
+
+#: app/templates/seller/variants.html:17
+msgid "Stock quantity"
+msgstr ""
+
+#: app/templates/seller/variants.html:17
+msgid "Save stock"
+msgstr ""
+
+#: app/templates/seller/variants.html:18
+#, python-format
+msgid "Mark %(state)s"
+msgstr "চিহ্নিত করুন: %(state)s"
+
+#: app/templates/seller/variants.html:18
+msgid "inactive"
+msgstr "নিষ্ক্রিয়"
+
+#: app/templates/seller/variants.html:18
+msgid "active"
+msgstr "সক্রিয়"
+
+#: app/templates/seller/variants.html:19
+#, fuzzy
+msgid "No variants added yet."
+msgstr "পণ্যের ভ্যারিয়েন্ট যোগ হয়েছে।"
+
+#~ msgid "Invalid admin email or password."
+#~ msgstr "অ্যাডমিন ইমেইল বা পাসওয়ার্ড সঠিক নয়।"
+
+#~ msgid "Customer email"
+#~ msgstr "গ্রাহকের ইমেইল"
+
+#~ msgid "Account email"
+#~ msgstr "অ্যাকাউন্টের ইমেইল"
+
+#~ msgid "New password"
+#~ msgstr "নতুন পাসওয়ার্ড"
+
+#~ msgid "Contact person"
+#~ msgstr "যোগাযোগের ব্যক্তির নাম"
+
+#~ msgid "Business address (optional)"
+#~ msgstr "ব্যবসার ঠিকানা (ঐচ্ছিক)"
+
+#~ msgid "Product variant removed."
+#~ msgstr "পণ্যের ভ্যারিয়েন্ট সরানো হয়েছে।"
+
+#~ msgid "Hide this product from the marketplace?"
+#~ msgstr "মার্কেটপ্লেস থেকে পণ্যটি আড়াল করবেন?"
+
+#~ msgid "Menu"
+#~ msgstr "মেনু"
+
+#~ msgid "Cart"
+#~ msgstr "কার্ট"
+
+#~ msgid "My account"
+#~ msgstr "আমার অ্যাকাউন্ট"
+
+#~ msgid "Seller"
+#~ msgstr "বিক্রেতা"
+
+#~ msgid "Account"
+#~ msgstr "অ্যাকাউন্ট"
+
+#~ msgid "Apply"
+#~ msgstr "প্রয়োগ করুন"
+
+#~ msgid "Seller applications to review"
+#~ msgstr "পর্যালোচনার অপেক্ষায় বিক্রেতা আবেদন"
+
+#~ msgid "Remove"
+#~ msgstr "সরান"
+
+#~ msgid "Pending"
+#~ msgstr "অপেক্ষমাণ"
+
+#~ msgid "Confirmed"
+#~ msgstr "নিশ্চিত"
+
+#~ msgid "Preparing"
+#~ msgstr "প্রস্তুত করা হচ্ছে"
+
+#~ msgid "Delivered"
+#~ msgstr "ডেলিভার করা হয়েছে"
+
+#~ msgid "Cancelled"
+#~ msgstr "বাতিল"
+
+#~ msgid "Declined"
+#~ msgstr "প্রত্যাখ্যাত"
+
+#~ msgid "Confirm"
+#~ msgstr "নিশ্চিত করুন"
+
+#~ msgid "Decline"
+#~ msgstr "প্রত্যাখ্যান করুন"
+
+#~ msgid "Public admin registration is disabled."
+#~ msgstr "সবার জন্য অ্যাডমিন নিবন্ধন বন্ধ।"
+
+#~ msgid "Continue password reset"
+#~ msgstr "পাসওয়ার্ড রিসেট চালিয়ে যান"
+
+#~ msgid "Digit"
+#~ msgstr "অঙ্ক"
+
+#~ msgid "Approved"
+#~ msgstr "অনুমোদিত"
+
+#~ msgid "Rejected"
+#~ msgstr "প্রত্যাখ্যাত"
+
+#~ msgid "Suspended"
+#~ msgstr "স্থগিত"
+
+#~ msgid "Available"
+#~ msgstr "উপলব্ধ"
+
+#~ msgid "Busy"
+#~ msgstr "ব্যস্ত"
+
+#~ msgid "Offline"
+#~ msgstr "অফলাইন"
+
+#~ msgid "Seller catalog"
+#~ msgstr "বিক্রেতার পণ্য তালিকা"
+
+#~ msgid "SELLER WORKSPACE"
+#~ msgstr "বিক্রেতা কর্মক্ষেত্র"
+
+#~ msgid "Product catalog"
+#~ msgstr "পণ্যের তালিকা"
+
+#~ msgid ""
+#~ "Manage listings, language versions, stock "
+#~ "and product options for %(store)s."
+#~ msgstr "%(store)s-এর পণ্য, ভাষা, মজুদ ও পণ্যের বিকল্প পরিচালনা করুন।"
+
+#~ msgid "Add product"
+#~ msgstr "পণ্য যোগ করুন"
+
+#~ msgid "SKU"
+#~ msgstr "SKU"
+
+#~ msgid "Admin note"
+#~ msgstr "অ্যাডমিনের মন্তব্য"
+
+#~ msgid "Price"
+#~ msgstr "দাম"
+
+#~ msgid "In stock"
+#~ msgstr "মজুদ আছে"
+
+#~ msgid "Languages"
+#~ msgstr "ভাষা"
+
+#~ msgid "Options"
+#~ msgstr "বিকল্প"
+
+#~ msgid "Edit product"
+#~ msgstr "পণ্য সম্পাদনা"
+
+#~ msgid "Manage variants"
+#~ msgstr "ভ্যারিয়েন্ট পরিচালনা"
+
+#~ msgid "View listing"
+#~ msgstr "তালিকা দেখুন"
+
+#~ msgid "Archive"
+#~ msgstr "আড়াল করুন"
+
+#~ msgid "Your catalog is ready for its first product."
+#~ msgstr "আপনার তালিকায় প্রথম পণ্য যোগ করা যাবে।"
+
+#~ msgid ""
+#~ "New and updated products go to "
+#~ "Admin review before they appear in "
+#~ "the marketplace."
+#~ msgstr ""
+#~ "নতুন ও হালনাগাদ পণ্য মার্কেটপ্লেসে "
+#~ "দেখানোর আগে অ্যাডমিন পর্যালোচনা করবেন।"
+
+#~ msgid "Back to catalog"
+#~ msgstr "পণ্য তালিকায় ফিরে যান"
+
+#~ msgid ""
+#~ "Save product details for Admin review."
+#~ " Any update to an approved listing"
+#~ " returns it to review."
+#~ msgstr ""
+#~ "পণ্যের তথ্য অ্যাডমিন পর্যালোচনার জন্য "
+#~ "জমা দিন। অনুমোদিত পণ্য সম্পাদনা করলে "
+#~ "সেটি আবার পর্যালোচনায় যাবে।"
+
+#~ msgid "Product name"
+#~ msgstr "পণ্যের নাম"
+
+#~ msgid "Product URL name"
+#~ msgstr "পণ্যের URL নাম"
+
+#~ msgid "Category"
+#~ msgstr "ক্যাটাগরি"
+
+#~ msgid "Original language"
+#~ msgstr "মূল ভাষা"
+
+#~ msgid "Description"
+#~ msgstr "বিবরণ"
+
+#~ msgid "Product image URL (optional)"
+#~ msgstr "পণ্যের ছবির URL (ঐচ্ছিক)"
+
+#~ msgid "Discount price"
+#~ msgstr "ছাড়ের দাম"
+
+#~ msgid "Base stock quantity"
+#~ msgstr "প্রাথমিক মজুদ"
+
+#~ msgid "Optional translations"
+#~ msgstr "ঐচ্ছিক অনুবাদ"
+
+#~ msgid ""
+#~ "Add a name and description for "
+#~ "each language you support. Without a "
+#~ "translation, the original text is shown"
+#~ " with its language label."
+#~ msgstr ""
+#~ "সমর্থিত প্রতিটি ভাষার জন্য নাম ও "
+#~ "বিবরণ যোগ করুন। অনুবাদ না থাকলে "
+#~ "মূল লেখা ভাষার নামসহ দেখানো হবে।"
+
+#~ msgid "Submit for Admin review"
+#~ msgstr "অ্যাডমিন পর্যালোচনার জন্য জমা দিন"
+
+#~ msgid "Cancel"
+#~ msgstr "বাতিল"
+
+#~ msgid "INVENTORY"
+#~ msgstr "মজুদ ব্যবস্থাপনা"
+
+#~ msgid "Option name"
+#~ msgstr "বিকল্পের নাম"
+
+#~ msgid "Size"
+#~ msgstr "সাইজ"
+
+#~ msgid "Option value"
+#~ msgstr "বিকল্পের মান"
+
+#~ msgid "Large"
+#~ msgstr "বড়"
+
+#~ msgid "Price override"
+#~ msgstr "বিকল্পের দাম"
+
+#~ msgid "Stock quantity"
+#~ msgstr "মজুদের পরিমাণ"
+
+#~ msgid "Add variant"
+#~ msgstr "ভ্যারিয়েন্ট যোগ করুন"
+
+#~ msgid "Option"
+#~ msgstr "বিকল্প"
+
+#~ msgid "Stock"
+#~ msgstr "মজুদ"
+
+#~ msgid "Inactive"
+#~ msgstr "নিষ্ক্রিয়"
+
+#~ msgid "No variants have been added."
+#~ msgstr "এখনো কোনো ভ্যারিয়েন্ট যোগ করা হয়নি।"
+
+#~ msgid ""
+#~ "Your store is approved. Product and "
+#~ "inventory tools are part of the "
+#~ "next project phase."
+#~ msgstr "আপনার দোকান অনুমোদিত। পণ্য ও মজুতের টুল পরবর্তী ধাপে চালু হবে।"
+

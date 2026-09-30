@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="NexHaat">
+  <defs>
+    <linearGradient id="tile" x1="14" y1="10" x2="82" y2="88" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#42b8ff"/><stop offset=".48" stop-color="#087cff"/><stop offset="1" stop-color="#0750b5"/>
+    </linearGradient>
+    <linearGradient id="letter" x1="30" y1="24" x2="68" y2="72" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff"/><stop offset="1" stop-color="#d6ecff"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#034da7" flood-opacity=".28"/>
+    </filter>
+  </defs>
+  <rect x="7" y="7" width="82" height="82" rx="27" fill="#e7ebf0"/>
+  <rect x="13" y="12" width="70" height="70" rx="23" fill="url(#tile)" filter="url(#shadow)"/>
+  <path d="M30 62V32h7l22 19V32h7v30h-7L37 43v19z" fill="#064f9f" opacity=".48" transform="translate(1.5 2.5)"/>
+  <path d="M29 60V30h7l22 19V30h7v30h-7L36 41v19z" fill="url(#letter)"/>
+  <g class="orbit">
+    <ellipse cx="48" cy="47" rx="39" ry="15" fill="none" stroke="#48b7ff" stroke-width="2.2" stroke-opacity=".9" transform="rotate(-28 48 47)"/>
+    <circle cx="13" cy="30" r="4.2" fill="#b8ecff" stroke="#fff" stroke-width="1.5"/>
+  </g>
+  <style>
+    .orbit { transform-origin: 48px 47px; animation: spin 8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .orbit { animation: none; } }
+  </style>
+</svg>

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}{{ _('Explore') }} · {{ app_name }}{% endblock %}
+{% block page_content %}
+<div class="page-shell">
+  <header class="page-heading">
+    <div><p class="eyebrow">{{ _('Find your next favorite') }}</p><h1>{{ _('Explore the marketplace') }}</h1><p>{{ _('Browse active local listings or search the food reference library.') }}</p></div>
+    <form class="search-box" method="get" action="{{ url_for('main.search') }}" role="search">
+      <label class="visually-hidden" for="market-search">{{ _('Search products') }}</label><input id="market-search" name="q" value="{{ query }}" placeholder="{{ _('Search food and products') }}" maxlength="{{ config['MAX_SEARCH_LENGTH'] }}">
+      <button class="button" type="submit">{{ _('Search') }}</button>
+    </form>
+  </header>
+
+  {% if categories %}<nav class="tag-row" aria-label="{{ _('Product categories') }}"><a class="tag {% if not selected_category_id %}tag--active{% endif %}" href="{{ url_for('main.menu') }}">{{ _('All categories') }}</a>{% for category in categories %}<a class="tag" href="{{ url_for('main.category', slug=category.slug) }}">{{ category.name }}</a>{% endfor %}</nav>{% endif %}
+
+  <section class="section-block" aria-labelledby="listings-title">
+    <div class="section-title"><div><p class="eyebrow">{{ _('Available to order') }}</p><h2 id="listings-title">{{ _('Local listings') }}</h2></div></div>
+    {% if products %}<div class="product-grid">{% for product in products %}{% include "_product_card.html" %}{% endfor %}</div>
+      {% if pagination.pages > 1 %}<nav class="pagination" aria-label="{{ _('Marketplace pages') }}">{% if pagination.has_prev %}<a href="{{ url_for('main.menu', page=pagination.prev_num, q=query) }}">←</a>{% endif %}<span class="is-current">{{ pagination.page }} / {{ pagination.pages }}</span>{% if pagination.has_next %}<a href="{{ url_for('main.menu', page=pagination.next_num, q=query) }}">→</a>{% endif %}</nav>{% endif %}
+    {% else %}<div class="empty-state"><strong>{{ _('No local listings found yet') }}</strong>{{ _('Try another search, or browse the food reference library below.') }}</div>{% endif %}
+  </section>
+
+  <section class="section-block" aria-labelledby="reference-title">
+    <div class="section-title"><div><p class="eyebrow">{{ _('Food data reference') }}</p><h2 id="reference-title">{{ _('Food reference library') }}</h2></div></div>
+    <p class="reference-note">{{ _('Reference records are for information only. They are not seller listings, have no marketplace price, and cannot be added to your cart.') }}</p>
+    {% if query or selected_category_id %}
+      {% if reference_categories %}<div class="tag-row" style="margin-block:16px">{% for ref_category, count in reference_categories %}<a class="tag {% if selected_category_id == ref_category.id %}tag--active{% endif %}" href="{{ url_for('main.menu', category_id=ref_category.id, q=query) }}">{{ ref_category.name }} <small>&nbsp;{{ count }}</small></a>{% endfor %}</div>{% endif %}
+      {% if reference_foods %}<div class="table-wrap"><table><thead><tr><th>{{ _('Food') }}</th><th>{{ _('Category') }}</th><th>{{ _('Data source') }}</th></tr></thead><tbody>{% for food in reference_foods %}<tr><td><strong>{{ food.description }}</strong></td><td>{{ food.category.name if food.category else '—' }}</td><td><span class="source-caption">{{ food.source_release }}</span></td></tr>{% endfor %}</tbody></table></div>
+      {% if reference_pagination.pages > 1 %}<nav class="pagination" aria-label="{{ _('Reference pages') }}">{% if reference_pagination.has_prev %}<a href="{{ url_for('main.menu', ref_page=reference_pagination.prev_num, category_id=selected_category_id, q=query) }}">←</a>{% endif %}<span class="is-current">{{ reference_pagination.page }} / {{ reference_pagination.pages }}</span>{% if reference_pagination.has_next %}<a href="{{ url_for('main.menu', ref_page=reference_pagination.next_num, category_id=selected_category_id, q=query) }}">→</a>{% endif %}</nav>{% endif %}
+      {% else %}<div class="empty-state">{{ _('No reference records match this search.') }}</div>{% endif %}
+    {% else %}<div class="empty-state">{{ _('Search above to look up a food in the reference library.') }}</div>{% endif %}
+  </section>
+</div>
+{% endblock %}

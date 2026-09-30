@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}{{ app_name }} · {{ _('Local finds, delivered with care') }}{% endblock %}
+{% block page_content %}
+<section class="hero" aria-labelledby="home-title">
+  <div class="hero__copy">
+    <p class="eyebrow">{{ _('A little closer to home') }}</p>
+    <h1 id="home-title">{{ _('Good things,') }}<br><span>{{ _('from nearby.') }}</span></h1>
+    <p>{{ _('Explore food and everyday finds from local sellers, all in one easy place.') }}</p>
+    <div class="hero__actions">
+      <a class="button" href="{{ url_for('main.menu') }}">{{ _('Explore the marketplace') }} <span aria-hidden="true">→</span></a>
+      {% if not g.current_user %}<a class="button-secondary" href="{{ url_for('auth.seller_application') }}">{{ _('Open a store') }}</a>{% endif %}
+    </div>
+  </div>
+  <div class="hero__art" aria-hidden="true">
+    <div class="hero-orbit"></div><div class="hero-orbit hero-orbit--inner"></div>
+    <div class="hero-plate"><span class="hero-fruit"></span></div>
+    <div class="hero-badge hero-badge--one"><span class="hero-badge__dot"></span>{{ _('Local sellers') }}</div>
+    <div class="hero-badge hero-badge--two"><span aria-hidden="true">✦</span>{{ _('Made for your day') }}</div>
+  </div>
+</section>
+
+<div class="page-shell">
+  {% if categories %}
+  <section aria-labelledby="category-heading">
+    <div class="section-title"><div><p class="eyebrow">{{ _('Browse your way') }}</p><h2 id="category-heading">{{ _('Explore categories') }}</h2></div><a class="text-link" href="{{ url_for('main.menu') }}">{{ _('See everything') }} →</a></div>
+    <div class="category-grid">
+      {% for category in categories %}
+        <a class="category-tile" href="{{ url_for('main.category', slug=category.slug) }}">
+          <span class="category-tile__icon" aria-hidden="true">{{ ['✿','◉','✦','⌂'][loop.index0 % 4] }}</span>
+          <span><strong>{{ category.name }}</strong><small>{{ _('Find something good') }}</small></span>
+        </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <section class="section-block" aria-labelledby="featured-heading">
+    <div class="section-title"><div><p class="eyebrow">{{ _('Handpicked for you') }}</p><h2 id="featured-heading">{{ _('Popular near you') }}</h2></div><a class="text-link" href="{{ url_for('main.menu') }}">{{ _('View marketplace') }} →</a></div>
+    {% if products %}<div class="product-grid">{% for product in products %}{% include "_product_card.html" %}{% endfor %}</div>
+    {% else %}<div class="empty-state"><strong>{{ _('Fresh finds are on their way') }}</strong>{{ _('Explore the marketplace while local sellers prepare their listings.') }}<p><a class="button button-small" href="{{ url_for('main.menu') }}">{{ _('Browse all') }}</a></p></div>{% endif %}
+  </section>
+
+  <section class="section-block surface surface-card">
+    <div class="section-title"><div><p class="eyebrow">{{ _('For local sellers') }}</p><h2>{{ _('Bring your store to NexHaat') }}</h2></div></div>
+    <div class="toolbar"><p>{{ _('Share your products with nearby customers and manage your catalog in one place.') }}</p><a class="button-secondary" href="{{ url_for('auth.seller_application') }}">{{ _('Apply to sell') }} →</a></div>
+  </section>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "auth/base.html" %}
+{% block title %}{{ _('Account settings') }} · {{ app_name }}{% endblock %}
+{% block auth_content %}
+<section class="simple-auth-card account-card">
+  <p class="eyebrow">{{ _('Admin') }}</p>
+  <h1>{{ _('Account settings') }}</h1>
+  <form class="auth-form" method="post" enctype="multipart/form-data" action="{{ url_for('auth.admin_account') }}" data-validate-form>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="form-field">
+      <label for="admin-name">{{ _('Full name') }}</label>
+      <input id="admin-name" name="full_name" type="text" value="{{ profile.full_name }}" minlength="2" maxlength="120" required data-validate
+             data-required-message="{{ _('This field is required.') }}" aria-describedby="admin-name-error">
+      <span class="field-error" id="admin-name-error" data-field-error aria-live="polite"></span>
+    </div>
+    <div class="form-field">
+      <label for="admin-email">{{ _('Email address') }}</label>
+      <input id="admin-email" type="email" value="{{ user.email }}" readonly>
+    </div>
+    <div class="form-field">
+      <label for="admin-image">{{ _('Profile image') }}</label>
+      <input id="admin-image" name="profile_image" type="file" accept="image/png,image/jpeg,image/webp">
+    </div>
+    <button class="auth-submit" type="submit"><span data-submit-label>{{ _('Save') }}</span></button>
+  </form>
+  <hr class="auth-divider">
+  <form class="auth-form" method="post" action="{{ url_for('auth.admin_change_password') }}" data-validate-form>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="form-field"><label for="admin-current-password">{{ _('Current password') }}</label>
+      <input id="admin-current-password" name="current_password" type="password" autocomplete="current-password" required data-validate data-required-message="{{ _('This field is required.') }}"></div>
+    <div class="form-field"><label for="admin-new-password">{{ _('New password') }}</label>
+      <input id="admin-new-password" name="password" type="password" autocomplete="new-password" minlength="{{ min_password_length }}" maxlength="{{ max_password_length }}" required data-validate data-required-message="{{ _('This field is required.') }}"></div>
+    <div class="form-field"><label for="admin-confirm-password">{{ _('Confirm password') }}</label>
+      <input id="admin-confirm-password" name="password_confirmation" type="password" autocomplete="new-password" required data-validate data-confirm-for="admin-new-password" data-required-message="{{ _('This field is required.') }}" data-mismatch-message="{{ _('Passwords do not match.') }}"></div>
+    <button class="auth-submit" type="submit"><span data-submit-label>{{ _('Update password') }}</span></button>
+  </form>
+  <form class="logout-form" method="post" action="{{ url_for('auth.logout') }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <button class="text-button" type="submit">{{ _('Sign out') }}</button>
+  </form>
+</section>
+{% endblock %}

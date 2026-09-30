@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ _('Product variants') }} · {{ app_name }}{% endblock %}
+{% block page_content %}
+<div class="page-shell">
+  <header class="page-heading"><div><p class="eyebrow">{{ _('Inventory') }}</p><h1>{{ product.localized_name(current_locale) }}</h1><p>{{ _('Manage SKU options and available stock for this product.') }}</p></div><a class="button-secondary" href="{{ url_for('seller.catalog') }}">← {{ _('Back to catalog') }}</a></header>
+  <section class="surface surface-card"><h2 style="margin-top:0;font:800 1.2rem Manrope,sans-serif">{{ _('Add a variant') }}</h2>
+    <form method="post" action="{{ url_for('seller.product_variants', product_id=product.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><div class="field-grid">
+      <div class="form-field"><label for="variant-sku">{{ _('SKU') }}</label><input id="variant-sku" name="sku" maxlength="80" required></div>
+      <div class="form-field"><label for="variant-option">{{ _('Option name') }}</label><input id="variant-option" name="option_name" maxlength="80" placeholder="{{ _('Size, pack, color…') }}" required></div>
+      <div class="form-field"><label for="variant-value">{{ _('Option value') }}</label><input id="variant-value" name="option_value" maxlength="120" required></div>
+      <div class="form-field"><label for="variant-stock">{{ _('Stock') }}</label><input id="variant-stock" name="stock_quantity" type="number" min="0" step="1" required></div>
+      <div class="form-field"><label for="variant-price">{{ _('Price override (optional)') }}</label><input id="variant-price" name="price" type="number" min="0" step="0.01"></div>
+    </div><div class="form-actions"><button class="button" type="submit">{{ _('Add variant') }}</button></div></form>
+  </section>
+  <section class="variant-list" aria-label="{{ _('Existing variants') }}">
+    {% for variant in product.variants %}<article class="variant-row"><div><strong>{{ variant.option_name }}: {{ variant.option_value }}</strong><div class="source-caption">SKU {{ variant.sku }} · {{ _('Stock') }}: {{ variant.stock_quantity }}{% if variant.price %} · ৳{{ '%.2f'|format(variant.price) }}{% endif %}</div></div><div class="seller-review-form">
+      <form method="post" action="{{ url_for('seller.product_variant_stock', product_id=product.id, variant_id=variant.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><label class="visually-hidden" for="stock-{{ variant.id }}">{{ _('Stock quantity') }}</label><input id="stock-{{ variant.id }}" type="number" min="0" step="1" name="stock_quantity" value="{{ variant.stock_quantity }}" style="width:85px;min-height:36px;border:1px solid var(--line);border-radius:10px;background:#e7ebf0"><button class="button-secondary button-small" type="submit">{{ _('Save stock') }}</button></form>
+      <form method="post" action="{{ url_for('seller.product_variant_delete', product_id=product.id, variant_id=variant.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="button-secondary button-small" type="submit">{{ _('Mark %(state)s', state=_('inactive') if variant.is_active else _('active')) }}</button></form>
+    </div></article>{% else %}<div class="empty-state">{{ _('No variants added yet.') }}</div>{% endfor %}
+  </section>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% set is_editing = product is not none %}
+{% block title %}{{ _('Product details') }} · {{ app_name }}{% endblock %}
+{% block page_content %}
+<div class="form-page"><section class="surface form-page__panel"><p class="eyebrow">{{ _('Catalog management') }}</p><h1>{{ _('Edit product') if is_editing else _('New product') }}</h1>
+  <form method="post" action="{{ url_for('orders.admin_product_edit', product_id=product.id) if is_editing else url_for('orders.admin_product_new') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><div class="field-grid">
+    <div class="form-field"><label for="admin-product-name">{{ _('Product name') }}</label><input id="admin-product-name" name="name" minlength="2" maxlength="160" required value="{{ request.form.get('name', product.name if product else '') }}"></div>
+    <div class="form-field"><label for="admin-product-slug">{{ _('Page address slug') }}</label><input id="admin-product-slug" name="slug" maxlength="180" required value="{{ request.form.get('slug', product.slug if product else '') }}"></div>
+    <div class="form-field"><label for="admin-product-category">{{ _('Category') }}</label><select id="admin-product-category" name="category_id" required>{% for category in categories %}<option value="{{ category.id }}" {% if request.form.get('category_id', product.category_id if product else 0, type=int) == category.id %}selected{% endif %}>{{ category.name }}</option>{% endfor %}</select></div>
+    <div class="form-field"><label for="admin-product-price">{{ _('Price (BDT)') }}</label><input id="admin-product-price" name="price" type="number" min="0" step="0.01" required value="{{ request.form.get('price', product.price if product else '') }}"></div>
+    <div class="form-field"><label for="admin-product-discount">{{ _('Discount price (optional)') }}</label><input id="admin-product-discount" name="discount_price" type="number" min="0" step="0.01" value="{{ request.form.get('discount_price', product.discount_price if product and product.discount_price else '') }}"></div>
+    <div class="form-field form-field--wide"><label for="admin-product-description">{{ _('Description') }}</label><textarea id="admin-product-description" name="description" maxlength="10000" required>{{ request.form.get('description', product.description if product else '') }}</textarea></div>
+    <div class="form-field form-field--wide"><label><input type="checkbox" name="is_available" {% if request.form.get('is_available') or (not request.form and product and product.is_available) %}checked{% endif %}> {{ _('Available to customers') }}</label></div>
+  </div><div class="form-actions"><button class="button" type="submit">{{ _('Save product') }}</button><a class="button-secondary" href="{{ url_for('admin.dashboard') }}">{{ _('Cancel') }}</a></div></form>
+</section></div>
+{% endblock %}

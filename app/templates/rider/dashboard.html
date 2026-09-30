@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}{{ _('Rider dashboard') }} · {{ app_name }}{% endblock %}
+{% block page_content %}
+<div class="page-shell">
+  <header class="page-heading"><div><p class="eyebrow">{{ _('Rider space') }}</p><h1>{{ _('Welcome, %(name)s', name=profile.full_name) }}</h1><p>{{ _('Your rider account is active.') }}</p></div><span class="status-pill">{{ _(profile.availability_status|capitalize) }}</span></header>
+  <section class="surface surface-card login-required"><span class="workspace-card__icon" aria-hidden="true">⌖</span><h2 style="margin:0;font:800 1.35rem Manrope,sans-serif">{{ _('Delivery tools are being prepared') }}</h2><p style="color:var(--muted);line-height:1.6">{{ _('Delivery assignments and handoff updates will appear here when rider operations are enabled.') }}</p><a class="button-secondary" href="{{ url_for('auth.account') }}">{{ _('Account settings') }}</a></section>
+</div>
+{% endblock %}

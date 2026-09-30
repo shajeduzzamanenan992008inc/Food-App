@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}{{ category.name }} · {{ app_name }}{% endblock %}
+{% block page_content %}
+<div class="page-shell">
+  <header class="page-heading"><div><p class="eyebrow">{{ _('Category') }}</p><h1>{{ category.name }}</h1><p>{{ category.description or _('Discover local products in this category.') }}</p></div><a class="button-secondary" href="{{ url_for('main.menu') }}">← {{ _('All categories') }}</a></header>
+  {% if products %}<div class="product-grid">{% for product in products %}{% include "_product_card.html" %}{% endfor %}</div>
+  {% else %}<div class="empty-state"><strong>{{ _('No active products in this category') }}</strong>{{ _('Local sellers will appear here as approved listings become available.') }}</div>{% endif %}
+  {% if pagination.pages > 1 %}<nav class="pagination" aria-label="{{ _('Category pages') }}">{% if pagination.has_prev %}<a href="{{ url_for('main.category', slug=category.slug, page=pagination.prev_num) }}">←</a>{% endif %}<span class="is-current">{{ pagination.page }} / {{ pagination.pages }}</span>{% if pagination.has_next %}<a href="{{ url_for('main.category', slug=category.slug, page=pagination.next_num) }}">→</a>{% endif %}</nav>{% endif %}
+</div>
+{% endblock %}

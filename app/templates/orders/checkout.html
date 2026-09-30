@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{ _('Checkout') }} · {{ app_name }}{% endblock %}
+{% block page_content %}
+<div class="page-shell">
+  <header class="page-heading"><div><p class="eyebrow">{{ _('Almost there') }}</p><h1>{{ _('Delivery details') }}</h1><p>{{ _('We will use these details to deliver your order and send updates.') }}</p></div></header>
+  <div class="product-detail" style="align-items:start;grid-template-columns:minmax(0,1.3fr) minmax(270px,.7fr)">
+    <section class="surface surface-card">
+      <form method="post" action="{{ url_for('orders.checkout') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="field-grid">
+          <div class="form-field form-field--wide"><label for="checkout-name">{{ _('Full name') }}</label><input id="checkout-name" name="customer_name" autocomplete="name" minlength="2" maxlength="120" required value="{{ customer.full_name if customer else request.form.get('customer_name', '') }}"></div>
+          <div class="form-field"><label for="checkout-phone">{{ _('Phone number') }}</label><input id="checkout-phone" name="phone" type="tel" autocomplete="tel" minlength="7" maxlength="30" required value="{{ customer.phone if customer else request.form.get('phone', '') }}"></div>
+          <div class="form-field"><label for="checkout-email">{{ _('Email for order updates') }}</label><input id="checkout-email" name="email" type="email" autocomplete="email" maxlength="255" required value="{{ user_email or request.form.get('email', '') }}" {% if user_email %}readonly{% endif %}></div>
+          <div class="form-field form-field--wide"><label for="checkout-address">{{ _('Delivery address') }}</label><textarea id="checkout-address" name="address" autocomplete="street-address" minlength="8" maxlength="2000" required>{{ (customer.address.address_line ~ ', ' ~ customer.address.city) if customer and customer.address else request.form.get('address', '') }}</textarea></div>
+          <fieldset class="form-field form-field--wide" style="padding:0;border:0"><legend style="margin-bottom:8px;color:#38495a;font-size:.83rem;font-weight:800">{{ _('Payment method') }}</legend><label class="tag tag--active"><input type="radio" name="payment_method" value="cod" checked style="accent-color:var(--blue)"> {{ _('Cash on delivery') }}</label></fieldset>
+        </div>
+        <div class="form-actions"><button class="button" type="submit">{{ _('Place order') }} · ৳{{ '%.2f'|format(total) }}</button><a class="text-link" href="{{ url_for('orders.cart') }}">{{ _('Back to cart') }}</a></div>
+      </form>
+    </section>
+    <aside class="surface surface-card"><h2 style="margin-top:0;font:800 1.2rem Manrope,sans-serif">{{ _('Your items') }}</h2>
+      <div class="summary-list">{% for row in rows %}<div class="summary-row"><span>{{ row.quantity }} × {{ row.product.localized_name(current_locale)|truncate(36) }}</span><strong>৳{{ '%.2f'|format(row.subtotal) }}</strong></div>{% endfor %}<div class="summary-row"><span>{{ _('Subtotal') }}</span><strong>৳{{ '%.2f'|format(subtotal) }}</strong></div><div class="summary-row"><span>{{ _('Delivery') }}</span><strong>৳{{ '%.2f'|format(delivery) }}</strong></div><div class="summary-row summary-total"><span>{{ _('Total due on delivery') }}</span><strong>৳{{ '%.2f'|format(total) }}</strong></div></div>
+    </aside>
+  </div>
+</div>
+{% endblock %}

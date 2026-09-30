@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}{{ _('Marketplace settings') }} · {{ app_name }}{% endblock %}
+{% block page_content %}
+<div class="form-page"><section class="surface form-page__panel"><p class="eyebrow">{{ _('Operations') }}</p><h1>{{ _('Marketplace settings') }}</h1><p>{{ _('Update the marketplace name and logo.') }}</p>
+  <form method="post" action="{{ url_for('orders.admin_settings') }}" enctype="multipart/form-data"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><div class="field-grid">
+    <div class="form-field form-field--wide"><label for="app-name">{{ _('Marketplace name') }}</label><input id="app-name" name="app_name" maxlength="120" minlength="2" required value="{{ request.form.get('app_name', setting.app_name) }}"></div>
+    <div class="form-field form-field--wide"><label for="app-logo">{{ _('Logo image (optional)') }}</label><input id="app-logo" name="logo" type="file" accept="image/png,image/jpeg,image/webp"></div>
+  </div><div class="form-actions"><button class="button" type="submit">{{ _('Save settings') }}</button><a class="button-secondary" href="{{ url_for('admin.dashboard') }}">{{ _('Cancel') }}</a></div></form>
+</section></div>
+{% endblock %}

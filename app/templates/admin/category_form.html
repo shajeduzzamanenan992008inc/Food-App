@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% set is_editing = category is not none %}
+{% block title %}{{ _('Category details') }} · {{ app_name }}{% endblock %}
+{% block page_content %}
+<div class="form-page"><section class="surface form-page__panel"><p class="eyebrow">{{ _('Catalog management') }}</p><h1>{{ _('Edit category') if is_editing else _('New category') }}</h1>
+  <form method="post" action="{{ url_for('orders.admin_category_edit', category_id=category.id) if is_editing else url_for('orders.admin_category_new') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><div class="field-grid">
+    <div class="form-field"><label for="category-name">{{ _('Category name') }}</label><input id="category-name" name="name" minlength="2" maxlength="100" required value="{{ request.form.get('name', category.name if category else '') }}"></div>
+    <div class="form-field"><label for="category-slug">{{ _('Page address slug') }}</label><input id="category-slug" name="slug" maxlength="120" required value="{{ request.form.get('slug', category.slug if category else '') }}"></div>
+    <div class="form-field form-field--wide"><label for="category-description">{{ _('Description (optional)') }}</label><textarea id="category-description" name="description" maxlength="5000">{{ request.form.get('description', category.description if category else '') }}</textarea></div>
+  </div><div class="form-actions"><button class="button" type="submit">{{ _('Save category') }}</button><a class="button-secondary" href="{{ url_for('admin.dashboard') }}">{{ _('Cancel') }}</a></div></form>
+</section></div>
+{% endblock %}

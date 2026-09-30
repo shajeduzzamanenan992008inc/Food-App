@@ -1,0 +1,22 @@
+{% set localized_title = product.localized_name(current_locale) %}
+<article class="product-card">
+  <a class="product-card__media" href="{{ url_for('main.food', slug=product.slug) }}" aria-label="{{ localized_title }}">
+    {% if product.display_image %}
+      <img src="{{ product.display_image }}" alt="{{ localized_title }}" loading="lazy" decoding="async">
+    {% else %}<span class="product-card__placeholder" aria-hidden="true">✦</span>{% endif %}
+  </a>
+  <div class="product-card__body">
+    <span class="product-card__category">{{ product.category.name }}</span>
+    <h3><a href="{{ url_for('main.food', slug=product.slug) }}">{{ localized_title }}</a></h3>
+    <p>{{ product.localized_description(current_locale)|truncate(86) }}</p>
+    <div class="product-card__bottom">
+      <span class="price">৳{{ '%.2f'|format(product.display_price) }}{% if product.discount_price %}<del>৳{{ '%.2f'|format(product.price) }}</del>{% endif %}</span>
+      <form method="post" action="{{ url_for('orders.add_to_cart', product_id=product.id) }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="quantity" value="1">
+        <input type="hidden" name="next" value="{{ request.full_path if request.query_string else request.path }}">
+        <button class="card-add" type="submit" aria-label="{{ _('Add %(name)s to cart', name=localized_title) }}">+</button>
+      </form>
+    </div>
+  </div>
+</article>

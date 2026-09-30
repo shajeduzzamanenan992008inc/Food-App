@@ -1,0 +1,2196 @@
+# Arabic translations for PROJECT.
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-09-30 08:23+0600\n"
+"PO-Revision-Date: 2026-09-29 15:24+0600\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ar\n"
+"Language-Team: ar <LL@li.org>\n"
+"Plural-Forms: nplurals=6; plural=(n==0?0:n==1?1:n==2?2:n%100>=3 && "
+"n%100<=10?3:n%100>=11 && n%100<=99?4:5);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: app/routes/auth.py:107
+msgid "Please provide valid name, email, and phone details."
+msgstr "يرجى إدخال اسم وبريد إلكتروني ورقم هاتف صحيح."
+
+#: app/routes/auth.py:111 app/routes/auth.py:151 app/routes/auth.py:283
+#: app/routes/auth.py:513 app/routes/auth.py:581 app/routes/auth.py:636
+#: app/templates/auth/_auth_card.html:108
+#: app/templates/auth/accept_invitation.html:40
+#: app/templates/auth/account.html:48 app/templates/auth/admin_account.html:33
+#: app/templates/auth/reset_password.html:32
+#: app/templates/auth/seller_application.html:59
+msgid "Passwords do not match."
+msgstr "كلمتا المرور غير متطابقتين."
+
+#: app/routes/auth.py:113 app/routes/auth.py:153 app/routes/auth.py:328
+msgid "An account with this email already exists."
+msgstr "يوجد حساب بهذا البريد الإلكتروني بالفعل."
+
+#: app/routes/auth.py:124
+msgid "Account created. You can now sign in."
+msgstr "تم إنشاء الحساب. يمكنك تسجيل الدخول الآن."
+
+#: app/routes/auth.py:147
+msgid "Please provide valid store, contact, email, and phone details."
+msgstr "أدخل بيانات صحيحة للمتجر وجهة الاتصال والبريد والهاتف."
+
+#: app/routes/auth.py:170
+msgid "Your seller application is submitted. Sign in to check its review status."
+msgstr "تم إرسال طلب البائع. سجّل الدخول لمتابعة حالة المراجعة."
+
+#: app/routes/auth.py:192 app/templates/auth/_auth_card.html:91
+#: app/templates/auth/accept_invitation.html:30
+#: app/templates/auth/reset_password.html:17
+#: app/templates/auth/seller_application.html:49
+#, python-format
+msgid "Password must contain at least %(minimum)s characters."
+msgstr "يجب أن تتكون كلمة المرور من %(minimum)s أحرف على الأقل."
+
+#: app/routes/auth.py:194 app/templates/auth/_auth_card.html:92
+#: app/templates/auth/accept_invitation.html:31
+#: app/templates/auth/reset_password.html:18
+#: app/templates/auth/seller_application.html:50
+#, python-format
+msgid "Password must contain no more than %(maximum)s characters."
+msgstr "يجب ألا يزيد طول كلمة المرور عن %(maximum)s حرفًا."
+
+#: app/routes/auth.py:219
+msgid "Invalid email or password."
+msgstr "البريد الإلكتروني أو كلمة المرور غير صحيحة."
+
+#: app/routes/auth.py:267
+msgid "This invitation is invalid, expired, or already used."
+msgstr "هذه الدعوة غير صالحة أو منتهية الصلاحية أو مستخدمة بالفعل."
+
+#: app/routes/auth.py:277
+msgid "Please provide a valid name for this account."
+msgstr "أدخل اسمًا صالحًا لهذا الحساب."
+
+#: app/routes/auth.py:279
+msgid "Please provide a valid phone number."
+msgstr "أدخل رقم هاتف صالحًا."
+
+#: app/routes/auth.py:286
+msgid ""
+"An account with this email already exists. Ask an administrator to resend"
+" the invitation."
+msgstr "يوجد حساب بهذا البريد بالفعل. اطلب من المدير إعادة إرسال الدعوة."
+
+#: app/routes/auth.py:306
+msgid "Your account is ready. Sign in to continue."
+msgstr "أصبح حسابك جاهزًا. سجّل الدخول للمتابعة."
+
+#: app/routes/auth.py:325
+msgid "Enter a valid email and choose Rider or Admin."
+msgstr "أدخل بريدًا إلكترونيًا صالحًا واختر مندوب توصيل أو مديرًا."
+
+#: app/routes/auth.py:331 app/routes/auth.py:375
+msgid "Staff invitations need a configured email provider and sender address."
+msgstr "تتطلب دعوات الفريق إعداد مزود البريد الإلكتروني وعنوان المرسل."
+
+#: app/routes/auth.py:343
+msgid "A valid invitation already exists for this email and role."
+msgstr "توجد دعوة صالحة بالفعل لهذا البريد والدور."
+
+#: app/routes/auth.py:358 app/routes/auth.py:388
+msgid "Staff invitations are unavailable until the public site URL is configured."
+msgstr "لن تتوفر دعوات الفريق حتى يتم إعداد رابط الموقع العام."
+
+#: app/routes/auth.py:363
+msgid "The account invitation was created and queued for email."
+msgstr "تم إنشاء دعوة الحساب وإضافتها إلى قائمة إرسال البريد."
+
+#: app/routes/auth.py:380
+msgid "This invitation was closed because an account already exists."
+msgstr "أُغلقت الدعوة لوجود حساب بهذا البريد بالفعل."
+
+#: app/routes/auth.py:394
+msgid "A fresh invitation link was queued for email."
+msgstr "تمت إضافة رابط دعوة جديد إلى قائمة إرسال البريد."
+
+#: app/routes/auth.py:406
+msgid "The account invitation was revoked."
+msgstr "تم إلغاء دعوة الحساب."
+
+#: app/routes/auth.py:448
+msgid ""
+"If an active account exists for that email, a verification code has been "
+"sent."
+msgstr "إذا كان هناك حساب نشط بهذا البريد، فقد أُرسل رمز التحقق."
+
+#: app/routes/auth.py:458
+msgid "This password reset code is invalid or has expired."
+msgstr "رمز إعادة تعيين كلمة المرور غير صالح أو انتهت صلاحيته."
+
+#: app/routes/auth.py:478
+msgid "Too many incorrect codes. Request a new verification code."
+msgstr "أُدخلت رموز خاطئة مرات كثيرة. اطلب رمز تحقق جديدًا."
+
+#: app/routes/auth.py:481
+msgid "The verification code is incorrect."
+msgstr "رمز التحقق غير صحيح."
+
+#: app/routes/auth.py:500
+msgid "Please verify a valid password reset code first."
+msgstr "يرجى التحقق أولًا من رمز صالح لإعادة تعيين كلمة المرور."
+
+#: app/routes/auth.py:504
+msgid "This password reset request is invalid or has expired."
+msgstr "طلب إعادة تعيين كلمة المرور غير صالح أو انتهت صلاحيته."
+
+#: app/routes/auth.py:522
+msgid "Password updated. You can now sign in."
+msgstr "تم تحديث كلمة المرور. يمكنك تسجيل الدخول الآن."
+
+#: app/routes/auth.py:538
+msgid "Please provide a valid name and phone number."
+msgstr "يرجى إدخال اسم ورقم هاتف صحيحين."
+
+#: app/routes/auth.py:540
+msgid "Please provide a complete address."
+msgstr "يرجى إدخال عنوان كامل."
+
+#: app/routes/auth.py:542
+msgid "Please provide a valid city."
+msgstr "يرجى إدخال اسم مدينة صحيح."
+
+#: app/routes/auth.py:564
+msgid "Your account details were updated."
+msgstr "تم تحديث تفاصيل حسابك."
+
+#: app/routes/auth.py:577 app/routes/auth.py:632
+msgid "Your current password is incorrect."
+msgstr "كلمة المرور الحالية غير صحيحة."
+
+#: app/routes/auth.py:587
+msgid "Your password was changed. Sign in again on this device."
+msgstr "تم تغيير كلمة المرور. سجّل الدخول مجددًا على هذا الجهاز."
+
+#: app/routes/auth.py:605
+msgid "Please provide a valid admin name."
+msgstr "يرجى إدخال اسم مسؤول صحيح."
+
+#: app/routes/auth.py:619
+msgid "Admin profile updated."
+msgstr "تم تحديث ملف المسؤول."
+
+#: app/routes/auth.py:642
+msgid "Admin password changed. Sign in again on this device."
+msgstr "تم تغيير كلمة مرور المسؤول. سجّل الدخول مجددًا على هذا الجهاز."
+
+#: app/routes/auth.py:658
+msgid "You have been signed out."
+msgstr "تم تسجيل خروجك."
+
+#: app/routes/main.py:53
+msgid "We could not save your language preference. Please try again."
+msgstr "تعذر حفظ اللغة المفضلة. يرجى المحاولة مرة أخرى."
+
+#: app/routes/main.py:57
+msgid "Language preference updated."
+msgstr "تم تحديث اللغة المفضلة."
+
+#: app/routes/orders.py:207
+msgid "This seller application has already been reviewed."
+msgstr "تمت مراجعة طلب البائع هذا بالفعل."
+
+#: app/routes/orders.py:214 app/routes/orders.py:240
+msgid "The review note must be 500 characters or fewer."
+msgstr "يجب ألا يتجاوز تعليق المراجعة 500 حرف."
+
+#: app/routes/orders.py:222
+msgid "Seller application approved."
+msgstr "تمت الموافقة على طلب البائع."
+
+#: app/routes/orders.py:223
+msgid "Seller application rejected."
+msgstr "تم رفض طلب البائع."
+
+#: app/routes/orders.py:249
+msgid "Product listing approved."
+msgstr "تمت الموافقة على قائمة المنتج。"
+
+#: app/routes/orders.py:250
+msgid "Product listing rejected."
+msgstr "تم رفض قائمة المنتج。"
+
+#: app/routes/seller.py:189 app/routes/seller.py:207
+msgid "Please check the product details and try again."
+msgstr "يرجى مراجعة تفاصيل المنتج والمحاولة مرة أخرى।"
+
+#: app/routes/seller.py:191
+msgid "Product submitted for Admin review."
+msgstr "تم إرسال المنتج إلى المسؤول للمراجعة。"
+
+#: app/routes/seller.py:209
+msgid "Updated product details were sent for Admin review."
+msgstr "تم إرسال تفاصيل المنتج المحدّثة إلى المسؤول للمراجعة。"
+
+#: app/routes/seller.py:222
+msgid "The product is no longer visible in the marketplace."
+msgstr "لم يعد هذا المنتج ظاهرًا في السوق。"
+
+#: app/routes/seller.py:253
+msgid "Please check the variant details and try again."
+msgstr "يرجى مراجعة تفاصيل الخيار والمحاولة مرة أخرى。"
+
+#: app/routes/seller.py:255
+msgid "Product variant added."
+msgstr "تمت إضافة خيار المنتج。"
+
+#: app/routes/seller.py:270
+msgid "Variant availability updated."
+msgstr "تم تحديث توفر الخيار。"
+
+#: app/routes/seller.py:287
+msgid "Enter a valid non-negative stock quantity."
+msgstr "أدخل كمية مخزون صحيحة لا تقل عن صفر。"
+
+#: app/routes/seller.py:291
+msgid "Variant stock updated."
+msgstr "تم تحديث مخزون الخيار。"
+
+#: app/services/mail.py:162 app/templates/email/password_reset_code.html:3
+#: app/templates/email/password_reset_code.html:7
+#: app/templates/email/password_reset_code.txt:3
+msgid "Your NexHaat password reset code"
+msgstr "رمز إعادة تعيين كلمة مرور NexHaat"
+
+#: app/templates/_product_card.html:18
+#, python-format
+msgid "Add %(name)s to cart"
+msgstr ""
+
+#: app/templates/base.html:7
+msgid "Discover neighborhood food, groceries, and local stores on NexHaat."
+msgstr ""
+
+#: app/templates/base.html:14
+msgid "Skip to content"
+msgstr ""
+
+#: app/templates/base.html:20
+msgid "Toggle navigation"
+msgstr ""
+
+#: app/templates/base.html:22
+#, fuzzy
+msgid "Main navigation"
+msgstr "قبول الدعوة"
+
+#: app/templates/base.html:23
+#, fuzzy
+msgid "Home"
+msgstr "الهاتف"
+
+#: app/templates/base.html:24 app/templates/catalog/menu.html:2
+#, fuzzy
+msgid "Explore"
+msgstr "ينتهي"
+
+#: app/templates/base.html:26 app/templates/customer/dashboard.html:8
+#: app/templates/orders/my_orders.html:2 app/templates/orders/my_orders.html:5
+#: app/templates/portals/dashboard.html:9
+msgid "My orders"
+msgstr "طلباتي"
+
+#: app/templates/admin/settings.html:4 app/templates/base.html:27
+#, fuzzy
+msgid "Operations"
+msgstr "عمليات نِكس‌هات"
+
+#: app/templates/base.html:28 app/templates/seller/catalog.html:5
+#: app/templates/seller/dashboard.html:5
+msgid "Seller space"
+msgstr ""
+
+#: app/templates/base.html:29 app/templates/rider/dashboard.html:5
+#, fuzzy
+msgid "Rider space"
+msgstr "مساحة عمل مندوب التوصيل"
+
+#: app/templates/base.html:36 app/templates/base.html:37
+msgid "Language"
+msgstr "اللغة"
+
+#: app/templates/base.html:42
+msgid "Go"
+msgstr ""
+
+#: app/templates/base.html:44 app/templates/customer/dashboard.html:9
+#: app/templates/orders/cart.html:2 app/templates/portals/dashboard.html:12
+msgid "Shopping cart"
+msgstr "سلة التسوق"
+
+#: app/templates/base.html:45
+msgid "Cart"
+msgstr ""
+
+#: app/templates/base.html:49
+#, fuzzy
+msgid "Account"
+msgstr "دور الحساب"
+
+#: app/templates/admin/dashboard.html:151 app/templates/auth/account.html:53
+#: app/templates/auth/admin_account.html:38 app/templates/base.html:50
+msgid "Sign out"
+msgstr "تسجيل الخروج"
+
+#: app/templates/auth/login.html:2 app/templates/base.html:52
+msgid "Sign in"
+msgstr "تسجيل الدخول"
+
+#: app/templates/base.html:66
+msgid "Good food and thoughtful finds, close to home."
+msgstr ""
+
+#: app/templates/base.html:67
+msgid "All rights reserved."
+msgstr "جميع الحقوق محفوظة."
+
+#: app/templates/home.html:2
+msgid "Local finds, delivered with care"
+msgstr ""
+
+#: app/templates/home.html:6
+msgid "A little closer to home"
+msgstr ""
+
+#: app/templates/home.html:7
+msgid "Good things,"
+msgstr ""
+
+#: app/templates/home.html:7
+msgid "from nearby."
+msgstr ""
+
+#: app/templates/home.html:8
+msgid "Explore food and everyday finds from local sellers, all in one easy place."
+msgstr ""
+
+#: app/templates/catalog/menu.html:6 app/templates/home.html:10
+#, fuzzy
+msgid "Explore the marketplace"
+msgstr "سوق نِكس‌هات"
+
+#: app/templates/home.html:11
+#, fuzzy
+msgid "Open a store"
+msgstr "قدّم طلبًا لفتح متجر"
+
+#: app/templates/home.html:17
+msgid "Local sellers"
+msgstr ""
+
+#: app/templates/home.html:18
+msgid "Made for your day"
+msgstr ""
+
+#: app/templates/home.html:25
+msgid "Browse your way"
+msgstr ""
+
+#: app/templates/home.html:25
+msgid "Explore categories"
+msgstr ""
+
+#: app/templates/home.html:25
+msgid "See everything"
+msgstr ""
+
+#: app/templates/home.html:30
+msgid "Find something good"
+msgstr ""
+
+#: app/templates/home.html:38
+msgid "Handpicked for you"
+msgstr ""
+
+#: app/templates/home.html:38
+msgid "Popular near you"
+msgstr ""
+
+#: app/templates/home.html:38
+#, fuzzy
+msgid "View marketplace"
+msgstr "تصفح السوق"
+
+#: app/templates/home.html:40
+msgid "Fresh finds are on their way"
+msgstr ""
+
+#: app/templates/home.html:40
+msgid "Explore the marketplace while local sellers prepare their listings."
+msgstr ""
+
+#: app/templates/home.html:40
+#, fuzzy
+msgid "Browse all"
+msgstr "تصفح السوق"
+
+#: app/templates/home.html:44
+msgid "For local sellers"
+msgstr ""
+
+#: app/templates/home.html:44
+#, fuzzy
+msgid "Bring your store to NexHaat"
+msgstr "ابدأ رحلتك مع NexHaat"
+
+#: app/templates/home.html:45
+msgid ""
+"Share your products with nearby customers and manage your catalog in one "
+"place."
+msgstr ""
+
+#: app/templates/auth/seller_application.html:2
+#: app/templates/auth/seller_application.html:6 app/templates/home.html:45
+msgid "Apply to sell"
+msgstr "التقديم للبيع"
+
+#: app/templates/admin/category_form.html:3
+msgid "Category details"
+msgstr ""
+
+#: app/templates/admin/category_form.html:5
+#: app/templates/admin/product_form.html:5
+#, fuzzy
+msgid "Catalog management"
+msgstr "مراجعة الكتالوج"
+
+#: app/templates/admin/category_form.html:5
+msgid "Edit category"
+msgstr ""
+
+#: app/templates/admin/category_form.html:5
+#: app/templates/admin/dashboard.html:17
+msgid "New category"
+msgstr ""
+
+#: app/templates/admin/category_form.html:7
+#, fuzzy
+msgid "Category name"
+msgstr "اسم المتجر"
+
+#: app/templates/admin/category_form.html:8
+#: app/templates/admin/product_form.html:8
+#: app/templates/seller/product_form.html:11
+#, fuzzy
+msgid "Page address slug"
+msgstr "عنوان البريد الإلكتروني"
+
+#: app/templates/admin/category_form.html:9
+msgid "Description (optional)"
+msgstr ""
+
+#: app/templates/admin/category_form.html:10
+msgid "Save category"
+msgstr ""
+
+#: app/templates/admin/category_form.html:10
+#: app/templates/admin/customer_form.html:10
+#: app/templates/admin/product_form.html:14 app/templates/admin/settings.html:8
+#: app/templates/seller/product_form.html:28
+msgid "Cancel"
+msgstr ""
+
+#: app/templates/admin/customer_form.html:2
+#: app/templates/admin/customer_form.html:4
+#: app/templates/admin/dashboard.html:18
+#, fuzzy
+msgid "Add customer"
+msgstr "العميل"
+
+#: app/templates/admin/customer_form.html:4
+#, fuzzy
+msgid "Customer accounts"
+msgstr "صفحات العملاء"
+
+#: app/templates/admin/customer_form.html:4
+msgid "Create a customer account with a password they can change later."
+msgstr ""
+
+#: app/templates/admin/customer_form.html:6
+#: app/templates/auth/_auth_card.html:61
+#: app/templates/auth/accept_invitation.html:12
+#: app/templates/auth/account.html:10 app/templates/auth/admin_account.html:10
+#: app/templates/orders/checkout.html:11
+msgid "Full name"
+msgstr "الاسم الكامل"
+
+#: app/templates/admin/customer_form.html:7
+#: app/templates/auth/_auth_card.html:78
+#: app/templates/auth/accept_invitation.html:19
+#: app/templates/auth/account.html:20
+#: app/templates/auth/seller_application.html:26
+#: app/templates/orders/checkout.html:12
+msgid "Phone number"
+msgstr "رقم الهاتف"
+
+#: app/templates/admin/customer_form.html:8
+#: app/templates/admin/dashboard.html:92 app/templates/admin/dashboard.html:116
+#: app/templates/auth/_auth_card.html:14 app/templates/auth/_auth_card.html:69
+#: app/templates/auth/account.html:16 app/templates/auth/admin_account.html:16
+#: app/templates/auth/forgot_password.html:12
+#: app/templates/auth/seller_application.html:37
+msgid "Email address"
+msgstr "عنوان البريد الإلكتروني"
+
+#: app/templates/admin/customer_form.html:9
+#: app/templates/auth/_auth_card.html:23 app/templates/auth/_auth_card.html:86
+#: app/templates/auth/accept_invitation.html:26
+#: app/templates/auth/reset_password.html:12
+#: app/templates/auth/seller_application.html:45
+msgid "Password"
+msgstr "كلمة المرور"
+
+#: app/templates/admin/customer_form.html:10
+#, fuzzy
+msgid "Create customer"
+msgstr "العميل"
+
+#: app/templates/admin/dashboard.html:2 app/templates/admin/dashboard.html:9
+#: app/templates/admin/dashboard.html:22
+msgid "Admin dashboard"
+msgstr "لوحة المدير"
+
+#: app/templates/admin/dashboard.html:8
+msgid "NEXHAAT OPERATIONS"
+msgstr "عمليات نِكس‌هات"
+
+#: app/templates/admin/dashboard.html:10
+msgid "Review seller applications, manage staff access, customers, and orders."
+msgstr "راجع طلبات البائعين وأدر وصول الفريق والعملاء والطلبات."
+
+#: app/templates/admin/dashboard.html:12 app/templates/auth/account.html:2
+#: app/templates/auth/account.html:6 app/templates/auth/admin_account.html:2
+#: app/templates/auth/admin_account.html:6
+#: app/templates/customer/dashboard.html:5
+#: app/templates/orders/my_orders.html:5
+#: app/templates/portals/dashboard.html:11 app/templates/rider/dashboard.html:6
+msgid "Account settings"
+msgstr "إعدادات الحساب"
+
+#: app/templates/admin/dashboard.html:15
+msgid "Operations shortcuts"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:16 app/templates/seller/catalog.html:5
+msgid "Add product"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:19 app/templates/admin/settings.html:2
+#: app/templates/admin/settings.html:4
+#, fuzzy
+msgid "Marketplace settings"
+msgstr "إعدادات الحساب"
+
+#: app/templates/admin/dashboard.html:23 app/templates/admin/dashboard.html:114
+msgid "Customers"
+msgstr "العملاء"
+
+#: app/templates/admin/dashboard.html:24
+msgid "Total orders"
+msgstr "إجمالي الطلبات"
+
+#: app/templates/admin/dashboard.html:25
+msgid "Pending orders"
+msgstr "الطلبات المعلقة"
+
+#: app/templates/admin/dashboard.html:30
+#: app/templates/auth/seller_application.html:5
+msgid "SELLER ONBOARDING"
+msgstr "انضمام البائعين"
+
+#: app/templates/admin/dashboard.html:30
+msgid "Applications awaiting review"
+msgstr "طلبات بانتظار المراجعة"
+
+#: app/templates/admin/dashboard.html:31 app/templates/admin/dashboard.html:60
+msgid "pending"
+msgstr "قيد الانتظار"
+
+#: app/templates/admin/dashboard.html:44 app/templates/admin/dashboard.html:73
+#: app/templates/seller/dashboard.html:10
+msgid "Review note"
+msgstr "ملاحظة المراجعة"
+
+#: app/templates/admin/dashboard.html:45 app/templates/admin/dashboard.html:74
+msgid "Optional review note"
+msgstr "ملاحظة مراجعة اختيارية"
+
+#: app/templates/admin/dashboard.html:46 app/templates/admin/dashboard.html:75
+msgid "Approve"
+msgstr "موافقة"
+
+#: app/templates/admin/dashboard.html:47 app/templates/admin/dashboard.html:76
+msgid "Reject"
+msgstr "رفض"
+
+#: app/templates/admin/dashboard.html:53
+msgid "No seller applications are waiting for review."
+msgstr "لا توجد طلبات بائعين بانتظار المراجعة."
+
+#: app/templates/admin/dashboard.html:59
+msgid "CATALOG MODERATION"
+msgstr "مراجعة الكتالوج"
+
+#: app/templates/admin/dashboard.html:59
+msgid "Product listings awaiting review"
+msgstr "قوائم المنتجات بانتظار المراجعة"
+
+#: app/templates/admin/dashboard.html:82
+msgid "No product listings are waiting for review."
+msgstr "لا توجد قوائم منتجات بانتظار المراجعة。"
+
+#: app/templates/admin/dashboard.html:88
+msgid "TEAM ACCESS"
+msgstr "إدارة وصول الفريق"
+
+#: app/templates/admin/dashboard.html:88
+msgid "Invite a Rider or Admin"
+msgstr "ادعُ مندوب توصيل أو مديرًا"
+
+#: app/templates/admin/dashboard.html:93
+msgid "Account role"
+msgstr "دور الحساب"
+
+#: app/templates/admin/dashboard.html:93
+msgid "Rider"
+msgstr "مندوب توصيل"
+
+#: app/templates/admin/dashboard.html:93
+#: app/templates/auth/admin_account.html:5
+msgid "Admin"
+msgstr "المسؤول"
+
+#: app/templates/admin/dashboard.html:94
+msgid "Invitation language"
+msgstr "لغة الدعوة"
+
+#: app/templates/admin/dashboard.html:95
+msgid "Send invitation"
+msgstr "إرسال الدعوة"
+
+#: app/templates/admin/dashboard.html:97
+msgid ""
+"Invitation links expire after 24 hours, can be used once, and never store"
+" a plain-text password."
+msgstr ""
+"تنتهي صلاحية رابط الدعوة بعد 24 ساعة، ويُستخدم مرة واحدة، ولا يُخزّن كلمة"
+" مرور نصية."
+
+#: app/templates/admin/dashboard.html:102
+msgid "Expires"
+msgstr "ينتهي"
+
+#: app/templates/admin/dashboard.html:104
+msgid "Resend link"
+msgstr "إعادة إرسال الرابط"
+
+#: app/templates/admin/dashboard.html:105
+msgid "Revoke"
+msgstr "إلغاء"
+
+#: app/templates/admin/dashboard.html:110
+msgid "No pending invitations."
+msgstr "لا توجد دعوات معلقة."
+
+#: app/templates/admin/dashboard.html:116
+#, fuzzy
+msgid "Name"
+msgstr "الاسم الكامل"
+
+#: app/templates/admin/dashboard.html:116
+msgid "Phone"
+msgstr "الهاتف"
+
+#: app/templates/admin/dashboard.html:116
+#: app/templates/admin/dashboard.html:136 app/templates/orders/my_orders.html:6
+msgid "Status"
+msgstr "الحالة"
+
+#: app/templates/admin/dashboard.html:116
+#: app/templates/admin/dashboard.html:136
+msgid "Actions"
+msgstr "الإجراءات"
+
+#: app/templates/admin/dashboard.html:119
+msgid "Active"
+msgstr "نشط"
+
+#: app/templates/admin/dashboard.html:119
+msgid "Deactivated"
+msgstr "معطل"
+
+#: app/templates/admin/dashboard.html:120
+msgid "Deactivate"
+msgstr "تعطيل"
+
+#: app/templates/admin/dashboard.html:120
+msgid "Activate"
+msgstr "تفعيل"
+
+#: app/templates/admin/dashboard.html:123
+msgid "No customers yet."
+msgstr "لا يوجد عملاء حتى الآن."
+
+#: app/templates/admin/dashboard.html:124
+msgid "Customer pages"
+msgstr "صفحات العملاء"
+
+#: app/templates/admin/dashboard.html:124
+#: app/templates/admin/dashboard.html:143
+#, python-format
+msgid "Page %(current)s of %(total)s"
+msgstr "الصفحة %(current)s من %(total)s"
+
+#: app/templates/admin/dashboard.html:125
+#: app/templates/admin/dashboard.html:144
+msgid "Previous"
+msgstr "السابق"
+
+#: app/templates/admin/dashboard.html:126
+#: app/templates/admin/dashboard.html:145
+msgid "Next"
+msgstr "التالي"
+
+#: app/templates/admin/dashboard.html:131
+msgid "Orders"
+msgstr "الطلبات"
+
+#: app/templates/admin/dashboard.html:132
+msgid "Confirm all pending"
+msgstr "تأكيد كل الطلبات المعلقة"
+
+#: app/templates/admin/dashboard.html:133
+msgid "Decline all pending"
+msgstr "رفض كل الطلبات المعلقة"
+
+#: app/templates/admin/dashboard.html:136
+#: app/templates/admin/order_detail.html:4
+#: app/templates/orders/my_orders.html:6
+msgid "Order"
+msgstr "الطلب"
+
+#: app/templates/admin/dashboard.html:136 app/templates/auth/account.html:5
+msgid "Customer"
+msgstr "العميل"
+
+#: app/templates/admin/dashboard.html:136
+#: app/templates/admin/order_detail.html:5 app/templates/orders/cart.html:10
+#: app/templates/orders/cart.html:23 app/templates/orders/confirmation.html:7
+#: app/templates/orders/my_orders.html:6
+msgid "Total"
+msgstr "الإجمالي"
+
+#: app/templates/admin/dashboard.html:139
+msgid "Order status"
+msgstr "حالة الطلب"
+
+#: app/templates/admin/dashboard.html:139 app/templates/auth/account.html:37
+#: app/templates/auth/admin_account.html:23
+msgid "Save"
+msgstr "حفظ"
+
+#: app/templates/admin/dashboard.html:142
+msgid "No orders yet."
+msgstr "لا توجد طلبات حتى الآن."
+
+#: app/templates/admin/dashboard.html:143
+msgid "Order pages"
+msgstr "صفحات الطلبات"
+
+#: app/templates/admin/order_detail.html:2
+#, fuzzy
+msgid "Order details"
+msgstr "حالة الطلب"
+
+#: app/templates/admin/order_detail.html:4
+#, fuzzy
+msgid "Back to operations"
+msgstr "عمليات نِكس‌هات"
+
+#: app/templates/admin/order_detail.html:5
+#: app/templates/orders/my_orders.html:6
+msgid "Items"
+msgstr ""
+
+#: app/templates/admin/order_detail.html:5 app/templates/seller/catalog.html:6
+msgid "Product"
+msgstr ""
+
+#: app/templates/admin/order_detail.html:5 app/templates/catalog/food.html:16
+#: app/templates/orders/cart.html:10
+msgid "Quantity"
+msgstr ""
+
+#: app/templates/admin/order_detail.html:5
+#, fuzzy
+msgid "Order total"
+msgstr "حالة الطلب"
+
+#: app/templates/admin/order_detail.html:6 app/templates/orders/checkout.html:5
+#, fuzzy
+msgid "Delivery details"
+msgstr "عمليات التوصيل"
+
+#: app/templates/admin/order_detail.html:6
+msgid "Payment"
+msgstr ""
+
+#: app/templates/admin/order_detail.html:6
+#: app/templates/orders/checkout.html:15
+#: app/templates/orders/confirmation.html:7
+msgid "Cash on delivery"
+msgstr ""
+
+#: app/templates/admin/order_detail.html:7
+#, fuzzy
+msgid "Update status"
+msgstr "حالة الطلب"
+
+#: app/templates/admin/order_detail.html:7
+#, fuzzy
+msgid "Save status"
+msgstr "الحالة"
+
+#: app/templates/admin/product_form.html:3
+#: app/templates/seller/product_form.html:3
+msgid "Product details"
+msgstr ""
+
+#: app/templates/admin/product_form.html:5
+#: app/templates/seller/product_form.html:6
+msgid "Edit product"
+msgstr ""
+
+#: app/templates/admin/product_form.html:5
+#, fuzzy
+msgid "New product"
+msgstr "كلمة المرور الجديدة"
+
+#: app/templates/admin/product_form.html:7
+#: app/templates/seller/product_form.html:10
+#, fuzzy
+msgid "Product name"
+msgstr "اسم جهة الاتصال"
+
+#: app/templates/admin/product_form.html:9
+#: app/templates/catalog/category.html:5 app/templates/catalog/menu.html:27
+#: app/templates/seller/product_form.html:12
+msgid "Category"
+msgstr ""
+
+#: app/templates/admin/product_form.html:10
+#: app/templates/seller/product_form.html:14
+msgid "Price (BDT)"
+msgstr ""
+
+#: app/templates/admin/product_form.html:11
+#: app/templates/seller/product_form.html:15
+msgid "Discount price (optional)"
+msgstr ""
+
+#: app/templates/admin/product_form.html:12
+#: app/templates/seller/product_form.html:18
+msgid "Description"
+msgstr ""
+
+#: app/templates/admin/product_form.html:13
+msgid "Available to customers"
+msgstr ""
+
+#: app/templates/admin/product_form.html:14
+msgid "Save product"
+msgstr ""
+
+#: app/templates/admin/settings.html:4
+msgid "Update the marketplace name and logo."
+msgstr ""
+
+#: app/templates/admin/settings.html:6
+#, fuzzy
+msgid "Marketplace name"
+msgstr "تصفح السوق"
+
+#: app/templates/admin/settings.html:7
+msgid "Logo image (optional)"
+msgstr ""
+
+#: app/templates/admin/settings.html:8
+#, fuzzy
+msgid "Save settings"
+msgstr "إعدادات الحساب"
+
+#: app/templates/auth/_auth_card.html:6 app/templates/auth/_auth_card.html:54
+#: app/templates/auth/base.html:13 app/templates/errors/404.html:5
+#: app/templates/errors/500.html:5 app/templates/portals/dashboard.html:4
+msgid "NEXHAAT MARKETPLACE"
+msgstr "سوق نِكس‌هات"
+
+#: app/templates/auth/_auth_card.html:7
+msgid "Welcome"
+msgstr "مرحبًا"
+
+#: app/templates/auth/_auth_card.html:8
+msgid "Sign in to continue your journey"
+msgstr "سجّل الدخول لمتابعة رحلتك"
+
+#: app/templates/auth/_auth_card.html:17 app/templates/auth/_auth_card.html:26
+#: app/templates/auth/_auth_card.html:64 app/templates/auth/_auth_card.html:72
+#: app/templates/auth/_auth_card.html:81 app/templates/auth/_auth_card.html:90
+#: app/templates/auth/_auth_card.html:107
+#: app/templates/auth/accept_invitation.html:14
+#: app/templates/auth/accept_invitation.html:21
+#: app/templates/auth/accept_invitation.html:29
+#: app/templates/auth/accept_invitation.html:39
+#: app/templates/auth/account.html:12 app/templates/auth/account.html:22
+#: app/templates/auth/account.html:44 app/templates/auth/account.html:46
+#: app/templates/auth/account.html:48 app/templates/auth/admin_account.html:12
+#: app/templates/auth/admin_account.html:29
+#: app/templates/auth/admin_account.html:31
+#: app/templates/auth/admin_account.html:33
+#: app/templates/auth/forgot_password.html:14
+#: app/templates/auth/reset_password.html:16
+#: app/templates/auth/reset_password.html:31
+#: app/templates/auth/seller_application.html:15
+#: app/templates/auth/seller_application.html:22
+#: app/templates/auth/seller_application.html:29
+#: app/templates/auth/seller_application.html:40
+#: app/templates/auth/seller_application.html:48
+#: app/templates/auth/seller_application.html:58
+#: app/templates/auth/verify_reset_code.html:15
+msgid "This field is required."
+msgstr "هذا الحقل مطلوب."
+
+#: app/templates/auth/_auth_card.html:18 app/templates/auth/_auth_card.html:73
+#: app/templates/auth/forgot_password.html:15
+#: app/templates/auth/seller_application.html:41
+msgid "Enter a valid email address."
+msgstr "أدخل عنوان بريد إلكتروني صالحًا."
+
+#: app/templates/auth/_auth_card.html:28 app/templates/auth/_auth_card.html:29
+#: app/templates/auth/_auth_card.html:94 app/templates/auth/_auth_card.html:95
+#: app/templates/auth/_auth_card.html:110
+#: app/templates/auth/_auth_card.html:111
+#: app/templates/auth/reset_password.html:20
+#: app/templates/auth/reset_password.html:21
+#: app/templates/auth/reset_password.html:34
+#: app/templates/auth/reset_password.html:35
+msgid "Show password"
+msgstr "إظهار كلمة المرور"
+
+#: app/templates/auth/_auth_card.html:29 app/templates/auth/_auth_card.html:95
+#: app/templates/auth/_auth_card.html:111
+#: app/templates/auth/reset_password.html:21
+#: app/templates/auth/reset_password.html:35
+msgid "Hide password"
+msgstr "إخفاء كلمة المرور"
+
+#: app/templates/auth/_auth_card.html:37
+msgid "Remember me"
+msgstr "تذكرني"
+
+#: app/templates/auth/_auth_card.html:38
+msgid "Forgot password?"
+msgstr "هل نسيت كلمة المرور؟"
+
+#: app/templates/auth/_auth_card.html:40
+msgid "Admin accounts are provisioned securely."
+msgstr "يتم إنشاء حسابات المسؤولين بطريقة آمنة."
+
+#: app/templates/auth/_auth_card.html:41
+msgid "Signing in…"
+msgstr "جارٍ تسجيل الدخول…"
+
+#: app/templates/auth/_auth_card.html:42
+msgid "Log in"
+msgstr "تسجيل الدخول"
+
+#: app/templates/auth/_auth_card.html:46
+msgid "Don't have an account?"
+msgstr "ليس لديك حساب؟"
+
+#: app/templates/auth/_auth_card.html:47
+msgid "Create an account"
+msgstr "إنشاء حساب"
+
+#: app/templates/auth/_auth_card.html:49
+msgid "Want to sell on NexHaat?"
+msgstr "هل ترغب في البيع على نِكس‌هات؟"
+
+#: app/templates/auth/_auth_card.html:49
+msgid "Apply to open a store"
+msgstr "قدّم طلبًا لفتح متجر"
+
+#: app/templates/auth/_auth_card.html:55 app/templates/auth/register.html:2
+msgid "Create your account"
+msgstr "أنشئ حسابك"
+
+#: app/templates/auth/_auth_card.html:56 app/templates/auth/base.html:13
+msgid "Start your journey with NexHaat"
+msgstr "ابدأ رحلتك مع NexHaat"
+
+#: app/templates/auth/_auth_card.html:103
+#: app/templates/auth/accept_invitation.html:36
+#: app/templates/auth/account.html:47 app/templates/auth/admin_account.html:32
+#: app/templates/auth/reset_password.html:27
+#: app/templates/auth/seller_application.html:55
+msgid "Confirm password"
+msgstr "تأكيد كلمة المرور"
+
+#: app/templates/auth/_auth_card.html:118
+#: app/templates/auth/accept_invitation.html:44
+msgid "Creating account…"
+msgstr "جارٍ إنشاء الحساب…"
+
+#: app/templates/auth/_auth_card.html:119
+msgid "Create account"
+msgstr "إنشاء حساب"
+
+#: app/templates/auth/_auth_card.html:123
+msgid "Already have an account?"
+msgstr "لديك حساب بالفعل؟"
+
+#: app/templates/auth/_auth_card.html:124
+msgid "Return to sign in"
+msgstr "العودة إلى تسجيل الدخول"
+
+#: app/templates/auth/accept_invitation.html:2
+#: app/templates/auth/accept_invitation.html:45
+#: app/templates/email/account_invitation.html:3
+#: app/templates/email/account_invitation.html:7
+msgid "Accept invitation"
+msgstr "قبول الدعوة"
+
+#: app/templates/auth/accept_invitation.html:5
+msgid "SECURE TEAM INVITATION"
+msgstr "دعوة فريق آمنة"
+
+#: app/templates/auth/accept_invitation.html:6
+#: app/templates/email/account_invitation.html:10
+msgid "Set up your account"
+msgstr "إعداد حسابك"
+
+#: app/templates/auth/accept_invitation.html:7
+#, python-format
+msgid "You are setting up a %(role)s account for %(email)s."
+msgstr "أنت تُعد حساب %(role)s للبريد %(email)s."
+
+#: app/templates/auth/accept_invitation.html:48
+#: app/templates/auth/forgot_password.html:23
+#: app/templates/auth/reset_password.html:44
+#: app/templates/auth/seller_application.html:67
+msgid "Back to sign in"
+msgstr "العودة إلى تسجيل الدخول"
+
+#: app/templates/auth/account.html:26
+msgid "Street address"
+msgstr "عنوان الشارع"
+
+#: app/templates/auth/account.html:30
+msgid "City"
+msgstr "المدينة"
+
+#: app/templates/auth/account.html:34 app/templates/auth/admin_account.html:20
+msgid "Profile image"
+msgstr "صورة الملف الشخصي"
+
+#: app/templates/auth/account.html:40 app/templates/portals/dashboard.html:11
+msgid "Update your profile, address, and password."
+msgstr "حدّث ملفك الشخصي وعنوانك وكلمة مرورك."
+
+#: app/templates/auth/account.html:43 app/templates/auth/admin_account.html:28
+msgid "Current password"
+msgstr "كلمة المرور الحالية"
+
+#: app/templates/auth/account.html:45 app/templates/auth/admin_account.html:30
+msgid "New password"
+msgstr "كلمة المرور الجديدة"
+
+#: app/templates/auth/account.html:49 app/templates/auth/admin_account.html:34
+#: app/templates/auth/reset_password.html:41
+msgid "Update password"
+msgstr "تحديث كلمة المرور"
+
+#: app/templates/auth/base.html:13 app/templates/portals/dashboard.html:10
+msgid "Explore the available food and products."
+msgstr "استكشف الأطعمة والمنتجات المتاحة."
+
+#: app/templates/auth/base.html:19 app/templates/portals/dashboard.html:9
+msgid "Review your order history and updates."
+msgstr "راجع سجل طلباتك وتحديثاتها."
+
+#: app/templates/auth/forgot_password.html:2
+msgid "Forgot password"
+msgstr "نسيت كلمة المرور"
+
+#: app/templates/auth/forgot_password.html:5
+#: app/templates/auth/reset_password.html:5
+#: app/templates/auth/verify_reset_code.html:5
+msgid "Secure verification"
+msgstr "تحقق آمن"
+
+#: app/templates/auth/forgot_password.html:6
+msgid "Reset your password"
+msgstr "أعد تعيين كلمة المرور"
+
+#: app/templates/auth/forgot_password.html:7
+msgid "Enter your account email and we will send a 6-digit verification code."
+msgstr "أدخل بريد حسابك وسنرسل رمز تحقق من 6 أرقام."
+
+#: app/templates/auth/forgot_password.html:19
+msgid "Sending…"
+msgstr "جارٍ الإرسال…"
+
+#: app/templates/auth/forgot_password.html:20
+msgid "Send verification code"
+msgstr "إرسال رمز التحقق"
+
+#: app/templates/auth/reset_password.html:2
+msgid "Set new password"
+msgstr "تعيين كلمة مرور جديدة"
+
+#: app/templates/auth/reset_password.html:6
+msgid "Set a new password"
+msgstr "اختر كلمة مرور جديدة"
+
+#: app/templates/auth/reset_password.html:7
+#, python-format
+msgid "Your code is verified. Choose at least %(minimum)s characters."
+msgstr "تم التحقق من الرمز. اختر كلمة مرور من %(minimum)s أحرف على الأقل."
+
+#: app/templates/auth/reset_password.html:40
+msgid "Updating…"
+msgstr "جارٍ التحديث…"
+
+#: app/templates/auth/seller_application.html:7
+msgid ""
+"Create your seller account. Our team will review your store before you "
+"can start selling."
+msgstr "أنشئ حساب البائع. سيراجع فريقنا متجرك قبل بدء البيع."
+
+#: app/templates/auth/seller_application.html:12
+msgid "Store name"
+msgstr "اسم المتجر"
+
+#: app/templates/auth/seller_application.html:19
+msgid "Contact name"
+msgstr "اسم جهة الاتصال"
+
+#: app/templates/auth/seller_application.html:33
+msgid "Business address (optional)"
+msgstr "عنوان النشاط التجاري (اختياري)"
+
+#: app/templates/auth/seller_application.html:63
+msgid "Submitting application…"
+msgstr "جارٍ إرسال الطلب…"
+
+#: app/templates/auth/seller_application.html:64
+msgid "Submit seller application"
+msgstr "إرسال طلب البائع"
+
+#: app/templates/auth/verify_reset_code.html:2
+#: app/templates/auth/verify_reset_code.html:20
+msgid "Verify code"
+msgstr "تحقق من الرمز"
+
+#: app/templates/auth/verify_reset_code.html:6
+msgid "Check your email"
+msgstr "تحقق من بريدك الإلكتروني"
+
+#: app/templates/auth/verify_reset_code.html:7
+msgid ""
+"Enter the 6-digit code sent to your account email. It expires in 10 "
+"minutes."
+msgstr ""
+"أدخل الرمز المكوّن من 6 أرقام المرسل إلى بريد حسابك. تنتهي صلاحيته خلال "
+"10 دقائق."
+
+#: app/templates/auth/verify_reset_code.html:12
+msgid "Verification code"
+msgstr "رمز التحقق"
+
+#: app/templates/auth/verify_reset_code.html:16
+msgid "6-digit verification code"
+msgstr "رمز تحقق من 6 أرقام"
+
+#: app/templates/auth/verify_reset_code.html:19
+msgid "Verifying…"
+msgstr "جارٍ التحقق…"
+
+#: app/templates/auth/verify_reset_code.html:23
+msgid "Send a new code"
+msgstr "إرسال رمز جديد"
+
+#: app/templates/catalog/category.html:5
+msgid "Discover local products in this category."
+msgstr ""
+
+#: app/templates/catalog/category.html:5 app/templates/catalog/menu.html:13
+msgid "All categories"
+msgstr ""
+
+#: app/templates/catalog/category.html:7
+msgid "No active products in this category"
+msgstr ""
+
+#: app/templates/catalog/category.html:7
+msgid "Local sellers will appear here as approved listings become available."
+msgstr ""
+
+#: app/templates/catalog/category.html:8
+#, fuzzy
+msgid "Category pages"
+msgstr "صفحات العملاء"
+
+#: app/templates/catalog/food.html:9
+msgid "Local listing"
+msgstr ""
+
+#: app/templates/catalog/food.html:13
+msgid ""
+"Product details shown in your language when the seller has provided a "
+"translation."
+msgstr ""
+
+#: app/templates/catalog/food.html:17
+msgid "Add to cart"
+msgstr ""
+
+#: app/templates/catalog/food.html:19
+#, python-format
+msgid "In stock: %(count)s"
+msgstr ""
+
+#: app/templates/catalog/menu.html:6
+msgid "Find your next favorite"
+msgstr ""
+
+#: app/templates/catalog/menu.html:6
+msgid "Browse active local listings or search the food reference library."
+msgstr ""
+
+#: app/templates/catalog/menu.html:8
+msgid "Search products"
+msgstr ""
+
+#: app/templates/catalog/menu.html:8
+#, fuzzy
+msgid "Search food and products"
+msgstr "استكشف الأطعمة والمنتجات المتاحة."
+
+#: app/templates/catalog/menu.html:9
+msgid "Search"
+msgstr ""
+
+#: app/templates/catalog/menu.html:13
+#, fuzzy
+msgid "Product categories"
+msgstr "تمت إضافة خيار المنتج。"
+
+#: app/templates/catalog/menu.html:16
+#, fuzzy
+msgid "Available to order"
+msgstr "التوفر"
+
+#: app/templates/catalog/menu.html:16
+msgid "Local listings"
+msgstr ""
+
+#: app/templates/catalog/menu.html:18
+#, fuzzy
+msgid "Marketplace pages"
+msgstr "تصفح السوق"
+
+#: app/templates/catalog/menu.html:19
+msgid "No local listings found yet"
+msgstr ""
+
+#: app/templates/catalog/menu.html:19
+msgid "Try another search, or browse the food reference library below."
+msgstr ""
+
+#: app/templates/catalog/menu.html:23
+msgid "Food data reference"
+msgstr ""
+
+#: app/templates/catalog/menu.html:23
+msgid "Food reference library"
+msgstr ""
+
+#: app/templates/catalog/menu.html:24
+msgid ""
+"Reference records are for information only. They are not seller listings,"
+" have no marketplace price, and cannot be added to your cart."
+msgstr ""
+
+#: app/templates/catalog/menu.html:27
+msgid "Food"
+msgstr ""
+
+#: app/templates/catalog/menu.html:27
+msgid "Data source"
+msgstr ""
+
+#: app/templates/catalog/menu.html:28
+#, fuzzy
+msgid "Reference pages"
+msgstr "صفحات الطلبات"
+
+#: app/templates/catalog/menu.html:29
+msgid "No reference records match this search."
+msgstr ""
+
+#: app/templates/catalog/menu.html:30
+msgid "Search above to look up a food in the reference library."
+msgstr ""
+
+#: app/templates/customer/dashboard.html:2
+#, fuzzy
+msgid "Customer dashboard"
+msgstr "صفحات العملاء"
+
+#: app/templates/customer/dashboard.html:5
+#, fuzzy
+msgid "Your NexHaat space"
+msgstr "سوق نِكس‌هات"
+
+#: app/templates/customer/dashboard.html:5
+#: app/templates/portals/dashboard.html:5
+#: app/templates/portals/dashboard.html:6 app/templates/rider/dashboard.html:5
+#: app/templates/seller/dashboard.html:5
+#, python-format
+msgid "Welcome, %(name)s"
+msgstr "مرحبًا، %(name)s"
+
+#: app/templates/customer/dashboard.html:5
+msgid "Pick up where you left off."
+msgstr ""
+
+#: app/templates/customer/dashboard.html:6
+#, fuzzy
+msgid "Customer shortcuts"
+msgstr "العملاء"
+
+#: app/templates/customer/dashboard.html:7 app/templates/orders/cart.html:30
+#: app/templates/orders/my_orders.html:9
+#, fuzzy
+msgid "Explore marketplace"
+msgstr "تصفح السوق"
+
+#: app/templates/customer/dashboard.html:7
+msgid "Browse local food, groceries, and product listings."
+msgstr ""
+
+#: app/templates/customer/dashboard.html:8
+#, fuzzy
+msgid "Check your order status and previous purchases."
+msgstr "راجع سجل طلباتك وتحديثاتها."
+
+#: app/templates/customer/dashboard.html:9
+msgid "Review saved items and continue to checkout."
+msgstr ""
+
+#: app/templates/email/account_invitation.html:8
+#: app/templates/email/account_invitation.txt:1
+#, python-format
+msgid "You have been invited to join the NexHaat team as %(role)s."
+msgstr "تمت دعوتك للانضمام إلى فريق نِكس‌هات بصفتك %(role)s."
+
+#: app/templates/email/account_invitation.html:9
+#: app/templates/email/account_invitation.txt:2
+msgid ""
+"Use the secure link below to create your account password. This "
+"invitation expires in 24 hours and can only be used once."
+msgstr ""
+"استخدم الرابط الآمن أدناه لإنشاء كلمة مرور حسابك. تنتهي الدعوة خلال 24 "
+"ساعة ولا يمكن استخدامها إلا مرة واحدة."
+
+#: app/templates/email/account_invitation.html:11
+#: app/templates/email/account_invitation.txt:6
+msgid "If you were not expecting this invitation, you can ignore this email."
+msgstr "إذا لم تكن تتوقع هذه الدعوة، يمكنك تجاهل هذا البريد الإلكتروني."
+
+#: app/templates/email/password_reset_code.html:8
+#: app/templates/email/password_reset_code.txt:4
+msgid "Use this code to create a new NexHaat account password:"
+msgstr "استخدم هذا الرمز لإنشاء كلمة مرور جديدة لحساب نِكس‌هات:"
+
+#: app/templates/email/password_reset_code.html:10
+#: app/templates/email/password_reset_code.txt:8
+msgid ""
+"This code expires in 10 minutes. If you did not request this, you can "
+"ignore this email."
+msgstr ""
+"تنتهي صلاحية هذا الرمز خلال 10 دقائق. إذا لم تطلبه، يمكنك تجاهل هذا "
+"البريد."
+
+#: app/templates/errors/404.html:2 app/templates/errors/404.html:7
+msgid "Page not found"
+msgstr "الصفحة غير موجودة"
+
+#: app/templates/errors/404.html:8
+msgid "The page you requested could not be found."
+msgstr "تعذر العثور على الصفحة التي طلبتها."
+
+#: app/templates/errors/404.html:9 app/templates/errors/500.html:8
+msgid "Return to home"
+msgstr "العودة إلى الصفحة الرئيسية"
+
+#: app/templates/errors/500.html:2 app/templates/errors/500.html:7
+msgid "An unexpected error occurred. Please try again later."
+msgstr "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى لاحقًا."
+
+#: app/templates/orders/cart.html:5
+msgid "Ready when you are"
+msgstr ""
+
+#: app/templates/orders/cart.html:5
+msgid "Your cart"
+msgstr ""
+
+#: app/templates/orders/cart.html:5
+msgid "Review your items before continuing to checkout."
+msgstr ""
+
+#: app/templates/orders/cart.html:10
+msgid "Item"
+msgstr ""
+
+#: app/templates/orders/cart.html:10 app/templates/seller/catalog.html:6
+#, fuzzy
+msgid "Price"
+msgstr "مندوب توصيل"
+
+#: app/templates/orders/cart.html:14
+#, python-format
+msgid "Quantity for %(name)s"
+msgstr ""
+
+#: app/templates/orders/cart.html:16
+#, fuzzy
+msgid "Remove"
+msgstr "إلغاء"
+
+#: app/templates/orders/cart.html:19
+#, fuzzy
+msgid "Update cart"
+msgstr "تحديث كلمة المرور"
+
+#: app/templates/orders/cart.html:19
+msgid "Continue browsing"
+msgstr ""
+
+#: app/templates/orders/cart.html:22
+#, fuzzy
+msgid "Order summary"
+msgstr "حالة الطلب"
+
+#: app/templates/orders/cart.html:23 app/templates/orders/checkout.html:21
+#, fuzzy
+msgid "Subtotal"
+msgstr "الإجمالي"
+
+#: app/templates/orders/cart.html:23 app/templates/orders/checkout.html:21
+msgid "Delivery"
+msgstr ""
+
+#: app/templates/orders/cart.html:24
+#, fuzzy
+msgid "Continue to checkout"
+msgstr "تابع إلى سلتك المحفوظة."
+
+#: app/templates/orders/cart.html:25
+msgid "Cash on delivery is available at checkout."
+msgstr ""
+
+#: app/templates/orders/cart.html:30
+msgid "Your cart is ready for something good"
+msgstr ""
+
+#: app/templates/orders/cart.html:30
+msgid "Explore local listings and add an item to get started."
+msgstr ""
+
+#: app/templates/orders/checkout.html:2
+msgid "Checkout"
+msgstr ""
+
+#: app/templates/orders/checkout.html:5
+msgid "Almost there"
+msgstr ""
+
+#: app/templates/orders/checkout.html:5
+msgid "We will use these details to deliver your order and send updates."
+msgstr ""
+
+#: app/templates/orders/checkout.html:13
+#, fuzzy
+msgid "Email for order updates"
+msgstr "راجع سجل طلباتك وتحديثاتها."
+
+#: app/templates/orders/checkout.html:14
+#, fuzzy
+msgid "Delivery address"
+msgstr "عنوان البريد الإلكتروني"
+
+#: app/templates/orders/checkout.html:15
+msgid "Payment method"
+msgstr ""
+
+#: app/templates/orders/checkout.html:17
+#, fuzzy
+msgid "Place order"
+msgstr "الطلبات المعلقة"
+
+#: app/templates/orders/checkout.html:17
+msgid "Back to cart"
+msgstr ""
+
+#: app/templates/orders/checkout.html:20
+msgid "Your items"
+msgstr ""
+
+#: app/templates/orders/checkout.html:21
+#, fuzzy
+msgid "Total due on delivery"
+msgstr "إجمالي الطلبات"
+
+#: app/templates/orders/confirmation.html:2
+#, fuzzy
+msgid "Order received"
+msgstr "مراجعة المتجر"
+
+#: app/templates/orders/confirmation.html:5
+msgid "Thank you"
+msgstr ""
+
+#: app/templates/orders/confirmation.html:5
+msgid "Your order is on its way to the team"
+msgstr ""
+
+#: app/templates/orders/confirmation.html:6
+#, fuzzy
+msgid "Order number"
+msgstr "رقم الهاتف"
+
+#: app/templates/orders/confirmation.html:6
+#, python-format
+msgid "We sent a confirmation to %(email)s."
+msgstr ""
+
+#: app/templates/orders/confirmation.html:8
+msgid "Keep exploring"
+msgstr ""
+
+#: app/templates/orders/confirmation.html:8
+#, fuzzy
+msgid "View my orders"
+msgstr "طلباتي"
+
+#: app/templates/orders/my_orders.html:5
+msgid "Your NexHaat activity"
+msgstr ""
+
+#: app/templates/orders/my_orders.html:5
+msgid "Keep track of recent purchases and delivery updates."
+msgstr ""
+
+#: app/templates/orders/my_orders.html:6
+msgid "Placed"
+msgstr ""
+
+#: app/templates/orders/my_orders.html:9
+#, fuzzy
+msgid "No orders yet"
+msgstr "لا توجد طلبات حتى الآن."
+
+#: app/templates/orders/my_orders.html:9
+msgid "Your completed checkout orders will appear here."
+msgstr ""
+
+#: app/templates/portals/dashboard.html:2
+msgid "Dashboard"
+msgstr "لوحة التحكم"
+
+#: app/templates/portals/dashboard.html:7
+#, python-format
+msgid "Your %(role)s workspace is ready."
+msgstr "مساحة عمل %(role)s جاهزة."
+
+#: app/templates/portals/dashboard.html:10
+msgid "Browse marketplace"
+msgstr "تصفح السوق"
+
+#: app/templates/portals/dashboard.html:12
+msgid "Continue to your saved cart."
+msgstr "تابع إلى سلتك المحفوظة."
+
+#: app/templates/portals/dashboard.html:14
+msgid "STORE REVIEW"
+msgstr "مراجعة المتجر"
+
+#: app/templates/portals/dashboard.html:14
+msgid "Application status"
+msgstr "حالة الطلب"
+
+#: app/templates/portals/dashboard.html:14
+#, python-format
+msgid "Store: %(store)s"
+msgstr "المتجر: %(store)s"
+
+#: app/templates/portals/dashboard.html:15
+msgid ""
+"Your application is in the review queue. Selling tools will unlock after "
+"approval."
+msgstr "طلبك في قائمة المراجعة. ستُتاح أدوات البيع بعد الموافقة."
+
+#: app/templates/portals/dashboard.html:16
+#: app/templates/seller/dashboard.html:8
+msgid "Your store is approved. You can add and maintain product listings now."
+msgstr ""
+
+#: app/templates/portals/dashboard.html:16
+#: app/templates/seller/dashboard.html:11
+msgid "Open seller catalog"
+msgstr "افتح كتالوج البائع"
+
+#: app/templates/portals/dashboard.html:17
+#: app/templates/seller/dashboard.html:9
+#, fuzzy
+msgid "Your seller application was rejected."
+msgstr "تم رفض طلب البائع."
+
+#: app/templates/portals/dashboard.html:18
+#, python-format
+msgid "Review note: %(note)s"
+msgstr "ملاحظة المراجعة: %(note)s"
+
+#: app/templates/portals/dashboard.html:20
+msgid "DELIVERY OPERATIONS"
+msgstr "عمليات التوصيل"
+
+#: app/templates/portals/dashboard.html:20
+msgid "Rider workspace"
+msgstr "مساحة عمل مندوب التوصيل"
+
+#: app/templates/portals/dashboard.html:20
+#, fuzzy
+msgid ""
+"Delivery assignments and proof-of-delivery tools will be enabled in the "
+"rider operations phase."
+msgstr ""
+"حسابك جاهز. ستُفعّل أدوات تعيين التوصيل وإثبات التسليم في مرحلة عمليات "
+"المندوبين."
+
+#: app/templates/portals/dashboard.html:20
+msgid "Availability"
+msgstr "التوفر"
+
+#: app/templates/rider/dashboard.html:2
+#, fuzzy
+msgid "Rider dashboard"
+msgstr "لوحة التحكم"
+
+#: app/templates/rider/dashboard.html:5
+#, fuzzy
+msgid "Your rider account is active."
+msgstr "أصبح حسابك جاهزًا. سجّل الدخول للمتابعة."
+
+#: app/templates/rider/dashboard.html:6
+msgid "Delivery tools are being prepared"
+msgstr ""
+
+#: app/templates/rider/dashboard.html:6
+msgid ""
+"Delivery assignments and handoff updates will appear here when rider "
+"operations are enabled."
+msgstr ""
+
+#: app/templates/seller/catalog.html:2 app/templates/seller/product_form.html:6
+#, fuzzy
+msgid "Seller catalog"
+msgstr "افتح كتالوج البائع"
+
+#: app/templates/seller/catalog.html:5 app/templates/seller/dashboard.html:13
+#, fuzzy
+msgid "Your catalog"
+msgstr "افتح كتالوج البائع"
+
+#: app/templates/seller/catalog.html:5
+msgid "Manage your own product details, stock, and seller-written translations."
+msgstr ""
+
+#: app/templates/seller/catalog.html:6 app/templates/seller/variants.html:11
+#: app/templates/seller/variants.html:16
+msgid "Stock"
+msgstr ""
+
+#: app/templates/seller/catalog.html:6
+#, fuzzy
+msgid "Review status"
+msgstr "حالة الطلب"
+
+#: app/templates/seller/catalog.html:6
+#, fuzzy
+msgid "Tools"
+msgstr "الإجمالي"
+
+#: app/templates/seller/catalog.html:7
+msgid "Edit"
+msgstr ""
+
+#: app/templates/seller/catalog.html:7
+msgid "Variants"
+msgstr ""
+
+#: app/templates/seller/catalog.html:7
+#, fuzzy
+msgid "Archive"
+msgstr "نشط"
+
+#: app/templates/seller/catalog.html:9
+msgid "Your catalog is ready for its first listing"
+msgstr ""
+
+#: app/templates/seller/catalog.html:9
+msgid ""
+"Add a product and send it to Admin for review before it appears in the "
+"marketplace."
+msgstr ""
+
+#: app/templates/seller/catalog.html:9 app/templates/seller/dashboard.html:13
+#: app/templates/seller/product_form.html:6
+msgid "Add a product"
+msgstr ""
+
+#: app/templates/seller/dashboard.html:2
+#, fuzzy
+msgid "Seller dashboard"
+msgstr "انضمام البائعين"
+
+#: app/templates/seller/dashboard.html:5
+#, fuzzy
+msgid "Manage your store application and catalog."
+msgstr "تم رفض طلب البائع."
+
+#: app/templates/seller/dashboard.html:6
+#, fuzzy
+msgid "Store application"
+msgstr "إرسال طلب البائع"
+
+#: app/templates/seller/dashboard.html:6
+#, fuzzy
+msgid "Contact"
+msgstr "اسم جهة الاتصال"
+
+#: app/templates/seller/dashboard.html:7
+#, fuzzy
+msgid ""
+"Your application is in the review queue. Catalog tools unlock after "
+"approval."
+msgstr "طلبك في قائمة المراجعة. ستُتاح أدوات البيع بعد الموافقة."
+
+#: app/templates/seller/dashboard.html:13
+msgid "Update listings, inventory, and translations."
+msgstr ""
+
+#: app/templates/seller/dashboard.html:13
+msgid "Submit a new listing for review."
+msgstr ""
+
+#: app/templates/seller/product_form.html:6
+msgid "Every new listing and edit is reviewed before customers can see it."
+msgstr ""
+
+#: app/templates/seller/product_form.html:11
+msgid "Use lowercase letters, numbers, and hyphens."
+msgstr ""
+
+#: app/templates/seller/product_form.html:12
+msgid "Choose a category"
+msgstr ""
+
+#: app/templates/seller/product_form.html:13
+#, fuzzy
+msgid "Original language"
+msgstr "تطبيق اللغة"
+
+#: app/templates/seller/product_form.html:16
+#, fuzzy
+msgid "Available stock"
+msgstr "التوفر"
+
+#: app/templates/seller/product_form.html:17
+#, fuzzy
+msgid "Image address (optional)"
+msgstr "عنوان النشاط التجاري (اختياري)"
+
+#: app/templates/seller/product_form.html:20
+msgid "Optional seller-written translations"
+msgstr ""
+
+#: app/templates/seller/product_form.html:20
+msgid ""
+"We do not machine-translate product details. Leave a language blank to "
+"show the original text with its language label."
+msgstr ""
+
+#: app/templates/seller/product_form.html:23
+#, fuzzy
+msgid "Translated name"
+msgstr "اسم المتجر"
+
+#: app/templates/seller/product_form.html:24
+msgid "Translated description"
+msgstr ""
+
+#: app/templates/seller/product_form.html:28
+#, fuzzy
+msgid "Send for Admin review"
+msgstr "تم إرسال المنتج إلى المسؤول للمراجعة。"
+
+#: app/templates/seller/variants.html:2
+#, fuzzy
+msgid "Product variants"
+msgstr "تمت إضافة خيار المنتج。"
+
+#: app/templates/seller/variants.html:5
+msgid "Inventory"
+msgstr ""
+
+#: app/templates/seller/variants.html:5
+msgid "Manage SKU options and available stock for this product."
+msgstr ""
+
+#: app/templates/seller/variants.html:5
+#, fuzzy
+msgid "Back to catalog"
+msgstr "العودة إلى تسجيل الدخول"
+
+#: app/templates/seller/variants.html:6
+msgid "Add a variant"
+msgstr ""
+
+#: app/templates/seller/variants.html:8
+msgid "SKU"
+msgstr ""
+
+#: app/templates/seller/variants.html:9
+#, fuzzy
+msgid "Option name"
+msgstr "اسم المتجر"
+
+#: app/templates/seller/variants.html:9
+msgid "Size, pack, color…"
+msgstr ""
+
+#: app/templates/seller/variants.html:10
+msgid "Option value"
+msgstr ""
+
+#: app/templates/seller/variants.html:12
+#, fuzzy
+msgid "Price override (optional)"
+msgstr "عنوان النشاط التجاري (اختياري)"
+
+#: app/templates/seller/variants.html:13
+msgid "Add variant"
+msgstr ""
+
+#: app/templates/seller/variants.html:15
+msgid "Existing variants"
+msgstr ""
+
+#: app/templates/seller/variants.html:17
+msgid "Stock quantity"
+msgstr ""
+
+#: app/templates/seller/variants.html:17
+msgid "Save stock"
+msgstr ""
+
+#: app/templates/seller/variants.html:18
+#, python-format
+msgid "Mark %(state)s"
+msgstr "تعيين %(state)s"
+
+#: app/templates/seller/variants.html:18
+msgid "inactive"
+msgstr "غير نشط"
+
+#: app/templates/seller/variants.html:18
+msgid "active"
+msgstr "نشط"
+
+#: app/templates/seller/variants.html:19
+#, fuzzy
+msgid "No variants added yet."
+msgstr "تمت إضافة خيار المنتج。"
+
+#~ msgid "Invalid admin email or password."
+#~ msgstr "بريد المسؤول الإلكتروني أو كلمة المرور غير صحيحة."
+
+#~ msgid "Customer email"
+#~ msgstr "بريد العميل الإلكتروني"
+
+#~ msgid "Account email"
+#~ msgstr "البريد الإلكتروني للحساب"
+
+#~ msgid "New password"
+#~ msgstr "كلمة المرور الجديدة"
+
+#~ msgid "Contact person"
+#~ msgstr "اسم جهة الاتصال"
+
+#~ msgid "Business address (optional)"
+#~ msgstr "عنوان النشاط التجاري (اختياري)"
+
+#~ msgid "Product variant removed."
+#~ msgstr "تمت إزالة خيار المنتج。"
+
+#~ msgid "Hide this product from the marketplace?"
+#~ msgstr "هل تريد إخفاء هذا المنتج من السوق؟"
+
+#~ msgid "Menu"
+#~ msgstr "القائمة"
+
+#~ msgid "Cart"
+#~ msgstr "السلة"
+
+#~ msgid "My account"
+#~ msgstr "حسابي"
+
+#~ msgid "Seller"
+#~ msgstr "البائع"
+
+#~ msgid "Account"
+#~ msgstr "الحساب"
+
+#~ msgid "Apply"
+#~ msgstr "تطبيق"
+
+#~ msgid "Seller applications to review"
+#~ msgstr "طلبات بائعين بانتظار المراجعة"
+
+#~ msgid "Remove"
+#~ msgstr "إزالة"
+
+#~ msgid "Pending"
+#~ msgstr "قيد الانتظار"
+
+#~ msgid "Confirmed"
+#~ msgstr "مؤكد"
+
+#~ msgid "Preparing"
+#~ msgstr "قيد التحضير"
+
+#~ msgid "Delivered"
+#~ msgstr "تم التوصيل"
+
+#~ msgid "Cancelled"
+#~ msgstr "ملغي"
+
+#~ msgid "Declined"
+#~ msgstr "مرفوض"
+
+#~ msgid "Confirm"
+#~ msgstr "تأكيد"
+
+#~ msgid "Decline"
+#~ msgstr "رفض"
+
+#~ msgid "Public admin registration is disabled."
+#~ msgstr "تسجيل المسؤولين العام غير متاح."
+
+#~ msgid "Continue password reset"
+#~ msgstr "متابعة إعادة تعيين كلمة المرور"
+
+#~ msgid "Digit"
+#~ msgstr "رقم"
+
+#~ msgid "Approved"
+#~ msgstr "تمت الموافقة"
+
+#~ msgid "Rejected"
+#~ msgstr "مرفوض"
+
+#~ msgid "Suspended"
+#~ msgstr "موقوف"
+
+#~ msgid "Available"
+#~ msgstr "متاح"
+
+#~ msgid "Busy"
+#~ msgstr "مشغول"
+
+#~ msgid "Offline"
+#~ msgstr "غير متصل"
+
+#~ msgid "Seller catalog"
+#~ msgstr "كتالوج البائع"
+
+#~ msgid "SELLER WORKSPACE"
+#~ msgstr "مساحة عمل البائع"
+
+#~ msgid "Product catalog"
+#~ msgstr "كتالوج المنتجات"
+
+#~ msgid ""
+#~ "Manage listings, language versions, stock "
+#~ "and product options for %(store)s."
+#~ msgstr "أدِر المنتجات واللغات والمخزون والخيارات لدى %(store)s。"
+
+#~ msgid "Add product"
+#~ msgstr "أضف منتجًا"
+
+#~ msgid "SKU"
+#~ msgstr "رمز المنتج"
+
+#~ msgid "Admin note"
+#~ msgstr "ملاحظة المسؤول"
+
+#~ msgid "Price"
+#~ msgstr "السعر"
+
+#~ msgid "In stock"
+#~ msgstr "متوفر في المخزون"
+
+#~ msgid "Languages"
+#~ msgstr "اللغات"
+
+#~ msgid "Options"
+#~ msgstr "الخيارات"
+
+#~ msgid "Edit product"
+#~ msgstr "تعديل المنتج"
+
+#~ msgid "Manage variants"
+#~ msgstr "إدارة الخيارات"
+
+#~ msgid "View listing"
+#~ msgstr "عرض المنتج"
+
+#~ msgid "Archive"
+#~ msgstr "أرشفة"
+
+#~ msgid "Your catalog is ready for its first product."
+#~ msgstr "كتالوجك جاهز لإضافة أول منتج。"
+
+#~ msgid ""
+#~ "New and updated products go to "
+#~ "Admin review before they appear in "
+#~ "the marketplace."
+#~ msgstr "تُراجع المنتجات الجديدة والمحدّثة من المسؤول قبل ظهورها في السوق。"
+
+#~ msgid "Back to catalog"
+#~ msgstr "العودة إلى الكتالوج"
+
+#~ msgid ""
+#~ "Save product details for Admin review."
+#~ " Any update to an approved listing"
+#~ " returns it to review."
+#~ msgstr ""
+#~ "أرسل تفاصيل المنتج لمراجعة المسؤول. أي"
+#~ " تعديل على منتج معتمد يعيده للمراجعة。"
+
+#~ msgid "Product name"
+#~ msgstr "اسم المنتج"
+
+#~ msgid "Product URL name"
+#~ msgstr "اسم رابط المنتج"
+
+#~ msgid "Category"
+#~ msgstr "الفئة"
+
+#~ msgid "Original language"
+#~ msgstr "اللغة الأصلية"
+
+#~ msgid "Description"
+#~ msgstr "الوصف"
+
+#~ msgid "Product image URL (optional)"
+#~ msgstr "رابط صورة المنتج (اختياري)"
+
+#~ msgid "Discount price"
+#~ msgstr "سعر الخصم"
+
+#~ msgid "Base stock quantity"
+#~ msgstr "كمية المخزون الأساسية"
+
+#~ msgid "Optional translations"
+#~ msgstr "ترجمات اختيارية"
+
+#~ msgid ""
+#~ "Add a name and description for "
+#~ "each language you support. Without a "
+#~ "translation, the original text is shown"
+#~ " with its language label."
+#~ msgstr ""
+#~ "أضف اسمًا ووصفًا لكل لغة تدعمها. "
+#~ "عند غياب الترجمة، يظهر النص الأصلي "
+#~ "مع اسم لغته。"
+
+#~ msgid "Submit for Admin review"
+#~ msgstr "إرسال لمراجعة المسؤول"
+
+#~ msgid "Cancel"
+#~ msgstr "إلغاء"
+
+#~ msgid "INVENTORY"
+#~ msgstr "إدارة المخزون"
+
+#~ msgid "Option name"
+#~ msgstr "اسم الخيار"
+
+#~ msgid "Size"
+#~ msgstr "الحجم"
+
+#~ msgid "Option value"
+#~ msgstr "قيمة الخيار"
+
+#~ msgid "Large"
+#~ msgstr "كبير"
+
+#~ msgid "Price override"
+#~ msgstr "سعر بديل"
+
+#~ msgid "Stock quantity"
+#~ msgstr "كمية المخزون"
+
+#~ msgid "Add variant"
+#~ msgstr "أضف خيارًا"
+
+#~ msgid "Option"
+#~ msgstr "الخيار"
+
+#~ msgid "Stock"
+#~ msgstr "المخزون"
+
+#~ msgid "Inactive"
+#~ msgstr "غير نشط"
+
+#~ msgid "No variants have been added."
+#~ msgstr "لم تتم إضافة أي خيارات بعد。"
+
+#~ msgid ""
+#~ "Your store is approved. Product and "
+#~ "inventory tools are part of the "
+#~ "next project phase."
+#~ msgstr ""
+#~ "تمت الموافقة على متجرك. ستتوفر أدوات "
+#~ "المنتجات والمخزون في المرحلة التالية."
+

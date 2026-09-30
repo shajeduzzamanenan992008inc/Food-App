@@ -1,0 +1,128 @@
+{% set mode = mode|default('login') %}
+<section class="auth-card" data-auth-card data-mode="{{ mode }}">
+  <div class="auth-flipper">
+    <section class="auth-panel auth-panel--login" data-auth-panel="login" aria-labelledby="login-heading" {% if mode != 'login' %}inert aria-hidden="true"{% else %}aria-hidden="false"{% endif %}>
+      <div class="auth-panel__brand" aria-hidden="true">N</div>
+      <p class="eyebrow">{{ _('NEXHAAT MARKETPLACE') }}</p>
+      <h1 id="login-heading" tabindex="-1">{{ _('Welcome') }}</h1>
+      <p class="auth-subtitle">{{ _('Sign in to continue your journey') }}</p>
+
+      <form class="auth-form" method="post" action="{{ url_for('auth.login') }}" data-validate-form>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="locale" value="{{ current_locale }}">
+        <div class="form-field">
+          <label for="login-email">{{ _('Email address') }}</label>
+          <input id="login-email" name="email" type="email" autocomplete="email" maxlength="255" required
+                 value="{{ request.form.get('email', '') }}" data-validate
+                 data-required-message="{{ _('This field is required.') }}"
+                 data-email-message="{{ _('Enter a valid email address.') }}"
+                 aria-describedby="login-email-error">
+          <span class="field-error" id="login-email-error" data-field-error aria-live="polite"></span>
+        </div>
+        <div class="form-field">
+          <label for="login-password">{{ _('Password') }}</label>
+          <div class="password-control">
+            <input id="login-password" name="password" type="password" autocomplete="current-password" maxlength="{{ max_password_length }}" required data-validate
+                   data-required-message="{{ _('This field is required.') }}"
+                   aria-describedby="login-password-error">
+            <button class="password-toggle" type="button" data-password-toggle data-show-label="{{ _('Show password') }}"
+                    data-hide-label="{{ _('Hide password') }}" aria-label="{{ _('Show password') }}"
+                    aria-controls="login-password" aria-pressed="false" disabled>
+              <span class="password-toggle__eye" aria-hidden="true"></span>
+            </button>
+          </div>
+          <span class="field-error" id="login-password-error" data-field-error aria-live="polite"></span>
+        </div>
+        <div class="form-options">
+          <label class="check-label"><input type="checkbox" name="remember"> <span>{{ _('Remember me') }}</span></label>
+          <a href="{{ url_for('auth.forgot_password') }}">{{ _('Forgot password?') }}</a>
+        </div>
+        <p class="form-hint">{{ _('Admin accounts are provisioned securely.') }}</p>
+        <button class="auth-submit" type="submit" data-loading-label="{{ _('Signing in…') }}" aria-busy="false">
+          <span data-submit-label>{{ _('Log in') }}</span><span class="submit-spinner" aria-hidden="true"></span>
+        </button>
+      </form>
+      <p class="auth-switch">
+        <span>{{ _("Don't have an account?") }}</span>
+        <a href="{{ url_for('auth.register') }}" data-auth-switch="signup">{{ _('Create an account') }}</a>
+      </p>
+      <p class="seller-link">{{ _('Want to sell on NexHaat?') }} <a href="{{ url_for('auth.seller_application') }}">{{ _('Apply to open a store') }}</a></p>
+    </section>
+
+    <section class="auth-panel auth-panel--signup" data-auth-panel="signup" aria-labelledby="signup-heading" {% if mode != 'signup' %}inert aria-hidden="true"{% else %}aria-hidden="false"{% endif %}>
+      <div class="auth-panel__brand" aria-hidden="true">N</div>
+      <p class="eyebrow">{{ _('NEXHAAT MARKETPLACE') }}</p>
+      <h1 id="signup-heading" tabindex="-1">{{ _('Create your account') }}</h1>
+      <p class="auth-subtitle">{{ _('Start your journey with NexHaat') }}</p>
+      <form class="auth-form" method="post" action="{{ url_for('auth.register') }}" data-validate-form>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="locale" value="{{ current_locale }}">
+        <div class="form-field">
+          <label for="signup-name">{{ _('Full name') }}</label>
+          <input id="signup-name" name="full_name" type="text" autocomplete="name" minlength="2" maxlength="120" required
+                 value="{{ request.form.get('full_name', '') }}" data-validate
+                 data-required-message="{{ _('This field is required.') }}"
+                 aria-describedby="signup-name-error">
+          <span class="field-error" id="signup-name-error" data-field-error aria-live="polite"></span>
+        </div>
+        <div class="form-field">
+          <label for="signup-email">{{ _('Email address') }}</label>
+          <input id="signup-email" name="email" type="email" autocomplete="email" maxlength="255" required
+                 value="{{ request.form.get('email', '') }}" data-validate
+                 data-required-message="{{ _('This field is required.') }}"
+                 data-email-message="{{ _('Enter a valid email address.') }}"
+                 aria-describedby="signup-email-error">
+          <span class="field-error" id="signup-email-error" data-field-error aria-live="polite"></span>
+        </div>
+        <div class="form-field">
+          <label for="signup-phone">{{ _('Phone number') }}</label>
+          <input id="signup-phone" name="phone" type="tel" autocomplete="tel" minlength="7" maxlength="30" required
+                 value="{{ request.form.get('phone', '') }}" data-validate
+                 data-required-message="{{ _('This field is required.') }}"
+                 aria-describedby="signup-phone-error">
+          <span class="field-error" id="signup-phone-error" data-field-error aria-live="polite"></span>
+        </div>
+        <div class="form-field">
+          <label for="signup-password">{{ _('Password') }}</label>
+          <div class="password-control">
+            <input id="signup-password" name="password" type="password" autocomplete="new-password"
+                   minlength="{{ min_password_length }}" maxlength="{{ max_password_length }}" required data-validate
+                   data-required-message="{{ _('This field is required.') }}"
+                   data-too-short-message="{{ _('Password must contain at least %(minimum)s characters.', minimum=min_password_length) }}"
+                   data-too-long-message="{{ _('Password must contain no more than %(maximum)s characters.', maximum=max_password_length) }}"
+                   aria-describedby="signup-password-error">
+            <button class="password-toggle" type="button" data-password-toggle data-show-label="{{ _('Show password') }}"
+                    data-hide-label="{{ _('Hide password') }}" aria-label="{{ _('Show password') }}"
+                    aria-controls="signup-password" aria-pressed="false" disabled>
+              <span class="password-toggle__eye" aria-hidden="true"></span>
+            </button>
+          </div>
+          <span class="field-error" id="signup-password-error" data-field-error aria-live="polite"></span>
+        </div>
+        <div class="form-field">
+          <label for="signup-confirm">{{ _('Confirm password') }}</label>
+          <div class="password-control">
+            <input id="signup-confirm" name="password_confirmation" type="password" autocomplete="new-password"
+                   maxlength="{{ max_password_length }}" required data-validate data-confirm-for="signup-password"
+                   data-required-message="{{ _('This field is required.') }}"
+                   data-mismatch-message="{{ _('Passwords do not match.') }}"
+                   aria-describedby="signup-confirm-error">
+            <button class="password-toggle" type="button" data-password-toggle data-show-label="{{ _('Show password') }}"
+                    data-hide-label="{{ _('Hide password') }}" aria-label="{{ _('Show password') }}"
+                    aria-controls="signup-confirm" aria-pressed="false" disabled>
+              <span class="password-toggle__eye" aria-hidden="true"></span>
+            </button>
+          </div>
+          <span class="field-error" id="signup-confirm-error" data-field-error aria-live="polite"></span>
+        </div>
+        <button class="auth-submit" type="submit" data-loading-label="{{ _('Creating account…') }}" aria-busy="false">
+          <span data-submit-label>{{ _('Create account') }}</span><span class="submit-spinner" aria-hidden="true"></span>
+        </button>
+      </form>
+      <p class="auth-switch">
+        <span>{{ _('Already have an account?') }}</span>
+        <a href="{{ url_for('auth.login') }}" data-auth-switch="login">{{ _('Return to sign in') }}</a>
+      </p>
+    </section>
+  </div>
+</section>

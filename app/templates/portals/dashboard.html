@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}{{ _('Dashboard') }} · {{ app_name }}{% endblock %}
+{% block page_content %}
+<div class="page-shell"><header class="page-heading"><div><p class="eyebrow">{{ _('NEXHAAT MARKETPLACE') }}</p>
+  {% if role == 'seller' %}<h1>{{ _('Welcome, %(name)s', name=profile.store_name) }}</h1>
+  {% else %}<h1>{{ _('Welcome, %(name)s', name=profile.full_name) }}</h1>{% endif %}
+  <p>{{ _('Your %(role)s workspace is ready.', role=_(role|capitalize)) }}</p></div></header>
+  {% if role == 'customer' %}<section class="workspace-grid">
+    <a class="workspace-card" href="{{ url_for('orders.my_orders') }}"><strong>{{ _('My orders') }}</strong><span>{{ _('Review your order history and updates.') }}</span></a>
+    <a class="workspace-card" href="{{ url_for('main.menu') }}"><strong>{{ _('Browse marketplace') }}</strong><span>{{ _('Explore the available food and products.') }}</span></a>
+    <a class="workspace-card" href="{{ url_for('auth.account') }}"><strong>{{ _('Account settings') }}</strong><span>{{ _('Update your profile, address, and password.') }}</span></a>
+    <a class="workspace-card" href="{{ url_for('orders.cart') }}"><strong>{{ _('Shopping cart') }}</strong><span>{{ _('Continue to your saved cart.') }}</span></a>
+  </section>
+  {% elif role == 'seller' %}<section class="surface surface-card"><p class="eyebrow">{{ _('STORE REVIEW') }}</p><h2>{{ _('Application status') }}</h2><p>{{ _('Store: %(store)s', store=profile.store_name) }}</p><span class="status-pill status-pill--{{ profile.approval_status }}">{{ _(profile.approval_status|capitalize) }}</span>
+    {% if profile.approval_status == 'pending' %}<p>{{ _('Your application is in the review queue. Selling tools will unlock after approval.') }}</p>
+    {% elif profile.approval_status == 'approved' %}<p>{{ _('Your store is approved. You can add and maintain product listings now.') }}</p><a class="button" href="{{ url_for('seller.catalog') }}">{{ _('Open seller catalog') }}</a>
+    {% elif profile.approval_status == 'rejected' %}<p>{{ _('Your seller application was rejected.') }}</p>{% endif %}
+    {% if profile.review_note %}<p>{{ _('Review note: %(note)s', note=profile.review_note) }}</p>{% endif %}
+  </section>
+  {% else %}<section class="surface surface-card"><p class="eyebrow">{{ _('DELIVERY OPERATIONS') }}</p><h2>{{ _('Rider workspace') }}</h2><p>{{ _('Delivery assignments and proof-of-delivery tools will be enabled in the rider operations phase.') }}</p><p>{{ _('Availability') }}: {{ _(profile.availability_status|capitalize) }}</p></section>{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "auth/base.html" %}
+{% block title %}{{ _('Account settings') }} · {{ app_name }}{% endblock %}
+{% block auth_content %}
+<section class="simple-auth-card account-card">
+  <p class="eyebrow">{{ _('Customer') }}</p>
+  <h1>{{ _('Account settings') }}</h1>
+  <form class="auth-form" method="post" enctype="multipart/form-data" action="{{ url_for('auth.account') }}" data-validate-form>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="form-field">
+      <label for="account-name">{{ _('Full name') }}</label>
+      <input id="account-name" name="full_name" type="text" value="{{ profile.full_name }}" minlength="2" maxlength="120" required data-validate
+             data-required-message="{{ _('This field is required.') }}" aria-describedby="account-name-error">
+      <span class="field-error" id="account-name-error" data-field-error aria-live="polite"></span>
+    </div>
+    <div class="form-field">
+      <label for="account-email">{{ _('Email address') }}</label>
+      <input id="account-email" type="email" value="{{ user.email }}" readonly>
+    </div>
+    <div class="form-field">
+      <label for="account-phone">{{ _('Phone number') }}</label>
+      <input id="account-phone" name="phone" type="tel" value="{{ profile.phone }}" minlength="7" maxlength="30" required data-validate
+             data-required-message="{{ _('This field is required.') }}" aria-describedby="account-phone-error">
+      <span class="field-error" id="account-phone-error" data-field-error aria-live="polite"></span>
+    </div>
+    <div class="form-field">
+      <label for="account-address">{{ _('Street address') }}</label>
+      <textarea id="account-address" name="address_line" rows="3" maxlength="1000">{{ address.address_line if address else '' }}</textarea>
+    </div>
+    <div class="form-field">
+      <label for="account-city">{{ _('City') }}</label>
+      <input id="account-city" name="city" type="text" maxlength="100" value="{{ address.city if address else '' }}">
+    </div>
+    <div class="form-field">
+      <label for="account-image">{{ _('Profile image') }}</label>
+      <input id="account-image" name="profile_image" type="file" accept="image/png,image/jpeg,image/webp">
+    </div>
+    <button class="auth-submit" type="submit"><span data-submit-label>{{ _('Save') }}</span></button>
+  </form>
+  <hr class="auth-divider">
+  <h2>{{ _('Update your profile, address, and password.') }}</h2>
+  <form class="auth-form" method="post" action="{{ url_for('auth.change_password') }}" data-validate-form>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="form-field"><label for="account-current-password">{{ _('Current password') }}</label>
+      <input id="account-current-password" name="current_password" type="password" autocomplete="current-password" required data-validate data-required-message="{{ _('This field is required.') }}"></div>
+    <div class="form-field"><label for="account-new-password">{{ _('New password') }}</label>
+      <input id="account-new-password" name="password" type="password" autocomplete="new-password" minlength="{{ min_password_length }}" maxlength="{{ max_password_length }}" required data-validate data-required-message="{{ _('This field is required.') }}"></div>
+    <div class="form-field"><label for="account-confirm-password">{{ _('Confirm password') }}</label>
+      <input id="account-confirm-password" name="password_confirmation" type="password" autocomplete="new-password" required data-validate data-confirm-for="account-new-password" data-required-message="{{ _('This field is required.') }}" data-mismatch-message="{{ _('Passwords do not match.') }}"></div>
+    <button class="auth-submit" type="submit"><span data-submit-label>{{ _('Update password') }}</span></button>
+  </form>
+  <form class="logout-form" method="post" action="{{ url_for('auth.logout') }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <button class="text-button" type="submit">{{ _('Sign out') }}</button>
+  </form>
+</section>
+{% endblock %}

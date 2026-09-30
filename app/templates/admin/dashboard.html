@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% block title %}{{ _('Admin dashboard') }} · {{ app_name }}{% endblock %}
+{% block page_content %}
+<div class="page-shell">
+<section class="admin-dashboard" aria-labelledby="admin-dashboard-title">
+  <header class="admin-dashboard__header">
+    <div>
+      <p class="eyebrow">{{ _('NEXHAAT OPERATIONS') }}</p>
+      <h1 id="admin-dashboard-title">{{ _('Admin dashboard') }}</h1>
+      <p class="auth-subtitle">{{ _('Review seller applications, manage staff access, customers, and orders.') }}</p>
+    </div>
+    <a class="button-secondary" href="{{ url_for('auth.admin_account') }}">{{ _('Account settings') }}</a>
+  </header>
+
+  <nav class="toolbar" aria-label="{{ _('Operations shortcuts') }}">
+    <a class="button button-small" href="{{ url_for('orders.admin_product_new') }}">＋ {{ _('Add product') }}</a>
+    <a class="button-secondary button-small" href="{{ url_for('orders.admin_category_new') }}">{{ _('New category') }}</a>
+    <a class="button-secondary button-small" href="{{ url_for('orders.admin_customer_new') }}">{{ _('Add customer') }}</a>
+    <a class="button-secondary button-small" href="{{ url_for('orders.admin_settings') }}">{{ _('Marketplace settings') }}</a>
+  </nav>
+
+  <section class="admin-summary" aria-label="{{ _('Admin dashboard') }}">
+    <article><span>{{ _('Customers') }}</span><strong>{{ customer_count }}</strong></article>
+    <article><span>{{ _('Total orders') }}</span><strong>{{ order_count }}</strong></article>
+    <article><span>{{ _('Pending orders') }}</span><strong>{{ pending_count }}</strong></article>
+  </section>
+
+  <section class="admin-section" aria-labelledby="seller-review-title">
+    <header class="admin-section__header">
+      <div><p class="eyebrow">{{ _('SELLER ONBOARDING') }}</p><h2 id="seller-review-title">{{ _('Applications awaiting review') }}</h2></div>
+      <span class="status-pill status-pill--pending">{{ pending_seller_count }} {{ _('pending') }}</span>
+    </header>
+    {% if pending_sellers %}
+      <div class="admin-record-list">
+      {% for profile in pending_sellers %}
+        <article class="admin-record">
+          <div class="admin-record__details">
+            <h3>{{ profile.store_name }}</h3>
+            <p>{{ profile.contact_name }} · {{ profile.user.email }} · {{ profile.phone }}</p>
+            {% if profile.business_address %}<p>{{ profile.business_address }}</p>{% endif %}
+          </div>
+          <form class="admin-review-form" method="post" action="{{ url_for('orders.admin_review_seller', profile_id=profile.id) }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <label class="visually-hidden" for="seller-note-{{ profile.id }}">{{ _('Review note') }}</label>
+            <input id="seller-note-{{ profile.id }}" name="review_note" maxlength="500" placeholder="{{ _('Optional review note') }}">
+            <button class="admin-button" type="submit" name="decision" value="approved">{{ _('Approve') }}</button>
+            <button class="admin-button admin-button--quiet" type="submit" name="decision" value="rejected">{{ _('Reject') }}</button>
+          </form>
+        </article>
+      {% endfor %}
+      </div>
+    {% else %}
+      <p class="admin-empty">{{ _('No seller applications are waiting for review.') }}</p>
+    {% endif %}
+  </section>
+
+  <section class="admin-section" aria-labelledby="product-review-title">
+    <header class="admin-section__header">
+      <div><p class="eyebrow">{{ _('CATALOG MODERATION') }}</p><h2 id="product-review-title">{{ _('Product listings awaiting review') }}</h2></div>
+      <span class="status-pill status-pill--pending">{{ pending_product_count }} {{ _('pending') }}</span>
+    </header>
+    {% if pending_products %}
+      <div class="admin-record-list">
+      {% for product in pending_products %}
+        <article class="admin-record">
+          <div class="admin-record__details">
+            <h3>{{ product.name }}</h3>
+            <p>{{ product.seller.seller_profile.store_name if product.seller and product.seller.seller_profile else product.seller.email if product.seller else '—' }} · {{ product.category.name }} · ৳{{ product.price }}</p>
+            <p>{{ product.description|truncate(220) }}</p>
+          </div>
+          <form class="admin-review-form" method="post" action="{{ url_for('orders.admin_review_product', product_id=product.id) }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <label class="visually-hidden" for="product-note-{{ product.id }}">{{ _('Review note') }}</label>
+            <input id="product-note-{{ product.id }}" name="review_note" maxlength="500" placeholder="{{ _('Optional review note') }}">
+            <button class="admin-button" type="submit" name="decision" value="approved">{{ _('Approve') }}</button>
+            <button class="admin-button admin-button--quiet" type="submit" name="decision" value="rejected">{{ _('Reject') }}</button>
+          </form>
+        </article>
+      {% endfor %}
+      </div>
+    {% else %}
+      <p class="admin-empty">{{ _('No product listings are waiting for review.') }}</p>
+    {% endif %}
+  </section>
+
+  <section class="admin-section" aria-labelledby="team-access-title">
+    <header class="admin-section__header">
+      <div><p class="eyebrow">{{ _('TEAM ACCESS') }}</p><h2 id="team-access-title">{{ _('Invite a Rider or Admin') }}</h2></div>
+    </header>
+    <form class="admin-invite-form" method="post" action="{{ url_for('auth.create_staff_invitation') }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <div class="form-field"><label for="staff-email">{{ _('Email address') }}</label><input id="staff-email" name="email" type="email" autocomplete="email" maxlength="255" required></div>
+      <div class="form-field"><label for="staff-role">{{ _('Account role') }}</label><select id="staff-role" name="role" required><option value="rider">{{ _('Rider') }}</option><option value="admin">{{ _('Admin') }}</option></select></div>
+      <div class="form-field"><label for="staff-locale">{{ _('Invitation language') }}</label><select id="staff-locale" name="locale">{% for locale, label in supported_locales.items() %}<option value="{{ locale }}" {% if locale == 'en_US' %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></div>
+      <button class="admin-button" type="submit">{{ _('Send invitation') }}</button>
+    </form>
+    <p class="form-hint">{{ _('Invitation links expire after 24 hours, can be used once, and never store a plain-text password.') }}</p>
+    {% if invitations %}
+      <div class="admin-record-list">
+      {% for invitation in invitations %}
+        <article class="admin-record">
+          <div class="admin-record__details"><h3>{{ invitation.email }}</h3><p>{{ _(invitation.role|capitalize) }} · {{ _('Expires') }}: {{ invitation.expires_at.strftime('%Y-%m-%d %H:%M UTC') }}</p></div>
+          <div class="admin-actions">
+            <form method="post" action="{{ url_for('auth.resend_staff_invitation', invitation_id=invitation.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="admin-button admin-button--quiet" type="submit">{{ _('Resend link') }}</button></form>
+            <form method="post" action="{{ url_for('auth.revoke_staff_invitation', invitation_id=invitation.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="admin-button admin-button--danger" type="submit">{{ _('Revoke') }}</button></form>
+          </div>
+        </article>
+      {% endfor %}
+      </div>
+    {% else %}<p class="admin-empty">{{ _('No pending invitations.') }}</p>{% endif %}
+  </section>
+
+  <section class="admin-section" aria-labelledby="customers-title">
+    <header class="admin-section__header"><h2 id="customers-title">{{ _('Customers') }}</h2></header>
+    {% if customers %}
+      <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>{{ _('Name') }}</th><th>{{ _('Email address') }}</th><th>{{ _('Phone') }}</th><th>{{ _('Status') }}</th><th>{{ _('Actions') }}</th></tr></thead><tbody>
+      {% for customer in customers %}<tr>
+        <td>{{ customer.customer_profile.full_name if customer.customer_profile else '—' }}</td><td>{{ customer.email }}</td><td>{{ customer.customer_profile.phone if customer.customer_profile else '—' }}</td>
+        <td>{{ _('Active') if customer.is_active else _('Deactivated') }}</td>
+        <td><form method="post" action="{{ url_for('orders.admin_customer_toggle_active', user_id=customer.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="text-button" type="submit">{{ _('Deactivate') if customer.is_active else _('Activate') }}</button></form></td>
+      </tr>{% endfor %}
+      </tbody></table></div>
+    {% else %}<p class="admin-empty">{{ _('No customers yet.') }}</p>{% endif %}
+    <nav class="admin-pagination" aria-label="{{ _('Customer pages') }}"><span>{{ _('Page %(current)s of %(total)s', current=customer_page, total=customer_pages) }}</span>
+      {% if customer_page > 1 %}<a href="{{ url_for('admin.dashboard', customers_page=customer_page - 1, orders_page=order_page) }}">{{ _('Previous') }}</a>{% endif %}
+      {% if customer_page < customer_pages %}<a href="{{ url_for('admin.dashboard', customers_page=customer_page + 1, orders_page=order_page) }}">{{ _('Next') }}</a>{% endif %}
+    </nav>
+  </section>
+
+  <section class="admin-section" aria-labelledby="orders-title">
+    <header class="admin-section__header"><h2 id="orders-title">{{ _('Orders') }}</h2><div class="admin-actions">
+      <form method="post" action="{{ url_for('orders.admin_order_confirm_all') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="admin-button admin-button--quiet" type="submit">{{ _('Confirm all pending') }}</button></form>
+      <form method="post" action="{{ url_for('orders.admin_order_decline_all') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="admin-button admin-button--quiet" type="submit">{{ _('Decline all pending') }}</button></form>
+    </div></header>
+    {% if orders %}
+      <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>{{ _('Order') }}</th><th>{{ _('Customer') }}</th><th>{{ _('Total') }}</th><th>{{ _('Status') }}</th><th>{{ _('Actions') }}</th></tr></thead><tbody>
+      {% for order in orders %}<tr>
+        <td><a href="{{ url_for('orders.admin_order_detail', order_id=order.id) }}">#{{ order.id }}</a></td><td>{{ order.user.email if order.user else '—' }}</td><td>৳{{ order.total }}</td><td>{{ _(order.status|capitalize) }}</td>
+        <td><form class="admin-status-form" method="post" action="{{ url_for('orders.admin_order_status', order_id=order.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><label class="visually-hidden" for="order-status-{{ order.id }}">{{ _('Order status') }}</label><select id="order-status-{{ order.id }}" name="status">{% for status in statuses %}<option value="{{ status }}" {% if order.status == status %}selected{% endif %}>{{ _(status|capitalize) }}</option>{% endfor %}</select><button class="admin-button admin-button--quiet" type="submit">{{ _('Save') }}</button></form></td>
+      </tr>{% endfor %}
+      </tbody></table></div>
+    {% else %}<p class="admin-empty">{{ _('No orders yet.') }}</p>{% endif %}
+    <nav class="admin-pagination" aria-label="{{ _('Order pages') }}"><span>{{ _('Page %(current)s of %(total)s', current=order_page, total=order_pages) }}</span>
+      {% if order_page > 1 %}<a href="{{ url_for('admin.dashboard', orders_page=order_page - 1, customers_page=customer_page) }}">{{ _('Previous') }}</a>{% endif %}
+      {% if order_page < order_pages %}<a href="{{ url_for('admin.dashboard', orders_page=order_page + 1, customers_page=customer_page) }}">{{ _('Next') }}</a>{% endif %}
+    </nav>
+  </section>
+
+  <form class="logout-form" method="post" action="{{ url_for('auth.logout') }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <button class="text-button" type="submit">{{ _('Sign out') }}</button>
+  </form>
+</section>
+ </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% set is_editing = product is not none %}
+{% block title %}{{ _('Product details') }} · {{ app_name }}{% endblock %}
+{% block page_content %}
+<div class="form-page"><section class="surface form-page__panel">
+  <p class="eyebrow">{{ _('Seller catalog') }}</p><h1>{{ _('Edit product') if is_editing else _('Add a product') }}</h1><p>{{ _('Every new listing and edit is reviewed before customers can see it.') }}</p>
+  <form method="post" action="{{ url_for('seller.product_edit', product_id=product.id) if is_editing else url_for('seller.product_new') }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="field-grid">
+      <div class="form-field"><label for="product-name">{{ _('Product name') }}</label><input id="product-name" name="name" minlength="2" maxlength="160" required value="{{ request.form.get('name', product.name if product else '') }}"></div>
+      <div class="form-field"><label for="product-slug">{{ _('Page address slug') }}</label><input id="product-slug" name="slug" maxlength="180" required value="{{ request.form.get('slug', product.slug if product else '') }}"><small class="source-caption">{{ _('Use lowercase letters, numbers, and hyphens.') }}</small></div>
+      <div class="form-field"><label for="product-category">{{ _('Category') }}</label><select id="product-category" name="category_id" required><option value="">{{ _('Choose a category') }}</option>{% for category in categories %}<option value="{{ category.id }}" {% if selected_category_id == category.id %}selected{% endif %}>{{ category.name }}</option>{% endfor %}</select></div>
+      <div class="form-field"><label for="product-language">{{ _('Original language') }}</label><select id="product-language" name="original_locale" required>{% for locale,label in locales.items() %}<option value="{{ locale }}" {% if request.form.get('original_locale', product.original_locale if product else current_locale) == locale %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></div>
+      <div class="form-field"><label for="product-price">{{ _('Price (BDT)') }}</label><input id="product-price" name="price" type="number" min="0" max="99999999.99" step="0.01" required value="{{ request.form.get('price', product.price if product else '') }}"></div>
+      <div class="form-field"><label for="product-discount">{{ _('Discount price (optional)') }}</label><input id="product-discount" name="discount_price" type="number" min="0" max="99999999.99" step="0.01" value="{{ request.form.get('discount_price', product.discount_price if product and product.discount_price else '') }}"></div>
+      <div class="form-field"><label for="product-stock">{{ _('Available stock') }}</label><input id="product-stock" name="stock_quantity" type="number" min="0" max="2147483647" step="1" required value="{{ request.form.get('stock_quantity', product.stock_quantity if product else 0) }}"></div>
+      <div class="form-field"><label for="product-image">{{ _('Image address (optional)') }}</label><input id="product-image" name="image" type="url" maxlength="500" value="{{ request.form.get('image', product.image if product else '') }}"></div>
+      <div class="form-field form-field--wide"><label for="product-description">{{ _('Description') }}</label><textarea id="product-description" name="description" maxlength="10000" required>{{ request.form.get('description', product.description if product else '') }}</textarea></div>
+    </div>
+    {% set source_locale = request.form.get('original_locale', product.original_locale if product else current_locale) %}
+    <section class="product-form-translations"><h2>{{ _('Optional seller-written translations') }}</h2><p class="source-caption">{{ _('We do not machine-translate product details. Leave a language blank to show the original text with its language label.') }}</p>
+      {% for locale,label in locales.items() if locale != source_locale %}{% set saved = translations.get(locale) %}
+        <fieldset class="field-grid" style="margin:0;padding:16px;border:1px solid var(--line);border-radius:16px"><legend style="padding:0 8px;font-size:.82rem;font-weight:800">{{ label }}</legend>
+          <div class="form-field"><label for="translation-name-{{ locale }}">{{ _('Translated name') }}</label><input id="translation-name-{{ locale }}" name="translation_name_{{ locale }}" maxlength="160" value="{{ request.form.get('translation_name_' ~ locale, saved.name if saved else '') }}"></div>
+          <div class="form-field form-field--wide"><label for="translation-description-{{ locale }}">{{ _('Translated description') }}</label><textarea id="translation-description-{{ locale }}" name="translation_description_{{ locale }}" maxlength="10000">{{ request.form.get('translation_description_' ~ locale, saved.description if saved else '') }}</textarea></div>
+        </fieldset>
+      {% endfor %}
+    </section>
+    <div class="form-actions"><button class="button" type="submit">{{ _('Send for Admin review') }}</button><a class="button-secondary" href="{{ url_for('seller.catalog') }}">{{ _('Cancel') }}</a></div>
+  </form>
+</section></div>
+{% endblock %}

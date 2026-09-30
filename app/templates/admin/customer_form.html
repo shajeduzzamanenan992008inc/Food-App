@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}{{ _('Add customer') }} · {{ app_name }}{% endblock %}
+{% block page_content %}
+<div class="form-page"><section class="surface form-page__panel"><p class="eyebrow">{{ _('Customer accounts') }}</p><h1>{{ _('Add customer') }}</h1><p>{{ _('Create a customer account with a password they can change later.') }}</p>
+  <form method="post" action="{{ url_for('orders.admin_customer_new') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><div class="field-grid">
+    <div class="form-field"><label for="customer-name">{{ _('Full name') }}</label><input id="customer-name" name="full_name" autocomplete="name" minlength="2" maxlength="120" required value="{{ request.form.get('full_name','') }}"></div>
+    <div class="form-field"><label for="customer-phone">{{ _('Phone number') }}</label><input id="customer-phone" name="phone" type="tel" autocomplete="tel" minlength="7" maxlength="30" required value="{{ request.form.get('phone','') }}"></div>
+    <div class="form-field"><label for="customer-email">{{ _('Email address') }}</label><input id="customer-email" name="email" type="email" autocomplete="email" maxlength="255" required value="{{ request.form.get('email','') }}"></div>
+    <div class="form-field"><label for="customer-password">{{ _('Password') }}</label><input id="customer-password" name="password" type="password" autocomplete="new-password" minlength="{{ min_password_length }}" maxlength="{{ max_password_length }}" required></div>
+  </div><div class="form-actions"><button class="button" type="submit">{{ _('Create customer') }}</button><a class="button-secondary" href="{{ url_for('admin.dashboard') }}">{{ _('Cancel') }}</a></div></form>
+</section></div>
+{% endblock %}

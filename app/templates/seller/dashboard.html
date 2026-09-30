@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{ _('Seller dashboard') }} · {{ app_name }}{% endblock %}
+{% block page_content %}
+<div class="page-shell">
+  <header class="page-heading"><div><p class="eyebrow">{{ _('Seller space') }}</p><h1>{{ _('Welcome, %(name)s', name=profile.store_name) }}</h1><p>{{ _('Manage your store application and catalog.') }}</p></div><span class="status-pill status-pill--{{ profile.approval_status }}">{{ _(profile.approval_status|capitalize) }}</span></header>
+  <section class="surface surface-card" style="margin-bottom:22px"><p class="eyebrow">{{ _('Store application') }}</p><h2 style="margin:0;font:800 1.2rem Manrope,sans-serif">{{ profile.store_name }}</h2><p>{{ _('Contact') }}: {{ profile.contact_name }} · {{ profile.phone }}</p>
+    {% if profile.approval_status == 'pending' %}<p>{{ _('Your application is in the review queue. Catalog tools unlock after approval.') }}</p>
+    {% elif profile.approval_status == 'approved' %}<p>{{ _('Your store is approved. You can add and maintain product listings now.') }}</p>
+    {% elif profile.approval_status == 'rejected' %}<p>{{ _('Your seller application was rejected.') }}</p>{% endif %}
+    {% if profile.review_note %}<p><strong>{{ _('Review note') }}:</strong> {{ profile.review_note }}</p>{% endif %}
+    {% if profile.approval_status == 'approved' %}<a class="button" href="{{ url_for('seller.catalog') }}">{{ _('Open seller catalog') }} →</a>{% endif %}
+  </section>
+  {% if profile.approval_status == 'approved' %}<section class="workspace-grid"><a class="workspace-card" href="{{ url_for('seller.catalog') }}"><span class="workspace-card__icon" aria-hidden="true">▦</span><strong>{{ _('Your catalog') }}</strong><span>{{ _('Update listings, inventory, and translations.') }}</span></a><a class="workspace-card" href="{{ url_for('seller.product_new') }}"><span class="workspace-card__icon" aria-hidden="true">＋</span><strong>{{ _('Add a product') }}</strong><span>{{ _('Submit a new listing for review.') }}</span></a></section>{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}{{ _('Seller catalog') }} · {{ app_name }}{% endblock %}
+{% block page_content %}
+<div class="page-shell">
+  <header class="page-heading"><div><p class="eyebrow">{{ _('Seller space') }}</p><h1>{{ _('Your catalog') }}</h1><p>{{ _('Manage your own product details, stock, and seller-written translations.') }}</p></div><a class="button" href="{{ url_for('seller.product_new') }}">＋ {{ _('Add product') }}</a></header>
+  {% if products %}<div class="table-wrap"><table><thead><tr><th>{{ _('Product') }}</th><th>{{ _('Price') }}</th><th>{{ _('Stock') }}</th><th>{{ _('Review status') }}</th><th>{{ _('Tools') }}</th></tr></thead><tbody>
+    {% for product in products %}<tr><td><strong>{{ product.localized_name(current_locale) }}</strong><div class="source-caption">{{ product.category.name }} · {{ product.slug }}</div></td><td>৳{{ '%.2f'|format(product.display_price) }}</td><td>{{ product.available_stock }}</td><td><span class="status-pill status-pill--{{ product.moderation_status }}">{{ _(product.moderation_status|capitalize) }}</span>{% if product.moderation_note %}<div class="source-caption">{{ product.moderation_note }}</div>{% endif %}</td><td><div class="seller-review-form"><a class="button-secondary button-small" href="{{ url_for('seller.product_edit', product_id=product.id) }}">{{ _('Edit') }}</a><a class="button-secondary button-small" href="{{ url_for('seller.product_variants', product_id=product.id) }}">{{ _('Variants') }}</a>{% if product.is_available %}<form method="post" action="{{ url_for('seller.product_archive', product_id=product.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="button-danger button-small" type="submit">{{ _('Archive') }}</button></form>{% endif %}</div></td></tr>{% endfor %}
+  </tbody></table></div>
+  {% else %}<div class="empty-state"><strong>{{ _('Your catalog is ready for its first listing') }}</strong>{{ _('Add a product and send it to Admin for review before it appears in the marketplace.') }}<p><a class="button" href="{{ url_for('seller.product_new') }}">{{ _('Add a product') }}</a></p></div>{% endif %}
+</div>
+{% endblock %}

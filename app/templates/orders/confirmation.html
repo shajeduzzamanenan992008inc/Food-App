@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}{{ _('Order received') }} · {{ app_name }}{% endblock %}
+{% block page_content %}
+<div class="page-shell"><section class="surface surface-card login-required">
+  <p class="eyebrow">{{ _('Thank you') }}</p><h1 style="margin:0;font:800 clamp(2rem,4vw,3rem) Manrope,sans-serif;letter-spacing:-.05em">{{ _('Your order is on its way to the team') }}</h1>
+  <p style="color:var(--muted);line-height:1.65">{{ _('Order number') }} <strong>{{ order.order_number }}</strong>. {{ _('We sent a confirmation to %(email)s.', email=order.email) }}</p>
+  <div class="surface surface-card" style="margin-top:22px;text-align:start"><div class="summary-list">{% for item in order.items %}<div class="summary-row"><span>{{ item.quantity }} × {{ item.product_name }}</span><strong>৳{{ '%.2f'|format(item.subtotal) }}</strong></div>{% endfor %}<div class="summary-row summary-total"><span>{{ _('Total') }}</span><strong>৳{{ '%.2f'|format(order.total) }}</strong></div></div><p><span class="status-pill status-pill--{{ order.status }}">{{ _(order.status|capitalize) }}</span> · {{ _('Cash on delivery') }}</p></div>
+  <div class="form-actions" style="justify-content:center"><a class="button" href="{{ url_for('main.menu') }}">{{ _('Keep exploring') }}</a>{% if order.user_id %}<a class="button-secondary" href="{{ url_for('orders.my_orders') }}">{{ _('View my orders') }}</a>{% endif %}</div>
+</section></div>
+{% endblock %}

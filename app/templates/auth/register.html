@@ -1,0 +1,5 @@
+{% extends "auth/base.html" %}
+{% block title %}{{ _('Create your account') }} · {{ app_name }}{% endblock %}
+{% block auth_content %}
+  {% with mode='signup' %}{% include "auth/_auth_card.html" %}{% endwith %}
+{% endblock %}
