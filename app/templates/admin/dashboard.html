@@ -150,6 +150,15 @@
     </nav>
   </section>
 
+  <section class="admin-section" aria-labelledby="audit-title">
+    <header class="admin-section__header"><div><p class="eyebrow">{{ _('SECURITY') }}</p><h2 id="audit-title">{{ _('Recent audit activity') }}</h2></div></header>
+    {% if audit_events %}
+      <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>{{ _('When') }}</th><th>{{ _('Action') }}</th><th>{{ _('Actor') }}</th><th>{{ _('Target') }}</th><th>{{ _('Detail') }}</th></tr></thead><tbody>
+      {% for event in audit_events %}<tr><td>{{ event.created_at.strftime('%Y-%m-%d %H:%M') }}</td><td>{{ event.action }}</td><td>{{ event.actor_email or '—' }}</td><td>{{ event.target_type or '' }}{% if event.target_id %}#{{ event.target_id }}{% endif %}</td><td>{{ event.detail or '—' }}</td></tr>{% endfor %}
+      </tbody></table></div>
+    {% else %}<p class="admin-empty">{{ _('No audit activity recorded yet.') }}</p>{% endif %}
+  </section>
+
   <form class="logout-form" method="post" action="{{ url_for('auth.logout') }}">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <button class="text-button" type="submit">{{ _('Sign out') }}</button>

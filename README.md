@@ -1,6 +1,6 @@
 # NexHaat Marketplace
 
-NexHaat is being developed in reviewed phases as a multilingual marketplace for customers, sellers, delivery riders, and administrators. **Phases 1 through 5 are complete.** Phase 3 delivered the seller catalog, variants, moderation, and the fail-closed image pipeline; Phase 4 added multi-seller checkout, seller-specific invoices, a durable email outbox, and localized order email; Phase 5 added Rider delivery assignment and a validated delivery workflow with proof of delivery. Production launch remains behind its Phase 6 review gate.
+NexHaat is being developed in reviewed phases as a multilingual marketplace for customers, sellers, delivery riders, and administrators. **All six planned phases are complete in the application code.** Phase 3 delivered the seller catalog, variants, moderation, and the fail-closed image pipeline; Phase 4 added multi-seller checkout, seller-specific invoices, a durable email outbox, and localized order email; Phase 5 added Rider delivery assignment and a validated delivery workflow with proof of delivery; Phase 6 added the audit trail, backup/restore and database-size tooling, and the production readiness review. Enabling the live WAF/ingress, media storage, and a backup schedule is an operator step in the hosting account.
 
 ## Phase plan
 
@@ -87,6 +87,14 @@ Run the automated checks with `python -m pytest`. SQLite is the local default; d
 - Admins assign an active Rider to an order from the dashboard. Delivery state is separate from order status and moves through validated transitions: unassigned → assigned → picked up → out for delivery → delivered, with a `failed` branch.
 - The Rider dashboard lists active and completed deliveries and lets the assigned Rider advance each step. Marking an order delivered requires **proof of delivery** — an uploaded photo (JPEG/PNG/WEBP) or a written note — and records a timestamp for each stage.
 - Only the assigned Rider (or an Admin) can change a delivery, and invalid transitions are rejected server-side. No live GPS is used in this release; the data model is ready for future location fields.
+
+## Phase 6 complete
+
+- **Audit trail:** the `audit_events` table records security-relevant actions (sign-in, sign-out, denied Admin codes, seller and product review, order status, delivery assignment and updates, settings changes). Events carry a keyed client-address hash and never store raw IP addresses or credentials. Recent activity is listed on the Admin dashboard.
+- **Backup and restore:** `flask --app run.py backup-db --to <file>` writes a consistent, integrity-verified backup and `flask --app run.py restore-db --from <file>` restores it only after verification. SQLite uses its online backup API; PostgreSQL uses `pg_dump`/`psql` when present in the runtime.
+- **Database monitoring:** `flask --app run.py db-size` reports the size against the `MAX_DATABASE_BYTES` ceiling (default 400 MiB), and a backup refuses to run once the ceiling is exceeded.
+- **Launch review:** `flask --app run.py production-check` lists every remaining production blocker (secret strength, secure cookies, HTTPS base URL, mail provider, PostgreSQL, Admin bootstrap, invoice font, media storage, and scan tooling).
+- **Operator steps (hosting account, not application code):** enable Cloudflare WAF/Tunnel in front of a private Render service, schedule backups and rehearse a restore, install the ClamAV scanner and configure the media bucket/CDN, and confirm the database stays inside the 400 MB ceiling.
 
 ## Deployment
 

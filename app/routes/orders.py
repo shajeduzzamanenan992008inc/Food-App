@@ -14,6 +14,7 @@ from ..models import (
     Order, OrderItem, Product, SellerProfile, User,
 )
 from ..security import admin_required, customer_or_guest_required, current_session_user, save_raster_upload
+from ..services.audit import record_audit
 from ..services.mail import (
     enqueue_order_emails,
     queue_order_receipt,
@@ -244,6 +245,7 @@ def admin_review_seller(profile_id):
     profile.reviewed_by_id = session["user_id"]
     profile.review_note = note or None
     db.session.commit()
+    record_audit("seller.review", target_type="seller_profile", target_id=profile_id, detail=decision)
     flash(
         gettext("Seller application approved.") if decision == "approved"
         else gettext("Seller application rejected."),
@@ -271,6 +273,7 @@ def admin_review_product(product_id):
     product.reviewed_at = datetime.now(timezone.utc)
     product.reviewed_by_id = session["user_id"]
     db.session.commit()
+    record_audit("catalog.product_review", target_type="product", target_id=product_id, detail=decision)
     flash(
         gettext("Product listing approved.") if decision == "approved"
         else gettext("Product listing rejected."),
@@ -302,6 +305,7 @@ def admin_settings():
                 return render_template("admin/settings.html", setting=setting), 400
             setting.logo_path = f"uploads/branding/{filename}"
         db.session.commit()
+        record_audit("settings.update", target_type="app_setting", detail=setting.app_name)
         flash("App branding updated.", "success")
         return redirect(url_for("admin.dashboard"))
     db.session.commit()
@@ -382,6 +386,7 @@ def _set_admin_order_status(order_id, status):
         abort(404)
     order.status = status
     db.session.commit()
+    record_audit("order.status", target_type="order", target_id=order.id, detail=status)
     queue_order_status(order)
     if status == "confirmed":
         queue_order_receipt(order)
@@ -634,4 +639,10 @@ def admin_assign_rider(order_id):
         order.delivered_at = None
         flash(gettext("Delivery unassigned."), "success")
     db.session.commit()
+    record_audit(
+        "delivery.assign",
+        target_type="order",
+        target_id=order.id,
+        detail=f"rider={order.rider_id}" if order.rider_id else "cleared",
+    )
     return redirect(url_for("admin.dashboard"))

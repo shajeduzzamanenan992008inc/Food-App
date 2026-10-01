@@ -8,7 +8,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import warnings
 
-from flask import abort, current_app, g, session, url_for
+from flask import abort, current_app, g, has_request_context, request, session, url_for
 from PIL import Image, ImageOps, UnidentifiedImageError
 from sqlalchemy import case, delete
 from sqlalchemy.dialects.postgresql import insert as postgres_insert
@@ -117,6 +117,13 @@ def _login_throttle_key(remote_addr):
     return hmac.new(
         secret, (remote_addr or "unknown").encode("utf-8"), hashlib.sha256
     ).hexdigest()
+
+
+def client_address_hash():
+    """Return a keyed hash of the client address, or None outside a request."""
+    if not has_request_context():
+        return None
+    return _login_throttle_key(request.remote_addr)
 
 
 def _utc(value):

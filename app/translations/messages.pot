@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-10-01 17:10+0600\n"
+"POT-Creation-Date: 2026-10-01 17:50+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
-#: app/routes/auth.py:118
+#: app/routes/auth.py:119
 msgid "Please provide valid name, email, and phone details."
 msgstr ""
 
-#: app/routes/auth.py:122 app/routes/auth.py:162 app/routes/auth.py:480
-#: app/routes/auth.py:732 app/routes/auth.py:806
+#: app/routes/auth.py:123 app/routes/auth.py:163 app/routes/auth.py:488
+#: app/routes/auth.py:740 app/routes/auth.py:814
 #: app/templates/auth/_auth_card.html:108
 #: app/templates/auth/_seller_application_panel.html:57
 #: app/templates/auth/accept_invitation.html:41
@@ -30,23 +30,23 @@ msgstr ""
 msgid "Passwords do not match."
 msgstr ""
 
-#: app/routes/auth.py:124 app/routes/auth.py:164 app/routes/auth.py:525
+#: app/routes/auth.py:125 app/routes/auth.py:165 app/routes/auth.py:533
 msgid "An account with this email already exists."
 msgstr ""
 
-#: app/routes/auth.py:135
+#: app/routes/auth.py:136
 msgid "Account created. You can now sign in."
 msgstr ""
 
-#: app/routes/auth.py:158
+#: app/routes/auth.py:159
 msgid "Please provide valid store, contact, email, and phone details."
 msgstr ""
 
-#: app/routes/auth.py:181
+#: app/routes/auth.py:182
 msgid "Your seller application is submitted. Sign in to check its review status."
 msgstr ""
 
-#: app/routes/auth.py:203 app/templates/auth/_auth_card.html:91
+#: app/routes/auth.py:204 app/templates/auth/_auth_card.html:91
 #: app/templates/auth/_seller_application_panel.html:47
 #: app/templates/auth/accept_invitation.html:31
 #: app/templates/auth/reset_password.html:17
@@ -54,7 +54,7 @@ msgstr ""
 msgid "Password must contain at least %(minimum)s characters."
 msgstr ""
 
-#: app/routes/auth.py:205 app/templates/auth/_auth_card.html:92
+#: app/routes/auth.py:206 app/templates/auth/_auth_card.html:92
 #: app/templates/auth/_seller_application_panel.html:48
 #: app/templates/auth/accept_invitation.html:32
 #: app/templates/auth/reset_password.html:18
@@ -62,156 +62,156 @@ msgstr ""
 msgid "Password must contain no more than %(maximum)s characters."
 msgstr ""
 
-#: app/routes/auth.py:233
+#: app/routes/auth.py:234
 msgid "Invalid email or password."
 msgstr ""
 
-#: app/routes/auth.py:324
+#: app/routes/auth.py:326
 msgid ""
 "If an active Admin account matches that email, a sign-in code will be "
 "sent."
 msgstr ""
 
-#: app/routes/auth.py:337
+#: app/routes/auth.py:339
 msgid "Too many attempts. Request a new sign-in code and try again."
 msgstr ""
 
-#: app/routes/auth.py:382
+#: app/routes/auth.py:385
 msgid "Too many incorrect codes. Request a new sign-in code."
 msgstr ""
 
-#: app/routes/auth.py:386 app/templates/auth/verify_admin_login.html:20
+#: app/routes/auth.py:389 app/templates/auth/verify_admin_login.html:20
 msgid "The sign-in code is incorrect or has expired."
 msgstr ""
 
-#: app/routes/auth.py:417
+#: app/routes/auth.py:425
 msgid "If your Admin sign-in request is active, a new code has been sent."
 msgstr ""
 
-#: app/routes/auth.py:419
+#: app/routes/auth.py:427
 msgid ""
 "If your Admin sign-in request is active, a new code will be sent when "
 "available."
 msgstr ""
 
-#: app/routes/auth.py:463
+#: app/routes/auth.py:471
 msgid "This invitation is invalid, expired, or already used."
 msgstr ""
 
-#: app/routes/auth.py:474
+#: app/routes/auth.py:482
 msgid "Please provide a valid name for this account."
 msgstr ""
 
-#: app/routes/auth.py:476
+#: app/routes/auth.py:484
 msgid "Please provide a valid phone number."
 msgstr ""
 
-#: app/routes/auth.py:483
+#: app/routes/auth.py:491
 msgid ""
 "An account with this email already exists. Ask an administrator to resend"
 " the invitation."
 msgstr ""
 
-#: app/routes/auth.py:503
+#: app/routes/auth.py:511
 msgid "Your account is ready. Sign in to continue."
 msgstr ""
 
-#: app/routes/auth.py:522
+#: app/routes/auth.py:530
 msgid "Enter a valid email and choose Rider or Admin."
 msgstr ""
 
-#: app/routes/auth.py:528 app/routes/auth.py:572
+#: app/routes/auth.py:536 app/routes/auth.py:580
 msgid "Staff invitations need a configured email provider and sender address."
 msgstr ""
 
-#: app/routes/auth.py:540
+#: app/routes/auth.py:548
 msgid "A valid invitation already exists for this email and role."
 msgstr ""
 
-#: app/routes/auth.py:555 app/routes/auth.py:585
+#: app/routes/auth.py:563 app/routes/auth.py:593
 msgid "Staff invitations are unavailable until the public site URL is configured."
 msgstr ""
 
-#: app/routes/auth.py:560
+#: app/routes/auth.py:568
 msgid "The account invitation was created and queued for email."
 msgstr ""
 
-#: app/routes/auth.py:577
+#: app/routes/auth.py:585
 msgid "This invitation was closed because an account already exists."
 msgstr ""
 
-#: app/routes/auth.py:591
+#: app/routes/auth.py:599
 msgid "A fresh invitation link was queued for email."
 msgstr ""
 
-#: app/routes/auth.py:603
+#: app/routes/auth.py:611
 msgid "The account invitation was revoked."
 msgstr ""
 
-#: app/routes/auth.py:645
+#: app/routes/auth.py:653
 msgid ""
 "If an active account exists for that email, a verification code has been "
 "sent."
 msgstr ""
 
-#: app/routes/auth.py:658 app/routes/auth.py:661
+#: app/routes/auth.py:666 app/routes/auth.py:669
 msgid "This password reset code is invalid or has expired."
 msgstr ""
 
-#: app/routes/auth.py:684 app/routes/auth.py:687
+#: app/routes/auth.py:692 app/routes/auth.py:695
 msgid "Too many incorrect codes. Request a new verification code."
 msgstr ""
 
-#: app/routes/auth.py:693 app/routes/auth.py:695
+#: app/routes/auth.py:701 app/routes/auth.py:703
 #: app/templates/auth/verify_reset_code.html:20
 msgid "The verification code is incorrect."
 msgstr ""
 
-#: app/routes/auth.py:719
+#: app/routes/auth.py:727
 msgid "Please verify a valid password reset code first."
 msgstr ""
 
-#: app/routes/auth.py:723
+#: app/routes/auth.py:731
 msgid "This password reset request is invalid or has expired."
 msgstr ""
 
-#: app/routes/auth.py:741
+#: app/routes/auth.py:749
 msgid "Password updated. You can now sign in."
 msgstr ""
 
-#: app/routes/auth.py:757
+#: app/routes/auth.py:765
 msgid "Please provide a valid name and phone number."
 msgstr ""
 
-#: app/routes/auth.py:759
+#: app/routes/auth.py:767
 msgid "Please provide a complete address."
 msgstr ""
 
-#: app/routes/auth.py:761
+#: app/routes/auth.py:769
 msgid "Please provide a valid city."
 msgstr ""
 
-#: app/routes/auth.py:786
+#: app/routes/auth.py:794
 msgid "Your account details were updated."
 msgstr ""
 
-#: app/routes/auth.py:802
+#: app/routes/auth.py:810
 msgid "Your current password is incorrect."
 msgstr ""
 
-#: app/routes/auth.py:812
+#: app/routes/auth.py:820
 msgid "Your password was changed. Sign in again on this device."
 msgstr ""
 
-#: app/routes/auth.py:830
+#: app/routes/auth.py:838
 msgid "Please provide a valid admin name."
 msgstr ""
 
-#: app/routes/auth.py:844
+#: app/routes/auth.py:852
 msgid "Admin profile updated."
 msgstr ""
 
-#: app/routes/auth.py:856
+#: app/routes/auth.py:865
 msgid "You have been signed out."
 msgstr ""
 
@@ -223,55 +223,55 @@ msgstr ""
 msgid "Language preference updated."
 msgstr ""
 
-#: app/routes/orders.py:233
+#: app/routes/orders.py:234
 msgid "This seller application has already been reviewed."
 msgstr ""
 
-#: app/routes/orders.py:240 app/routes/orders.py:266
+#: app/routes/orders.py:241 app/routes/orders.py:268
 msgid "The review note must be 500 characters or fewer."
 msgstr ""
 
-#: app/routes/orders.py:248
+#: app/routes/orders.py:250
 msgid "Seller application approved."
 msgstr ""
 
-#: app/routes/orders.py:249
+#: app/routes/orders.py:251
 msgid "Seller application rejected."
 msgstr ""
 
-#: app/routes/orders.py:275
+#: app/routes/orders.py:278
 msgid "Product listing approved."
 msgstr ""
 
-#: app/routes/orders.py:276
+#: app/routes/orders.py:279
 msgid "Product listing rejected."
 msgstr ""
 
-#: app/routes/orders.py:621
+#: app/routes/orders.py:626
 msgid "Choose an active delivery rider."
 msgstr ""
 
-#: app/routes/orders.py:627
+#: app/routes/orders.py:632
 msgid "Rider assigned to this delivery."
 msgstr ""
 
-#: app/routes/orders.py:635
+#: app/routes/orders.py:640
 msgid "Delivery unassigned."
 msgstr ""
 
-#: app/routes/portals.py:71
+#: app/routes/portals.py:72
 msgid "That delivery update is not allowed."
 msgstr ""
 
-#: app/routes/portals.py:85
+#: app/routes/portals.py:86
 msgid "The delivery note must be 500 characters or fewer."
 msgstr ""
 
-#: app/routes/portals.py:97
+#: app/routes/portals.py:98
 msgid "Add a delivery photo or a note as proof of delivery."
 msgstr ""
 
-#: app/routes/portals.py:109
+#: app/routes/portals.py:111
 msgid "Delivery status updated."
 msgstr ""
 
@@ -487,7 +487,7 @@ msgstr ""
 msgid "Account"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:155 app/templates/auth/account.html:62
+#: app/templates/admin/dashboard.html:164 app/templates/auth/account.html:62
 #: app/templates/auth/admin_account.html:27 app/templates/base.html:52
 msgid "Sign out"
 msgstr ""
@@ -951,6 +951,38 @@ msgstr ""
 
 #: app/templates/admin/dashboard.html:147
 msgid "Order pages"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:154
+msgid "SECURITY"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:154
+msgid "Recent audit activity"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:156
+msgid "When"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:156
+msgid "Action"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:156
+msgid "Actor"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:156
+msgid "Target"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:156
+msgid "Detail"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:159
+msgid "No audit activity recorded yet."
 msgstr ""
 
 #: app/templates/admin/order_detail.html:2

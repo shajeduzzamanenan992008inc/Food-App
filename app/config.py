@@ -73,6 +73,7 @@ class Config:
     PROOF_OF_DELIVERY_FOLDER = str(BASE_DIR / "app" / "static" / "uploads" / "delivery")
     MAX_EMAIL_ATTEMPTS = int(os.getenv("MAX_EMAIL_ATTEMPTS", "5"))
     INVOICE_FONT_PATH = os.getenv("INVOICE_FONT_PATH", "").strip()
+    MAX_DATABASE_BYTES = int(os.getenv("MAX_DATABASE_BYTES", str(400 * 1024 * 1024)))
     PREFERRED_URL_SCHEME = "https" if ENVIRONMENT == "production" else "http"
 
 

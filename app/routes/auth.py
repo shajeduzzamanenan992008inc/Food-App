@@ -30,6 +30,7 @@ from ..security import (
     record_login_failure,
     save_raster_upload,
 )
+from ..services.audit import record_audit
 from ..services.mail import (
     queue_account_invitation, queue_admin_login_code, queue_password_reset_code,
 )
@@ -234,6 +235,7 @@ def login():
         else:
             clear_login_failures(remote_addr)
             _start_authenticated_session(user, permanent=request.form.get("remember") == "on")
+            record_audit("auth.login", actor=user)
             return redirect(_role_destination(user))
     return render_template("auth/login.html")
 
@@ -361,6 +363,7 @@ def verify_admin_login():
             db.session.commit()
             clear_login_failures(remote_addr)
             _start_authenticated_session(user, permanent=True)
+            record_audit("auth.admin_login", actor=user)
             result = {"verified": True, "redirect": url_for("admin.dashboard")}
             if request.headers.get("X-Requested-With") == "XMLHttpRequest":
                 return jsonify(**result)
@@ -386,6 +389,11 @@ def verify_admin_login():
             message = gettext("The sign-in code is incorrect or has expired.")
             response_status = 400
             redirect_url = None
+        record_audit(
+            "auth.admin_login_denied",
+            target_id=getattr(user, "email", None),
+            detail="locked" if locked else "invalid code",
+        )
         if request.headers.get("X-Requested-With") == "XMLHttpRequest":
             return jsonify(verified=False, message=message, redirect=redirect_url), response_status
         flash(message, "error")
@@ -848,6 +856,7 @@ def admin_account():
 
 @auth_bp.post("/logout")
 def logout():
+    record_audit("auth.logout")
     logout_user()
     locale = session.get("locale")
     session.clear()

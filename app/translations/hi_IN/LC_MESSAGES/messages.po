@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-10-01 17:10+0600\n"
+"POT-Creation-Date: 2026-10-01 17:50+0600\n"
 "PO-Revision-Date: 2026-09-29 15:24+0600\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: hi_IN\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
-#: app/routes/auth.py:118
+#: app/routes/auth.py:119
 msgid "Please provide valid name, email, and phone details."
 msgstr "कृपया सही नाम, ईमेल और फ़ोन नंबर दें।"
 
-#: app/routes/auth.py:122 app/routes/auth.py:162 app/routes/auth.py:480
-#: app/routes/auth.py:732 app/routes/auth.py:806
+#: app/routes/auth.py:123 app/routes/auth.py:163 app/routes/auth.py:488
+#: app/routes/auth.py:740 app/routes/auth.py:814
 #: app/templates/auth/_auth_card.html:108
 #: app/templates/auth/_seller_application_panel.html:57
 #: app/templates/auth/accept_invitation.html:41
@@ -31,25 +31,25 @@ msgstr "कृपया सही नाम, ईमेल और फ़ोन �
 msgid "Passwords do not match."
 msgstr "दोनों पासवर्ड मेल नहीं खाते।"
 
-#: app/routes/auth.py:124 app/routes/auth.py:164 app/routes/auth.py:525
+#: app/routes/auth.py:125 app/routes/auth.py:165 app/routes/auth.py:533
 msgid "An account with this email already exists."
 msgstr "इस ईमेल से एक खाता पहले से मौजूद है।"
 
-#: app/routes/auth.py:135
+#: app/routes/auth.py:136
 msgid "Account created. You can now sign in."
 msgstr "खाता बन गया है। अब आप साइन इन कर सकते हैं।"
 
-#: app/routes/auth.py:158
+#: app/routes/auth.py:159
 msgid "Please provide valid store, contact, email, and phone details."
 msgstr "दुकान, संपर्क, ईमेल और फ़ोन की सही जानकारी दें।"
 
-#: app/routes/auth.py:181
+#: app/routes/auth.py:182
 msgid "Your seller application is submitted. Sign in to check its review status."
 msgstr ""
 "आपका विक्रेता आवेदन जमा हो गया है। समीक्षा की स्थिति देखने के लिए साइन इन"
 " करें।"
 
-#: app/routes/auth.py:203 app/templates/auth/_auth_card.html:91
+#: app/routes/auth.py:204 app/templates/auth/_auth_card.html:91
 #: app/templates/auth/_seller_application_panel.html:47
 #: app/templates/auth/accept_invitation.html:31
 #: app/templates/auth/reset_password.html:17
@@ -57,7 +57,7 @@ msgstr ""
 msgid "Password must contain at least %(minimum)s characters."
 msgstr "पासवर्ड में कम से कम %(minimum)s अक्षर होने चाहिए।"
 
-#: app/routes/auth.py:205 app/templates/auth/_auth_card.html:92
+#: app/routes/auth.py:206 app/templates/auth/_auth_card.html:92
 #: app/templates/auth/_seller_application_panel.html:48
 #: app/templates/auth/accept_invitation.html:32
 #: app/templates/auth/reset_password.html:18
@@ -65,160 +65,160 @@ msgstr "पासवर्ड में कम से कम %(minimum)s अक�
 msgid "Password must contain no more than %(maximum)s characters."
 msgstr "पासवर्ड में %(maximum)s से अधिक अक्षर नहीं होने चाहिए।"
 
-#: app/routes/auth.py:233
+#: app/routes/auth.py:234
 msgid "Invalid email or password."
 msgstr "ईमेल या पासवर्ड सही नहीं है।"
 
-#: app/routes/auth.py:324
+#: app/routes/auth.py:326
 #, fuzzy
 msgid ""
 "If an active Admin account matches that email, a sign-in code will be "
 "sent."
 msgstr "यदि इस ईमेल पर सक्रिय खाता मौजूद है, तो सत्यापन कोड भेज दिया गया है।"
 
-#: app/routes/auth.py:337
+#: app/routes/auth.py:339
 #, fuzzy
 msgid "Too many attempts. Request a new sign-in code and try again."
 msgstr "बहुत बार गलत कोड दर्ज किया गया। नया सत्यापन कोड माँगें।"
 
-#: app/routes/auth.py:382
+#: app/routes/auth.py:385
 #, fuzzy
 msgid "Too many incorrect codes. Request a new sign-in code."
 msgstr "बहुत बार गलत कोड दर्ज किया गया। नया सत्यापन कोड माँगें।"
 
-#: app/routes/auth.py:386 app/templates/auth/verify_admin_login.html:20
+#: app/routes/auth.py:389 app/templates/auth/verify_admin_login.html:20
 #, fuzzy
 msgid "The sign-in code is incorrect or has expired."
 msgstr "सत्यापन कोड सही नहीं है।"
 
-#: app/routes/auth.py:417
+#: app/routes/auth.py:425
 msgid "If your Admin sign-in request is active, a new code has been sent."
 msgstr ""
 
-#: app/routes/auth.py:419
+#: app/routes/auth.py:427
 msgid ""
 "If your Admin sign-in request is active, a new code will be sent when "
 "available."
 msgstr ""
 
-#: app/routes/auth.py:463
+#: app/routes/auth.py:471
 msgid "This invitation is invalid, expired, or already used."
 msgstr "यह आमंत्रण अमान्य, समाप्त या पहले ही उपयोग किया जा चुका है।"
 
-#: app/routes/auth.py:474
+#: app/routes/auth.py:482
 msgid "Please provide a valid name for this account."
 msgstr "इस खाते के लिए मान्य नाम दें।"
 
-#: app/routes/auth.py:476
+#: app/routes/auth.py:484
 msgid "Please provide a valid phone number."
 msgstr "मान्य फ़ोन नंबर दें।"
 
-#: app/routes/auth.py:483
+#: app/routes/auth.py:491
 msgid ""
 "An account with this email already exists. Ask an administrator to resend"
 " the invitation."
 msgstr "इस ईमेल पर खाता पहले से है। एडमिन से आमंत्रण दोबारा भेजने को कहें।"
 
-#: app/routes/auth.py:503
+#: app/routes/auth.py:511
 msgid "Your account is ready. Sign in to continue."
 msgstr "आपका खाता तैयार है। आगे बढ़ने के लिए साइन इन करें।"
 
-#: app/routes/auth.py:522
+#: app/routes/auth.py:530
 msgid "Enter a valid email and choose Rider or Admin."
 msgstr "मान्य ईमेल दें और राइडर या एडमिन चुनें।"
 
-#: app/routes/auth.py:528 app/routes/auth.py:572
+#: app/routes/auth.py:536 app/routes/auth.py:580
 msgid "Staff invitations need a configured email provider and sender address."
 msgstr "टीम आमंत्रण के लिए ईमेल सेवा और प्रेषक पता कॉन्फ़िगर करना आवश्यक है।"
 
-#: app/routes/auth.py:540
+#: app/routes/auth.py:548
 msgid "A valid invitation already exists for this email and role."
 msgstr "इस ईमेल और भूमिका के लिए एक वैध आमंत्रण पहले से मौजूद है।"
 
-#: app/routes/auth.py:555 app/routes/auth.py:585
+#: app/routes/auth.py:563 app/routes/auth.py:593
 msgid "Staff invitations are unavailable until the public site URL is configured."
 msgstr "सार्वजनिक साइट URL सेट होने तक टीम आमंत्रण उपलब्ध नहीं हैं।"
 
-#: app/routes/auth.py:560
+#: app/routes/auth.py:568
 msgid "The account invitation was created and queued for email."
 msgstr "खाते का आमंत्रण बनाया गया है और ईमेल के लिए कतार में है।"
 
-#: app/routes/auth.py:577
+#: app/routes/auth.py:585
 msgid "This invitation was closed because an account already exists."
 msgstr "इस ईमेल पर खाता पहले से मौजूद होने के कारण आमंत्रण बंद कर दिया गया।"
 
-#: app/routes/auth.py:591
+#: app/routes/auth.py:599
 msgid "A fresh invitation link was queued for email."
 msgstr "नया आमंत्रण लिंक ईमेल के लिए कतार में है।"
 
-#: app/routes/auth.py:603
+#: app/routes/auth.py:611
 msgid "The account invitation was revoked."
 msgstr "खाते का आमंत्रण रद्द कर दिया गया है।"
 
-#: app/routes/auth.py:645
+#: app/routes/auth.py:653
 msgid ""
 "If an active account exists for that email, a verification code has been "
 "sent."
 msgstr "यदि इस ईमेल पर सक्रिय खाता मौजूद है, तो सत्यापन कोड भेज दिया गया है।"
 
-#: app/routes/auth.py:658 app/routes/auth.py:661
+#: app/routes/auth.py:666 app/routes/auth.py:669
 msgid "This password reset code is invalid or has expired."
 msgstr "पासवर्ड रीसेट कोड अमान्य है या इसकी अवधि समाप्त हो गई है।"
 
-#: app/routes/auth.py:684 app/routes/auth.py:687
+#: app/routes/auth.py:692 app/routes/auth.py:695
 msgid "Too many incorrect codes. Request a new verification code."
 msgstr "बहुत बार गलत कोड दर्ज किया गया। नया सत्यापन कोड माँगें।"
 
-#: app/routes/auth.py:693 app/routes/auth.py:695
+#: app/routes/auth.py:701 app/routes/auth.py:703
 #: app/templates/auth/verify_reset_code.html:20
 msgid "The verification code is incorrect."
 msgstr "सत्यापन कोड सही नहीं है।"
 
-#: app/routes/auth.py:719
+#: app/routes/auth.py:727
 msgid "Please verify a valid password reset code first."
 msgstr "पहले एक वैध पासवर्ड रीसेट कोड सत्यापित करें।"
 
-#: app/routes/auth.py:723
+#: app/routes/auth.py:731
 msgid "This password reset request is invalid or has expired."
 msgstr "पासवर्ड रीसेट अनुरोध अमान्य है या इसकी अवधि समाप्त हो गई है।"
 
-#: app/routes/auth.py:741
+#: app/routes/auth.py:749
 msgid "Password updated. You can now sign in."
 msgstr "पासवर्ड अपडेट हो गया है। अब आप साइन इन कर सकते हैं।"
 
-#: app/routes/auth.py:757
+#: app/routes/auth.py:765
 msgid "Please provide a valid name and phone number."
 msgstr "कृपया सही नाम और फ़ोन नंबर दें।"
 
-#: app/routes/auth.py:759
+#: app/routes/auth.py:767
 msgid "Please provide a complete address."
 msgstr "कृपया पूरा पता दें।"
 
-#: app/routes/auth.py:761
+#: app/routes/auth.py:769
 msgid "Please provide a valid city."
 msgstr "कृपया शहर का सही नाम दें।"
 
-#: app/routes/auth.py:786
+#: app/routes/auth.py:794
 msgid "Your account details were updated."
 msgstr "आपके खाते का विवरण अपडेट हो गया है।"
 
-#: app/routes/auth.py:802
+#: app/routes/auth.py:810
 msgid "Your current password is incorrect."
 msgstr "आपका मौजूदा पासवर्ड सही नहीं है।"
 
-#: app/routes/auth.py:812
+#: app/routes/auth.py:820
 msgid "Your password was changed. Sign in again on this device."
 msgstr "पासवर्ड बदल गया है। इस डिवाइस पर फिर से साइन इन करें।"
 
-#: app/routes/auth.py:830
+#: app/routes/auth.py:838
 msgid "Please provide a valid admin name."
 msgstr "कृपया एडमिन का सही नाम दें।"
 
-#: app/routes/auth.py:844
+#: app/routes/auth.py:852
 msgid "Admin profile updated."
 msgstr "एडमिन प्रोफ़ाइल अपडेट हो गई है।"
 
-#: app/routes/auth.py:856
+#: app/routes/auth.py:865
 msgid "You have been signed out."
 msgstr "आप साइन आउट हो गए हैं।"
 
@@ -230,57 +230,57 @@ msgstr "आपकी भाषा प्राथमिकता सहेजी
 msgid "Language preference updated."
 msgstr "भाषा प्राथमिकता अपडेट हो गई है।"
 
-#: app/routes/orders.py:233
+#: app/routes/orders.py:234
 msgid "This seller application has already been reviewed."
 msgstr "इस विक्रेता आवेदन की पहले ही समीक्षा हो चुकी है।"
 
-#: app/routes/orders.py:240 app/routes/orders.py:266
+#: app/routes/orders.py:241 app/routes/orders.py:268
 msgid "The review note must be 500 characters or fewer."
 msgstr "समीक्षा टिप्पणी 500 अक्षरों से अधिक नहीं हो सकती।"
 
-#: app/routes/orders.py:248
+#: app/routes/orders.py:250
 msgid "Seller application approved."
 msgstr "विक्रेता आवेदन स्वीकृत हुआ।"
 
-#: app/routes/orders.py:249
+#: app/routes/orders.py:251
 msgid "Seller application rejected."
 msgstr "विक्रेता आवेदन अस्वीकार किया गया।"
 
-#: app/routes/orders.py:275
+#: app/routes/orders.py:278
 msgid "Product listing approved."
 msgstr "उत्पाद लिस्टिंग स्वीकृत है।"
 
-#: app/routes/orders.py:276
+#: app/routes/orders.py:279
 msgid "Product listing rejected."
 msgstr "उत्पाद लिस्टिंग अस्वीकृत है।"
 
-#: app/routes/orders.py:621
+#: app/routes/orders.py:626
 msgid "Choose an active delivery rider."
 msgstr "एक सक्रिय डिलीवरी राइडर चुनें।"
 
-#: app/routes/orders.py:627
+#: app/routes/orders.py:632
 msgid "Rider assigned to this delivery."
 msgstr "इस डिलीवरी के लिए राइडर असाइन किया गया।"
 
-#: app/routes/orders.py:635
+#: app/routes/orders.py:640
 #, fuzzy
 msgid "Delivery unassigned."
 msgstr "ईमेल पता"
 
-#: app/routes/portals.py:71
+#: app/routes/portals.py:72
 msgid "That delivery update is not allowed."
 msgstr "यह डिलीवरी अपडेट अनुमत नहीं है।"
 
-#: app/routes/portals.py:85
+#: app/routes/portals.py:86
 #, fuzzy
 msgid "The delivery note must be 500 characters or fewer."
 msgstr "समीक्षा टिप्पणी 500 अक्षरों से अधिक नहीं हो सकती।"
 
-#: app/routes/portals.py:97
+#: app/routes/portals.py:98
 msgid "Add a delivery photo or a note as proof of delivery."
 msgstr "डिलीवरी प्रमाण के रूप में फ़ोटो या नोट जोड़ें।"
 
-#: app/routes/portals.py:109
+#: app/routes/portals.py:111
 #, fuzzy
 msgid "Delivery status updated."
 msgstr "वेरिएंट का स्टॉक अपडेट किया गया।"
@@ -511,7 +511,7 @@ msgstr "कार्ट"
 msgid "Account"
 msgstr "खाते की भूमिका"
 
-#: app/templates/admin/dashboard.html:155 app/templates/auth/account.html:62
+#: app/templates/admin/dashboard.html:164 app/templates/auth/account.html:62
 #: app/templates/auth/admin_account.html:27 app/templates/base.html:52
 msgid "Sign out"
 msgstr "साइन आउट"
@@ -993,6 +993,44 @@ msgstr "अभी कोई ऑर्डर नहीं है।"
 #: app/templates/admin/dashboard.html:147
 msgid "Order pages"
 msgstr "ऑर्डर पृष्ठ"
+
+#: app/templates/admin/dashboard.html:154
+#, fuzzy
+msgid "SECURITY"
+msgstr "शहर"
+
+#: app/templates/admin/dashboard.html:154
+msgid "Recent audit activity"
+msgstr "हाल की ऑडिट गतिविधि"
+
+#: app/templates/admin/dashboard.html:156
+msgid "When"
+msgstr "कब"
+
+#: app/templates/admin/dashboard.html:156
+#, fuzzy
+msgid "Action"
+msgstr "कार्रवाई"
+
+#: app/templates/admin/dashboard.html:156
+#, fuzzy
+msgid "Actor"
+msgstr "कार्रवाई"
+
+#: app/templates/admin/dashboard.html:156
+#, fuzzy
+msgid "Target"
+msgstr "कार्ट"
+
+#: app/templates/admin/dashboard.html:156
+#, fuzzy
+msgid "Detail"
+msgstr "ऑर्डर की स्थिति"
+
+#: app/templates/admin/dashboard.html:159
+#, fuzzy
+msgid "No audit activity recorded yet."
+msgstr "उत्पाद वेरिएंट जोड़ दिया गया।"
 
 #: app/templates/admin/order_detail.html:2
 #, fuzzy

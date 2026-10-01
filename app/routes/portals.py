@@ -12,9 +12,10 @@ from sqlalchemy.orm import selectinload
 
 from ..extensions import db
 from ..models import (
-    AccountInvitation, Order, Product, SellerProfile, User, delivery_transition_valid,
+    AccountInvitation, AuditEvent, Order, Product, SellerProfile, User, delivery_transition_valid,
 )
 from ..services.profiles import customer_profile_image_url, ensure_customer_profile
+from ..services.audit import record_audit
 from ..security import (
     admin_required, customer_required, current_session_user, role_required, save_raster_upload,
 )
@@ -106,6 +107,7 @@ def update_delivery(order_id):
             order.delivery_note = note
     order.delivery_status = target
     db.session.commit()
+    record_audit("delivery.update", target_type="order", target_id=order.id, detail=target)
     flash(gettext("Delivery status updated."), "success")
     return redirect(url_for("rider.dashboard"))
 
@@ -176,5 +178,8 @@ def dashboard():
             select(User)
             .where(User.role == "rider", User.is_active.is_(True))
             .order_by(User.email)
+        ).all(),
+        audit_events=db.session.scalars(
+            select(AuditEvent).order_by(AuditEvent.created_at.desc()).limit(50)
         ).all(),
     )

@@ -174,6 +174,57 @@ def create_app(config_object=None):
         delivered = retry_pending_emails()
         click.echo(f"Queued emails retried: {delivered} delivered.")
 
+    @app.cli.command("db-size")
+    def db_size():
+        """Report the current database size against the configured ceiling."""
+        from .services.backup import database_ceiling_bytes, database_size_bytes
+
+        size = database_size_bytes()
+        ceiling = database_ceiling_bytes()
+        click.echo(
+            f"Database size: {size / (1024 * 1024):.2f} MiB "
+            f"(ceiling {ceiling / (1024 * 1024):.0f} MiB)."
+        )
+
+    @app.cli.command("backup-db")
+    @click.option("--to", "destination", required=True, type=click.Path(dir_okay=False, path_type=Path))
+    def backup_db(destination):
+        """Write and verify a database backup."""
+        from .services.backup import assert_within_ceiling, backup_database
+
+        try:
+            assert_within_ceiling()
+            path = backup_database(destination)
+        except (OSError, RuntimeError) as error:
+            raise click.ClickException(str(error)) from error
+        click.echo(f"Backup verified and written to {path}.")
+
+    @app.cli.command("restore-db")
+    @click.option("--from", "source", required=True, type=click.Path(exists=True, dir_okay=False, path_type=Path))
+    def restore_db(source):
+        """Restore a verified backup over the live database."""
+        from .services.backup import restore_database
+
+        try:
+            restore_database(source)
+        except (OSError, RuntimeError) as error:
+            raise click.ClickException(str(error)) from error
+        click.echo(f"Database restored from {source}.")
+
+    @app.cli.command("production-check")
+    def production_check():
+        """Review production launch readiness and list anything still missing."""
+        from .services.review import production_readiness
+
+        ok, issues = production_readiness(app.config)
+        if ok:
+            click.echo("Production readiness review passed.")
+            return
+        click.echo("Production readiness review found open items:")
+        for issue in issues:
+            click.echo(f"  - {issue}")
+        raise SystemExit(1)
+
     @app.errorhandler(404)
     def not_found(error):
         return render_template("errors/404.html"), 404
