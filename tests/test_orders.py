@@ -48,7 +48,7 @@ def test_cart_update_remove_and_unavailable_item(client, app):
     client.post("/cart/update", data={f"quantity_{item.id}": "3"})
     assert b"30.00" in client.get("/cart").data
     client.post(f"/cart/remove/{item.id}")
-    assert b"Your cart is waiting" in client.get("/cart").data
+    assert b"Your cart is ready for something good" in client.get("/cart").data
 
     item.is_available = False
     db.session.commit()
@@ -84,13 +84,13 @@ def test_guest_checkout_requires_and_saves_email(client, app):
     assert db.session.query(Order).one().email == "guest@example.com"
 
 
-def test_admin_can_change_order_status(client, app):
+def test_admin_can_change_order_status(client, app, login_admin):
     csrf_off(client)
     admin = User(email="admin@example.com", role="admin")
     admin.set_password("password123")
     db.session.add(admin)
     db.session.commit()
-    response = client.post("/auth/login", data={"email": admin.email, "password": "password123"})
+    response = login_admin(client, admin.email)
     assert response.status_code == 302
     assert client.get("/admin").status_code == 200
 

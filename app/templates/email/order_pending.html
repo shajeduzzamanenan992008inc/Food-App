@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="{{ current_locale|replace('_', '-') }}" dir="{{ 'rtl' if current_locale == 'ar' else 'ltr' }}">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{ _('We received your order') }}</title></head>
+<body style="margin:0;background:#f2f5f7;color:#172b36;font-family:Arial,sans-serif;padding:32px 16px">
+  <main style="max-width:560px;margin:0 auto;background:#fff;border-radius:20px;padding:32px">
+    <p style="color:#08765b;font-weight:700">{{ restaurant_name }}</p>
+    <h1 style="font-size:24px">{{ _('We received your order') }}</h1>
+    <p>{{ _('Thank you, %(name)s. Your order %(number)s is pending confirmation.', name=order.customer_name, number=order.order_number) }}</p>
+    <table style="width:100%;border-collapse:collapse;margin:16px 0;font-size:14px">
+      <thead><tr>
+        <th style="text-align:start;padding:8px 0;border-bottom:1px solid #e3e9ee">{{ _('Item') }}</th>
+        <th style="text-align:end;padding:8px 0;border-bottom:1px solid #e3e9ee">{{ _('Qty') }}</th>
+        <th style="text-align:end;padding:8px 0;border-bottom:1px solid #e3e9ee">{{ _('Subtotal') }}</th>
+      </tr></thead>
+      <tbody>
+      {% for item in order.items %}<tr>
+        <td style="padding:8px 0;border-bottom:1px solid #f0f4f7">{{ item.product_name }}</td>
+        <td style="text-align:end;padding:8px 0;border-bottom:1px solid #f0f4f7">{{ item.quantity }}</td>
+        <td style="text-align:end;padding:8px 0;border-bottom:1px solid #f0f4f7">৳{{ '%.2f'|format(item.subtotal) }}</td>
+      </tr>{% endfor %}
+      </tbody>
+    </table>
+    <p style="font-weight:700">{{ _('Total') }}: ৳{{ '%.2f'|format(order.total) }}</p>
+    <p>{{ _('Delivery address: %(address)s', address=order.address) }}</p>
+    <p>{{ _('Payment method: cash on delivery. We will email you again once your order is confirmed.') }}</p>
+  </main>
+</body>
+</html>

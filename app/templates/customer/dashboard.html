@@ -2,7 +2,13 @@
 {% block title %}{{ _('Customer dashboard') }} · {{ app_name }}{% endblock %}
 {% block page_content %}
 <div class="page-shell">
-  <header class="page-heading"><div><p class="eyebrow">{{ _('Your NexHaat space') }}</p><h1>{{ _('Welcome, %(name)s', name=profile.full_name) }}</h1><p>{{ _('Pick up where you left off.') }}</p></div><a class="button-secondary" href="{{ url_for('auth.account') }}">{{ _('Account settings') }}</a></header>
+  <header class="page-heading customer-dashboard-heading"><div class="customer-profile-summary">
+    <span class="customer-profile-avatar">
+      {% if profile_image_url %}<img src="{{ profile_image_url }}" alt="{{ _('Profile image for %(name)s', name=profile.full_name or _('Customer')) }}">
+      {% else %}<span aria-hidden="true">{{ (profile.full_name[:1] if profile.full_name else user.email[:1])|upper }}</span>{% endif %}
+    </span>
+    <span><p class="eyebrow">{{ _('Your NexHaat space') }}</p><h1>{{ _('Welcome, %(name)s', name=profile.full_name or _('Customer')) }}</h1><small>{{ user.email }}</small></span>
+  </div><a class="button-secondary" href="{{ url_for('auth.account') }}">{{ _('Account settings') }}</a></header>
   <section class="workspace-grid" aria-label="{{ _('Customer shortcuts') }}">
     <a class="workspace-card" href="{{ url_for('main.menu') }}"><span class="workspace-card__icon" aria-hidden="true">⌕</span><strong>{{ _('Explore marketplace') }}</strong><span>{{ _('Browse local food, groceries, and product listings.') }}</span></a>
     <a class="workspace-card" href="{{ url_for('orders.my_orders') }}"><span class="workspace-card__icon" aria-hidden="true">▤</span><strong>{{ _('My orders') }}</strong><span>{{ _('Check your order status and previous purchases.') }}</span></a>

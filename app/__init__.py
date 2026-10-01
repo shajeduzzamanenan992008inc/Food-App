@@ -1,6 +1,8 @@
 from pathlib import Path
 import logging
+import secrets
 import zipfile
+from urllib.parse import urlsplit
 
 import click
 
@@ -10,7 +12,7 @@ from werkzeug.middleware.proxy_fix import ProxyFix
 from sqlalchemy import inspect, text
 
 from .config import get_config
-from .extensions import babel, csrf, db, migrate
+from .extensions import babel, csrf, db, login_manager, migrate
 from .i18n import SUPPORTED_LOCALES, get_request_locale
 
 
@@ -28,6 +30,7 @@ def create_app(config_object=None):
 
     db.init_app(app)
     migrate.init_app(app, db)
+    login_manager.init_app(app)
     csrf.init_app(app)
     babel.init_app(app, locale_selector=get_request_locale)
 
@@ -45,7 +48,7 @@ def create_app(config_object=None):
     app.register_blueprint(customer_bp)
     app.register_blueprint(rider_bp)
     app.register_blueprint(admin_bp)
-    # Preserve the former URL as a redirect to the shared role-aware login.
+    # Keep the former URL as the dedicated Admin OTP login entry point.
     app.add_url_rule("/admin/login", endpoint="auth.admin_login", view_func=admin_login, methods=["GET", "POST"])
     app.register_blueprint(orders_bp)
 
@@ -81,10 +84,19 @@ def create_app(config_object=None):
         response.headers.setdefault("X-Frame-Options", "DENY")
         response.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
         response.headers.setdefault("Permissions-Policy", "camera=(), microphone=(), geolocation=()")
+        image_sources = ["'self'", "data:", "https://images.unsplash.com"]
+        media_origin = urlsplit(app.config.get("CATALOG_MEDIA_PUBLIC_BASE_URL", ""))
+        if (
+            media_origin.scheme in {"http", "https"}
+            and media_origin.hostname
+            and not media_origin.username
+            and not media_origin.password
+        ):
+            image_sources.append(f"{media_origin.scheme}://{media_origin.netloc}")
         response.headers.setdefault(
             "Content-Security-Policy",
             "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; "
-            "form-action 'self'; img-src 'self' data: https://images.unsplash.com; "
+            f"form-action 'self'; img-src {' '.join(image_sources)}; "
             "style-src 'self' https://cdn.jsdelivr.net; script-src 'self'; "
             "connect-src 'self'",
         )
@@ -133,19 +145,14 @@ def create_app(config_object=None):
     @app.cli.command("create-admin")
     @click.option("--email", prompt=True)
     @click.option("--name", prompt=True)
-    @click.option("--password", prompt=True, hide_input=True, confirmation_prompt=True)
-    def create_admin(email, name, password):
+    def create_admin(email, name):
         from .models import AdminProfile, User
 
         if User.query.filter_by(email=email.lower().strip()).first():
             raise click.ClickException("An account with this email already exists.")
-        if not app.config["MIN_PASSWORD_LENGTH"] <= len(password) <= app.config["MAX_PASSWORD_LENGTH"]:
-            raise click.ClickException(
-                f"Password must contain {app.config['MIN_PASSWORD_LENGTH']} to "
-                f"{app.config['MAX_PASSWORD_LENGTH']} characters."
-            )
         user = User(email=email.lower().strip(), role="admin")
-        user.set_password(password)
+        # The shared User schema requires a hash; Admin sign-in never accepts it.
+        user.set_password(secrets.token_urlsafe(48))
         user.admin_profile = AdminProfile(full_name=name.strip())
         db.session.add(user)
         db.session.commit()
@@ -210,13 +217,9 @@ def _ensure_legacy_local_columns():
 
 
 def _bootstrap_admin(app):
-    """Create the configured admin once without changing existing credentials."""
+    """Create the configured OTP-only admin without changing existing accounts."""
     email = (app.config.get("ADMIN_EMAIL") or "").strip().lower()
-    password = app.config.get("ADMIN_PASSWORD")
-    if not email or not password:
-        return
-    if not app.config["MIN_PASSWORD_LENGTH"] <= len(password) <= app.config["MAX_PASSWORD_LENGTH"]:
-        logging.getLogger(__name__).error("Configured admin password length is outside the allowed range; skipping bootstrap.")
+    if not email or "@" not in email:
         return
 
     from .models import AdminProfile, User
@@ -228,7 +231,8 @@ def _bootstrap_admin(app):
         return
 
     admin = User(email=email, role="admin")
-    admin.set_password(password)
+    # Keep the required shared-schema field populated with an unusable secret.
+    admin.set_password(secrets.token_urlsafe(48))
     admin.admin_profile = AdminProfile(full_name="NexHaat Admin")
     db.session.add(admin)
     db.session.commit()

@@ -116,11 +116,17 @@ class Product(CatalogTimestampMixin, db.Model):
         translated = getattr(translation, field, None) if translation else None
         if translated:
             return translated
-        original = getattr(self, field)
-        if locale and locale != self.original_locale:
-            language = self._locale_labels.get(self.original_locale, self.original_locale)
-            return f"{original} ({language})"
-        return original
+        return getattr(self, field)
+
+    def needs_original_language_label(self, locale, field="name"):
+        if not locale or locale == self.original_locale:
+            return False
+        translation = next((item for item in self.translations if item.locale == locale), None)
+        return not bool(getattr(translation, field, None)) if translation else True
+
+    @property
+    def original_language_label(self):
+        return self._locale_labels.get(self.original_locale, self.original_locale)
 
     def localized_name(self, locale):
         return self._localized_text("name", locale)

@@ -1,0 +1,10 @@
+{{ restaurant_name }}
+
+{{ _('Your NexHaat receipt') }}
+{{ _('Thank you, %(name)s. Here is the receipt for order %(number)s.', name=order.customer_name, number=order.order_number) }}
+
+{% for item in order.items %}{{ item.product_name }} x{{ item.quantity }} — ৳{{ '%.2f'|format(item.subtotal) }}
+{% endfor %}
+{{ _('Total') }}: ৳{{ '%.2f'|format(order.total) }}
+
+{{ _('Your invoice is attached to this email as a PDF.') }}

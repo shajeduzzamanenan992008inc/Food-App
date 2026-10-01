@@ -46,10 +46,24 @@ class Config:
     _mail_sender = os.getenv("MAIL_DEFAULT_SENDER")
     MAIL_DEFAULT_SENDER = _mail_sender if _mail_sender and "@" in _mail_sender else None
     ADMIN_EMAIL = os.getenv("ADMIN_EMAIL")
-    ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
     PUBLIC_BASE_URL = os.getenv("PUBLIC_BASE_URL", "").strip().rstrip("/")
     MAX_CONTENT_LENGTH = 4 * 1024 * 1024
     MAX_IMAGE_UPLOAD_BYTES = 2 * 1024 * 1024
+    MAX_RASTER_IMAGE_PIXELS = int(os.getenv("MAX_RASTER_IMAGE_PIXELS", "20000000"))
+    MAX_CATALOG_IMAGE_BYTES = int(os.getenv("MAX_CATALOG_IMAGE_BYTES", str(3 * 1024 * 1024)))
+    MAX_CATALOG_IMAGE_PIXELS = int(os.getenv("MAX_CATALOG_IMAGE_PIXELS", "40000000"))
+    MAX_CATALOG_QUARANTINE_BYTES = int(os.getenv("MAX_CATALOG_QUARANTINE_BYTES", str(100 * 1024 * 1024)))
+    CATALOG_QUARANTINE_RETENTION_HOURS = int(os.getenv("CATALOG_QUARANTINE_RETENTION_HOURS", "24"))
+    CATALOG_QUARANTINE_FOLDER = os.getenv(
+        "CATALOG_QUARANTINE_FOLDER", str(BASE_DIR / "instance" / "quarantine" / "catalog")
+    )
+    CATALOG_VIRUS_SCANNER = os.getenv("CATALOG_VIRUS_SCANNER", "clamdscan")
+    CATALOG_SCAN_TIMEOUT = int(os.getenv("CATALOG_SCAN_TIMEOUT", "20"))
+    CATALOG_MEDIA_BUCKET = os.getenv("CATALOG_MEDIA_BUCKET")
+    CATALOG_MEDIA_REGION = os.getenv("CATALOG_MEDIA_REGION", "us-east-1")
+    CATALOG_MEDIA_ENDPOINT_URL = os.getenv("CATALOG_MEDIA_ENDPOINT_URL")
+    CATALOG_MEDIA_PUBLIC_BASE_URL = os.getenv("CATALOG_MEDIA_PUBLIC_BASE_URL", "").strip().rstrip("/")
+    CATALOG_MEDIA_KEY_PREFIX = os.getenv("CATALOG_MEDIA_KEY_PREFIX", "products")
     MAX_SEARCH_LENGTH = 100
     CATALOG_PAGE_SIZE = 48
     MIN_PASSWORD_LENGTH = 12 if ENVIRONMENT == "production" else 8

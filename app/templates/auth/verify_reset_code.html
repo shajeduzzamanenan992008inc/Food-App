@@ -1,25 +1,69 @@
 {% extends "auth/base.html" %}
 {% block title %}{{ _('Verify code') }} · {{ app_name }}{% endblock %}
-{% block auth_content %}
-<section class="simple-auth-card">
-  <p class="eyebrow">{{ _('Secure verification') }}</p>
-  <h1>{{ _('Check your email') }}</h1>
-  <p class="auth-subtitle">{{ _('Enter the 6-digit code sent to your account email. It expires in 10 minutes.') }}</p>
-  <form class="auth-form" method="post" action="{{ url_for('auth.verify_reset_code') }}" data-validate-form>
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-    <input type="hidden" name="locale" value="{{ current_locale }}">
-    <div class="form-field">
-      <label for="reset-code">{{ _('Verification code') }}</label>
-      <input id="reset-code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code"
-             pattern="[0-9]{6}" minlength="6" maxlength="6" required data-validate
-             data-required-message="{{ _('This field is required.') }}"
-             aria-label="{{ _('6-digit verification code') }}" aria-describedby="reset-code-error">
-      <span class="field-error" id="reset-code-error" data-field-error aria-live="polite"></span>
+{% block body_class %}auth-body otp-auth-body{% endblock %}
+{% block extra_head %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/otp-verification.css', v='20261001_authotp2') }}">
+  <script src="{{ url_for('static', filename='js/otp-verification.js', v='20261001_authotp2') }}" defer></script>
+{% endblock %}
+{% block page_content %}
+<div class="auth-layout">
+<main class="auth-main" id="auth-main">
+<form class="otp-form" id="otp-form" method="post" action="{{ url_for('auth.verify_reset_code') }}"
+      data-otp-form data-reset-url="{{ url_for('auth.reset_password') }}"
+      data-loading-title="{{ _('Verifying…') }}"
+      data-loading-subtitle="{{ _('Securely checking your code.') }}"
+      data-success-title="{{ _('Code verified') }}"
+      data-success-subtitle="{{ _('Your code is verified. Taking you to set a new password…') }}"
+      data-error-title="{{ _('Code not verified') }}"
+      data-error-subtitle="{{ _('The code is incorrect. Check it and try again.') }}"
+      data-error-message="{{ _('The verification code is incorrect.') }}"
+      data-network-message="{{ _('We could not verify the code right now. Please try again.') }}">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <input type="hidden" name="locale" value="{{ current_locale }}">
+  <section class="card otp-auth-card" id="otp-card" data-state="idle" aria-labelledby="otp-title">
+    <div class="pointer-light" id="otp-pointer-light" aria-hidden="true"></div>
+    <div class="noise" aria-hidden="true"></div>
+    <div class="auth-panel__brand" aria-hidden="true">N</div>
+    <p class="eyebrow">{{ _('Secure verification') }}</p>
+    <h1 id="otp-title" data-otp-title aria-live="polite">{{ _('Check your email') }}</h1>
+    <p class="subtitle" data-otp-subtitle>{{ _('Enter the 6-digit code sent to your account email. It expires in 10 minutes.') }}</p>
+
+    <div class="stage" aria-label="{{ _('Verification code entry') }}">
+      <input class="otp-fallback" id="otp-fallback" name="code" type="text" inputmode="numeric"
+             autocomplete="one-time-code" pattern="[0-9]{6}" minlength="6" maxlength="6" required
+             aria-label="{{ _('6-digit verification code') }}">
+
+      <div class="input-stage" data-otp-input-stage role="group" aria-label="{{ _('6-digit verification code') }}">
+        {% for digit in range(1, 7) %}
+        <input class="input-pill" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="{% if digit == 1 %}6{% else %}1{% endif %}"
+               aria-label="{{ _('Digit %(number)s', number=digit) }}" aria-describedby="otp-error"
+               data-otp-digit data-digit-index="{{ digit - 1 }}" {% if digit == 1 %}autocomplete="one-time-code"{% else %}autocomplete="off"{% endif %}>
+        {% endfor %}
+      </div>
+
+      <div class="orbit-layer" data-otp-orbit aria-hidden="true"><div class="orbit-ring" data-otp-orbit-ring></div></div>
+      <div class="loading-wrap" data-otp-loading aria-hidden="true">
+        <div class="loading-core"><span class="loading-ring"></span><span class="loading-pulse"></span><span class="loading-inner" data-otp-progress role="progressbar" aria-label="{{ _('Verifying…') }}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">0%</span></div>
+      </div>
+      <div class="success-wrap" data-otp-success aria-hidden="true">
+        <span class="success-flash"></span>
+        <span class="bubble"></span><span class="bubble"></span><span class="bubble"></span>
+        <span class="success-vault"><svg viewBox="0 0 24 24" class="checkmark"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+        <span class="success-badge">{{ _('Verified') }}</span>
+      </div>
+      <div class="error-result" data-otp-error-result aria-hidden="true">
+        <span class="error-flash"></span>
+        <span class="error-vault"><svg viewBox="0 0 24 24" class="error-mark"><path d="M6 6l12 12M18 6L6 18"></path></svg></span>
+        <span class="error-badge">{{ _('Code not verified') }}</span>
+      </div>
     </div>
-    <button class="auth-submit" type="submit" data-loading-label="{{ _('Verifying…') }}" aria-busy="false">
-      <span data-submit-label>{{ _('Verify code') }}</span><span class="submit-spinner" aria-hidden="true"></span>
-    </button>
-  </form>
-  <p class="auth-switch"><a href="{{ url_for('auth.forgot_password') }}">{{ _('Send a new code') }}</a></p>
-</section>
+
+    <p class="error-msg" id="otp-error" data-otp-error role="alert" aria-live="assertive"></p>
+    <button class="visually-hidden" type="submit" data-otp-submit aria-label="{{ _('Verify code') }}">{{ _('Verify code') }}</button>
+    <p class="resend-btn otp-resend">{{ _('Didn’t receive the code?') }} <a href="{{ url_for('auth.forgot_password') }}"><span>{{ _('Resend') }}</span></a></p>
+  </section>
+</form>
+</main>
+</div>
 {% endblock %}

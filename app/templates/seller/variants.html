@@ -6,7 +6,7 @@
   <section class="surface surface-card"><h2 style="margin-top:0;font:800 1.2rem Manrope,sans-serif">{{ _('Add a variant') }}</h2>
     <form method="post" action="{{ url_for('seller.product_variants', product_id=product.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><div class="field-grid">
       <div class="form-field"><label for="variant-sku">{{ _('SKU') }}</label><input id="variant-sku" name="sku" maxlength="80" required></div>
-      <div class="form-field"><label for="variant-option">{{ _('Option name') }}</label><input id="variant-option" name="option_name" maxlength="80" placeholder="{{ _('Size, pack, color…') }}" required></div>
+      <div class="form-field"><label for="variant-option">{{ _('Option name') }}</label><input id="variant-option" name="option_name" maxlength="80" placeholder="{{ _('Size or pack') }}" required></div>
       <div class="form-field"><label for="variant-value">{{ _('Option value') }}</label><input id="variant-value" name="option_value" maxlength="120" required></div>
       <div class="form-field"><label for="variant-stock">{{ _('Stock') }}</label><input id="variant-stock" name="stock_quantity" type="number" min="0" step="1" required></div>
       <div class="form-field"><label for="variant-price">{{ _('Price override (optional)') }}</label><input id="variant-price" name="price" type="number" min="0" step="0.01"></div>

@@ -19,12 +19,14 @@ env/
 instance/*.sqlite3
 instance/*.db
 instance/datasets/
+instance/*.log
 *.sqlite3
 *.db
 
 # User uploads & temporary files
 uploads/*
 !uploads/.gitkeep
+app/static/profile-image-test-*/
 app/static/uploads/profiles/*
 !app/static/uploads/profiles/.gitkeep
 app/static/uploads/branding/*

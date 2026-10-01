@@ -4,7 +4,14 @@
 
 NexHaat হবে Customer, Seller, Rider ও Admin-এর জন্য একটি modular, multilingual marketplace। কাজ ছয়টি phase-এ এগোবে। প্রতিটি phase আলাদাভাবে বাস্তবায়ন, পরীক্ষা, review ও acceptance পাবে; acceptance-এর আগে পরের phase শুরু হবে না।
 
-এই নথি ছয়টি উৎস নথির একত্রীকৃত পরিকল্পনা। উৎসে থাকা কথোপকথনমূলক প্রশ্নগুলো আলাদা কাজের অনুমোদন নয়। এই নথি নিজে application code, database migration বা production configuration পরিবর্তন করে না।
+এই নথিতে পূর্ববর্তী `nexhaat-master-plan.md`, `PLAN.md` ও `PLANE 1.md`-এর পরিকল্পনা একত্র করা হয়েছে; এটিই এখন canonical merged plan। উৎসের requirement-গুলো পরিকল্পনার বিষয়বস্তু; সেগুলো নিজে থেকে application code, database data/schema, migration বা production configuration পরিবর্তনের অনুমতি নয়।
+
+### বর্তমান stage status — 2026-10-01
+
+- **Phase 1 — সম্পূর্ণ।** Authentication, language foundation ও সংশ্লিষ্ট acceptance review সম্পন্ন।
+- **Phase 2 — সম্পূর্ণ।** Role dashboards ও access-control acceptance review সম্পন্ন।
+- **Phase 3 — সম্পূর্ণ (code, test ও acceptance review)।** Seller catalog, product variant, stock, Admin moderation, seller-authored multilingual text এবং fail-closed media pipeline বাস্তবায়িত; পূর্ণ regression suite পাস করেছে (58 passed)। শুধু live image publish-এর জন্য deployment-এ ClamAV executable এবং S3-compatible bucket/CDN configuration দরকার।
+- **সম্পূর্ণ stage: 3/6।** পরবর্তী কাজ: deployment-এ media scanner/storage configuration দিয়ে clean/rejected upload live smoke check চালিয়ে Phase 3-এর deployment ধাপ সম্পন্ন করা, তারপর Phase 4 — multi-vendor cart, seller-specific invoice ও localized order email।
 
 ### ভাষা ও localization
 
@@ -25,7 +32,7 @@ NexHaat হবে Customer, Seller, Rider ও Admin-এর জন্য এক�
       → service layer
       → PostgreSQL/Supabase
 
-Image ও file database-এর বাইরে external storage-এ থাকবে। Cloudflare WAF/Tunnel এবং Render private networking প্রস্তাবিত production target; নির্দিষ্ট deployment path-টি feasibility ও account tier যাচাইয়ের পর স্থির হবে।
+Image ও file database-এর বাইরে external storage-এ থাকবে। Cloudflare WAF/Tunnel এবং Render private networking প্রস্তাবিত production target; এই topology provider documentation থেকে নেওয়া architectural inference, তাই deployment path feasibility ও account tier যাচাইয়ের পর স্থির হবে। [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/), [Render private services](https://render.com/docs/private-services), [Render private network](https://render.com/docs/private-network/), [Cloudflare managed rules](https://developers.cloudflare.com/waf/managed-rules/).
 
 ## ২. ভাগ করা স্থাপত্য ও নিরাপত্তা শর্ত
 
@@ -69,13 +76,22 @@ Motion অল্প ও উদ্দেশ্যপূর্ণ হবে, inter
 
 ### Catalog, media ও database
 
-Products-এ seller, category, price_bdt, stock, status এবং multilingual title/description থাকবে। উৎস নথির proposed shape হলো title_translations ও desc_translations JSONB, locale অনুযায়ী content lookup, এবং missing translation-এ original-language label-সহ fallback।
+Database implementation-এ repository model ও Alembic migration-ই source of truth। Local default SQLite; deployment `DATABASE_URL` দিয়ে PostgreSQL ব্যবহার করে। 2026-10-01 repository review-তে local migration chain-এর current revision `20260929_07` ছিল। PostgreSQL/Supabase deployment proposal বাস্তব quota, backup ও monitoring যাচাইয়ের পরেই স্থির হবে।
 
-- Database সর্বোচ্চ 400 MB-এর মধ্যে রাখতে হবে; বাস্তব quota ও monitoring যাচাই করতে হবে।
-- Image/static file database-এ অপ্রয়োজনীয়ভাবে রাখা হবে না।
-- Upload approval flow: quarantine → private antivirus scan ও validation → approved external storage।
-- Scan ও validation সম্পন্ন হওয়ার আগে upload normal application storage-এ প্রবেশ করবে না।
-- 400 MB সীমা পূরণ বা কোনো row-count লক্ষ্য দেখানোর জন্য duplicate/fake data তৈরি করা যাবে না; food/category data যাচাইযোগ্য ও বাস্তব হতে হবে।
+Source plans-এ থাকা নিচের schema shape-গুলো **design proposal**, বর্তমান schema-র নিশ্চয়তা নয়:
+
+```text
+User: id, role, email, password_hash, locale_preference, 2fa_enabled
+Product: id, seller_id, category_id, price_bdt, stock, status,
+         title_translations JSONB, desc_translations JSONB
+```
+
+Translation JSONB হলে locale অনুযায়ী content দেখাতে হবে; translation না থাকলে original text এবং তার language label দেখাতে হবে। এই proposal বাস্তবায়নের আগে বর্তমান model/schema review ও migration plan দরকার।
+
+- Database সর্বোচ্চ 400 MB-এর মধ্যে রাখতে হবে; provider quota, size monitoring, backup ও restore behavior যাচাই করতে হবে।
+- Image/file database-এ রাখা হবে না; validated media approved external storage-এ থাকবে।
+- Upload approval flow: quarantine → private antivirus scan ও validation → approved external storage। Scan/validation শেষ হওয়ার আগে upload normal application storage-এ যাবে না।
+- Capacity বা row-count দেখানোর জন্য duplicate/fake data তৈরি করা যাবে না; food/category data যাচাইযোগ্য ও বাস্তব হতে হবে।
 
 ### Security, configuration ও observability
 
@@ -94,7 +110,7 @@ Products-এ seller, category, price_bdt, stock, status এবং multilingual t
 
 - Flask-Login-ভিত্তিক login/sign-up, CSRF ও authoritative server validation।
 - Neumorphic/3D-inspired responsive auth UI, keyboard/accessibility states, RTL এবং reduced-motion behavior।
-- Flask-Babel translation catalog ও locale selector।
+- Flask-Babel translation catalog ও locale selector ([Flask-Babel documentation](https://python-babel.github.io/flask-babel/))।
 - CSRF-protected POST /language; account/session preference persistence এবং browser fallback।
 - Auth component-এ সব user-facing text translation catalog-এ রাখা।
 
@@ -109,6 +125,10 @@ Products-এ seller, category, price_bdt, stock, status এবং multilingual t
 **Repository verification note**
 
 README-তে উপরের চারটি live auth path ইতিমধ্যে integrated বলা হয়েছিল, কিন্তু Phase 1 শুরুর সময় checkout-এ সেগুলো অনুপস্থিত ছিল। Phase 1-এ auth template, static asset ও সংশ্লিষ্ট email template পুনরায় যোগ করা হয়েছে; README-র সঙ্গে repository status এখন সামঞ্জস্যপূর্ণ।
+
+**Acceptance review (2026-10-01)**
+
+Flask-Login active-user ও `auth_version` যাচাইসহ wired হয়েছে; shared role decorators server-side permission enforcement করে। Auth, locale, CSRF, role routing, seller isolation এবং customer-to-admin denial-এর focused regression set পাস করেছে: **28 passed**। Fresh temporary SQLite database-এ migration chain `20260929_07` পর্যন্ত সফল হয়েছে। Auth CSS/template review-তে responsive breakpoints, keyboard focus, field error association, Arabic RTL এবং reduced-motion rules পাওয়া গেছে। Local HTTP smoke-এ `/health`, `/auth/login` এবং auth CSS—তিনটিই `200` দিয়েছে।
 
 ### Phase 2 — Role dashboards ও access control
 
@@ -129,11 +149,17 @@ README-তে উপরের চারটি live auth path ইতিমধ্�
 
 Phase 2-এ চার role-এর dashboard endpoint ও central role-to-dashboard map যোগ হয়েছে। Shared role authorization এখন customer, seller, rider ও admin routes-এ ব্যবহৃত; Seller product operations approval ও owner-scoped lookup দিয়ে সুরক্ষিত। Admin dashboard-এ seller/product review এবং Rider/Admin invitation controls আছে। `/auth/portal` পুরোনো dashboard route compatibility-র জন্য রয়ে গেছে।
 
+**Acceptance review (2026-10-01)**
+
+Focused Phase 1/2 regression set-এ প্রতিটি role-এর dashboard redirect, cross-role denial, seller-owned product access, seller review/invitation authorization এবং locale preference পাস করেছে। পুরো repository suite এখন সবুজ (58 passed)। পূর্বে চিহ্নিত তিনটি order/cart failure — cart empty-state-এর পুরোনো expected copy এবং missing order email templates (order_pending, order_receipt, order_status, admin_order) — সংশোধন করা হয়েছে।
+
+Customer profile follow-up (2026-10-01): পুরোনো customer account-এ profile row না থাকলে account ও dashboard visit-এ row repair হয়; profile name/image dashboard-এ দেখানো হয়। এর regression coverage `test_customer_dashboard_and_account_repair_a_missing_profile_row`-এ আছে।
+
 ### Phase 3 — Multilingual catalog, Seller management ও media
 
 **Deliverables**
 
-- Store onboarding/approval, category, product/menu, variant, stock ও Admin moderation।
+- Store onboarding/approval, food/grocery/retail category, product/menu, variant, stock ও Admin moderation।
 - Seller চাইলে English, বাংলা, हिन्दी ও Arabic-এ title/description পূরণ করবে; একটি ভাষায় publish করা যাবে।
 - Translation lookup locale অনুযায়ী হবে; missing translation original language label-সহ দেখাবে।
 - Upload quarantine, private scan, validation ও approved external storage flow।
@@ -144,13 +170,17 @@ Phase 2-এ চার role-এর dashboard endpoint ও central role-to-dashboa
 - অনুবাদ ও original-language fallback সঠিক; automatic machine translation নেই।
 - Malicious/invalid upload quarantine-এ থাকে এবং validation pass না করা পর্যন্ত normal storage-এ যায় না।
 
+**Repository implementation review (2026-10-01)**
+
+Seller category/product CRUD, seller-only ownership checks, product translation lookup/search and original-language fallback, variants and stock, and Admin product moderation are implemented. Catalog image intake uses private quarantine, ClamAV CLI, Pillow decode/re-encode, and S3-compatible storage; rejected uploads stay quarantined. Focused auth/catalog/media regression checks pass: **40 passed**. Image pipeline checks mock the scanner and object store, so this confirms fail-closed behavior and processing order, not live-provider connectivity. The current workstation has no ClamAV executable or catalog media bucket/CDN configuration. Consequently the code is ready, but real image publishing and the live acceptance smoke check remain pending those deployment settings. Phase 3 code, translations, and regression coverage are complete: the full repository suite is green (58 passed).
+
 ### Phase 4 — Multi-vendor checkout, invoice ও email
 
 **Deliverables**
 
 - Customer-এর single cart; checkout-এ seller অনুযায়ী sub-order ও seller-specific invoice।
 - প্রথম payment method Cash on Delivery (COD)।
-- ReportLab PDF invoice: customer locale, product translation থাকলে সেটি, না থাকলে original ও তার ভাষা, amount BDT-তে, date/number locale অনুযায়ী।
+- Buyer receipt এবং ReportLab PDF seller-specific invoice: customer locale, product translation থাকলে সেটি, না থাকলে original ও তার ভাষা, amount BDT-তে, date/number locale অনুযায়ী।
 - SMTP transactional email/notification customer-এর নির্বাচিত ভাষায়; retry handling-সহ background delivery।
 
 **Acceptance gate**
@@ -208,20 +238,20 @@ Phase 2-এ চার role-এর dashboard endpoint ও central role-to-dashboa
 | বিষয় | উৎসে কী নির্ধারিত | পরবর্তী ধাপ |
 |---|---|---|
 | Background job | Threaded processing অথবা Celery/Redis—দুটিই বিকল্প হিসেবে আছে | Phase 4-এর আগে retry/durability ও hosting requirement দেখে পদ্ধতি স্থির |
-| Upload scanning/storage | Private antivirus ও quarantine আবশ্যক; নির্দিষ্ট product/provider নেই | Phase 3-এর আগে scanner, quarantine boundary, external storage ও failure behavior যাচাই |
+| Upload scanning/storage | Private antivirus ও quarantine আবশ্যক; নির্দিষ্ট product/provider নেই | Code path ClamAV CLI ও S3-compatible storage দিয়ে wired; deployment-এ ClamAV executable, bucket/CDN ও credentials configure করে live smoke check করতে হবে |
 | Production ingress | Cloudflare WAF/Tunnel ও Render private networking প্রস্তাবিত; WAF rule tier-dependent | Phase 6-এর আগে connector placement, private reachability ও Cloudflare tier যাচাই |
-| Database capacity | PostgreSQL/Supabase ও 400 MB ceiling উল্লেখ আছে | Provisioning-এর আগে বাস্তব quota, backup ও monitoring behavior নিশ্চিত |
+| Database capacity | Local SQLite, deployment PostgreSQL `DATABASE_URL`, PostgreSQL/Supabase proposal ও 400 MB ceiling | Provisioning-এর আগে provider, বাস্তব quota, backup, restore ও monitoring behavior নিশ্চিত |
 | Auth implementation status | README integrated বললেও Phase 1 শুরুর সময় চারটি app path অনুপস্থিত ছিল | Phase 1-এ প্রয়োজনীয় auth UI ও email template যোগ হয়েছে; পরবর্তী repository review-তে README-এর path তালিকা যাচাই |
 
 ### একত্র করা উৎস
 
-| উৎস | এই master plan-এ ব্যবহৃত বিষয় |
-|---|---|
-| docs/design-references/login-sign-up-form-source/README.md | Archived design reference ও README-তে ঘোষিত live auth path |
-| docs/design-references/login-sign-up-form-source/REDME 1..md | Auth integration, CSRF, locale priority, role redirect, WAF ও database/file constraint |
-| docs/design-references/login-sign-up-form-source/REDME 2.md | Auth UX, accessibility, validation, RTL, security, performance, observability ও compatibility |
-| PLAN 3.md | ছয় phase, phase gate, architecture ও full-marketplace flow-এর মূল কাঠামো |
-| PLAN 1.md | PostgreSQL/Supabase, JSONB translation shape, async work, hosting ও phase deliverables |
-| PLAN.md | English (US) default, locale behavior, COD, no fake/duplicate data, launch acceptance ও conditional ingress |
+এই merged plan-এ তিনটি project plan-এর non-duplicate requirements, architecture, database proposals, six phase gates, acceptance notes ও next-stage status একত্র করা হয়েছে:
 
-PLAN.md, PLAN 1.md ও PLAN 3.md user-provided Downloads attachment হিসেবে review করা হয়েছে। এই execution context-এর বর্তমান workspace-এ ওই তিনটি ফাইল নেই; তাই source mapping-এ তাদের নাম provenance হিসেবে রাখা হয়েছে, repository copy হিসেবে নয়।
+| Merged input | অন্তর্ভুক্ত বিষয় |
+|---|---|
+| Existing `nexhaat-master-plan.md` | Architecture, phase gates ও repository acceptance notes; এটিই merged plan হিসেবে রাখা হয়েছে |
+| `PLAN.md` (merged input; removed) | Locale/default behavior, COD, buyer receipt, data constraints, conditional ingress ও launch acceptance |
+| `PLANE 1.md` (merged input; removed) | Database schema proposals, role/auth architecture, media flow, detailed phase gates ও testing strategy |
+| `docs/design-references/index.html`, `style.css`, `script.js`, `README.md`, `README 1.md` | Archived auth design reference ও accessibility/security constraints |
+
+Merge-এর পর `PLAN.md` এবং `PLANE 1.md` source copy মুছে ফেলা হয়েছে; নামগুলো এখানে শুধু provenance হিসেবে রাখা হয়েছে।

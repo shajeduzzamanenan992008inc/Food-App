@@ -4,6 +4,13 @@
 <section class="simple-auth-card account-card">
   <p class="eyebrow">{{ _('Customer') }}</p>
   <h1>{{ _('Account settings') }}</h1>
+  <div class="customer-profile-summary">
+    <span class="customer-profile-avatar" id="customer-profile-avatar" data-profile-avatar data-initial="{{ (profile.full_name[:1] if profile.full_name else user.email[:1])|upper }}">
+      {% if profile_image_url %}<img data-profile-avatar-image src="{{ profile_image_url }}" alt="{{ _('Profile image for %(name)s', name=profile.full_name or _('Customer')) }}">
+      {% else %}<span data-avatar-initial aria-hidden="true">{{ (profile.full_name[:1] if profile.full_name else user.email[:1])|upper }}</span>{% endif %}
+    </span>
+    <span><strong>{{ profile.full_name or _('Customer') }}</strong><small>{{ user.email }}</small></span>
+  </div>
   <form class="auth-form" method="post" enctype="multipart/form-data" action="{{ url_for('auth.account') }}" data-validate-form>
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <div class="form-field">
@@ -32,7 +39,9 @@
     </div>
     <div class="form-field">
       <label for="account-image">{{ _('Profile image') }}</label>
-      <input id="account-image" name="profile_image" type="file" accept="image/png,image/jpeg,image/webp">
+      <input id="account-image" name="profile_image" type="file" accept="image/png,image/jpeg,image/webp"
+             data-profile-image-input data-preview-target="customer-profile-avatar"
+             data-preview-alt="{{ _('Profile image for %(name)s', name=profile.full_name or _('Customer')) }}">
     </div>
     <button class="auth-submit" type="submit"><span data-submit-label>{{ _('Save') }}</span></button>
   </form>

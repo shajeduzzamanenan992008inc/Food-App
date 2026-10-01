@@ -6,7 +6,7 @@
     <p style="color:#08765b;font-weight:700">NexHaat</p>
     <h1 style="font-size:24px">{{ _('Accept invitation') }}</h1>
     <p>{{ _('You have been invited to join the NexHaat team as %(role)s.', role=_(role|capitalize)) }}</p>
-    <p>{{ _('Use the secure link below to create your account password. This invitation expires in 24 hours and can only be used once.') }}</p>
+    {% if role == 'admin' %}<p>{{ _('Use the secure link below to activate your Admin account. Admin sign-in uses a one-time email code. This invitation expires in 24 hours and can only be used once.') }}</p>{% else %}<p>{{ _('Use the secure link below to create your account password. This invitation expires in 24 hours and can only be used once.') }}</p>{% endif %}
     <p><a href="{{ invitation_url }}" style="display:inline-block;padding:12px 18px;border-radius:12px;background:#08765b;color:#fff;text-decoration:none">{{ _('Set up your account') }}</a></p>
     <p>{{ _('If you were not expecting this invitation, you can ignore this email.') }}</p>
   </main>

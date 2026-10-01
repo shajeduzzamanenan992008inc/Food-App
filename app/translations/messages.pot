@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-09-30 08:23+0600\n"
+"POT-Creation-Date: 2026-10-01 15:42+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,177 +17,201 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
-#: app/routes/auth.py:107
+#: app/routes/auth.py:113
 msgid "Please provide valid name, email, and phone details."
 msgstr ""
 
-#: app/routes/auth.py:111 app/routes/auth.py:151 app/routes/auth.py:283
-#: app/routes/auth.py:513 app/routes/auth.py:581 app/routes/auth.py:636
+#: app/routes/auth.py:117 app/routes/auth.py:157 app/routes/auth.py:473
+#: app/routes/auth.py:725 app/routes/auth.py:799
 #: app/templates/auth/_auth_card.html:108
-#: app/templates/auth/accept_invitation.html:40
-#: app/templates/auth/account.html:48 app/templates/auth/admin_account.html:33
-#: app/templates/auth/reset_password.html:32
-#: app/templates/auth/seller_application.html:59
+#: app/templates/auth/_seller_application_panel.html:57
+#: app/templates/auth/accept_invitation.html:41
+#: app/templates/auth/account.html:57 app/templates/auth/reset_password.html:32
 msgid "Passwords do not match."
 msgstr ""
 
-#: app/routes/auth.py:113 app/routes/auth.py:153 app/routes/auth.py:328
+#: app/routes/auth.py:119 app/routes/auth.py:159 app/routes/auth.py:518
 msgid "An account with this email already exists."
 msgstr ""
 
-#: app/routes/auth.py:124
+#: app/routes/auth.py:130
 msgid "Account created. You can now sign in."
 msgstr ""
 
-#: app/routes/auth.py:147
+#: app/routes/auth.py:153
 msgid "Please provide valid store, contact, email, and phone details."
 msgstr ""
 
-#: app/routes/auth.py:170
+#: app/routes/auth.py:176
 msgid "Your seller application is submitted. Sign in to check its review status."
 msgstr ""
 
-#: app/routes/auth.py:192 app/templates/auth/_auth_card.html:91
-#: app/templates/auth/accept_invitation.html:30
+#: app/routes/auth.py:198 app/templates/auth/_auth_card.html:91
+#: app/templates/auth/_seller_application_panel.html:47
+#: app/templates/auth/accept_invitation.html:31
 #: app/templates/auth/reset_password.html:17
-#: app/templates/auth/seller_application.html:49
 #, python-format
 msgid "Password must contain at least %(minimum)s characters."
 msgstr ""
 
-#: app/routes/auth.py:194 app/templates/auth/_auth_card.html:92
-#: app/templates/auth/accept_invitation.html:31
+#: app/routes/auth.py:200 app/templates/auth/_auth_card.html:92
+#: app/templates/auth/_seller_application_panel.html:48
+#: app/templates/auth/accept_invitation.html:32
 #: app/templates/auth/reset_password.html:18
-#: app/templates/auth/seller_application.html:50
 #, python-format
 msgid "Password must contain no more than %(maximum)s characters."
 msgstr ""
 
-#: app/routes/auth.py:219
+#: app/routes/auth.py:228
 msgid "Invalid email or password."
 msgstr ""
 
-#: app/routes/auth.py:267
+#: app/routes/auth.py:317
+msgid ""
+"If an active Admin account matches that email, a sign-in code will be "
+"sent."
+msgstr ""
+
+#: app/routes/auth.py:330
+msgid "Too many attempts. Request a new sign-in code and try again."
+msgstr ""
+
+#: app/routes/auth.py:375
+msgid "Too many incorrect codes. Request a new sign-in code."
+msgstr ""
+
+#: app/routes/auth.py:379 app/templates/auth/verify_admin_login.html:20
+msgid "The sign-in code is incorrect or has expired."
+msgstr ""
+
+#: app/routes/auth.py:410
+msgid "If your Admin sign-in request is active, a new code has been sent."
+msgstr ""
+
+#: app/routes/auth.py:412
+msgid ""
+"If your Admin sign-in request is active, a new code will be sent when "
+"available."
+msgstr ""
+
+#: app/routes/auth.py:456
 msgid "This invitation is invalid, expired, or already used."
 msgstr ""
 
-#: app/routes/auth.py:277
+#: app/routes/auth.py:467
 msgid "Please provide a valid name for this account."
 msgstr ""
 
-#: app/routes/auth.py:279
+#: app/routes/auth.py:469
 msgid "Please provide a valid phone number."
 msgstr ""
 
-#: app/routes/auth.py:286
+#: app/routes/auth.py:476
 msgid ""
 "An account with this email already exists. Ask an administrator to resend"
 " the invitation."
 msgstr ""
 
-#: app/routes/auth.py:306
+#: app/routes/auth.py:496
 msgid "Your account is ready. Sign in to continue."
 msgstr ""
 
-#: app/routes/auth.py:325
+#: app/routes/auth.py:515
 msgid "Enter a valid email and choose Rider or Admin."
 msgstr ""
 
-#: app/routes/auth.py:331 app/routes/auth.py:375
+#: app/routes/auth.py:521 app/routes/auth.py:565
 msgid "Staff invitations need a configured email provider and sender address."
 msgstr ""
 
-#: app/routes/auth.py:343
+#: app/routes/auth.py:533
 msgid "A valid invitation already exists for this email and role."
 msgstr ""
 
-#: app/routes/auth.py:358 app/routes/auth.py:388
+#: app/routes/auth.py:548 app/routes/auth.py:578
 msgid "Staff invitations are unavailable until the public site URL is configured."
 msgstr ""
 
-#: app/routes/auth.py:363
+#: app/routes/auth.py:553
 msgid "The account invitation was created and queued for email."
 msgstr ""
 
-#: app/routes/auth.py:380
+#: app/routes/auth.py:570
 msgid "This invitation was closed because an account already exists."
 msgstr ""
 
-#: app/routes/auth.py:394
+#: app/routes/auth.py:584
 msgid "A fresh invitation link was queued for email."
 msgstr ""
 
-#: app/routes/auth.py:406
+#: app/routes/auth.py:596
 msgid "The account invitation was revoked."
 msgstr ""
 
-#: app/routes/auth.py:448
+#: app/routes/auth.py:638
 msgid ""
 "If an active account exists for that email, a verification code has been "
 "sent."
 msgstr ""
 
-#: app/routes/auth.py:458
+#: app/routes/auth.py:651 app/routes/auth.py:654
 msgid "This password reset code is invalid or has expired."
 msgstr ""
 
-#: app/routes/auth.py:478
+#: app/routes/auth.py:677 app/routes/auth.py:680
 msgid "Too many incorrect codes. Request a new verification code."
 msgstr ""
 
-#: app/routes/auth.py:481
+#: app/routes/auth.py:686 app/routes/auth.py:688
+#: app/templates/auth/verify_reset_code.html:20
 msgid "The verification code is incorrect."
 msgstr ""
 
-#: app/routes/auth.py:500
+#: app/routes/auth.py:712
 msgid "Please verify a valid password reset code first."
 msgstr ""
 
-#: app/routes/auth.py:504
+#: app/routes/auth.py:716
 msgid "This password reset request is invalid or has expired."
 msgstr ""
 
-#: app/routes/auth.py:522
+#: app/routes/auth.py:734
 msgid "Password updated. You can now sign in."
 msgstr ""
 
-#: app/routes/auth.py:538
+#: app/routes/auth.py:750
 msgid "Please provide a valid name and phone number."
 msgstr ""
 
-#: app/routes/auth.py:540
+#: app/routes/auth.py:752
 msgid "Please provide a complete address."
 msgstr ""
 
-#: app/routes/auth.py:542
+#: app/routes/auth.py:754
 msgid "Please provide a valid city."
 msgstr ""
 
-#: app/routes/auth.py:564
+#: app/routes/auth.py:779
 msgid "Your account details were updated."
 msgstr ""
 
-#: app/routes/auth.py:577 app/routes/auth.py:632
+#: app/routes/auth.py:795
 msgid "Your current password is incorrect."
 msgstr ""
 
-#: app/routes/auth.py:587
+#: app/routes/auth.py:805
 msgid "Your password was changed. Sign in again on this device."
 msgstr ""
 
-#: app/routes/auth.py:605
+#: app/routes/auth.py:823
 msgid "Please provide a valid admin name."
 msgstr ""
 
-#: app/routes/auth.py:619
+#: app/routes/auth.py:837
 msgid "Admin profile updated."
 msgstr ""
 
-#: app/routes/auth.py:642
-msgid "Admin password changed. Sign in again on this device."
-msgstr ""
-
-#: app/routes/auth.py:658
+#: app/routes/auth.py:849
 msgid "You have been signed out."
 msgstr ""
 
@@ -223,39 +247,45 @@ msgstr ""
 msgid "Product listing rejected."
 msgstr ""
 
-#: app/routes/seller.py:189 app/routes/seller.py:207
+#: app/routes/seller.py:195 app/routes/seller.py:217
+msgid ""
+"Image could not be approved or stored. It remains private and was not "
+"published."
+msgstr ""
+
+#: app/routes/seller.py:199 app/routes/seller.py:221
 msgid "Please check the product details and try again."
 msgstr ""
 
-#: app/routes/seller.py:191
+#: app/routes/seller.py:201
 msgid "Product submitted for Admin review."
 msgstr ""
 
-#: app/routes/seller.py:209
+#: app/routes/seller.py:223
 msgid "Updated product details were sent for Admin review."
 msgstr ""
 
-#: app/routes/seller.py:222
+#: app/routes/seller.py:236
 msgid "The product is no longer visible in the marketplace."
 msgstr ""
 
-#: app/routes/seller.py:253
+#: app/routes/seller.py:267
 msgid "Please check the variant details and try again."
 msgstr ""
 
-#: app/routes/seller.py:255
+#: app/routes/seller.py:269
 msgid "Product variant added."
 msgstr ""
 
-#: app/routes/seller.py:270
+#: app/routes/seller.py:284
 msgid "Variant availability updated."
 msgstr ""
 
-#: app/routes/seller.py:287
+#: app/routes/seller.py:301
 msgid "Enter a valid non-negative stock quantity."
 msgstr ""
 
-#: app/routes/seller.py:291
+#: app/routes/seller.py:305
 msgid "Variant stock updated."
 msgstr ""
 
@@ -265,7 +295,19 @@ msgstr ""
 msgid "Your NexHaat password reset code"
 msgstr ""
 
-#: app/templates/_product_card.html:18
+#: app/services/mail.py:187 app/templates/email/admin_login_code.html:3
+#: app/templates/email/admin_login_code.html:7
+#: app/templates/email/admin_login_code.txt:3
+msgid "Your NexHaat admin sign-in code"
+msgstr ""
+
+#: app/templates/_product_card.html:12 app/templates/catalog/food.html:12
+#: app/templates/orders/cart.html:12 app/templates/orders/checkout.html:21
+#, python-format
+msgid "Original language: %(language)s"
+msgstr ""
+
+#: app/templates/_product_card.html:19
 #, python-format
 msgid "Add %(name)s to cart"
 msgstr ""
@@ -274,80 +316,81 @@ msgstr ""
 msgid "Discover neighborhood food, groceries, and local stores on NexHaat."
 msgstr ""
 
-#: app/templates/base.html:14
+#: app/templates/base.html:15
 msgid "Skip to content"
 msgstr ""
 
-#: app/templates/base.html:20
+#: app/templates/base.html:22
 msgid "Toggle navigation"
 msgstr ""
 
-#: app/templates/base.html:22
+#: app/templates/base.html:24
 msgid "Main navigation"
 msgstr ""
 
-#: app/templates/base.html:23
+#: app/templates/base.html:25
 msgid "Home"
 msgstr ""
 
-#: app/templates/base.html:24 app/templates/catalog/menu.html:2
+#: app/templates/base.html:26 app/templates/catalog/menu.html:2
 msgid "Explore"
 msgstr ""
 
-#: app/templates/base.html:26 app/templates/customer/dashboard.html:8
+#: app/templates/base.html:28 app/templates/customer/dashboard.html:14
 #: app/templates/orders/my_orders.html:2 app/templates/orders/my_orders.html:5
 #: app/templates/portals/dashboard.html:9
 msgid "My orders"
 msgstr ""
 
-#: app/templates/admin/settings.html:4 app/templates/base.html:27
+#: app/templates/admin/settings.html:4 app/templates/base.html:29
 msgid "Operations"
 msgstr ""
 
-#: app/templates/base.html:28 app/templates/seller/catalog.html:5
+#: app/templates/base.html:30 app/templates/seller/catalog.html:5
 #: app/templates/seller/dashboard.html:5
 msgid "Seller space"
 msgstr ""
 
-#: app/templates/base.html:29 app/templates/rider/dashboard.html:5
+#: app/templates/base.html:31 app/templates/rider/dashboard.html:5
 msgid "Rider space"
 msgstr ""
 
-#: app/templates/base.html:36 app/templates/base.html:37
+#: app/templates/auth/base.html:16 app/templates/auth/base.html:17
+#: app/templates/base.html:38 app/templates/base.html:39
 msgid "Language"
 msgstr ""
 
-#: app/templates/base.html:42
+#: app/templates/auth/base.html:22 app/templates/base.html:44
 msgid "Go"
 msgstr ""
 
-#: app/templates/base.html:44 app/templates/customer/dashboard.html:9
+#: app/templates/base.html:46 app/templates/customer/dashboard.html:15
 #: app/templates/orders/cart.html:2 app/templates/portals/dashboard.html:12
 msgid "Shopping cart"
 msgstr ""
 
-#: app/templates/base.html:45
+#: app/templates/base.html:47
 msgid "Cart"
 msgstr ""
 
-#: app/templates/base.html:49
+#: app/templates/base.html:51
 msgid "Account"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:151 app/templates/auth/account.html:53
-#: app/templates/auth/admin_account.html:38 app/templates/base.html:50
+#: app/templates/admin/dashboard.html:151 app/templates/auth/account.html:62
+#: app/templates/auth/admin_account.html:27 app/templates/base.html:52
 msgid "Sign out"
 msgstr ""
 
-#: app/templates/auth/login.html:2 app/templates/base.html:52
+#: app/templates/auth/login.html:2 app/templates/base.html:54
 msgid "Sign in"
 msgstr ""
 
-#: app/templates/base.html:66
+#: app/templates/base.html:70
 msgid "Good food and thoughtful finds, close to home."
 msgstr ""
 
-#: app/templates/base.html:67
+#: app/templates/auth/base.html:31 app/templates/base.html:71
 msgid "All rights reserved."
 msgstr ""
 
@@ -441,8 +484,8 @@ msgid ""
 "place."
 msgstr ""
 
-#: app/templates/auth/seller_application.html:2
-#: app/templates/auth/seller_application.html:6 app/templates/home.html:45
+#: app/templates/auth/_seller_application_panel.html:4
+#: app/templates/auth/seller_application.html:2 app/templates/home.html:45
 msgid "Apply to sell"
 msgstr ""
 
@@ -485,7 +528,7 @@ msgstr ""
 #: app/templates/admin/category_form.html:10
 #: app/templates/admin/customer_form.html:10
 #: app/templates/admin/product_form.html:14 app/templates/admin/settings.html:8
-#: app/templates/seller/product_form.html:28
+#: app/templates/seller/product_form.html:31
 msgid "Cancel"
 msgstr ""
 
@@ -506,34 +549,34 @@ msgstr ""
 #: app/templates/admin/customer_form.html:6
 #: app/templates/auth/_auth_card.html:61
 #: app/templates/auth/accept_invitation.html:12
-#: app/templates/auth/account.html:10 app/templates/auth/admin_account.html:10
+#: app/templates/auth/account.html:17 app/templates/auth/admin_account.html:10
 #: app/templates/orders/checkout.html:11
 msgid "Full name"
 msgstr ""
 
 #: app/templates/admin/customer_form.html:7
 #: app/templates/auth/_auth_card.html:78
+#: app/templates/auth/_seller_application_panel.html:24
 #: app/templates/auth/accept_invitation.html:19
-#: app/templates/auth/account.html:20
-#: app/templates/auth/seller_application.html:26
-#: app/templates/orders/checkout.html:12
+#: app/templates/auth/account.html:27 app/templates/orders/checkout.html:12
 msgid "Phone number"
 msgstr ""
 
 #: app/templates/admin/customer_form.html:8
 #: app/templates/admin/dashboard.html:92 app/templates/admin/dashboard.html:116
 #: app/templates/auth/_auth_card.html:14 app/templates/auth/_auth_card.html:69
-#: app/templates/auth/account.html:16 app/templates/auth/admin_account.html:16
+#: app/templates/auth/_seller_application_panel.html:35
+#: app/templates/auth/account.html:23 app/templates/auth/admin_account.html:16
+#: app/templates/auth/admin_login.html:12
 #: app/templates/auth/forgot_password.html:12
-#: app/templates/auth/seller_application.html:37
 msgid "Email address"
 msgstr ""
 
 #: app/templates/admin/customer_form.html:9
 #: app/templates/auth/_auth_card.html:23 app/templates/auth/_auth_card.html:86
-#: app/templates/auth/accept_invitation.html:26
+#: app/templates/auth/_seller_application_panel.html:43
+#: app/templates/auth/accept_invitation.html:27
 #: app/templates/auth/reset_password.html:12
-#: app/templates/auth/seller_application.html:45
 msgid "Password"
 msgstr ""
 
@@ -557,7 +600,7 @@ msgstr ""
 #: app/templates/admin/dashboard.html:12 app/templates/auth/account.html:2
 #: app/templates/auth/account.html:6 app/templates/auth/admin_account.html:2
 #: app/templates/auth/admin_account.html:6
-#: app/templates/customer/dashboard.html:5
+#: app/templates/customer/dashboard.html:11
 #: app/templates/orders/my_orders.html:5
 #: app/templates/portals/dashboard.html:11 app/templates/rider/dashboard.html:6
 msgid "Account settings"
@@ -589,7 +632,7 @@ msgid "Pending orders"
 msgstr ""
 
 #: app/templates/admin/dashboard.html:30
-#: app/templates/auth/seller_application.html:5
+#: app/templates/auth/_seller_application_panel.html:3
 msgid "SELLER ONBOARDING"
 msgstr ""
 
@@ -762,11 +805,20 @@ msgid "Order"
 msgstr ""
 
 #: app/templates/admin/dashboard.html:136 app/templates/auth/account.html:5
+#: app/templates/auth/account.html:9 app/templates/auth/account.html:12
+#: app/templates/auth/account.html:44 app/templates/customer/dashboard.html:7
+#: app/templates/customer/dashboard.html:10
 msgid "Customer"
 msgstr ""
 
 #: app/templates/admin/dashboard.html:136
-#: app/templates/admin/order_detail.html:5 app/templates/orders/cart.html:10
+#: app/templates/admin/order_detail.html:5
+#: app/templates/email/admin_order.html:23
+#: app/templates/email/admin_order.txt:8
+#: app/templates/email/order_pending.html:23
+#: app/templates/email/order_pending.txt:8
+#: app/templates/email/order_receipt.html:23
+#: app/templates/email/order_receipt.txt:8 app/templates/orders/cart.html:10
 #: app/templates/orders/cart.html:23 app/templates/orders/confirmation.html:7
 #: app/templates/orders/my_orders.html:6
 msgid "Total"
@@ -776,7 +828,7 @@ msgstr ""
 msgid "Order status"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:139 app/templates/auth/account.html:37
+#: app/templates/admin/dashboard.html:139 app/templates/auth/account.html:46
 #: app/templates/auth/admin_account.html:23
 msgid "Save"
 msgstr ""
@@ -873,7 +925,7 @@ msgid "Discount price (optional)"
 msgstr ""
 
 #: app/templates/admin/product_form.html:12
-#: app/templates/seller/product_form.html:18
+#: app/templates/seller/product_form.html:20
 msgid "Description"
 msgstr ""
 
@@ -902,8 +954,8 @@ msgid "Save settings"
 msgstr ""
 
 #: app/templates/auth/_auth_card.html:6 app/templates/auth/_auth_card.html:54
-#: app/templates/auth/base.html:13 app/templates/errors/404.html:5
-#: app/templates/errors/500.html:5 app/templates/portals/dashboard.html:4
+#: app/templates/errors/404.html:5 app/templates/errors/500.html:5
+#: app/templates/portals/dashboard.html:4
 msgid "NEXHAAT MARKETPLACE"
 msgstr ""
 
@@ -919,32 +971,30 @@ msgstr ""
 #: app/templates/auth/_auth_card.html:64 app/templates/auth/_auth_card.html:72
 #: app/templates/auth/_auth_card.html:81 app/templates/auth/_auth_card.html:90
 #: app/templates/auth/_auth_card.html:107
+#: app/templates/auth/_seller_application_panel.html:13
+#: app/templates/auth/_seller_application_panel.html:20
+#: app/templates/auth/_seller_application_panel.html:27
+#: app/templates/auth/_seller_application_panel.html:38
+#: app/templates/auth/_seller_application_panel.html:46
+#: app/templates/auth/_seller_application_panel.html:56
 #: app/templates/auth/accept_invitation.html:14
 #: app/templates/auth/accept_invitation.html:21
-#: app/templates/auth/accept_invitation.html:29
-#: app/templates/auth/accept_invitation.html:39
-#: app/templates/auth/account.html:12 app/templates/auth/account.html:22
-#: app/templates/auth/account.html:44 app/templates/auth/account.html:46
-#: app/templates/auth/account.html:48 app/templates/auth/admin_account.html:12
-#: app/templates/auth/admin_account.html:29
-#: app/templates/auth/admin_account.html:31
-#: app/templates/auth/admin_account.html:33
+#: app/templates/auth/accept_invitation.html:30
+#: app/templates/auth/accept_invitation.html:40
+#: app/templates/auth/account.html:19 app/templates/auth/account.html:29
+#: app/templates/auth/account.html:53 app/templates/auth/account.html:55
+#: app/templates/auth/account.html:57 app/templates/auth/admin_account.html:12
+#: app/templates/auth/admin_login.html:14
 #: app/templates/auth/forgot_password.html:14
 #: app/templates/auth/reset_password.html:16
 #: app/templates/auth/reset_password.html:31
-#: app/templates/auth/seller_application.html:15
-#: app/templates/auth/seller_application.html:22
-#: app/templates/auth/seller_application.html:29
-#: app/templates/auth/seller_application.html:40
-#: app/templates/auth/seller_application.html:48
-#: app/templates/auth/seller_application.html:58
-#: app/templates/auth/verify_reset_code.html:15
 msgid "This field is required."
 msgstr ""
 
 #: app/templates/auth/_auth_card.html:18 app/templates/auth/_auth_card.html:73
+#: app/templates/auth/_seller_application_panel.html:39
+#: app/templates/auth/admin_login.html:15
 #: app/templates/auth/forgot_password.html:15
-#: app/templates/auth/seller_application.html:41
 msgid "Enter a valid email address."
 msgstr ""
 
@@ -975,7 +1025,7 @@ msgid "Forgot password?"
 msgstr ""
 
 #: app/templates/auth/_auth_card.html:40
-msgid "Admin accounts are provisioned securely."
+msgid "Admin sign in with an email code"
 msgstr ""
 
 #: app/templates/auth/_auth_card.html:41
@@ -1006,20 +1056,19 @@ msgstr ""
 msgid "Create your account"
 msgstr ""
 
-#: app/templates/auth/_auth_card.html:56 app/templates/auth/base.html:13
+#: app/templates/auth/_auth_card.html:56
 msgid "Start your journey with NexHaat"
 msgstr ""
 
 #: app/templates/auth/_auth_card.html:103
-#: app/templates/auth/accept_invitation.html:36
-#: app/templates/auth/account.html:47 app/templates/auth/admin_account.html:32
-#: app/templates/auth/reset_password.html:27
-#: app/templates/auth/seller_application.html:55
+#: app/templates/auth/_seller_application_panel.html:53
+#: app/templates/auth/accept_invitation.html:37
+#: app/templates/auth/account.html:56 app/templates/auth/reset_password.html:27
 msgid "Confirm password"
 msgstr ""
 
 #: app/templates/auth/_auth_card.html:118
-#: app/templates/auth/accept_invitation.html:44
+#: app/templates/auth/accept_invitation.html:48
 msgid "Creating account…"
 msgstr ""
 
@@ -1035,8 +1084,41 @@ msgstr ""
 msgid "Return to sign in"
 msgstr ""
 
+#: app/templates/auth/_seller_application_panel.html:5
+msgid ""
+"Create your seller account. Our team will review your store before you "
+"can start selling."
+msgstr ""
+
+#: app/templates/auth/_seller_application_panel.html:10
+msgid "Store name"
+msgstr ""
+
+#: app/templates/auth/_seller_application_panel.html:17
+msgid "Contact name"
+msgstr ""
+
+#: app/templates/auth/_seller_application_panel.html:31
+msgid "Business address (optional)"
+msgstr ""
+
+#: app/templates/auth/_seller_application_panel.html:61
+msgid "Submitting application…"
+msgstr ""
+
+#: app/templates/auth/_seller_application_panel.html:62
+msgid "Submit seller application"
+msgstr ""
+
+#: app/templates/auth/_seller_application_panel.html:65
+#: app/templates/auth/accept_invitation.html:52
+#: app/templates/auth/forgot_password.html:23
+#: app/templates/auth/reset_password.html:44
+msgid "Back to sign in"
+msgstr ""
+
 #: app/templates/auth/accept_invitation.html:2
-#: app/templates/auth/accept_invitation.html:45
+#: app/templates/auth/accept_invitation.html:49
 #: app/templates/email/account_invitation.html:3
 #: app/templates/email/account_invitation.html:7
 msgid "Accept invitation"
@@ -1056,48 +1138,67 @@ msgstr ""
 msgid "You are setting up a %(role)s account for %(email)s."
 msgstr ""
 
-#: app/templates/auth/accept_invitation.html:48
-#: app/templates/auth/forgot_password.html:23
-#: app/templates/auth/reset_password.html:44
-#: app/templates/auth/seller_application.html:67
-msgid "Back to sign in"
+#: app/templates/auth/accept_invitation.html:46
+msgid "Admin accounts sign in with a one-time code sent to their email."
 msgstr ""
 
-#: app/templates/auth/account.html:26
+#: app/templates/auth/account.html:9 app/templates/auth/account.html:44
+#: app/templates/customer/dashboard.html:7
+#, python-format
+msgid "Profile image for %(name)s"
+msgstr ""
+
+#: app/templates/auth/account.html:33
 msgid "Street address"
 msgstr ""
 
-#: app/templates/auth/account.html:30
+#: app/templates/auth/account.html:37
 msgid "City"
 msgstr ""
 
-#: app/templates/auth/account.html:34 app/templates/auth/admin_account.html:20
+#: app/templates/auth/account.html:41 app/templates/auth/admin_account.html:20
 msgid "Profile image"
 msgstr ""
 
-#: app/templates/auth/account.html:40 app/templates/portals/dashboard.html:11
+#: app/templates/auth/account.html:49 app/templates/portals/dashboard.html:11
 msgid "Update your profile, address, and password."
 msgstr ""
 
-#: app/templates/auth/account.html:43 app/templates/auth/admin_account.html:28
+#: app/templates/auth/account.html:52
 msgid "Current password"
 msgstr ""
 
-#: app/templates/auth/account.html:45 app/templates/auth/admin_account.html:30
+#: app/templates/auth/account.html:54
 msgid "New password"
 msgstr ""
 
-#: app/templates/auth/account.html:49 app/templates/auth/admin_account.html:34
-#: app/templates/auth/reset_password.html:41
+#: app/templates/auth/account.html:58 app/templates/auth/reset_password.html:41
 msgid "Update password"
 msgstr ""
 
-#: app/templates/auth/base.html:13 app/templates/portals/dashboard.html:10
-msgid "Explore the available food and products."
+#: app/templates/auth/admin_login.html:2 app/templates/auth/admin_login.html:6
+msgid "Admin sign in"
 msgstr ""
 
-#: app/templates/auth/base.html:19 app/templates/portals/dashboard.html:9
-msgid "Review your order history and updates."
+#: app/templates/auth/admin_login.html:5
+msgid "SECURE ADMIN ACCESS"
+msgstr ""
+
+#: app/templates/auth/admin_login.html:7
+msgid "Enter your Admin account email. We will send you a one-time sign-in code."
+msgstr ""
+
+#: app/templates/auth/admin_login.html:17
+#: app/templates/auth/forgot_password.html:19
+msgid "Sending…"
+msgstr ""
+
+#: app/templates/auth/admin_login.html:18
+msgid "Send sign-in code"
+msgstr ""
+
+#: app/templates/auth/admin_login.html:21
+msgid "Back to regular sign in"
 msgstr ""
 
 #: app/templates/auth/forgot_password.html:2
@@ -1106,7 +1207,7 @@ msgstr ""
 
 #: app/templates/auth/forgot_password.html:5
 #: app/templates/auth/reset_password.html:5
-#: app/templates/auth/verify_reset_code.html:5
+#: app/templates/auth/verify_reset_code.html:28
 msgid "Secure verification"
 msgstr ""
 
@@ -1116,10 +1217,6 @@ msgstr ""
 
 #: app/templates/auth/forgot_password.html:7
 msgid "Enter your account email and we will send a 6-digit verification code."
-msgstr ""
-
-#: app/templates/auth/forgot_password.html:19
-msgid "Sending…"
 msgstr ""
 
 #: app/templates/auth/forgot_password.html:20
@@ -1143,61 +1240,126 @@ msgstr ""
 msgid "Updating…"
 msgstr ""
 
-#: app/templates/auth/seller_application.html:7
-msgid ""
-"Create your seller account. Our team will review your store before you "
-"can start selling."
+#: app/templates/auth/verify_admin_login.html:2
+msgid "Verify Admin sign-in"
 msgstr ""
 
-#: app/templates/auth/seller_application.html:12
-msgid "Store name"
-msgstr ""
-
-#: app/templates/auth/seller_application.html:19
-msgid "Contact name"
-msgstr ""
-
-#: app/templates/auth/seller_application.html:33
-msgid "Business address (optional)"
-msgstr ""
-
-#: app/templates/auth/seller_application.html:63
-msgid "Submitting application…"
-msgstr ""
-
-#: app/templates/auth/seller_application.html:64
-msgid "Submit seller application"
-msgstr ""
-
-#: app/templates/auth/verify_reset_code.html:2
-#: app/templates/auth/verify_reset_code.html:20
-msgid "Verify code"
-msgstr ""
-
-#: app/templates/auth/verify_reset_code.html:6
-msgid "Check your email"
-msgstr ""
-
-#: app/templates/auth/verify_reset_code.html:7
-msgid ""
-"Enter the 6-digit code sent to your account email. It expires in 10 "
-"minutes."
-msgstr ""
-
-#: app/templates/auth/verify_reset_code.html:12
-msgid "Verification code"
-msgstr ""
-
-#: app/templates/auth/verify_reset_code.html:16
-msgid "6-digit verification code"
-msgstr ""
-
-#: app/templates/auth/verify_reset_code.html:19
+#: app/templates/auth/verify_admin_login.html:14
+#: app/templates/auth/verify_admin_login.html:48
+#: app/templates/auth/verify_reset_code.html:14
+#: app/templates/auth/verify_reset_code.html:47
 msgid "Verifying…"
 msgstr ""
 
-#: app/templates/auth/verify_reset_code.html:23
-msgid "Send a new code"
+#: app/templates/auth/verify_admin_login.html:15
+msgid "Securely checking your sign-in code."
+msgstr ""
+
+#: app/templates/auth/verify_admin_login.html:16
+msgid "Admin verified"
+msgstr ""
+
+#: app/templates/auth/verify_admin_login.html:17
+msgid "Your code is verified. Opening the Admin dashboard…"
+msgstr ""
+
+#: app/templates/auth/verify_admin_login.html:18
+#: app/templates/auth/verify_admin_login.html:60
+#: app/templates/auth/verify_reset_code.html:18
+#: app/templates/auth/verify_reset_code.html:58
+msgid "Code not verified"
+msgstr ""
+
+#: app/templates/auth/verify_admin_login.html:19
+msgid "The code is incorrect or expired. Check it and try again."
+msgstr ""
+
+#: app/templates/auth/verify_admin_login.html:21
+#: app/templates/auth/verify_reset_code.html:21
+msgid "We could not verify the code right now. Please try again."
+msgstr ""
+
+#: app/templates/auth/verify_admin_login.html:28
+msgid "SECURE ADMIN VERIFICATION"
+msgstr ""
+
+#: app/templates/auth/verify_admin_login.html:29
+msgid "Verify your sign-in code"
+msgstr ""
+
+#: app/templates/auth/verify_admin_login.html:30
+msgid ""
+"Enter the 6-digit code if one was sent to your Admin account email. It "
+"expires in 10 minutes."
+msgstr ""
+
+#: app/templates/auth/verify_admin_login.html:32
+#: app/templates/auth/verify_reset_code.html:32
+msgid "Verification code entry"
+msgstr ""
+
+#: app/templates/auth/verify_admin_login.html:35
+#: app/templates/auth/verify_admin_login.html:36
+#: app/templates/auth/verify_reset_code.html:35
+#: app/templates/auth/verify_reset_code.html:37
+msgid "6-digit verification code"
+msgstr ""
+
+#: app/templates/auth/verify_admin_login.html:40
+#: app/templates/auth/verify_reset_code.html:40
+#, python-format
+msgid "Digit %(number)s"
+msgstr ""
+
+#: app/templates/auth/verify_admin_login.html:55
+#: app/templates/auth/verify_reset_code.html:53
+msgid "Verified"
+msgstr ""
+
+#: app/templates/auth/verify_admin_login.html:64
+#: app/templates/auth/verify_reset_code.html:2
+#: app/templates/auth/verify_reset_code.html:63
+msgid "Verify code"
+msgstr ""
+
+#: app/templates/auth/verify_admin_login.html:68
+#: app/templates/auth/verify_reset_code.html:64
+msgid "Didn’t receive the code?"
+msgstr ""
+
+#: app/templates/auth/verify_admin_login.html:71
+#: app/templates/auth/verify_reset_code.html:64
+msgid "Resend"
+msgstr ""
+
+#: app/templates/auth/verify_admin_login.html:74
+msgid "Use a different email"
+msgstr ""
+
+#: app/templates/auth/verify_reset_code.html:15
+msgid "Securely checking your code."
+msgstr ""
+
+#: app/templates/auth/verify_reset_code.html:16
+msgid "Code verified"
+msgstr ""
+
+#: app/templates/auth/verify_reset_code.html:17
+msgid "Your code is verified. Taking you to set a new password…"
+msgstr ""
+
+#: app/templates/auth/verify_reset_code.html:19
+msgid "The code is incorrect. Check it and try again."
+msgstr ""
+
+#: app/templates/auth/verify_reset_code.html:29
+msgid "Check your email"
+msgstr ""
+
+#: app/templates/auth/verify_reset_code.html:30
+msgid ""
+"Enter the 6-digit code sent to your account email. It expires in 10 "
+"minutes."
 msgstr ""
 
 #: app/templates/catalog/category.html:5
@@ -1222,12 +1384,6 @@ msgstr ""
 
 #: app/templates/catalog/food.html:9
 msgid "Local listing"
-msgstr ""
-
-#: app/templates/catalog/food.html:13
-msgid ""
-"Product details shown in your language when the seller has provided a "
-"translation."
 msgstr ""
 
 #: app/templates/catalog/food.html:17
@@ -1321,11 +1477,11 @@ msgstr ""
 msgid "Customer dashboard"
 msgstr ""
 
-#: app/templates/customer/dashboard.html:5
+#: app/templates/customer/dashboard.html:10
 msgid "Your NexHaat space"
 msgstr ""
 
-#: app/templates/customer/dashboard.html:5
+#: app/templates/customer/dashboard.html:10
 #: app/templates/portals/dashboard.html:5
 #: app/templates/portals/dashboard.html:6 app/templates/rider/dashboard.html:5
 #: app/templates/seller/dashboard.html:5
@@ -1333,28 +1489,24 @@ msgstr ""
 msgid "Welcome, %(name)s"
 msgstr ""
 
-#: app/templates/customer/dashboard.html:5
-msgid "Pick up where you left off."
-msgstr ""
-
-#: app/templates/customer/dashboard.html:6
+#: app/templates/customer/dashboard.html:12
 msgid "Customer shortcuts"
 msgstr ""
 
-#: app/templates/customer/dashboard.html:7 app/templates/orders/cart.html:30
+#: app/templates/customer/dashboard.html:13 app/templates/orders/cart.html:30
 #: app/templates/orders/my_orders.html:9
 msgid "Explore marketplace"
 msgstr ""
 
-#: app/templates/customer/dashboard.html:7
+#: app/templates/customer/dashboard.html:13
 msgid "Browse local food, groceries, and product listings."
 msgstr ""
 
-#: app/templates/customer/dashboard.html:8
+#: app/templates/customer/dashboard.html:14
 msgid "Check your order status and previous purchases."
 msgstr ""
 
-#: app/templates/customer/dashboard.html:9
+#: app/templates/customer/dashboard.html:15
 msgid "Review saved items and continue to checkout."
 msgstr ""
 
@@ -1362,6 +1514,14 @@ msgstr ""
 #: app/templates/email/account_invitation.txt:1
 #, python-format
 msgid "You have been invited to join the NexHaat team as %(role)s."
+msgstr ""
+
+#: app/templates/email/account_invitation.html:9
+#: app/templates/email/account_invitation.txt:2
+msgid ""
+"Use the secure link below to activate your Admin account. Admin sign-in "
+"uses a one-time email code. This invitation expires in 24 hours and can "
+"only be used once."
 msgstr ""
 
 #: app/templates/email/account_invitation.html:9
@@ -1376,16 +1536,119 @@ msgstr ""
 msgid "If you were not expecting this invitation, you can ignore this email."
 msgstr ""
 
-#: app/templates/email/password_reset_code.html:8
-#: app/templates/email/password_reset_code.txt:4
-msgid "Use this code to create a new NexHaat account password:"
+#: app/templates/email/admin_login_code.html:8
+#: app/templates/email/admin_login_code.txt:4
+msgid "Use this code to sign in to the NexHaat admin account:"
 msgstr ""
 
+#: app/templates/email/admin_login_code.html:10
+#: app/templates/email/admin_login_code.txt:8
 #: app/templates/email/password_reset_code.html:10
 #: app/templates/email/password_reset_code.txt:8
 msgid ""
 "This code expires in 10 minutes. If you did not request this, you can "
 "ignore this email."
+msgstr ""
+
+#: app/templates/email/admin_order.html:3
+#: app/templates/email/admin_order.html:7 app/templates/email/admin_order.txt:3
+msgid "New order received"
+msgstr ""
+
+#: app/templates/email/admin_order.html:8 app/templates/email/admin_order.txt:4
+#, python-format
+msgid "Order %(number)s from %(name)s (%(phone)s)."
+msgstr ""
+
+#: app/templates/email/admin_order.html:11
+#: app/templates/email/order_pending.html:11
+#: app/templates/email/order_receipt.html:11 app/templates/orders/cart.html:10
+msgid "Item"
+msgstr ""
+
+#: app/templates/email/admin_order.html:12
+#: app/templates/email/order_pending.html:12
+#: app/templates/email/order_receipt.html:12
+msgid "Qty"
+msgstr ""
+
+#: app/templates/email/admin_order.html:13
+#: app/templates/email/order_pending.html:13
+#: app/templates/email/order_receipt.html:13 app/templates/orders/cart.html:23
+#: app/templates/orders/checkout.html:21
+msgid "Subtotal"
+msgstr ""
+
+#: app/templates/email/admin_order.html:24
+#: app/templates/email/admin_order.txt:10
+#: app/templates/email/order_pending.html:24
+#: app/templates/email/order_pending.txt:10
+#, python-format
+msgid "Delivery address: %(address)s"
+msgstr ""
+
+#: app/templates/email/admin_order.html:25
+#: app/templates/email/admin_order.txt:11
+#, python-format
+msgid "Customer email: %(email)s"
+msgstr ""
+
+#: app/templates/email/order_pending.html:3
+#: app/templates/email/order_pending.html:7
+#: app/templates/email/order_pending.txt:3
+msgid "We received your order"
+msgstr ""
+
+#: app/templates/email/order_pending.html:8
+#: app/templates/email/order_pending.txt:4
+#, python-format
+msgid "Thank you, %(name)s. Your order %(number)s is pending confirmation."
+msgstr ""
+
+#: app/templates/email/order_pending.html:25
+#: app/templates/email/order_pending.txt:11
+msgid ""
+"Payment method: cash on delivery. We will email you again once your order"
+" is confirmed."
+msgstr ""
+
+#: app/templates/email/order_receipt.html:3
+#: app/templates/email/order_receipt.html:7
+#: app/templates/email/order_receipt.txt:3
+msgid "Your NexHaat receipt"
+msgstr ""
+
+#: app/templates/email/order_receipt.html:8
+#: app/templates/email/order_receipt.txt:4
+#, python-format
+msgid "Thank you, %(name)s. Here is the receipt for order %(number)s."
+msgstr ""
+
+#: app/templates/email/order_receipt.html:24
+#: app/templates/email/order_receipt.txt:10
+msgid "Your invoice is attached to this email as a PDF."
+msgstr ""
+
+#: app/templates/email/order_status.html:3
+#: app/templates/email/order_status.html:7
+#: app/templates/email/order_status.txt:3
+msgid "Order update"
+msgstr ""
+
+#: app/templates/email/order_status.html:8
+#: app/templates/email/order_status.txt:4
+#, python-format
+msgid "Hello %(name)s, your order %(number)s is now %(status)s."
+msgstr ""
+
+#: app/templates/email/order_status.html:9
+#: app/templates/email/order_status.txt:6
+msgid "Thank you for ordering with NexHaat."
+msgstr ""
+
+#: app/templates/email/password_reset_code.html:8
+#: app/templates/email/password_reset_code.txt:4
+msgid "Use this code to create a new NexHaat account password:"
 msgstr ""
 
 #: app/templates/errors/404.html:2 app/templates/errors/404.html:7
@@ -1416,10 +1679,6 @@ msgstr ""
 msgid "Review your items before continuing to checkout."
 msgstr ""
 
-#: app/templates/orders/cart.html:10
-msgid "Item"
-msgstr ""
-
 #: app/templates/orders/cart.html:10 app/templates/seller/catalog.html:6
 msgid "Price"
 msgstr ""
@@ -1443,10 +1702,6 @@ msgstr ""
 
 #: app/templates/orders/cart.html:22
 msgid "Order summary"
-msgstr ""
-
-#: app/templates/orders/cart.html:23 app/templates/orders/checkout.html:21
-msgid "Subtotal"
 msgstr ""
 
 #: app/templates/orders/cart.html:23 app/templates/orders/checkout.html:21
@@ -1567,8 +1822,16 @@ msgstr ""
 msgid "Your %(role)s workspace is ready."
 msgstr ""
 
+#: app/templates/portals/dashboard.html:9
+msgid "Review your order history and updates."
+msgstr ""
+
 #: app/templates/portals/dashboard.html:10
 msgid "Browse marketplace"
+msgstr ""
+
+#: app/templates/portals/dashboard.html:10
+msgid "Explore the available food and products."
 msgstr ""
 
 #: app/templates/portals/dashboard.html:12
@@ -1753,28 +2016,38 @@ msgid "Available stock"
 msgstr ""
 
 #: app/templates/seller/product_form.html:17
-msgid "Image address (optional)"
+msgid "Product image (optional)"
 msgstr ""
 
-#: app/templates/seller/product_form.html:20
+#: app/templates/seller/product_form.html:17
+msgid ""
+"JPEG, PNG, or WEBP. Maximum 3 MB. Images are scanned and checked before "
+"storage."
+msgstr ""
+
+#: app/templates/seller/product_form.html:18
+msgid "Remove current image"
+msgstr ""
+
+#: app/templates/seller/product_form.html:23
 msgid "Optional seller-written translations"
 msgstr ""
 
-#: app/templates/seller/product_form.html:20
+#: app/templates/seller/product_form.html:23
 msgid ""
 "We do not machine-translate product details. Leave a language blank to "
 "show the original text with its language label."
 msgstr ""
 
-#: app/templates/seller/product_form.html:23
+#: app/templates/seller/product_form.html:26
 msgid "Translated name"
 msgstr ""
 
-#: app/templates/seller/product_form.html:24
+#: app/templates/seller/product_form.html:27
 msgid "Translated description"
 msgstr ""
 
-#: app/templates/seller/product_form.html:28
+#: app/templates/seller/product_form.html:31
 msgid "Send for Admin review"
 msgstr ""
 
@@ -1807,7 +2080,7 @@ msgid "Option name"
 msgstr ""
 
 #: app/templates/seller/variants.html:9
-msgid "Size, pack, color…"
+msgid "Size or pack"
 msgstr ""
 
 #: app/templates/seller/variants.html:10

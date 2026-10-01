@@ -4,7 +4,7 @@
 {% block page_content %}
 <div class="form-page"><section class="surface form-page__panel">
   <p class="eyebrow">{{ _('Seller catalog') }}</p><h1>{{ _('Edit product') if is_editing else _('Add a product') }}</h1><p>{{ _('Every new listing and edit is reviewed before customers can see it.') }}</p>
-  <form method="post" action="{{ url_for('seller.product_edit', product_id=product.id) if is_editing else url_for('seller.product_new') }}">
+  <form method="post" enctype="multipart/form-data" action="{{ url_for('seller.product_edit', product_id=product.id) if is_editing else url_for('seller.product_new') }}">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
     <div class="field-grid">
       <div class="form-field"><label for="product-name">{{ _('Product name') }}</label><input id="product-name" name="name" minlength="2" maxlength="160" required value="{{ request.form.get('name', product.name if product else '') }}"></div>
@@ -14,7 +14,9 @@
       <div class="form-field"><label for="product-price">{{ _('Price (BDT)') }}</label><input id="product-price" name="price" type="number" min="0" max="99999999.99" step="0.01" required value="{{ request.form.get('price', product.price if product else '') }}"></div>
       <div class="form-field"><label for="product-discount">{{ _('Discount price (optional)') }}</label><input id="product-discount" name="discount_price" type="number" min="0" max="99999999.99" step="0.01" value="{{ request.form.get('discount_price', product.discount_price if product and product.discount_price else '') }}"></div>
       <div class="form-field"><label for="product-stock">{{ _('Available stock') }}</label><input id="product-stock" name="stock_quantity" type="number" min="0" max="2147483647" step="1" required value="{{ request.form.get('stock_quantity', product.stock_quantity if product else 0) }}"></div>
-      <div class="form-field"><label for="product-image">{{ _('Image address (optional)') }}</label><input id="product-image" name="image" type="url" maxlength="500" value="{{ request.form.get('image', product.image if product else '') }}"></div>
+      <div class="form-field form-field--wide"><label for="product-image">{{ _('Product image (optional)') }}</label><input id="product-image" name="image_file" type="file" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp"><small class="source-caption">{{ _('JPEG, PNG, or WEBP. Maximum 3 MB. Images are scanned and checked before storage.') }}</small>
+        {% if product and product.image %}<div class="catalog-image-preview"><img src="{{ product.image }}" alt="{{ product.localized_name(current_locale) }}"><label><input type="checkbox" name="remove_image" value="yes"> {{ _('Remove current image') }}</label></div>{% endif %}
+      </div>
       <div class="form-field form-field--wide"><label for="product-description">{{ _('Description') }}</label><textarea id="product-description" name="description" maxlength="10000" required>{{ request.form.get('description', product.description if product else '') }}</textarea></div>
     </div>
     {% set source_locale = request.form.get('original_locale', product.original_locale if product else current_locale) %}

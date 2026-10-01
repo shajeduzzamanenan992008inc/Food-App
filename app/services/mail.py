@@ -33,7 +33,25 @@ def _send_for_locale(template, subject, recipients, attachments, context):
     sender_email = current_app.config.get("MAIL_DEFAULT_SENDER") or os.environ.get("MAIL_DEFAULT_SENDER")
 
     if not api_key:
-        logger.warning("Skipping %s email: BREVO_API_KEY is not configured.", template)
+        if current_app.config.get("ENVIRONMENT") == "production":
+            logger.warning("Skipping %s email: BREVO_API_KEY is not configured.", template)
+        else:
+            # Local development without a configured mail provider: log the
+            # message so developers can read one-time codes and invitation
+            # links from the console. Production requires a real provider.
+            try:
+                preview = render_template(f"email/{template}.html", **context)
+            except Exception:
+                try:
+                    preview = render_template(f"email/{template}.txt", **context)
+                except Exception:
+                    preview = "(preview unavailable)"
+            logger.warning(
+                "DEV ONLY: %s email for %s (mail provider not configured):\n%s",
+                template,
+                ", ".join(item["email"] for item in recipients_list),
+                preview,
+            )
         return False
 
     try:
@@ -179,6 +197,31 @@ def queue_password_reset_code(recipient, code, locale=None):
                 db.session.remove()
 
     Thread(target=deliver, name="password-reset-email", daemon=True).start()
+
+
+def send_admin_login_code(recipient, code, locale=None):
+    return _send(
+        "admin_login_code",
+        lazy_gettext("Your NexHaat admin sign-in code"),
+        [recipient],
+        code=code,
+        restaurant_name="NexHaat",
+        locale=locale,
+    )
+
+
+def queue_admin_login_code(recipient, code, locale=None):
+    """Send an Admin sign-in code outside the request path."""
+    app = current_app._get_current_object()
+
+    def deliver():
+        with app.app_context():
+            try:
+                send_admin_login_code(recipient, code, locale=locale)
+            finally:
+                db.session.remove()
+
+    Thread(target=deliver, name="admin-login-email", daemon=True).start()
 
 
 def queue_account_invitation(recipient, invitation_url, role, locale=None):

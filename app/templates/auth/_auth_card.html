@@ -27,7 +27,7 @@
                    aria-describedby="login-password-error">
             <button class="password-toggle" type="button" data-password-toggle data-show-label="{{ _('Show password') }}"
                     data-hide-label="{{ _('Hide password') }}" aria-label="{{ _('Show password') }}"
-                    aria-controls="login-password" aria-pressed="false" disabled>
+                    aria-controls="login-password" aria-pressed="false">
               <span class="password-toggle__eye" aria-hidden="true"></span>
             </button>
           </div>
@@ -37,7 +37,7 @@
           <label class="check-label"><input type="checkbox" name="remember"> <span>{{ _('Remember me') }}</span></label>
           <a href="{{ url_for('auth.forgot_password') }}">{{ _('Forgot password?') }}</a>
         </div>
-        <p class="form-hint">{{ _('Admin accounts are provisioned securely.') }}</p>
+        <p class="form-hint"><a href="{{ url_for('auth.admin_login') }}">{{ _('Admin sign in with an email code') }}</a></p>
         <button class="auth-submit" type="submit" data-loading-label="{{ _('Signing in…') }}" aria-busy="false">
           <span data-submit-label>{{ _('Log in') }}</span><span class="submit-spinner" aria-hidden="true"></span>
         </button>
@@ -46,7 +46,7 @@
         <span>{{ _("Don't have an account?") }}</span>
         <a href="{{ url_for('auth.register') }}" data-auth-switch="signup">{{ _('Create an account') }}</a>
       </p>
-      <p class="seller-link">{{ _('Want to sell on NexHaat?') }} <a href="{{ url_for('auth.seller_application') }}">{{ _('Apply to open a store') }}</a></p>
+      <p class="seller-link">{{ _('Want to sell on NexHaat?') }} <a href="{{ url_for('auth.seller_application') }}" data-auth-switch="seller">{{ _('Apply to open a store') }}</a></p>
     </section>
 
     <section class="auth-panel auth-panel--signup" data-auth-panel="signup" aria-labelledby="signup-heading" {% if mode != 'signup' %}inert aria-hidden="true"{% else %}aria-hidden="false"{% endif %}>
@@ -93,7 +93,7 @@
                    aria-describedby="signup-password-error">
             <button class="password-toggle" type="button" data-password-toggle data-show-label="{{ _('Show password') }}"
                     data-hide-label="{{ _('Hide password') }}" aria-label="{{ _('Show password') }}"
-                    aria-controls="signup-password" aria-pressed="false" disabled>
+                    aria-controls="signup-password" aria-pressed="false">
               <span class="password-toggle__eye" aria-hidden="true"></span>
             </button>
           </div>
@@ -109,7 +109,7 @@
                    aria-describedby="signup-confirm-error">
             <button class="password-toggle" type="button" data-password-toggle data-show-label="{{ _('Show password') }}"
                     data-hide-label="{{ _('Hide password') }}" aria-label="{{ _('Show password') }}"
-                    aria-controls="signup-confirm" aria-pressed="false" disabled>
+                    aria-controls="signup-confirm" aria-pressed="false">
               <span class="password-toggle__eye" aria-hidden="true"></span>
             </button>
           </div>
@@ -124,5 +124,7 @@
         <a href="{{ url_for('auth.login') }}" data-auth-switch="login">{{ _('Return to sign in') }}</a>
       </p>
     </section>
+
+    {% include "auth/_seller_application_panel.html" %}
   </div>
 </section>

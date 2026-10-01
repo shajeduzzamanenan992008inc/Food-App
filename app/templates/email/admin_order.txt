@@ -1,0 +1,11 @@
+{{ restaurant_name }}
+
+{{ _('New order received') }}
+{{ _('Order %(number)s from %(name)s (%(phone)s).', number=order.order_number, name=order.customer_name, phone=order.phone) }}
+
+{% for item in order.items %}{{ item.product_name }} x{{ item.quantity }} — ৳{{ '%.2f'|format(item.subtotal) }}
+{% endfor %}
+{{ _('Total') }}: ৳{{ '%.2f'|format(order.total) }}
+
+{{ _('Delivery address: %(address)s', address=order.address) }}
+{{ _('Customer email: %(email)s', email=order.email or 'N/A') }}

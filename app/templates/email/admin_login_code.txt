@@ -1,0 +1,8 @@
+{{ restaurant_name }}
+
+{{ _('Your NexHaat admin sign-in code') }}
+{{ _('Use this code to sign in to the NexHaat admin account:') }}
+
+{{ code }}
+
+{{ _('This code expires in 10 minutes. If you did not request this, you can ignore this email.') }}

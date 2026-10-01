@@ -1,0 +1,23 @@
+{% extends "auth/base.html" %}
+{% block title %}{{ _('Admin sign in') }} · {{ app_name }}{% endblock %}
+{% block auth_content %}
+<section class="simple-auth-card">
+  <p class="eyebrow">{{ _('SECURE ADMIN ACCESS') }}</p>
+  <h1>{{ _('Admin sign in') }}</h1>
+  <p class="auth-subtitle">{{ _('Enter your Admin account email. We will send you a one-time sign-in code.') }}</p>
+  <form class="auth-form" method="post" action="{{ url_for('auth.admin_login') }}" data-validate-form>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="locale" value="{{ current_locale }}">
+    <div class="form-field">
+      <label for="admin-login-email">{{ _('Email address') }}</label>
+      <input id="admin-login-email" name="email" type="email" autocomplete="email" maxlength="255" required data-validate
+             data-required-message="{{ _('This field is required.') }}"
+             data-email-message="{{ _('Enter a valid email address.') }}">
+    </div>
+    <button class="auth-submit" type="submit" data-loading-label="{{ _('Sending…') }}" aria-busy="false">
+      <span data-submit-label>{{ _('Send sign-in code') }}</span><span class="submit-spinner" aria-hidden="true"></span>
+    </button>
+  </form>
+  <p class="auth-switch"><a href="{{ url_for('auth.login') }}" data-auth-page-flip>{{ _('Back to regular sign in') }}</a></p>
+</section>
+{% endblock %}

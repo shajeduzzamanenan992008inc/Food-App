@@ -18,7 +18,7 @@
       </form>
     </section>
     <aside class="surface surface-card"><h2 style="margin-top:0;font:800 1.2rem Manrope,sans-serif">{{ _('Your items') }}</h2>
-      <div class="summary-list">{% for row in rows %}<div class="summary-row"><span>{{ row.quantity }} × {{ row.product.localized_name(current_locale)|truncate(36) }}</span><strong>৳{{ '%.2f'|format(row.subtotal) }}</strong></div>{% endfor %}<div class="summary-row"><span>{{ _('Subtotal') }}</span><strong>৳{{ '%.2f'|format(subtotal) }}</strong></div><div class="summary-row"><span>{{ _('Delivery') }}</span><strong>৳{{ '%.2f'|format(delivery) }}</strong></div><div class="summary-row summary-total"><span>{{ _('Total due on delivery') }}</span><strong>৳{{ '%.2f'|format(total) }}</strong></div></div>
+      <div class="summary-list">{% for row in rows %}<div class="summary-row"><span>{{ row.quantity }} × {{ row.product.localized_name(current_locale)|truncate(36) }}{% if row.product.needs_original_language_label(current_locale, 'name') %}<small class="source-caption">{{ _('Original language: %(language)s', language=row.product.original_language_label) }}</small>{% endif %}</span><strong>৳{{ '%.2f'|format(row.subtotal) }}</strong></div>{% endfor %}<div class="summary-row"><span>{{ _('Subtotal') }}</span><strong>৳{{ '%.2f'|format(subtotal) }}</strong></div><div class="summary-row"><span>{{ _('Delivery') }}</span><strong>৳{{ '%.2f'|format(delivery) }}</strong></div><div class="summary-row summary-total"><span>{{ _('Total due on delivery') }}</span><strong>৳{{ '%.2f'|format(total) }}</strong></div></div>
     </aside>
   </div>
 </div>

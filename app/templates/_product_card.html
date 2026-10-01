@@ -9,6 +9,7 @@
     <span class="product-card__category">{{ product.category.name }}</span>
     <h3><a href="{{ url_for('main.food', slug=product.slug) }}">{{ localized_title }}</a></h3>
     <p>{{ product.localized_description(current_locale)|truncate(86) }}</p>
+    {% if product.needs_original_language_label(current_locale, 'name') or product.needs_original_language_label(current_locale, 'description') %}<small class="source-caption">{{ _('Original language: %(language)s', language=product.original_language_label) }}</small>{% endif %}
     <div class="product-card__bottom">
       <span class="price">৳{{ '%.2f'|format(product.display_price) }}{% if product.discount_price %}<del>৳{{ '%.2f'|format(product.price) }}</del>{% endif %}</span>
       <form method="post" action="{{ url_for('orders.add_to_cart', product_id=product.id) }}">

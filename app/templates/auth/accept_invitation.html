@@ -22,6 +22,7 @@
       <span class="field-error" id="invitation-phone-error" data-field-error aria-live="polite"></span>
     </div>
     {% endif %}
+    {% if invitation.role == 'rider' %}
     <div class="form-field">
       <label for="invitation-password">{{ _('Password') }}</label>
       <input id="invitation-password" name="password" type="password" autocomplete="new-password"
@@ -41,10 +42,13 @@
              aria-describedby="invitation-confirm-error">
       <span class="field-error" id="invitation-confirm-error" data-field-error aria-live="polite"></span>
     </div>
+    {% else %}
+    <p class="form-hint">{{ _('Admin accounts sign in with a one-time code sent to their email.') }}</p>
+    {% endif %}
     <button class="auth-submit" type="submit" data-loading-label="{{ _('Creating account…') }}" aria-busy="false">
       <span data-submit-label>{{ _('Accept invitation') }}</span><span class="submit-spinner" aria-hidden="true"></span>
     </button>
   </form>
-  <p class="auth-switch"><a href="{{ url_for('auth.login') }}">{{ _('Back to sign in') }}</a></p>
+  <p class="auth-switch"><a href="{{ url_for('auth.login') }}" data-auth-page-flip>{{ _('Back to sign in') }}</a></p>
 </section>
 {% endblock %}

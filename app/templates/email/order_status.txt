@@ -1,0 +1,6 @@
+{{ restaurant_name }}
+
+{{ _('Order update') }}
+{{ _('Hello %(name)s, your order %(number)s is now %(status)s.', name=order.customer_name, number=order.order_number, status=order.status|capitalize) }}
+
+{{ _('Thank you for ordering with NexHaat.') }}

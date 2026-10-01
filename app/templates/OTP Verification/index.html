@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CodeByGaurav | Secure Vault Access</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="CodeByGaurav.css">
+</head>
+<body>
+
+    <div class="pointer-light" id="pointerLight"></div>
+    <div class="noise"></div>
+
+    <main class="card" id="card">
+        <h1 id="title">Enter Access Code</h1>
+        <p class="subtitle" id="subtitle">A 4-digit code has been sent to your device.</p>
+
+        <div class="stage" id="stage">
+            <div class="input-stage" id="inputStage">
+                <input type="text" class="input-pill" maxlength="1" inputmode="numeric" aria-label="Digit 1" data-index="0">
+                <input type="text" class="input-pill" maxlength="1" inputmode="numeric" aria-label="Digit 2" data-index="1">
+                <input type="text" class="input-pill" maxlength="1" inputmode="numeric" aria-label="Digit 3" data-index="2">
+                <input type="text" class="input-pill" maxlength="1" inputmode="numeric" aria-label="Digit 4" data-index="3">
+            </div>
+
+            <div class="orbit-layer" id="orbitLayer">
+                <div class="orbit-ring" id="orbitRing"></div>
+            </div>
+
+            <div class="loading-wrap" id="loadingWrap">
+                <div class="loading-core">
+                    <div class="loading-ring"></div>
+                    <div class="loading-pulse"></div>
+                    <div class="loading-inner" id="loadingPercent">0</div>
+                </div>
+            </div>
+
+            <div class="success-wrap" id="successWrap">
+                <div class="success-flash"></div>
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+                <div class="bubble"></div>
+                <div class="success-vault">
+                    <svg class="checkmark" viewBox="0 0 24 24">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </div>
+                <div class="success-badge">Verified</div>
+            </div>
+        </div>
+
+        <div class="error-msg" id="errorMsg">Incorrect code. Please try again.</div>
+
+        <button class="resend-btn" id="resendBtn" disabled>Didn't receive it? <span>Resend</span></button>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

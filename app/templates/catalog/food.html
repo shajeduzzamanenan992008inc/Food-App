@@ -9,8 +9,8 @@
       <p class="eyebrow">{{ _('Local listing') }}{% if product.seller and product.seller.seller_profile %} · {{ product.seller.seller_profile.store_name }}{% endif %}</p>
       <h1>{{ product.localized_name(current_locale) }}</h1>
       <p>{{ product.localized_description(current_locale) }}</p>
+      {% if product.needs_original_language_label(current_locale, 'name') or product.needs_original_language_label(current_locale, 'description') %}<p class="source-caption">{{ _('Original language: %(language)s', language=product.original_language_label) }}</p>{% endif %}
       <p class="product-detail__price">৳{{ '%.2f'|format(product.display_price) }}{% if product.discount_price %}<del>৳{{ '%.2f'|format(product.price) }}</del>{% endif %}</p>
-      <p class="source-caption">{{ _('Product details shown in your language when the seller has provided a translation.') }}</p>
       <form method="post" action="{{ url_for('orders.add_to_cart', product_id=product.id) }}" class="form-actions">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="next" value="{{ url_for('orders.cart') }}">
         <label class="quantity-control"><span>{{ _('Quantity') }}</span><input type="number" name="quantity" value="1" min="1" max="20" inputmode="numeric"></label>

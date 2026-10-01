@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="{{ current_locale|replace('_', '-') }}" dir="{{ 'rtl' if current_locale == 'ar' else 'ltr' }}">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{ _('Order update') }}</title></head>
+<body style="margin:0;background:#f2f5f7;color:#172b36;font-family:Arial,sans-serif;padding:32px 16px">
+  <main style="max-width:560px;margin:0 auto;background:#fff;border-radius:20px;padding:32px">
+    <p style="color:#08765b;font-weight:700">{{ restaurant_name }}</p>
+    <h1 style="font-size:24px">{{ _('Order update') }}</h1>
+    <p>{{ _('Hello %(name)s, your order %(number)s is now %(status)s.', name=order.customer_name, number=order.order_number, status=order.status|capitalize) }}</p>
+    <p>{{ _('Thank you for ordering with NexHaat.') }}</p>
+  </main>
+</body>
+</html>

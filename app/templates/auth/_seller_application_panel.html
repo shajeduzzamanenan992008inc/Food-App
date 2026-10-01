@@ -1,0 +1,66 @@
+<section class="auth-panel auth-panel--seller" data-auth-panel="seller" aria-labelledby="seller-heading" {% if mode != 'seller' %}inert aria-hidden="true"{% else %}aria-hidden="false"{% endif %}>
+  <div class="auth-panel__brand" aria-hidden="true">N</div>
+  <p class="eyebrow">{{ _('SELLER ONBOARDING') }}</p>
+  <h1 id="seller-heading" tabindex="-1">{{ _('Apply to sell') }}</h1>
+  <p class="auth-subtitle">{{ _('Create your seller account. Our team will review your store before you can start selling.') }}</p>
+  <form class="auth-form" method="post" action="{{ url_for('auth.seller_application') }}" data-validate-form>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="locale" value="{{ current_locale }}">
+    <div class="form-field">
+      <label for="seller-store">{{ _('Store name') }}</label>
+      <input id="seller-store" name="store_name" type="text" minlength="2" maxlength="120" required data-validate
+             value="{{ request.form.get('store_name', '') }}"
+             data-required-message="{{ _('This field is required.') }}" aria-describedby="seller-store-error">
+      <span class="field-error" id="seller-store-error" data-field-error aria-live="polite"></span>
+    </div>
+    <div class="form-field">
+      <label for="seller-contact">{{ _('Contact name') }}</label>
+      <input id="seller-contact" name="contact_name" type="text" autocomplete="name" minlength="2" maxlength="120" required data-validate
+             value="{{ request.form.get('contact_name', '') }}"
+             data-required-message="{{ _('This field is required.') }}" aria-describedby="seller-contact-error">
+      <span class="field-error" id="seller-contact-error" data-field-error aria-live="polite"></span>
+    </div>
+    <div class="form-field">
+      <label for="seller-phone">{{ _('Phone number') }}</label>
+      <input id="seller-phone" name="phone" type="tel" autocomplete="tel" minlength="7" maxlength="30" required data-validate
+             value="{{ request.form.get('phone', '') }}"
+             data-required-message="{{ _('This field is required.') }}" aria-describedby="seller-phone-error">
+      <span class="field-error" id="seller-phone-error" data-field-error aria-live="polite"></span>
+    </div>
+    <div class="form-field">
+      <label for="seller-address">{{ _('Business address (optional)') }}</label>
+      <textarea id="seller-address" name="business_address" rows="3" maxlength="500">{{ request.form.get('business_address', '') }}</textarea>
+    </div>
+    <div class="form-field">
+      <label for="seller-email">{{ _('Email address') }}</label>
+      <input id="seller-email" name="email" type="email" autocomplete="email" maxlength="255" required data-validate
+             value="{{ request.form.get('email', '') }}"
+             data-required-message="{{ _('This field is required.') }}"
+             data-email-message="{{ _('Enter a valid email address.') }}" aria-describedby="seller-email-error">
+      <span class="field-error" id="seller-email-error" data-field-error aria-live="polite"></span>
+    </div>
+    <div class="form-field">
+      <label for="seller-password">{{ _('Password') }}</label>
+      <input id="seller-password" name="password" type="password" autocomplete="new-password"
+             minlength="{{ min_password_length }}" maxlength="{{ max_password_length }}" required data-validate
+             data-required-message="{{ _('This field is required.') }}"
+             data-too-short-message="{{ _('Password must contain at least %(minimum)s characters.', minimum=min_password_length) }}"
+             data-too-long-message="{{ _('Password must contain no more than %(maximum)s characters.', maximum=max_password_length) }}"
+             aria-describedby="seller-password-error">
+      <span class="field-error" id="seller-password-error" data-field-error aria-live="polite"></span>
+    </div>
+    <div class="form-field">
+      <label for="seller-password-confirm">{{ _('Confirm password') }}</label>
+      <input id="seller-password-confirm" name="password_confirmation" type="password" autocomplete="new-password"
+             maxlength="{{ max_password_length }}" required data-validate data-confirm-for="seller-password"
+             data-required-message="{{ _('This field is required.') }}"
+             data-mismatch-message="{{ _('Passwords do not match.') }}"
+             aria-describedby="seller-password-confirm-error">
+      <span class="field-error" id="seller-password-confirm-error" data-field-error aria-live="polite"></span>
+    </div>
+    <button class="auth-submit" type="submit" data-loading-label="{{ _('Submitting application…') }}" aria-busy="false">
+      <span data-submit-label>{{ _('Submit seller application') }}</span><span class="submit-spinner" aria-hidden="true"></span>
+    </button>
+  </form>
+  <p class="auth-switch"><a href="{{ url_for('auth.login') }}" data-auth-switch="login">{{ _('Back to sign in') }}</a></p>
+</section>

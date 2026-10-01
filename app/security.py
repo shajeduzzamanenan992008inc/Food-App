@@ -2,11 +2,14 @@
 
 import hashlib
 import hmac
+from io import BytesIO
 from functools import wraps
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+import warnings
 
 from flask import abort, current_app, g, session, url_for
+from PIL import Image, ImageOps, UnidentifiedImageError
 from sqlalchemy import case, delete
 from sqlalchemy.dialects.postgresql import insert as postgres_insert
 from sqlalchemy.dialects.sqlite import insert as sqlite_insert
@@ -163,7 +166,9 @@ def record_login_failure(remote_addr):
     )
     db.session.execute(statement)
     db.session.execute(
-        delete(AuthThrottle).where(AuthThrottle.last_attempt_at < now - timedelta(days=1))
+        delete(AuthThrottle)
+        .where(AuthThrottle.last_attempt_at < now - timedelta(days=1))
+        .execution_options(synchronize_session=False)
     )
     db.session.commit()
 
@@ -175,7 +180,7 @@ def clear_login_failures(remote_addr):
 
 
 def save_raster_upload(upload: FileStorage, folder, stem):
-    """Save a small JPEG, PNG, or WebP after checking its actual file signature."""
+    """Validate and re-encode a small JPEG, PNG, or WebP before saving it."""
     if not upload or not upload.filename:
         return None, "Choose an image file first."
 
@@ -190,6 +195,8 @@ def save_raster_upload(upload: FileStorage, folder, stem):
     if len(contents) > limit:
         return None, "Image files must be 2 MB or smaller."
 
+    format_by_type = {"jpeg": "JPEG", "png": "PNG", "webp": "WEBP"}
+    expected_format = format_by_type[image_type]
     if image_type == "jpeg":
         valid_signature = contents.startswith(b"\xff\xd8\xff")
     elif image_type == "png":
@@ -198,6 +205,50 @@ def save_raster_upload(upload: FileStorage, folder, stem):
         valid_signature = len(contents) >= 12 and contents[:4] == b"RIFF" and contents[8:12] == b"WEBP"
     if not valid_signature:
         return None, "The uploaded file does not match its image type."
+
+    max_pixels = current_app.config.get("MAX_RASTER_IMAGE_PIXELS", 20_000_000)
+    try:
+        with warnings.catch_warnings():
+            warnings.simplefilter("error", Image.DecompressionBombWarning)
+            with Image.open(BytesIO(contents), formats=(expected_format,)) as source:
+                width, height = source.size
+                if not width or not height or width * height > max_pixels:
+                    return None, "Image dimensions are outside the allowed range."
+                source.verify()
+
+            with Image.open(BytesIO(contents), formats=(expected_format,)) as source:
+                source.load()
+                oriented = ImageOps.exif_transpose(source)
+                has_alpha = "A" in oriented.getbands() or "transparency" in oriented.info
+                if expected_format == "JPEG":
+                    mode = "RGB"
+                elif expected_format == "WEBP":
+                    mode = "RGBA" if has_alpha else "RGB"
+                elif has_alpha:
+                    mode = "RGBA"
+                elif oriented.mode in {"1", "L", "RGB"}:
+                    mode = oriented.mode
+                else:
+                    mode = "RGB"
+
+                clean_image = Image.new(mode, oriented.size)
+                clean_image.paste(oriented.convert(mode))
+                output = BytesIO()
+                options = {"format": expected_format}
+                if expected_format == "JPEG":
+                    options.update(quality=88, optimize=True)
+                elif expected_format == "WEBP":
+                    options.update(quality=88, method=4)
+                else:
+                    options.update(optimize=True)
+                clean_image.save(output, **options)
+                clean_image.close()
+    except (UnidentifiedImageError, Image.DecompressionBombError, Image.DecompressionBombWarning, OSError, ValueError):
+        return None, "The uploaded file is not a complete, supported image."
+
+    contents = output.getvalue()
+    if not contents or len(contents) > limit:
+        return None, "The processed image exceeds the allowed file size."
 
     folder = Path(folder)
     folder.mkdir(parents=True, exist_ok=True)

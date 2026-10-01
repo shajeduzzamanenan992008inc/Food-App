@@ -9,7 +9,7 @@
       <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
       <div class="table-wrap"><table><thead><tr><th>{{ _('Item') }}</th><th>{{ _('Price') }}</th><th>{{ _('Quantity') }}</th><th>{{ _('Total') }}</th><th></th></tr></thead><tbody>
       {% for row in rows %}<tr>
-        <td><a class="table-title" href="{{ url_for('main.food', slug=row.product.slug) }}">{{ row.product.localized_name(current_locale) }}</a><div class="source-caption">{{ row.product.category.name }}</div></td>
+        <td><a class="table-title" href="{{ url_for('main.food', slug=row.product.slug) }}">{{ row.product.localized_name(current_locale) }}</a><div class="source-caption">{{ row.product.category.name }}{% if row.product.needs_original_language_label(current_locale, 'name') %} · {{ _('Original language: %(language)s', language=row.product.original_language_label) }}{% endif %}</div></td>
         <td>৳{{ '%.2f'|format(row.product.display_price) }}</td>
         <td><label class="visually-hidden" for="quantity-{{ row.product.id }}">{{ _('Quantity for %(name)s', name=row.product.localized_name(current_locale)) }}</label><input id="quantity-{{ row.product.id }}" name="quantity_{{ row.product.id }}" type="number" value="{{ row.quantity }}" min="0" max="20" style="width:72px;min-height:38px;padding:6px;border:1px solid var(--line);border-radius:10px;background:#e7ebf0"></td>
         <td><strong>৳{{ '%.2f'|format(row.subtotal) }}</strong></td>

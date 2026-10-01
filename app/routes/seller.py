@@ -10,6 +10,7 @@ from sqlalchemy.orm import selectinload
 from ..extensions import db
 from ..i18n import SUPPORTED_LOCALES
 from ..models import Category, Product, ProductTranslation, ProductVariant, User
+from ..services.catalog_media import CatalogMediaError, store_catalog_image
 from ..security import (
     approved_seller_required,
     current_approved_seller,
@@ -57,7 +58,7 @@ def _parse_product_form(seller, product=None):
     name = request.form.get("name", "").strip()
     slug = request.form.get("slug", "").strip()
     description = request.form.get("description", "").strip()
-    image = request.form.get("image", "").strip() or None
+    image = product.image if product else None
     source_locale = request.form.get("original_locale", "en_US")
     category_id = request.form.get("category_id", type=int)
     raw_stock = request.form.get("stock_quantity", "0").strip()
@@ -69,8 +70,6 @@ def _parse_product_form(seller, product=None):
     category = db.session.get(Category, category_id) if category_id else None
     if not category or not category.is_active:
         raise ValueError("Choose an active category.")
-    if image and len(image) > 500:
-        raise ValueError("The image address is too long.")
     stock = int(raw_stock)
     if not 0 <= stock <= MAX_STOCK:
         raise ValueError("Stock must be a non-negative whole number.")
@@ -110,6 +109,13 @@ def _parse_product_form(seller, product=None):
             if len(translated_name) > 160 or len(translated_description) > 10000:
                 raise ValueError("A translated product field is longer than allowed.")
             translations[locale] = (translated_name, translated_description)
+
+    if request.form.get("remove_image") == "yes":
+        image = None
+    upload = request.files.get("image_file")
+    if upload and upload.filename:
+        image = store_catalog_image(upload)
+    candidate.image = image
 
     if product is None:
         target = candidate
@@ -184,6 +190,10 @@ def product_new():
             product = _parse_product_form(seller)
             db.session.add(product)
             db.session.commit()
+        except CatalogMediaError:
+            db.session.rollback()
+            flash(gettext("Image could not be approved or stored. It remains private and was not published."), "error")
+            return _catalog_form(status=400)
         except (KeyError, TypeError, ValueError, InvalidOperation, ArithmeticError, IntegrityError):
             db.session.rollback()
             flash(gettext("Please check the product details and try again."), "error")
@@ -202,6 +212,10 @@ def product_edit(product_id):
         try:
             _parse_product_form(seller, product)
             db.session.commit()
+        except CatalogMediaError:
+            db.session.rollback()
+            flash(gettext("Image could not be approved or stored. It remains private and was not published."), "error")
+            return _catalog_form(product, 400)
         except (KeyError, TypeError, ValueError, InvalidOperation, ArithmeticError, IntegrityError):
             db.session.rollback()
             flash(gettext("Please check the product details and try again."), "error")

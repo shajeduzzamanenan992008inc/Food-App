@@ -7,16 +7,18 @@ from datetime import datetime, timedelta, timezone
 
 from urllib.parse import urlsplit
 
-from flask import Blueprint, abort, current_app, flash, make_response, redirect, render_template, request, session, url_for
+from flask import Blueprint, abort, current_app, flash, jsonify, make_response, redirect, render_template, request, session, url_for
 from flask_babel import get_locale, gettext
-from sqlalchemy import select
+from flask_login import login_user, logout_user
+from sqlalchemy import delete, select
 from werkzeug.security import check_password_hash, generate_password_hash
 from ..extensions import db
 from ..i18n import SUPPORTED_LOCALES
 from ..models import (
-    AccountInvitation, AdminProfile, CustomerAddress, CustomerProfile,
+    AccountInvitation, AdminLoginChallenge, AdminProfile, CustomerAddress, CustomerProfile,
     RiderProfile, SellerProfile, User,
 )
+from ..services.profiles import customer_profile_image_url, ensure_customer_profile
 from ..security import (
     admin_required as admin_account_required,
     clear_login_failures,
@@ -28,7 +30,9 @@ from ..security import (
     record_login_failure,
     save_raster_upload,
 )
-from ..services.mail import queue_account_invitation, queue_password_reset_code
+from ..services.mail import (
+    queue_account_invitation, queue_admin_login_code, queue_password_reset_code,
+)
 
 
 auth_bp = Blueprint("auth", __name__)
@@ -51,6 +55,7 @@ def _start_authenticated_session(user, permanent=True):
     session["user_id"] = user.id
     session["role"] = user.role
     session["auth_version"] = user.auth_version
+    login_user(user, remember=False, fresh=True)
 
 
 def _role_destination(user):
@@ -82,6 +87,11 @@ def _invitation_base_url(token):
 
 
 def _staff_email_ready():
+    # Local development has no mail provider by default; treat staff email as
+    # ready so one-time codes are generated and logged for testing. Testing and
+    # production still require a configured provider.
+    if current_app.config.get("ENVIRONMENT") == "development":
+        return True
     return bool(
         current_app.config.get("BREVO_API_KEY")
         and current_app.config.get("MAIL_DEFAULT_SENDER")
@@ -92,6 +102,7 @@ def _staff_email_ready():
 def register():
     if request.method == "POST":
         _capture_request_locale()
+        previous_challenge_id = session.pop("admin_login_challenge_id", None)
         email = request.form.get("email", "").strip().lower()
         full_name = request.form.get("full_name", "").strip()
         phone = request.form.get("phone", "").strip()
@@ -207,12 +218,15 @@ def login():
         password_within_limit = len(password) <= current_app.config["MAX_PASSWORD_LENGTH"]
         password_valid = (
             user.check_password(password[:current_app.config["MAX_PASSWORD_LENGTH"]])
-            if user and not throttled
+            if user and user.role in {"customer", "seller", "rider"} and not throttled
             else check_password_hash(
                 DUMMY_LOGIN_HASH, password[:current_app.config["MAX_PASSWORD_LENGTH"]]
             ) if not throttled else False
         )
-        valid_login = bool(not throttled and password_within_limit and user and user.is_active and password_valid)
+        valid_login = bool(
+            not throttled and password_within_limit and user and user.is_active
+            and user.role in {"customer", "seller", "rider"} and password_valid
+        )
         if not valid_login:
             if not throttled:
                 record_login_failure(remote_addr)
@@ -222,6 +236,188 @@ def login():
             _start_authenticated_session(user, permanent=request.form.get("remember") == "on")
             return redirect(_role_destination(user))
     return render_template("auth/login.html")
+
+
+ADMIN_LOGIN_CODE_TTL = timedelta(minutes=10)
+ADMIN_LOGIN_CODE_RESEND_SECONDS = 60
+ADMIN_LOGIN_CODE_MAX_ATTEMPTS = 5
+
+
+def _admin_login_challenge(challenge_id=None):
+    challenge_id = challenge_id or session.get("admin_login_challenge_id")
+    if not isinstance(challenge_id, str) or not challenge_id or len(challenge_id) > 64:
+        return None
+    return db.session.get(AdminLoginChallenge, challenge_id)
+
+
+def _queue_admin_code(user, code):
+    locale = (
+        user.preferred_locale
+        if user.preferred_locale in SUPPORTED_LOCALES
+        else str(get_locale())
+    )
+    queue_admin_login_code(user.email, code, locale=locale)
+
+
+def admin_login():
+    """Request a one-time sign-in code for an Admin account."""
+    if request.method == "POST":
+        _capture_request_locale()
+        email = request.form.get("email", "").strip().lower()
+        remote_addr = request.remote_addr
+        throttled = login_is_throttled(remote_addr)
+        delivered_request = False
+
+        if (
+            not throttled and EMAIL_PATTERN.fullmatch(email) and len(email) <= 255
+            and _staff_email_ready()
+        ):
+            user = db.session.scalar(select(User).where(User.email == email))
+            if user and user.role == "admin" and user.is_active:
+                now = datetime.now(timezone.utc)
+                latest = db.session.scalar(
+                    select(AdminLoginChallenge)
+                    .where(AdminLoginChallenge.user_id == user.id)
+                    .order_by(AdminLoginChallenge.sent_at.desc())
+                    .limit(1)
+                )
+                last_sent_at = _as_utc(latest.sent_at) if latest else None
+                cooldown_elapsed = (
+                    last_sent_at is None
+                    or (now - last_sent_at).total_seconds() >= ADMIN_LOGIN_CODE_RESEND_SECONDS
+                )
+                if cooldown_elapsed:
+                    db.session.execute(
+                        delete(AdminLoginChallenge)
+                        .where(AdminLoginChallenge.expires_at < now - timedelta(days=1))
+                        .execution_options(synchronize_session=False)
+                    )
+                    for old_challenge in db.session.scalars(
+                        select(AdminLoginChallenge).where(
+                            AdminLoginChallenge.user_id == user.id,
+                            AdminLoginChallenge.consumed_at.is_(None),
+                        )
+                    ):
+                        old_challenge.consumed_at = now
+                    code = f"{secrets.randbelow(1_000_000):06d}"
+                    challenge = AdminLoginChallenge(
+                        id=secrets.token_urlsafe(32),
+                        user_id=user.id,
+                        code_hash=_reset_code_digest(code),
+                        sent_at=now,
+                        expires_at=now + ADMIN_LOGIN_CODE_TTL,
+                        failed_attempts=0,
+                    )
+                    db.session.add(challenge)
+                    db.session.commit()
+                    session["admin_login_challenge_id"] = challenge.id
+                    _queue_admin_code(user, code)
+                    delivered_request = True
+                elif latest is not None:
+                    # Cooldown still active: keep the current code valid and make
+                    # sure this session can finish verification with it.
+                    session["admin_login_challenge_id"] = latest.id
+
+        if not delivered_request and not throttled:
+            record_login_failure(remote_addr)
+        flash(
+            gettext("If an active Admin account matches that email, a sign-in code will be sent."),
+            "success",
+        )
+        return redirect(url_for("auth.verify_admin_login"))
+    return render_template("auth/admin_login.html")
+
+
+@auth_bp.route("/verify-admin-login", methods=["GET", "POST"])
+def verify_admin_login():
+    if request.method == "POST":
+        _capture_request_locale()
+        remote_addr = request.remote_addr
+        if login_is_throttled(remote_addr):
+            message = gettext("Too many attempts. Request a new sign-in code and try again.")
+            if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+                return jsonify(
+                    verified=False, message=message, redirect=url_for("auth.admin_login")
+                ), 429
+            flash(message, "error")
+            return redirect(url_for("auth.admin_login"))
+
+        challenge = _admin_login_challenge()
+        now = datetime.now(timezone.utc)
+        expires = _as_utc(challenge.expires_at) if challenge else None
+        user = db.session.get(User, challenge.user_id) if challenge else None
+        challenge_active = bool(
+            challenge and challenge.consumed_at is None and expires and expires >= now
+            and user and user.role == "admin" and user.is_active
+        )
+        code = request.form.get("code", "").strip()
+        valid_code = bool(
+            challenge_active and re.fullmatch(r"\d{6}", code)
+            and hmac.compare_digest(_reset_code_digest(code), challenge.code_hash)
+        )
+
+        if valid_code:
+            challenge.consumed_at = now
+            db.session.commit()
+            clear_login_failures(remote_addr)
+            _start_authenticated_session(user, permanent=True)
+            result = {"verified": True, "redirect": url_for("admin.dashboard")}
+            if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+                return jsonify(**result)
+            return redirect(result["redirect"])
+
+        locked = False
+        if challenge and challenge.consumed_at is None:
+            if challenge_active:
+                challenge.failed_attempts += 1
+                if challenge.failed_attempts >= ADMIN_LOGIN_CODE_MAX_ATTEMPTS:
+                    challenge.consumed_at = now
+                    session.pop("admin_login_challenge_id", None)
+                    locked = True
+            else:
+                challenge.consumed_at = now
+            db.session.commit()
+        record_login_failure(remote_addr)
+        if locked:
+            message = gettext("Too many incorrect codes. Request a new sign-in code.")
+            response_status = 429
+            redirect_url = url_for("auth.admin_login")
+        else:
+            message = gettext("The sign-in code is incorrect or has expired.")
+            response_status = 400
+            redirect_url = None
+        if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+            return jsonify(verified=False, message=message, redirect=redirect_url), response_status
+        flash(message, "error")
+        return redirect(redirect_url or url_for("auth.verify_admin_login"))
+    return render_template("auth/verify_admin_login.html")
+
+
+@auth_bp.post("/resend-admin-login-code")
+def resend_admin_login_code():
+    challenge = _admin_login_challenge()
+    now = datetime.now(timezone.utc)
+    expires = _as_utc(challenge.expires_at) if challenge else None
+    user = db.session.get(User, challenge.user_id) if challenge else None
+    eligible = bool(
+        challenge and challenge.consumed_at is None and expires and expires >= now
+        and user and user.role == "admin" and user.is_active and _staff_email_ready()
+        and not login_is_throttled(request.remote_addr)
+    )
+    if eligible:
+        sent_at = _as_utc(challenge.sent_at)
+        if sent_at and (now - sent_at).total_seconds() >= ADMIN_LOGIN_CODE_RESEND_SECONDS:
+            code = f"{secrets.randbelow(1_000_000):06d}"
+            challenge.code_hash = _reset_code_digest(code)
+            challenge.sent_at = now
+            challenge.expires_at = now + ADMIN_LOGIN_CODE_TTL
+            challenge.failed_attempts = 0
+            db.session.commit()
+            _queue_admin_code(user, code)
+            flash(gettext("If your Admin sign-in request is active, a new code has been sent."), "success")
+            return redirect(url_for("auth.verify_admin_login"))
+    flash(gettext("If your Admin sign-in request is active, a new code will be sent when available."), "success")
+    return redirect(url_for("auth.verify_admin_login"))
 
 
 @auth_bp.get("/portal")
@@ -273,13 +469,14 @@ def accept_invitation(token):
         phone = request.form.get("phone", "").strip()
         password = request.form.get("password", "")
         confirmation = request.form.get("password_confirmation", "")
+        password_required = invitation.role == "rider"
         if not EMAIL_PATTERN.fullmatch(invitation.email) or not 2 <= len(name) <= 120:
             flash(gettext("Please provide a valid name for this account."), "error")
         elif invitation.role == "rider" and not 7 <= len(phone) <= 30:
             flash(gettext("Please provide a valid phone number."), "error")
-        elif _password_length_error(password):
+        elif password_required and _password_length_error(password):
             flash(_password_length_error(password), "error")
-        elif password != confirmation:
+        elif password_required and password != confirmation:
             flash(gettext("Passwords do not match."), "error")
         elif db.session.scalar(select(User.id).where(User.email == invitation.email)):
             db.session.rollback()
@@ -295,7 +492,7 @@ def accept_invitation(token):
                     else session.get("locale") if session.get("locale") in SUPPORTED_LOCALES else None
                 ),
             )
-            user.set_password(password)
+            user.set_password(password if password_required else secrets.token_urlsafe(48))
             if invitation.role == "rider":
                 user.rider_profile = RiderProfile(full_name=name, phone=phone)
             else:
@@ -415,7 +612,7 @@ def forgot_password():
         user = db.session.scalar(select(User).where(User.email == email))
         reset_user_id = None
         expires_at = time.time() + 600
-        if user and user.is_active and EMAIL_PATTERN.match(email):
+        if user and user.is_active and user.role != "admin" and EMAIL_PATTERN.match(email):
             now = datetime.now(timezone.utc)
             sent_at = _as_utc(user.password_reset_sent_at)
             previous_expiry = _as_utc(user.password_reset_expires_at)
@@ -455,6 +652,12 @@ def verify_reset_code():
     reset = session.get("password_reset")
     if not reset or reset.get("expires_at", 0) < time.time():
         session.pop("password_reset", None)
+        if request.method == "POST" and request.headers.get("X-Requested-With") == "XMLHttpRequest":
+            return jsonify(
+                verified=False,
+                message=gettext("This password reset code is invalid or has expired."),
+                redirect=url_for("auth.forgot_password"),
+            ), 400
         flash(gettext("This password reset code is invalid or has expired."), "error")
         return redirect(url_for("auth.forgot_password"))
     if request.method == "POST":
@@ -463,7 +666,7 @@ def verify_reset_code():
         user = db.session.get(User, reset.get("user_id")) if reset.get("user_id") else None
         expires = _as_utc(user.password_reset_expires_at) if user else None
         valid_token = bool(
-            user and user.is_active
+            user and user.is_active and user.role != "admin"
             and user.password_reset_hash and expires and expires >= datetime.now(timezone.utc)
         )
         digest = _reset_code_digest(code)
@@ -475,13 +678,29 @@ def verify_reset_code():
                     user.password_reset_expires_at = None
                     db.session.commit()
                     session.pop("password_reset", None)
+                    if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+                        return jsonify(
+                            verified=False,
+                            message=gettext("Too many incorrect codes. Request a new verification code."),
+                            redirect=url_for("auth.forgot_password"),
+                        ), 429
                     flash(gettext("Too many incorrect codes. Request a new verification code."), "error")
                     return redirect(url_for("auth.forgot_password"))
                 db.session.commit()
+            if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+                return jsonify(
+                    verified=False,
+                    message=gettext("The verification code is incorrect."),
+                ), 400
             flash(gettext("The verification code is incorrect."), "error")
         else:
             reset["verified"] = True
             session["password_reset"] = reset
+            if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+                return jsonify(
+                    verified=True,
+                    redirect=url_for("auth.reset_password"),
+                )
             return redirect(url_for("auth.reset_password"))
     return render_template("auth/verify_reset_code.html")
 
@@ -493,7 +712,7 @@ def reset_password():
     expires = _as_utc(user.password_reset_expires_at) if user else None
     if (
         not reset or not reset.get("verified") or reset.get("expires_at", 0) < time.time()
-        or not user or not user.password_reset_hash or not expires
+        or not user or user.role == "admin" or not user.password_reset_hash or not expires
         or expires < datetime.now(timezone.utc)
     ):
         session.pop("password_reset", None)
@@ -528,7 +747,7 @@ def reset_password():
 @customer_required
 def account():
     user = db.session.get(User, session["user_id"])
-    profile = user.customer_profile
+    profile = ensure_customer_profile(user)
     if request.method == "POST":
         full_name = request.form.get("full_name", "").strip()
         phone = request.form.get("phone", "").strip()
@@ -550,7 +769,10 @@ def account():
                 )
                 if upload_error:
                     flash(upload_error, "error")
-                    return render_template("auth/account.html", user=user, profile=profile, address=profile.address)
+                    return render_template(
+                        "auth/account.html", user=user, profile=profile, address=profile.address,
+                        profile_image_url=customer_profile_image_url(profile),
+                    )
                 profile.profile_image = filename
             if address_line and city:
                 if profile.address:
@@ -563,7 +785,10 @@ def account():
             db.session.commit()
             flash(gettext("Your account details were updated."), "success")
             return redirect(url_for("auth.account"))
-    return render_template("auth/account.html", user=user, profile=profile, address=profile.address)
+    return render_template(
+        "auth/account.html", user=user, profile=profile, address=profile.address,
+        profile_image_url=customer_profile_image_url(profile),
+    )
 
 
 @auth_bp.post("/account/password")
@@ -621,36 +846,9 @@ def admin_account():
     return render_template("auth/admin_account.html", user=user, profile=profile)
 
 
-@auth_bp.post("/admin-account/password")
-@admin_account_required
-def admin_change_password():
-    user = db.session.get(User, session["user_id"])
-    current_password = request.form.get("current_password", "")
-    password = request.form.get("password", "")
-    confirmation = request.form.get("password_confirmation", "")
-    if not user.check_password(current_password):
-        flash(gettext("Your current password is incorrect."), "error")
-    elif _password_length_error(password):
-        flash(_password_length_error(password), "error")
-    elif password != confirmation:
-        flash(gettext("Passwords do not match."), "error")
-    else:
-        user.set_password(password)
-        user.auth_version += 1
-        db.session.commit()
-        session.clear()
-        flash(gettext("Admin password changed. Sign in again on this device."), "success")
-        return redirect(url_for("auth.admin_login"))
-    return redirect(url_for("auth.admin_account"))
-
-
-def admin_login():
-    """Compatibility entry point that sends every role to the shared login."""
-    return redirect(url_for("auth.login"))
-
-
 @auth_bp.post("/logout")
 def logout():
+    logout_user()
     locale = session.get("locale")
     session.clear()
     if locale in SUPPORTED_LOCALES:

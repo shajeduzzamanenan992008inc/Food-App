@@ -8,6 +8,7 @@ from sqlalchemy.orm import selectinload
 
 from ..extensions import db
 from ..models import AccountInvitation, Order, Product, SellerProfile, User
+from ..services.profiles import customer_profile_image_url, ensure_customer_profile
 from ..security import admin_required, customer_required, current_session_user, role_required
 
 
@@ -20,9 +21,11 @@ admin_bp = Blueprint("admin", __name__)
 @customer_required
 def dashboard():
     user = current_session_user("customer")
-    if not user.customer_profile:
-        abort(403)
-    return render_template("customer/dashboard.html", user=user, profile=user.customer_profile)
+    profile = ensure_customer_profile(user)
+    return render_template(
+        "customer/dashboard.html", user=user, profile=profile,
+        profile_image_url=customer_profile_image_url(profile),
+    )
 
 
 @rider_bp.get("/dashboard")

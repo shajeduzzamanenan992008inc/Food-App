@@ -1,0 +1,11 @@
+{{ restaurant_name }}
+
+{{ _('We received your order') }}
+{{ _('Thank you, %(name)s. Your order %(number)s is pending confirmation.', name=order.customer_name, number=order.order_number) }}
+
+{% for item in order.items %}{{ item.product_name }} x{{ item.quantity }} — ৳{{ '%.2f'|format(item.subtotal) }}
+{% endfor %}
+{{ _('Total') }}: ৳{{ '%.2f'|format(order.total) }}
+
+{{ _('Delivery address: %(address)s', address=order.address) }}
+{{ _('Payment method: cash on delivery. We will email you again once your order is confirmed.') }}
