@@ -51,7 +51,9 @@ class User(UserMixin, TimestampMixin, db.Model):
     rider_profile = db.relationship(
         "RiderProfile", back_populates="user", uselist=False, cascade="all, delete-orphan"
     )
-    orders = db.relationship("Order", backref="user", lazy="dynamic")
+    orders = db.relationship(
+        "Order", backref="user", lazy="dynamic", foreign_keys="Order.user_id"
+    )
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)

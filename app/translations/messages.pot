@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-10-01 15:42+0600\n"
+"POT-Creation-Date: 2026-10-01 17:10+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
-#: app/routes/auth.py:113
+#: app/routes/auth.py:118
 msgid "Please provide valid name, email, and phone details."
 msgstr ""
 
-#: app/routes/auth.py:117 app/routes/auth.py:157 app/routes/auth.py:473
-#: app/routes/auth.py:725 app/routes/auth.py:799
+#: app/routes/auth.py:122 app/routes/auth.py:162 app/routes/auth.py:480
+#: app/routes/auth.py:732 app/routes/auth.py:806
 #: app/templates/auth/_auth_card.html:108
 #: app/templates/auth/_seller_application_panel.html:57
 #: app/templates/auth/accept_invitation.html:41
@@ -30,23 +30,23 @@ msgstr ""
 msgid "Passwords do not match."
 msgstr ""
 
-#: app/routes/auth.py:119 app/routes/auth.py:159 app/routes/auth.py:518
+#: app/routes/auth.py:124 app/routes/auth.py:164 app/routes/auth.py:525
 msgid "An account with this email already exists."
 msgstr ""
 
-#: app/routes/auth.py:130
+#: app/routes/auth.py:135
 msgid "Account created. You can now sign in."
 msgstr ""
 
-#: app/routes/auth.py:153
+#: app/routes/auth.py:158
 msgid "Please provide valid store, contact, email, and phone details."
 msgstr ""
 
-#: app/routes/auth.py:176
+#: app/routes/auth.py:181
 msgid "Your seller application is submitted. Sign in to check its review status."
 msgstr ""
 
-#: app/routes/auth.py:198 app/templates/auth/_auth_card.html:91
+#: app/routes/auth.py:203 app/templates/auth/_auth_card.html:91
 #: app/templates/auth/_seller_application_panel.html:47
 #: app/templates/auth/accept_invitation.html:31
 #: app/templates/auth/reset_password.html:17
@@ -54,7 +54,7 @@ msgstr ""
 msgid "Password must contain at least %(minimum)s characters."
 msgstr ""
 
-#: app/routes/auth.py:200 app/templates/auth/_auth_card.html:92
+#: app/routes/auth.py:205 app/templates/auth/_auth_card.html:92
 #: app/templates/auth/_seller_application_panel.html:48
 #: app/templates/auth/accept_invitation.html:32
 #: app/templates/auth/reset_password.html:18
@@ -62,156 +62,156 @@ msgstr ""
 msgid "Password must contain no more than %(maximum)s characters."
 msgstr ""
 
-#: app/routes/auth.py:228
+#: app/routes/auth.py:233
 msgid "Invalid email or password."
 msgstr ""
 
-#: app/routes/auth.py:317
+#: app/routes/auth.py:324
 msgid ""
 "If an active Admin account matches that email, a sign-in code will be "
 "sent."
 msgstr ""
 
-#: app/routes/auth.py:330
+#: app/routes/auth.py:337
 msgid "Too many attempts. Request a new sign-in code and try again."
 msgstr ""
 
-#: app/routes/auth.py:375
+#: app/routes/auth.py:382
 msgid "Too many incorrect codes. Request a new sign-in code."
 msgstr ""
 
-#: app/routes/auth.py:379 app/templates/auth/verify_admin_login.html:20
+#: app/routes/auth.py:386 app/templates/auth/verify_admin_login.html:20
 msgid "The sign-in code is incorrect or has expired."
 msgstr ""
 
-#: app/routes/auth.py:410
+#: app/routes/auth.py:417
 msgid "If your Admin sign-in request is active, a new code has been sent."
 msgstr ""
 
-#: app/routes/auth.py:412
+#: app/routes/auth.py:419
 msgid ""
 "If your Admin sign-in request is active, a new code will be sent when "
 "available."
 msgstr ""
 
-#: app/routes/auth.py:456
+#: app/routes/auth.py:463
 msgid "This invitation is invalid, expired, or already used."
 msgstr ""
 
-#: app/routes/auth.py:467
+#: app/routes/auth.py:474
 msgid "Please provide a valid name for this account."
 msgstr ""
 
-#: app/routes/auth.py:469
+#: app/routes/auth.py:476
 msgid "Please provide a valid phone number."
 msgstr ""
 
-#: app/routes/auth.py:476
+#: app/routes/auth.py:483
 msgid ""
 "An account with this email already exists. Ask an administrator to resend"
 " the invitation."
 msgstr ""
 
-#: app/routes/auth.py:496
+#: app/routes/auth.py:503
 msgid "Your account is ready. Sign in to continue."
 msgstr ""
 
-#: app/routes/auth.py:515
+#: app/routes/auth.py:522
 msgid "Enter a valid email and choose Rider or Admin."
 msgstr ""
 
-#: app/routes/auth.py:521 app/routes/auth.py:565
+#: app/routes/auth.py:528 app/routes/auth.py:572
 msgid "Staff invitations need a configured email provider and sender address."
 msgstr ""
 
-#: app/routes/auth.py:533
+#: app/routes/auth.py:540
 msgid "A valid invitation already exists for this email and role."
 msgstr ""
 
-#: app/routes/auth.py:548 app/routes/auth.py:578
+#: app/routes/auth.py:555 app/routes/auth.py:585
 msgid "Staff invitations are unavailable until the public site URL is configured."
 msgstr ""
 
-#: app/routes/auth.py:553
+#: app/routes/auth.py:560
 msgid "The account invitation was created and queued for email."
 msgstr ""
 
-#: app/routes/auth.py:570
+#: app/routes/auth.py:577
 msgid "This invitation was closed because an account already exists."
 msgstr ""
 
-#: app/routes/auth.py:584
+#: app/routes/auth.py:591
 msgid "A fresh invitation link was queued for email."
 msgstr ""
 
-#: app/routes/auth.py:596
+#: app/routes/auth.py:603
 msgid "The account invitation was revoked."
 msgstr ""
 
-#: app/routes/auth.py:638
+#: app/routes/auth.py:645
 msgid ""
 "If an active account exists for that email, a verification code has been "
 "sent."
 msgstr ""
 
-#: app/routes/auth.py:651 app/routes/auth.py:654
+#: app/routes/auth.py:658 app/routes/auth.py:661
 msgid "This password reset code is invalid or has expired."
 msgstr ""
 
-#: app/routes/auth.py:677 app/routes/auth.py:680
+#: app/routes/auth.py:684 app/routes/auth.py:687
 msgid "Too many incorrect codes. Request a new verification code."
 msgstr ""
 
-#: app/routes/auth.py:686 app/routes/auth.py:688
+#: app/routes/auth.py:693 app/routes/auth.py:695
 #: app/templates/auth/verify_reset_code.html:20
 msgid "The verification code is incorrect."
 msgstr ""
 
-#: app/routes/auth.py:712
+#: app/routes/auth.py:719
 msgid "Please verify a valid password reset code first."
 msgstr ""
 
-#: app/routes/auth.py:716
+#: app/routes/auth.py:723
 msgid "This password reset request is invalid or has expired."
 msgstr ""
 
-#: app/routes/auth.py:734
+#: app/routes/auth.py:741
 msgid "Password updated. You can now sign in."
 msgstr ""
 
-#: app/routes/auth.py:750
+#: app/routes/auth.py:757
 msgid "Please provide a valid name and phone number."
 msgstr ""
 
-#: app/routes/auth.py:752
+#: app/routes/auth.py:759
 msgid "Please provide a complete address."
 msgstr ""
 
-#: app/routes/auth.py:754
+#: app/routes/auth.py:761
 msgid "Please provide a valid city."
 msgstr ""
 
-#: app/routes/auth.py:779
+#: app/routes/auth.py:786
 msgid "Your account details were updated."
 msgstr ""
 
-#: app/routes/auth.py:795
+#: app/routes/auth.py:802
 msgid "Your current password is incorrect."
 msgstr ""
 
-#: app/routes/auth.py:805
+#: app/routes/auth.py:812
 msgid "Your password was changed. Sign in again on this device."
 msgstr ""
 
-#: app/routes/auth.py:823
+#: app/routes/auth.py:830
 msgid "Please provide a valid admin name."
 msgstr ""
 
-#: app/routes/auth.py:837
+#: app/routes/auth.py:844
 msgid "Admin profile updated."
 msgstr ""
 
-#: app/routes/auth.py:849
+#: app/routes/auth.py:856
 msgid "You have been signed out."
 msgstr ""
 
@@ -223,28 +223,56 @@ msgstr ""
 msgid "Language preference updated."
 msgstr ""
 
-#: app/routes/orders.py:207
+#: app/routes/orders.py:233
 msgid "This seller application has already been reviewed."
 msgstr ""
 
-#: app/routes/orders.py:214 app/routes/orders.py:240
+#: app/routes/orders.py:240 app/routes/orders.py:266
 msgid "The review note must be 500 characters or fewer."
 msgstr ""
 
-#: app/routes/orders.py:222
+#: app/routes/orders.py:248
 msgid "Seller application approved."
 msgstr ""
 
-#: app/routes/orders.py:223
+#: app/routes/orders.py:249
 msgid "Seller application rejected."
 msgstr ""
 
-#: app/routes/orders.py:249
+#: app/routes/orders.py:275
 msgid "Product listing approved."
 msgstr ""
 
-#: app/routes/orders.py:250
+#: app/routes/orders.py:276
 msgid "Product listing rejected."
+msgstr ""
+
+#: app/routes/orders.py:621
+msgid "Choose an active delivery rider."
+msgstr ""
+
+#: app/routes/orders.py:627
+msgid "Rider assigned to this delivery."
+msgstr ""
+
+#: app/routes/orders.py:635
+msgid "Delivery unassigned."
+msgstr ""
+
+#: app/routes/portals.py:71
+msgid "That delivery update is not allowed."
+msgstr ""
+
+#: app/routes/portals.py:85
+msgid "The delivery note must be 500 characters or fewer."
+msgstr ""
+
+#: app/routes/portals.py:97
+msgid "Add a delivery photo or a note as proof of delivery."
+msgstr ""
+
+#: app/routes/portals.py:109
+msgid "Delivery status updated."
 msgstr ""
 
 #: app/routes/seller.py:195 app/routes/seller.py:217
@@ -289,13 +317,95 @@ msgstr ""
 msgid "Variant stock updated."
 msgstr ""
 
-#: app/services/mail.py:162 app/templates/email/password_reset_code.html:3
+#: app/services/invoice.py:105
+msgid "INVOICE"
+msgstr ""
+
+#: app/services/invoice.py:112
+#, python-format
+msgid "Seller: %(store)s"
+msgstr ""
+
+#: app/services/invoice.py:113
+msgid "Invoice number"
+msgstr ""
+
+#: app/services/invoice.py:115
+msgid "Date"
+msgstr ""
+
+#: app/services/invoice.py:116 app/templates/orders/checkout.html:15
+msgid "Payment method"
+msgstr ""
+
+#: app/services/invoice.py:116 app/templates/admin/order_detail.html:6
+#: app/templates/orders/checkout.html:15
+#: app/templates/orders/confirmation.html:11
+#: app/templates/rider/dashboard.html:18
+msgid "Cash on delivery"
+msgstr ""
+
+#: app/services/invoice.py:120
+msgid "Bill to"
+msgstr ""
+
+#: app/services/invoice.py:128 app/templates/email/admin_order.html:11
+#: app/templates/email/order_pending.html:11
+#: app/templates/email/order_receipt.html:11 app/templates/orders/cart.html:10
+msgid "Item"
+msgstr ""
+
+#: app/services/invoice.py:129 app/templates/email/admin_order.html:12
+#: app/templates/email/order_pending.html:12
+#: app/templates/email/order_receipt.html:12
+msgid "Qty"
+msgstr ""
+
+#: app/services/invoice.py:130 app/templates/orders/cart.html:10
+#: app/templates/seller/catalog.html:6
+msgid "Price"
+msgstr ""
+
+#: app/services/invoice.py:131 app/services/invoice.py:157
+#: app/templates/email/admin_order.html:13
+#: app/templates/email/order_pending.html:13
+#: app/templates/email/order_receipt.html:13 app/templates/orders/cart.html:23
+#: app/templates/orders/checkout.html:21
+msgid "Subtotal"
+msgstr ""
+
+#: app/services/invoice.py:158 app/templates/admin/dashboard.html:136
+#: app/templates/orders/cart.html:23 app/templates/orders/checkout.html:21
+#: app/templates/orders/confirmation.html:10
+#: app/templates/orders/my_orders.html:6
+msgid "Delivery"
+msgstr ""
+
+#: app/services/invoice.py:159 app/templates/admin/dashboard.html:136
+#: app/templates/admin/order_detail.html:5
+#: app/templates/email/admin_order.html:23
+#: app/templates/email/admin_order.txt:8
+#: app/templates/email/order_pending.html:23
+#: app/templates/email/order_pending.txt:8
+#: app/templates/email/order_receipt.html:23
+#: app/templates/email/order_receipt.txt:8 app/templates/orders/cart.html:10
+#: app/templates/orders/cart.html:23 app/templates/orders/confirmation.html:10
+#: app/templates/orders/my_orders.html:6
+msgid "Total"
+msgstr ""
+
+#: app/services/invoice.py:163 app/templates/email/order_status.html:9
+#: app/templates/email/order_status.txt:6
+msgid "Thank you for ordering with NexHaat."
+msgstr ""
+
+#: app/services/mail.py:409 app/templates/email/password_reset_code.html:3
 #: app/templates/email/password_reset_code.html:7
 #: app/templates/email/password_reset_code.txt:3
 msgid "Your NexHaat password reset code"
 msgstr ""
 
-#: app/services/mail.py:187 app/templates/email/admin_login_code.html:3
+#: app/services/mail.py:434 app/templates/email/admin_login_code.html:3
 #: app/templates/email/admin_login_code.html:7
 #: app/templates/email/admin_login_code.txt:3
 msgid "Your NexHaat admin sign-in code"
@@ -377,7 +487,7 @@ msgstr ""
 msgid "Account"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:151 app/templates/auth/account.html:62
+#: app/templates/admin/dashboard.html:155 app/templates/auth/account.html:62
 #: app/templates/auth/admin_account.html:27 app/templates/base.html:52
 msgid "Sign out"
 msgstr ""
@@ -602,7 +712,8 @@ msgstr ""
 #: app/templates/auth/admin_account.html:6
 #: app/templates/customer/dashboard.html:11
 #: app/templates/orders/my_orders.html:5
-#: app/templates/portals/dashboard.html:11 app/templates/rider/dashboard.html:6
+#: app/templates/portals/dashboard.html:11
+#: app/templates/rider/dashboard.html:56
 msgid "Account settings"
 msgstr ""
 
@@ -738,6 +849,7 @@ msgstr ""
 
 #: app/templates/admin/dashboard.html:116
 #: app/templates/admin/dashboard.html:136 app/templates/orders/my_orders.html:6
+#: app/templates/rider/dashboard.html:50
 msgid "Status"
 msgstr ""
 
@@ -771,18 +883,18 @@ msgid "Customer pages"
 msgstr ""
 
 #: app/templates/admin/dashboard.html:124
-#: app/templates/admin/dashboard.html:143
+#: app/templates/admin/dashboard.html:147
 #, python-format
 msgid "Page %(current)s of %(total)s"
 msgstr ""
 
 #: app/templates/admin/dashboard.html:125
-#: app/templates/admin/dashboard.html:144
+#: app/templates/admin/dashboard.html:148
 msgid "Previous"
 msgstr ""
 
 #: app/templates/admin/dashboard.html:126
-#: app/templates/admin/dashboard.html:145
+#: app/templates/admin/dashboard.html:149
 msgid "Next"
 msgstr ""
 
@@ -800,7 +912,7 @@ msgstr ""
 
 #: app/templates/admin/dashboard.html:136
 #: app/templates/admin/order_detail.html:4
-#: app/templates/orders/my_orders.html:6
+#: app/templates/orders/my_orders.html:6 app/templates/rider/dashboard.html:50
 msgid "Order"
 msgstr ""
 
@@ -808,36 +920,36 @@ msgstr ""
 #: app/templates/auth/account.html:9 app/templates/auth/account.html:12
 #: app/templates/auth/account.html:44 app/templates/customer/dashboard.html:7
 #: app/templates/customer/dashboard.html:10
+#: app/templates/rider/dashboard.html:50
 msgid "Customer"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:136
-#: app/templates/admin/order_detail.html:5
-#: app/templates/email/admin_order.html:23
-#: app/templates/email/admin_order.txt:8
-#: app/templates/email/order_pending.html:23
-#: app/templates/email/order_pending.txt:8
-#: app/templates/email/order_receipt.html:23
-#: app/templates/email/order_receipt.txt:8 app/templates/orders/cart.html:10
-#: app/templates/orders/cart.html:23 app/templates/orders/confirmation.html:7
-#: app/templates/orders/my_orders.html:6
-msgid "Total"
-msgstr ""
-
-#: app/templates/admin/dashboard.html:139
+#: app/templates/admin/dashboard.html:141
 msgid "Order status"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:139 app/templates/auth/account.html:46
+#: app/templates/admin/dashboard.html:141 app/templates/auth/account.html:46
 #: app/templates/auth/admin_account.html:23
 msgid "Save"
 msgstr ""
 
 #: app/templates/admin/dashboard.html:142
+msgid "Delivery rider"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:142
+msgid "Unassigned"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:142
+msgid "Assign"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:146
 msgid "No orders yet."
 msgstr ""
 
-#: app/templates/admin/dashboard.html:143
+#: app/templates/admin/dashboard.html:147
 msgid "Order pages"
 msgstr ""
 
@@ -850,7 +962,7 @@ msgid "Back to operations"
 msgstr ""
 
 #: app/templates/admin/order_detail.html:5
-#: app/templates/orders/my_orders.html:6
+#: app/templates/orders/my_orders.html:6 app/templates/rider/dashboard.html:17
 msgid "Items"
 msgstr ""
 
@@ -873,12 +985,6 @@ msgstr ""
 
 #: app/templates/admin/order_detail.html:6
 msgid "Payment"
-msgstr ""
-
-#: app/templates/admin/order_detail.html:6
-#: app/templates/orders/checkout.html:15
-#: app/templates/orders/confirmation.html:7
-msgid "Cash on delivery"
 msgstr ""
 
 #: app/templates/admin/order_detail.html:7
@@ -1560,25 +1666,6 @@ msgstr ""
 msgid "Order %(number)s from %(name)s (%(phone)s)."
 msgstr ""
 
-#: app/templates/email/admin_order.html:11
-#: app/templates/email/order_pending.html:11
-#: app/templates/email/order_receipt.html:11 app/templates/orders/cart.html:10
-msgid "Item"
-msgstr ""
-
-#: app/templates/email/admin_order.html:12
-#: app/templates/email/order_pending.html:12
-#: app/templates/email/order_receipt.html:12
-msgid "Qty"
-msgstr ""
-
-#: app/templates/email/admin_order.html:13
-#: app/templates/email/order_pending.html:13
-#: app/templates/email/order_receipt.html:13 app/templates/orders/cart.html:23
-#: app/templates/orders/checkout.html:21
-msgid "Subtotal"
-msgstr ""
-
 #: app/templates/email/admin_order.html:24
 #: app/templates/email/admin_order.txt:10
 #: app/templates/email/order_pending.html:24
@@ -1641,11 +1728,6 @@ msgstr ""
 msgid "Hello %(name)s, your order %(number)s is now %(status)s."
 msgstr ""
 
-#: app/templates/email/order_status.html:9
-#: app/templates/email/order_status.txt:6
-msgid "Thank you for ordering with NexHaat."
-msgstr ""
-
 #: app/templates/email/password_reset_code.html:8
 #: app/templates/email/password_reset_code.txt:4
 msgid "Use this code to create a new NexHaat account password:"
@@ -1679,10 +1761,6 @@ msgstr ""
 msgid "Review your items before continuing to checkout."
 msgstr ""
 
-#: app/templates/orders/cart.html:10 app/templates/seller/catalog.html:6
-msgid "Price"
-msgstr ""
-
 #: app/templates/orders/cart.html:14
 #, python-format
 msgid "Quantity for %(name)s"
@@ -1702,10 +1780,6 @@ msgstr ""
 
 #: app/templates/orders/cart.html:22
 msgid "Order summary"
-msgstr ""
-
-#: app/templates/orders/cart.html:23 app/templates/orders/checkout.html:21
-msgid "Delivery"
 msgstr ""
 
 #: app/templates/orders/cart.html:24
@@ -1744,10 +1818,6 @@ msgstr ""
 msgid "Delivery address"
 msgstr ""
 
-#: app/templates/orders/checkout.html:15
-msgid "Payment method"
-msgstr ""
-
 #: app/templates/orders/checkout.html:17
 msgid "Place order"
 msgstr ""
@@ -1777,19 +1847,24 @@ msgid "Your order is on its way to the team"
 msgstr ""
 
 #: app/templates/orders/confirmation.html:6
-msgid "Order number"
-msgstr ""
-
-#: app/templates/orders/confirmation.html:6
 #, python-format
 msgid "We sent a confirmation to %(email)s."
 msgstr ""
 
-#: app/templates/orders/confirmation.html:8
+#: app/templates/orders/confirmation.html:6
+#, python-format
+msgid "Your cart was split into %(count)s seller orders."
+msgstr ""
+
+#: app/templates/orders/confirmation.html:14
+msgid "Overall total"
+msgstr ""
+
+#: app/templates/orders/confirmation.html:15
 msgid "Keep exploring"
 msgstr ""
 
-#: app/templates/orders/confirmation.html:8
+#: app/templates/orders/confirmation.html:15
 msgid "View my orders"
 msgstr ""
 
@@ -1900,17 +1975,67 @@ msgid "Rider dashboard"
 msgstr ""
 
 #: app/templates/rider/dashboard.html:5
-msgid "Your rider account is active."
+msgid "Your assigned deliveries and handoff updates appear here."
 msgstr ""
 
-#: app/templates/rider/dashboard.html:6
-msgid "Delivery tools are being prepared"
+#: app/templates/rider/dashboard.html:8
+msgid "ACTIVE"
 msgstr ""
 
-#: app/templates/rider/dashboard.html:6
-msgid ""
-"Delivery assignments and handoff updates will appear here when rider "
-"operations are enabled."
+#: app/templates/rider/dashboard.html:8
+msgid "Deliveries in progress"
+msgstr ""
+
+#: app/templates/rider/dashboard.html:22
+msgid "Mark picked up"
+msgstr ""
+
+#: app/templates/rider/dashboard.html:24
+msgid "Start delivery"
+msgstr ""
+
+#: app/templates/rider/dashboard.html:28
+msgid "Delivery note"
+msgstr ""
+
+#: app/templates/rider/dashboard.html:29
+msgid "Delivery note (optional)"
+msgstr ""
+
+#: app/templates/rider/dashboard.html:30
+msgid "Proof of delivery photo"
+msgstr ""
+
+#: app/templates/rider/dashboard.html:32
+msgid "Mark delivered"
+msgstr ""
+
+#: app/templates/rider/dashboard.html:36
+msgid "Delivery could not be completed"
+msgstr ""
+
+#: app/templates/rider/dashboard.html:36
+msgid "Report failed"
+msgstr ""
+
+#: app/templates/rider/dashboard.html:43
+msgid "No active deliveries right now."
+msgstr ""
+
+#: app/templates/rider/dashboard.html:48
+msgid "Completed deliveries"
+msgstr ""
+
+#: app/templates/rider/dashboard.html:50
+msgid "Proof"
+msgstr ""
+
+#: app/templates/rider/dashboard.html:51
+msgid "Photo on file"
+msgstr ""
+
+#: app/templates/rider/dashboard.html:53
+msgid "Completed deliveries will appear here."
 msgstr ""
 
 #: app/templates/seller/catalog.html:2 app/templates/seller/product_form.html:6

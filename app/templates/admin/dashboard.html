@@ -133,10 +133,14 @@
       <form method="post" action="{{ url_for('orders.admin_order_decline_all') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="admin-button admin-button--quiet" type="submit">{{ _('Decline all pending') }}</button></form>
     </div></header>
     {% if orders %}
-      <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>{{ _('Order') }}</th><th>{{ _('Customer') }}</th><th>{{ _('Total') }}</th><th>{{ _('Status') }}</th><th>{{ _('Actions') }}</th></tr></thead><tbody>
+      <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>{{ _('Order') }}</th><th>{{ _('Customer') }}</th><th>{{ _('Total') }}</th><th>{{ _('Status') }}</th><th>{{ _('Delivery') }}</th><th>{{ _('Actions') }}</th></tr></thead><tbody>
       {% for order in orders %}<tr>
         <td><a href="{{ url_for('orders.admin_order_detail', order_id=order.id) }}">#{{ order.id }}</a></td><td>{{ order.user.email if order.user else '—' }}</td><td>৳{{ order.total }}</td><td>{{ _(order.status|capitalize) }}</td>
-        <td><form class="admin-status-form" method="post" action="{{ url_for('orders.admin_order_status', order_id=order.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><label class="visually-hidden" for="order-status-{{ order.id }}">{{ _('Order status') }}</label><select id="order-status-{{ order.id }}" name="status">{% for status in statuses %}<option value="{{ status }}" {% if order.status == status %}selected{% endif %}>{{ _(status|capitalize) }}</option>{% endfor %}</select><button class="admin-button admin-button--quiet" type="submit">{{ _('Save') }}</button></form></td>
+        <td>{{ _(order.delivery_status|replace('_', ' ')|capitalize) }}{% if order.rider %} · {{ order.rider.email }}{% endif %}</td>
+        <td>
+          <form class="admin-status-form" method="post" action="{{ url_for('orders.admin_order_status', order_id=order.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><label class="visually-hidden" for="order-status-{{ order.id }}">{{ _('Order status') }}</label><select id="order-status-{{ order.id }}" name="status">{% for status in statuses %}<option value="{{ status }}" {% if order.status == status %}selected{% endif %}>{{ _(status|capitalize) }}</option>{% endfor %}</select><button class="admin-button admin-button--quiet" type="submit">{{ _('Save') }}</button></form>
+          <form class="admin-status-form" method="post" action="{{ url_for('orders.admin_assign_rider', order_id=order.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><label class="visually-hidden" for="order-rider-{{ order.id }}">{{ _('Delivery rider') }}</label><select id="order-rider-{{ order.id }}" name="rider_id"><option value="">{{ _('Unassigned') }}</option>{% for rider in riders %}<option value="{{ rider.id }}" {% if order.rider_id == rider.id %}selected{% endif %}>{{ rider.rider_profile.full_name if rider.rider_profile else rider.email }}</option>{% endfor %}</select><button class="admin-button admin-button--quiet" type="submit">{{ _('Assign') }}</button></form>
+        </td>
       </tr>{% endfor %}
       </tbody></table></div>
     {% else %}<p class="admin-empty">{{ _('No orders yet.') }}</p>{% endif %}

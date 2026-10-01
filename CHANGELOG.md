@@ -13,3 +13,5 @@
 - Admin accounts are bootstrapped from `ADMIN_EMAIL`; `ADMIN_PASSWORD` is no longer used.
 - Scoped link hover underlines to auth pages; other site links no longer underline on hover.
 - Added order transaction email templates (order received, receipt, order status update, and Admin new-order notification).
+- Phase 4 complete: one checkout now creates seller-specific sub-orders with a per-order delivery fee, a localized ReportLab PDF invoice per seller, and a durable email outbox with automatic retry (`flask retry-emails`).
+- Phase 5 complete: Admin delivery assignment plus a Rider workflow (assigned → picked up → out for delivery → delivered) with proof of delivery and server-validated state transitions.

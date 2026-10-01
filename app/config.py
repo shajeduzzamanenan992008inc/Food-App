@@ -70,6 +70,9 @@ class Config:
     MAX_PASSWORD_LENGTH = 128
     UPLOAD_FOLDER = str(BASE_DIR / "app" / "static" / "uploads" / "profiles")
     BRANDING_UPLOAD_FOLDER = str(BASE_DIR / "app" / "static" / "uploads" / "branding")
+    PROOF_OF_DELIVERY_FOLDER = str(BASE_DIR / "app" / "static" / "uploads" / "delivery")
+    MAX_EMAIL_ATTEMPTS = int(os.getenv("MAX_EMAIL_ATTEMPTS", "5"))
+    INVOICE_FONT_PATH = os.getenv("INVOICE_FONT_PATH", "").strip()
     PREFERRED_URL_SCHEME = "https" if ENVIRONMENT == "production" else "http"
 
 

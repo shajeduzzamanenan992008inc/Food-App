@@ -3,8 +3,8 @@
 {% block page_content %}
 <div class="page-shell">
   <header class="page-heading"><div><p class="eyebrow">{{ _('Your NexHaat activity') }}</p><h1>{{ _('My orders') }}</h1><p>{{ _('Keep track of recent purchases and delivery updates.') }}</p></div><a class="button-secondary" href="{{ url_for('auth.account') }}">{{ _('Account settings') }}</a></header>
-  {% if orders %}<div class="table-wrap"><table><thead><tr><th>{{ _('Order') }}</th><th>{{ _('Placed') }}</th><th>{{ _('Items') }}</th><th>{{ _('Status') }}</th><th>{{ _('Total') }}</th></tr></thead><tbody>
-    {% for order in orders %}<tr><td><a class="table-title" href="{{ url_for('orders.confirmation', order_number=order.order_number) }}">{{ order.order_number }}</a></td><td>{{ order.created_at.strftime('%b %d, %Y') }}</td><td>{{ order.items|length }}</td><td><span class="status-pill status-pill--{{ order.status }}">{{ _(order.status|capitalize) }}</span></td><td><strong>৳{{ '%.2f'|format(order.total) }}</strong></td></tr>{% endfor %}
+  {% if orders %}<div class="table-wrap"><table><thead><tr><th>{{ _('Order') }}</th><th>{{ _('Placed') }}</th><th>{{ _('Items') }}</th><th>{{ _('Status') }}</th><th>{{ _('Delivery') }}</th><th>{{ _('Total') }}</th></tr></thead><tbody>
+    {% for order in orders %}<tr><td><a class="table-title" href="{{ url_for('orders.confirmation', order_number=order.order_number) }}">{{ order.order_number }}</a></td><td>{{ order.created_at.strftime('%b %d, %Y') }}</td><td>{{ order.items|length }}</td><td><span class="status-pill status-pill--{{ order.status }}">{{ _(order.status|capitalize) }}</span></td><td><span class="status-pill status-pill--{{ order.delivery_status }}">{{ _(order.delivery_status|replace('_', ' ')|capitalize) }}</span></td><td><strong>৳{{ '%.2f'|format(order.total) }}</strong></td></tr>{% endfor %}
   </tbody></table></div>
   {% else %}<div class="empty-state"><strong>{{ _('No orders yet') }}</strong>{{ _('Your completed checkout orders will appear here.') }}<p><a class="button" href="{{ url_for('main.menu') }}">{{ _('Explore marketplace') }}</a></p></div>{% endif %}
 </div>

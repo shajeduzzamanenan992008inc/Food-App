@@ -1,15 +1,23 @@
 """Role-specific workspace blueprints and dashboards."""
 
+from datetime import datetime, timezone
 from math import ceil
 
-from flask import Blueprint, abort, render_template, request
+from flask import (
+    Blueprint, abort, current_app, flash, redirect, render_template, request, url_for,
+)
+from flask_babel import gettext
 from sqlalchemy import func, select
 from sqlalchemy.orm import selectinload
 
 from ..extensions import db
-from ..models import AccountInvitation, Order, Product, SellerProfile, User
+from ..models import (
+    AccountInvitation, Order, Product, SellerProfile, User, delivery_transition_valid,
+)
 from ..services.profiles import customer_profile_image_url, ensure_customer_profile
-from ..security import admin_required, customer_required, current_session_user, role_required
+from ..security import (
+    admin_required, customer_required, current_session_user, role_required, save_raster_upload,
+)
 
 
 customer_bp = Blueprint("customer", __name__, url_prefix="/customer")
@@ -34,7 +42,72 @@ def dashboard():
     user = current_session_user("rider")
     if not user.rider_profile:
         abort(403)
-    return render_template("rider/dashboard.html", user=user, profile=user.rider_profile)
+    orders = db.session.scalars(
+        select(Order)
+        .options(selectinload(Order.items))
+        .where(Order.rider_id == user.id)
+        .order_by(Order.delivery_status.asc(), Order.created_at.desc())
+    ).all()
+    active = [order for order in orders if order.delivery_status not in {"delivered", "failed"}]
+    completed = [order for order in orders if order.delivery_status in {"delivered", "failed"}]
+    return render_template(
+        "rider/dashboard.html",
+        user=user,
+        profile=user.rider_profile,
+        active=active,
+        completed=completed,
+    )
+
+
+@rider_bp.post("/deliveries/<int:order_id>/status")
+@role_required("rider")
+def update_delivery(order_id):
+    user = current_session_user("rider")
+    order = db.session.get(Order, order_id)
+    if not order or order.rider_id != user.id:
+        abort(404)
+    target = request.form.get("delivery_status", "")
+    if not delivery_transition_valid(order.delivery_status, target):
+        flash(gettext("That delivery update is not allowed."), "error")
+        return redirect(url_for("rider.dashboard"))
+    now = datetime.now(timezone.utc)
+    if target == "assigned":
+        order.assigned_at = now
+        order.picked_up_at = None
+        order.out_for_delivery_at = None
+    elif target == "picked_up":
+        order.picked_up_at = now
+    elif target == "out_for_delivery":
+        order.out_for_delivery_at = now
+    elif target == "delivered":
+        note = request.form.get("delivery_note", "").strip()
+        if len(note) > 500:
+            flash(gettext("The delivery note must be 500 characters or fewer."), "error")
+            return redirect(url_for("rider.dashboard"))
+        proof = request.files.get("proof")
+        if proof and proof.filename:
+            filename, upload_error = save_raster_upload(
+                proof, current_app.config["PROOF_OF_DELIVERY_FOLDER"], f"pod-{order.id}"
+            )
+            if upload_error:
+                flash(upload_error, "error")
+                return redirect(url_for("rider.dashboard"))
+            order.delivery_proof = filename
+        if not order.delivery_proof and not note:
+            flash(gettext("Add a delivery photo or a note as proof of delivery."), "error")
+            return redirect(url_for("rider.dashboard"))
+        if note:
+            order.delivery_note = note
+        order.delivered_at = now
+        order.status = "delivered"
+    elif target == "failed":
+        note = request.form.get("delivery_note", "").strip()[:500]
+        if note:
+            order.delivery_note = note
+    order.delivery_status = target
+    db.session.commit()
+    flash(gettext("Delivery status updated."), "success")
+    return redirect(url_for("rider.dashboard"))
 
 
 @admin_bp.get("/admin")
@@ -99,4 +172,9 @@ def dashboard():
             .limit(50)
         ).all(),
         statuses=("pending", "confirmed", "preparing", "delivered", "cancelled", "declined"),
+        riders=db.session.scalars(
+            select(User)
+            .where(User.role == "rider", User.is_active.is_(True))
+            .order_by(User.email)
+        ).all(),
     )

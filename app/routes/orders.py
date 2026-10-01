@@ -15,10 +15,9 @@ from ..models import (
 )
 from ..security import admin_required, customer_or_guest_required, current_session_user, save_raster_upload
 from ..services.mail import (
-    queue_order_confirmation,
-    send_order_confirmation,
-    send_order_receipt,
-    send_order_status,
+    enqueue_order_emails,
+    queue_order_receipt,
+    queue_order_status,
 )
 
 
@@ -53,7 +52,12 @@ def cart_rows():
         if not product.is_available or not product.category.is_active:
             continue
         subtotal = product.display_price * quantity
-        rows.append({"product": product, "quantity": quantity, "subtotal": subtotal})
+        rows.append({
+            "product": product,
+            "quantity": quantity,
+            "subtotal": subtotal,
+            "seller_id": product.seller_id,
+        })
         total += subtotal
         valid_cart[str(product.id)] = quantity
     session["cart"] = valid_cart
@@ -144,25 +148,36 @@ def checkout():
         elif not 2 <= len(name) <= 120 or not 7 <= len(phone) <= 30 or not 8 <= len(address) <= 2000:
             flash("Please provide a valid name, phone, and delivery address.", "error")
         else:
-            order = Order(
-                order_number=f"FB-{uuid4().hex.upper()}",
-                user_id=session.get("user_id"),
-                customer_name=name, phone=phone, email=email, address=address,
-                total=subtotal + DELIVERY_FEE, payment_method=payment_method, status="pending",
-            )
+            checkout_group = f"FB-{uuid4().hex.upper()}"
+            user_id = session.get("user_id")
+            seller_groups = {}
             for row in rows:
-                order.items.append(OrderItem(
-                    product_id=row["product"].id, product_name=row["product"].name,
-                    price=row["product"].display_price, quantity=row["quantity"], subtotal=row["subtotal"],
-                ))
-            db.session.add(order)
+                seller_groups.setdefault(row["seller_id"], []).append(row)
+            orders = []
+            for index, (group_seller_id, group_rows) in enumerate(seller_groups.items(), start=1):
+                group_subtotal = sum((row["subtotal"] for row in group_rows), Decimal("0.00"))
+                order = Order(
+                    order_number=f"{checkout_group}-{index}",
+                    checkout_group=checkout_group,
+                    user_id=user_id,
+                    seller_id=group_seller_id,
+                    customer_name=name, phone=phone, email=email, address=address,
+                    delivery_fee=DELIVERY_FEE,
+                    total=group_subtotal + DELIVERY_FEE,
+                    payment_method=payment_method, status="pending",
+                )
+                for row in group_rows:
+                    order.items.append(OrderItem(
+                        product_id=row["product"].id, product_name=row["product"].name,
+                        price=row["product"].display_price, quantity=row["quantity"], subtotal=row["subtotal"],
+                    ))
+                db.session.add(order)
+                orders.append(order)
             db.session.commit()
             session["cart"] = {}
-            if current_app.config.get("ASYNC_ORDER_EMAILS", True):
-                queue_order_confirmation(order.order_number)
-            else:
-                send_order_confirmation(order)
-            return redirect(url_for("orders.confirmation", order_number=order.order_number))
+            for order in orders:
+                enqueue_order_emails(order)
+            return redirect(url_for("orders.confirmation", order_number=orders[0].order_number))
     customer = None
     user_email = None
     if session.get("user_id"):
@@ -180,7 +195,18 @@ def confirmation(order_number):
     order = db.session.scalar(select(Order).where(Order.order_number == order_number))
     if not order or (order.user_id and order.user_id != session.get("user_id")):
         abort(404)
-    return render_template("orders/confirmation.html", order=order)
+    sub_orders = [order]
+    if order.checkout_group:
+        sub_orders = db.session.scalars(
+            select(Order).options(selectinload(Order.items))
+            .where(Order.checkout_group == order.checkout_group)
+            .order_by(Order.order_number)
+        ).all()
+    grand_total = sum((item.total for item in sub_orders), Decimal("0.00"))
+    return render_template(
+        "orders/confirmation.html",
+        order=order, sub_orders=sub_orders, grand_total=grand_total,
+    )
 
 
 @orders_bp.get("/my-orders")
@@ -356,9 +382,9 @@ def _set_admin_order_status(order_id, status):
         abort(404)
     order.status = status
     db.session.commit()
-    send_order_status(order)
+    queue_order_status(order)
     if status == "confirmed":
-        send_order_receipt(order)
+        queue_order_receipt(order)
     return redirect(url_for("admin.dashboard"))
 
 
@@ -394,9 +420,9 @@ def _set_all_pending_order_status(status):
         order.status = status
     db.session.commit()
     for order in pending_orders:
-        send_order_status(order)
+        queue_order_status(order)
         if status == "confirmed":
-            send_order_receipt(order)
+            queue_order_receipt(order)
     flash(f"{len(pending_orders)} pending order(s) marked {status}.", "success")
     return redirect(url_for("admin.dashboard"))
 
@@ -576,7 +602,36 @@ def admin_order_status(order_id):
         abort(404)
     order.status = status
     db.session.commit()
-    send_order_status(order)
+    queue_order_status(order)
     if status == "confirmed":
-        send_order_receipt(order)
+        queue_order_receipt(order)
+    return redirect(url_for("admin.dashboard"))
+
+
+@orders_bp.post("/admin/orders/<int:order_id>/assign")
+@admin_required
+def admin_assign_rider(order_id):
+    order = db.session.get(Order, order_id)
+    if not order:
+        abort(404)
+    rider_id = request.form.get("rider_id", type=int)
+    if rider_id:
+        rider = db.session.get(User, rider_id)
+        if not rider or rider.role != "rider" or rider.rider_profile is None:
+            flash(gettext("Choose an active delivery rider."), "error")
+            return redirect(url_for("admin.dashboard"))
+        order.rider_id = rider.id
+        order.delivery_status = "assigned"
+        order.assigned_at = datetime.now(timezone.utc)
+        order.delivery_note = None
+        flash(gettext("Rider assigned to this delivery."), "success")
+    else:
+        order.rider_id = None
+        order.delivery_status = "unassigned"
+        order.assigned_at = None
+        order.picked_up_at = None
+        order.out_for_delivery_at = None
+        order.delivered_at = None
+        flash(gettext("Delivery unassigned."), "success")
+    db.session.commit()
     return redirect(url_for("admin.dashboard"))

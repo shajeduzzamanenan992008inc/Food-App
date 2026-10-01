@@ -1,6 +1,6 @@
 # NexHaat Marketplace
 
-NexHaat is being developed in reviewed phases as a multilingual marketplace for customers, sellers, delivery riders, and administrators. **Phase 1, Phase 2, and Phase 3 are complete.** Phase 3 delivered seller-owned product listings, inventory variants, optional multilingual product text, Admin moderation, and a fail-closed catalog image pipeline. Checkout, rider operations, and production launch remain behind their phase review gates.
+NexHaat is being developed in reviewed phases as a multilingual marketplace for customers, sellers, delivery riders, and administrators. **Phases 1 through 5 are complete.** Phase 3 delivered the seller catalog, variants, moderation, and the fail-closed image pipeline; Phase 4 added multi-seller checkout, seller-specific invoices, a durable email outbox, and localized order email; Phase 5 added Rider delivery assignment and a validated delivery workflow with proof of delivery. Production launch remains behind its Phase 6 review gate.
 
 ## Phase plan
 
@@ -17,7 +17,7 @@ Complete and review each phase before beginning the next one.
 
 The interface starts in **English (US)** and supports **বাংলা**, **हिन्दी**, and **العربية**. Arabic pages use right-to-left direction. Anonymous language choices live in the signed session; signed-in preferences are stored on the user account. Locale resolution is account preference, explicit session choice, browser language, then English (US).
 
-Phase 1 and 2 translate shared navigation, authentication and password recovery, role dashboards, seller review, staff invitations, and password and invitation email. Phase 3 adds translated catalog, seller inventory, and catalog moderation screens. Remaining checkout and order workflows will be translated in Phase 4. Seller-authored product text is not machine translated; missing translations retain the original wording and language label.
+Phase 1 and 2 translate shared navigation, authentication and password recovery, role dashboards, seller review, staff invitations, and password and invitation email. Phase 3 adds translated catalog, seller inventory, and catalog moderation screens. Phase 4 adds translated checkout, order, invoice, and transaction email copy. Seller-authored product text is not machine translated; missing translations retain the original wording and language label.
 
 Translation catalogs live in `app/translations/<locale>/LC_MESSAGES/messages.po`. Extract and update them after adding translatable interface strings:
 
@@ -73,7 +73,20 @@ Run the automated checks with `python -m pytest`. SQLite is the local default; d
 - To enable image publishing, install a ClamAV command (`clamdscan` by default; set `CATALOG_VIRUS_SCANNER` to another compatible executable if needed) in the app runtime. Set `CATALOG_MEDIA_BUCKET`, `CATALOG_MEDIA_REGION`, `CATALOG_MEDIA_PUBLIC_BASE_URL`, and, for S3-compatible storage, `CATALOG_MEDIA_ENDPOINT_URL`; provide credentials through the AWS SDK credential chain. The public URL host must be served by the configured bucket/CDN. Until scanner and storage are configured, image uploads are intentionally rejected. Configure these values as private service environment settings in deployment.
 - Defaults: 3 MB per image, 40 million pixels, 100 MB total quarantine, and 24-hour quarantine retention. Override with the `MAX_CATALOG_*` and `CATALOG_QUARANTINE_*` settings as needed.
 - The catalog seed supplies a small curated food, grocery, and retail category set. It does not generate pretend food listings or prices. USDA reference foods remain labeled as reference data until a seller publishes a priced, reviewed listing.
-- Revision 20260929_07 adds seller ownership, product stock and review metadata, product translation records, and product variant records. Phase 3 is complete: the full test suite passes, and only the deployment-side scanner and storage configuration remains before live image publishing. Checkout variant selection and stock deduction are planned for Phase 4.
+- Revision 20260929_07 adds seller ownership, product stock and review metadata, product translation records, and product variant records. Phase 3 is complete: the full test suite passes, and only the deployment-side scanner and storage configuration remains before live image publishing.
+
+## Phase 4 complete
+
+- A single customer cart is now split at checkout into **seller-specific sub-orders** that share a checkout group. Each sub-order carries its own item snapshot, a per-order delivery fee, and a cash-on-delivery total; the confirmation page lists every sub-order and an overall total.
+- Every seller sub-order gets a **seller-specific invoice PDF** built with ReportLab. A Unicode TrueType font (covering Bengali, Hindi, and Arabic) is registered from `INVOICE_FONT_PATH` or a common system font so localized labels and product names render; amounts use the Taka symbol and dates follow the customer locale. Set `INVOICE_FONT_PATH` in deployment for full script coverage.
+- Transaction email is durable: each message is rendered once and stored in the `outbound_emails` outbox, then delivered in the background. Failures are retried up to `MAX_EMAIL_ATTEMPTS`, and `flask --app run.py retry-emails` re-sends anything still pending. Diagnostics never log provider credentials.
+- Order, invoice, and email copy is translated for **বাংলা**, **हिन्दी**, and **العربية**. (Adding `reportlab` to the requirements brings in the invoice renderer.)
+
+## Phase 5 complete
+
+- Admins assign an active Rider to an order from the dashboard. Delivery state is separate from order status and moves through validated transitions: unassigned → assigned → picked up → out for delivery → delivered, with a `failed` branch.
+- The Rider dashboard lists active and completed deliveries and lets the assigned Rider advance each step. Marking an order delivered requires **proof of delivery** — an uploaded photo (JPEG/PNG/WEBP) or a written note — and records a timestamp for each stage.
+- Only the assigned Rider (or an Admin) can change a delivery, and invalid transitions are rejected server-side. No live GPS is used in this release; the data model is ready for future location fields.
 
 ## Deployment
 

@@ -10,8 +10,10 @@ NexHaat হবে Customer, Seller, Rider ও Admin-এর জন্য এক�
 
 - **Phase 1 — সম্পূর্ণ।** Authentication, language foundation ও সংশ্লিষ্ট acceptance review সম্পন্ন।
 - **Phase 2 — সম্পূর্ণ।** Role dashboards ও access-control acceptance review সম্পন্ন।
-- **Phase 3 — সম্পূর্ণ (code, test ও acceptance review)।** Seller catalog, product variant, stock, Admin moderation, seller-authored multilingual text এবং fail-closed media pipeline বাস্তবায়িত; পূর্ণ regression suite পাস করেছে (58 passed)। শুধু live image publish-এর জন্য deployment-এ ClamAV executable এবং S3-compatible bucket/CDN configuration দরকার।
-- **সম্পূর্ণ stage: 3/6।** পরবর্তী কাজ: deployment-এ media scanner/storage configuration দিয়ে clean/rejected upload live smoke check চালিয়ে Phase 3-এর deployment ধাপ সম্পন্ন করা, তারপর Phase 4 — multi-vendor cart, seller-specific invoice ও localized order email।
+- **Phase 3 — সম্পূর্ণ।** Seller catalog, product variant, stock, Admin moderation, seller-authored multilingual text এবং fail-closed media pipeline বাস্তবায়িত। শুধু live image publish-এর জন্য deployment-এ ClamAV executable এবং S3-compatible bucket/CDN configuration দরকার।
+- **Phase 4 — সম্পূর্ণ।** এক checkout-এ seller-wise sub-order, per-order delivery fee, প্রতি seller-এর localized ReportLab invoice PDF এবং durable email outbox (auto retry + `flask retry-emails`)।
+- **Phase 5 — সম্পূর্ণ।** Admin Rider assignment এবং Rider delivery workflow (assigned → picked_up → out_for_delivery → delivered) proof of delivery ও server-validated transition সহ।
+- **সম্পূর্ণ stage: 5/6।** পরবর্তী: deployment-এ media scanner/storage configuration দিয়ে clean/rejected upload live smoke check চালানো, তারপর Phase 6 — security ও production launch।
 
 ### ভাষা ও localization
 

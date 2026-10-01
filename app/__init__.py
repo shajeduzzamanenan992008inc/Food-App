@@ -166,6 +166,14 @@ def create_app(config_object=None):
         after = db.session.scalar(text("SELECT COUNT(*) FROM users")) if inspect(db.engine).has_table("users") else 0
         click.echo("Configured admin ensured." if after > before else "No new admin was needed.")
 
+    @app.cli.command("retry-emails")
+    def retry_emails():
+        """Retry queued transactional emails that failed to deliver."""
+        from .services.mail import retry_pending_emails
+
+        delivered = retry_pending_emails()
+        click.echo(f"Queued emails retried: {delivered} delivered.")
+
     @app.errorhandler(404)
     def not_found(error):
         return render_template("errors/404.html"), 404
