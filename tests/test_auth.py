@@ -96,9 +96,10 @@ def test_one_login_dispatches_customer_and_admin_roles(client, app, login_admin)
         db.session.add_all([customer, admin])
         db.session.commit()
 
+    # A non-Admin email is refused at the dedicated Admin entry point.
     response = client.post("/admin/login", data={"email": "customer@example.com"})
-    assert response.status_code == 302
-    assert response.headers["Location"].endswith("/auth/verify-admin-login")
+    assert response.status_code == 403
+    assert b"not an Admin account" in response.data
 
     response = client.post("/auth/login", data={"email": "customer@example.com", "password": "password123"})
     assert response.status_code == 302
@@ -119,7 +120,7 @@ def test_one_login_dispatches_customer_and_admin_roles(client, app, login_admin)
         assert session["role"] == "admin"
 
 
-def test_admin_otp_request_is_non_enumerating_and_code_is_single_use(client, app):
+def test_admin_otp_request_is_gated_and_code_is_single_use(client, app):
     client.application.config.update(
         WTF_CSRF_ENABLED=False,
         BREVO_API_KEY="test-key",
@@ -138,13 +139,15 @@ def test_admin_otp_request_is_non_enumerating_and_code_is_single_use(client, app
         side_effect=lambda email, code, **kwargs: queued.append((email, code)),
     ):
         known = client.post("/admin/login", data={"email": admin_email})
-        unknown_client = app.test_client()
-        unknown_client.application.config["WTF_CSRF_ENABLED"] = False
-        unknown = unknown_client.post("/admin/login", data={"email": "missing@example.com"})
 
-    assert known.status_code == unknown.status_code == 302
-    assert known.headers["Location"] == unknown.headers["Location"]
+    assert known.status_code == 302
     assert known.headers["Location"].endswith("/auth/verify-admin-login")
+
+    unknown_client = app.test_client()
+    unknown_client.application.config["WTF_CSRF_ENABLED"] = False
+    unknown = unknown_client.post("/admin/login", data={"email": "missing@example.com"})
+    assert unknown.status_code == 403
+    assert b"not an Admin account" in unknown.data
     assert queued == [(admin_email, "123456")]
     with app.app_context():
         challenge = db.session.query(AdminLoginChallenge).one()
@@ -289,7 +292,7 @@ def test_admin_password_reset_does_not_issue_a_password_code(client, app):
         assert stored_admin.password_reset_hash is None
 
 
-def test_admin_login_without_mail_settings_stays_generic(client, app):
+def test_admin_login_without_mail_settings_stays_generic_for_admin_accounts(client, app):
     client.application.config.update(
         WTF_CSRF_ENABLED=False, BREVO_API_KEY=None, MAIL_DEFAULT_SENDER=None
     )
@@ -300,14 +303,20 @@ def test_admin_login_without_mail_settings_stays_generic(client, app):
         db.session.add(admin)
         db.session.commit()
 
+    # Without mail settings no challenge is created, but a real Admin account
+    # still receives the generic "code will be sent" response.
     existing = client.post("/admin/login", data={"email": admin_email})
+    assert existing.status_code == 302
+    assert existing.headers["Location"].endswith("/auth/verify-admin-login")
+    with app.app_context():
+        assert db.session.query(AdminLoginChallenge).count() == 0
+
+    # An email that is not an Admin account is refused with a clear message.
     unknown_client = app.test_client()
     unknown_client.application.config["WTF_CSRF_ENABLED"] = False
     missing = unknown_client.post("/admin/login", data={"email": "missing@example.com"})
-    assert existing.status_code == missing.status_code == 302
-    assert existing.headers["Location"] == missing.headers["Location"]
-    with app.app_context():
-        assert db.session.query(AdminLoginChallenge).count() == 0
+    assert missing.status_code == 403
+    assert b"not an Admin account" in missing.data
 
 
 def test_admin_sign_in_email_renders_one_time_code(app):

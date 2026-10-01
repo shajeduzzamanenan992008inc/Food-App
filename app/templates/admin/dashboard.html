@@ -127,6 +127,27 @@
     </nav>
   </section>
 
+  <section class="admin-section" aria-labelledby="staff-accounts-title">
+    <header class="admin-section__header"><div><p class="eyebrow">{{ _('TEAM') }}</p><h2 id="staff-accounts-title">{{ _('Seller, Rider and Admin accounts') }}</h2></div></header>
+    {% if staff_accounts %}
+      <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>{{ _('Role') }}</th><th>{{ _('Name') }}</th><th>{{ _('Email address') }}</th><th>{{ _('Status') }}</th><th>{{ _('Actions') }}</th></tr></thead><tbody>
+      {% for account in staff_accounts %}<tr>
+        <td>{{ _(account.role|capitalize) }}</td>
+        <td>{% if account.seller_profile %}{{ account.seller_profile.store_name }}{% elif account.rider_profile %}{{ account.rider_profile.full_name }}{% elif account.admin_profile %}{{ account.admin_profile.full_name }}{% else %}—{% endif %}</td>
+        <td>{{ account.email }}{% if account.email|lower == primary_admin_email %} <strong>{{ _('(primary Admin)') }}</strong>{% endif %}</td>
+        <td>{{ _('Active') if account.is_active else _('Deactivated') }}</td>
+        <td>
+          {% if account.email|lower == primary_admin_email %}
+            <span class="form-hint">{{ _('Protected') }}</span>
+          {% else %}
+            <form method="post" action="{{ url_for('orders.admin_account_remove', user_id=account.id) }}" onsubmit="return confirm('{{ _('Delete this account permanently?') }}');"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="admin-button admin-button--danger" type="submit">{{ _('Delete') }}</button></form>
+          {% endif %}
+        </td>
+      </tr>{% endfor %}
+      </tbody></table></div>
+    {% else %}<p class="admin-empty">{{ _('No seller, rider, or Admin accounts yet.') }}</p>{% endif %}
+  </section>
+
   <section class="admin-section" aria-labelledby="orders-title">
     <header class="admin-section__header"><h2 id="orders-title">{{ _('Orders') }}</h2><div class="admin-actions">
       <form method="post" action="{{ url_for('orders.admin_order_confirm_all') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="admin-button admin-button--quiet" type="submit">{{ _('Confirm all pending') }}</button></form>

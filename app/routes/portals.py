@@ -179,6 +179,17 @@ def dashboard():
             .where(User.role == "rider", User.is_active.is_(True))
             .order_by(User.email)
         ).all(),
+        staff_accounts=db.session.scalars(
+            select(User)
+            .options(
+                selectinload(User.seller_profile),
+                selectinload(User.rider_profile),
+                selectinload(User.admin_profile),
+            )
+            .where(User.role.in_(("seller", "rider", "admin")))
+            .order_by(User.role.asc(), User.email.asc())
+        ).all(),
+        primary_admin_email=(current_app.config.get("ADMIN_EMAIL") or "").strip().lower(),
         audit_events=db.session.scalars(
             select(AuditEvent).order_by(AuditEvent.created_at.desc()).limit(50)
         ).all(),

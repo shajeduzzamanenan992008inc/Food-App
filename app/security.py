@@ -78,6 +78,33 @@ def admin_required(view):
     return role_required("admin")(view)
 
 
+def primary_admin_email():
+    return (current_app.config.get("ADMIN_EMAIL") or "").strip().lower()
+
+
+def is_primary_admin(user):
+    """Return True when the user is the environment-configured primary Admin."""
+    email = primary_admin_email()
+    return bool(
+        user is not None
+        and user.role == "admin"
+        and email
+        and (user.email or "").strip().lower() == email
+    )
+
+
+def primary_admin_required(view):
+    """Require the primary Admin account configured through ADMIN_EMAIL."""
+    @wraps(view)
+    def wrapped(*args, **kwargs):
+        user = current_session_user("admin")
+        if not user or not is_primary_admin(user):
+            abort(403)
+        return view(*args, **kwargs)
+
+    return wrapped
+
+
 def customer_required(view):
     return role_required("customer")(view)
 

@@ -96,6 +96,13 @@ Run the automated checks with `python -m pytest`. SQLite is the local default; d
 - **Launch review:** `flask --app run.py production-check` lists every remaining production blocker (secret strength, secure cookies, HTTPS base URL, mail provider, PostgreSQL, Admin bootstrap, invoice font, media storage, and scan tooling).
 - **Operator steps (hosting account, not application code):** enable Cloudflare WAF/Tunnel in front of a private Render service, schedule backups and rehearse a restore, install the ClamAV scanner and configure the media bucket/CDN, and confirm the database stays inside the 400 MB ceiling.
 
+## Account management
+
+- **Customers** can permanently delete their own account from Account Settings; this removes their profile, address, and sign-in.
+- **The primary Admin** — the account whose email matches `ADMIN_EMAIL` — can delete Seller, Rider, and sub-Admin accounts from the Admin dashboard. The primary Admin account itself is protected and cannot be deleted.
+- **Sub-Admins** are added by inviting them (`role = Admin`) from the Admin dashboard and sign in the same passwordless email-OTP way as the primary Admin.
+- The Admin sign-in entry point (`/admin/login`) only accepts active Admin accounts. Any other email is refused with *"That email is not an Admin account."*
+
 ## Deployment
 
 The project includes a production entry point, a `Procfile`, and a Render blueprint. The blueprint builds Python dependencies and translation catalogs, applies migrations before serving traffic, initializes the admin account, and seeds the catalog. Configure a strong secret, managed PostgreSQL URL, Brevo API key, sender address, canonical HTTPS `PUBLIC_BASE_URL`, and any admin bootstrap values using the host's private environment settings.

@@ -269,13 +269,13 @@ def admin_login():
         remote_addr = request.remote_addr
         throttled = login_is_throttled(remote_addr)
         delivered_request = False
+        admin_missing = False
 
-        if (
-            not throttled and EMAIL_PATTERN.fullmatch(email) and len(email) <= 255
-            and _staff_email_ready()
-        ):
+        if not throttled and EMAIL_PATTERN.fullmatch(email) and len(email) <= 255:
             user = db.session.scalar(select(User).where(User.email == email))
-            if user and user.role == "admin" and user.is_active:
+            if not (user and user.role == "admin" and user.is_active):
+                admin_missing = True
+            elif _staff_email_ready():
                 now = datetime.now(timezone.utc)
                 latest = db.session.scalar(
                     select(AdminLoginChallenge)
@@ -320,6 +320,15 @@ def admin_login():
                     # sure this session can finish verification with it.
                     session["admin_login_challenge_id"] = latest.id
 
+        if admin_missing:
+            record_login_failure(remote_addr)
+            record_audit(
+                "auth.admin_login_denied",
+                target_id=email,
+                detail="not an admin account",
+            )
+            flash(gettext("That email is not an Admin account."), "error")
+            return render_template("auth/admin_login.html"), 403
         if not delivered_request and not throttled:
             record_login_failure(remote_addr)
         flash(
@@ -820,6 +829,23 @@ def change_password():
         flash(gettext("Your password was changed. Sign in again on this device."), "success")
         return redirect(url_for("auth.login"))
     return redirect(url_for("auth.account"))
+
+
+@auth_bp.post("/account/delete")
+@customer_required
+def delete_account():
+    """Let a customer permanently delete their own account."""
+    user = db.session.get(User, session["user_id"])
+    if user is None:
+        abort(404)
+    email = user.email
+    record_audit("account.delete_self", target_type="user", target_id=user.id, detail=email)
+    logout_user()
+    db.session.delete(user)
+    db.session.commit()
+    session.clear()
+    flash(gettext("Your account has been deleted."), "success")
+    return redirect(url_for("main.index"))
 
 
 @auth_bp.route("/admin-account", methods=["GET", "POST"])

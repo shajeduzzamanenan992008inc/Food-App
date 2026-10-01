@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-10-01 17:50+0600\n"
+"POT-Creation-Date: 2026-10-01 18:46+0600\n"
 "PO-Revision-Date: 2026-09-29 15:24+0600\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: hi_IN\n"
@@ -22,8 +22,8 @@ msgstr ""
 msgid "Please provide valid name, email, and phone details."
 msgstr "कृपया सही नाम, ईमेल और फ़ोन नंबर दें।"
 
-#: app/routes/auth.py:123 app/routes/auth.py:163 app/routes/auth.py:488
-#: app/routes/auth.py:740 app/routes/auth.py:814
+#: app/routes/auth.py:123 app/routes/auth.py:163 app/routes/auth.py:497
+#: app/routes/auth.py:749 app/routes/auth.py:823
 #: app/templates/auth/_auth_card.html:108
 #: app/templates/auth/_seller_application_panel.html:57
 #: app/templates/auth/accept_invitation.html:41
@@ -31,7 +31,7 @@ msgstr "कृपया सही नाम, ईमेल और फ़ोन �
 msgid "Passwords do not match."
 msgstr "दोनों पासवर्ड मेल नहीं खाते।"
 
-#: app/routes/auth.py:125 app/routes/auth.py:165 app/routes/auth.py:533
+#: app/routes/auth.py:125 app/routes/auth.py:165 app/routes/auth.py:542
 msgid "An account with this email already exists."
 msgstr "इस ईमेल से एक खाता पहले से मौजूद है।"
 
@@ -69,156 +69,165 @@ msgstr "पासवर्ड में %(maximum)s से अधिक अक�
 msgid "Invalid email or password."
 msgstr "ईमेल या पासवर्ड सही नहीं है।"
 
-#: app/routes/auth.py:326
+#: app/routes/auth.py:330
+msgid "That email is not an Admin account."
+msgstr "यह ईमेल किसी एडमिन खाते का नहीं है।"
+
+#: app/routes/auth.py:335
 #, fuzzy
 msgid ""
 "If an active Admin account matches that email, a sign-in code will be "
 "sent."
 msgstr "यदि इस ईमेल पर सक्रिय खाता मौजूद है, तो सत्यापन कोड भेज दिया गया है।"
 
-#: app/routes/auth.py:339
+#: app/routes/auth.py:348
 #, fuzzy
 msgid "Too many attempts. Request a new sign-in code and try again."
 msgstr "बहुत बार गलत कोड दर्ज किया गया। नया सत्यापन कोड माँगें।"
 
-#: app/routes/auth.py:385
+#: app/routes/auth.py:394
 #, fuzzy
 msgid "Too many incorrect codes. Request a new sign-in code."
 msgstr "बहुत बार गलत कोड दर्ज किया गया। नया सत्यापन कोड माँगें।"
 
-#: app/routes/auth.py:389 app/templates/auth/verify_admin_login.html:20
+#: app/routes/auth.py:398 app/templates/auth/verify_admin_login.html:20
 #, fuzzy
 msgid "The sign-in code is incorrect or has expired."
 msgstr "सत्यापन कोड सही नहीं है।"
 
-#: app/routes/auth.py:425
+#: app/routes/auth.py:434
 msgid "If your Admin sign-in request is active, a new code has been sent."
 msgstr ""
 
-#: app/routes/auth.py:427
+#: app/routes/auth.py:436
 msgid ""
 "If your Admin sign-in request is active, a new code will be sent when "
 "available."
 msgstr ""
 
-#: app/routes/auth.py:471
+#: app/routes/auth.py:480
 msgid "This invitation is invalid, expired, or already used."
 msgstr "यह आमंत्रण अमान्य, समाप्त या पहले ही उपयोग किया जा चुका है।"
 
-#: app/routes/auth.py:482
+#: app/routes/auth.py:491
 msgid "Please provide a valid name for this account."
 msgstr "इस खाते के लिए मान्य नाम दें।"
 
-#: app/routes/auth.py:484
+#: app/routes/auth.py:493
 msgid "Please provide a valid phone number."
 msgstr "मान्य फ़ोन नंबर दें।"
 
-#: app/routes/auth.py:491
+#: app/routes/auth.py:500
 msgid ""
 "An account with this email already exists. Ask an administrator to resend"
 " the invitation."
 msgstr "इस ईमेल पर खाता पहले से है। एडमिन से आमंत्रण दोबारा भेजने को कहें।"
 
-#: app/routes/auth.py:511
+#: app/routes/auth.py:520
 msgid "Your account is ready. Sign in to continue."
 msgstr "आपका खाता तैयार है। आगे बढ़ने के लिए साइन इन करें।"
 
-#: app/routes/auth.py:530
+#: app/routes/auth.py:539
 msgid "Enter a valid email and choose Rider or Admin."
 msgstr "मान्य ईमेल दें और राइडर या एडमिन चुनें।"
 
-#: app/routes/auth.py:536 app/routes/auth.py:580
+#: app/routes/auth.py:545 app/routes/auth.py:589
 msgid "Staff invitations need a configured email provider and sender address."
 msgstr "टीम आमंत्रण के लिए ईमेल सेवा और प्रेषक पता कॉन्फ़िगर करना आवश्यक है।"
 
-#: app/routes/auth.py:548
+#: app/routes/auth.py:557
 msgid "A valid invitation already exists for this email and role."
 msgstr "इस ईमेल और भूमिका के लिए एक वैध आमंत्रण पहले से मौजूद है।"
 
-#: app/routes/auth.py:563 app/routes/auth.py:593
+#: app/routes/auth.py:572 app/routes/auth.py:602
 msgid "Staff invitations are unavailable until the public site URL is configured."
 msgstr "सार्वजनिक साइट URL सेट होने तक टीम आमंत्रण उपलब्ध नहीं हैं।"
 
-#: app/routes/auth.py:568
+#: app/routes/auth.py:577
 msgid "The account invitation was created and queued for email."
 msgstr "खाते का आमंत्रण बनाया गया है और ईमेल के लिए कतार में है।"
 
-#: app/routes/auth.py:585
+#: app/routes/auth.py:594
 msgid "This invitation was closed because an account already exists."
 msgstr "इस ईमेल पर खाता पहले से मौजूद होने के कारण आमंत्रण बंद कर दिया गया।"
 
-#: app/routes/auth.py:599
+#: app/routes/auth.py:608
 msgid "A fresh invitation link was queued for email."
 msgstr "नया आमंत्रण लिंक ईमेल के लिए कतार में है।"
 
-#: app/routes/auth.py:611
+#: app/routes/auth.py:620
 msgid "The account invitation was revoked."
 msgstr "खाते का आमंत्रण रद्द कर दिया गया है।"
 
-#: app/routes/auth.py:653
+#: app/routes/auth.py:662
 msgid ""
 "If an active account exists for that email, a verification code has been "
 "sent."
 msgstr "यदि इस ईमेल पर सक्रिय खाता मौजूद है, तो सत्यापन कोड भेज दिया गया है।"
 
-#: app/routes/auth.py:666 app/routes/auth.py:669
+#: app/routes/auth.py:675 app/routes/auth.py:678
 msgid "This password reset code is invalid or has expired."
 msgstr "पासवर्ड रीसेट कोड अमान्य है या इसकी अवधि समाप्त हो गई है।"
 
-#: app/routes/auth.py:692 app/routes/auth.py:695
+#: app/routes/auth.py:701 app/routes/auth.py:704
 msgid "Too many incorrect codes. Request a new verification code."
 msgstr "बहुत बार गलत कोड दर्ज किया गया। नया सत्यापन कोड माँगें।"
 
-#: app/routes/auth.py:701 app/routes/auth.py:703
+#: app/routes/auth.py:710 app/routes/auth.py:712
 #: app/templates/auth/verify_reset_code.html:20
 msgid "The verification code is incorrect."
 msgstr "सत्यापन कोड सही नहीं है।"
 
-#: app/routes/auth.py:727
+#: app/routes/auth.py:736
 msgid "Please verify a valid password reset code first."
 msgstr "पहले एक वैध पासवर्ड रीसेट कोड सत्यापित करें।"
 
-#: app/routes/auth.py:731
+#: app/routes/auth.py:740
 msgid "This password reset request is invalid or has expired."
 msgstr "पासवर्ड रीसेट अनुरोध अमान्य है या इसकी अवधि समाप्त हो गई है।"
 
-#: app/routes/auth.py:749
+#: app/routes/auth.py:758
 msgid "Password updated. You can now sign in."
 msgstr "पासवर्ड अपडेट हो गया है। अब आप साइन इन कर सकते हैं।"
 
-#: app/routes/auth.py:765
+#: app/routes/auth.py:774
 msgid "Please provide a valid name and phone number."
 msgstr "कृपया सही नाम और फ़ोन नंबर दें।"
 
-#: app/routes/auth.py:767
+#: app/routes/auth.py:776
 msgid "Please provide a complete address."
 msgstr "कृपया पूरा पता दें।"
 
-#: app/routes/auth.py:769
+#: app/routes/auth.py:778
 msgid "Please provide a valid city."
 msgstr "कृपया शहर का सही नाम दें।"
 
-#: app/routes/auth.py:794
+#: app/routes/auth.py:803
 msgid "Your account details were updated."
 msgstr "आपके खाते का विवरण अपडेट हो गया है।"
 
-#: app/routes/auth.py:810
+#: app/routes/auth.py:819
 msgid "Your current password is incorrect."
 msgstr "आपका मौजूदा पासवर्ड सही नहीं है।"
 
-#: app/routes/auth.py:820
+#: app/routes/auth.py:829
 msgid "Your password was changed. Sign in again on this device."
 msgstr "पासवर्ड बदल गया है। इस डिवाइस पर फिर से साइन इन करें।"
 
-#: app/routes/auth.py:838
+#: app/routes/auth.py:847
+#, fuzzy
+msgid "Your account has been deleted."
+msgstr "आपके खाते का विवरण अपडेट हो गया है।"
+
+#: app/routes/auth.py:864
 msgid "Please provide a valid admin name."
 msgstr "कृपया एडमिन का सही नाम दें।"
 
-#: app/routes/auth.py:852
+#: app/routes/auth.py:878
 msgid "Admin profile updated."
 msgstr "एडमिन प्रोफ़ाइल अपडेट हो गई है।"
 
-#: app/routes/auth.py:865
+#: app/routes/auth.py:891
 msgid "You have been signed out."
 msgstr "आप साइन आउट हो गए हैं।"
 
@@ -230,39 +239,52 @@ msgstr "आपकी भाषा प्राथमिकता सहेजी
 msgid "Language preference updated."
 msgstr "भाषा प्राथमिकता अपडेट हो गई है।"
 
-#: app/routes/orders.py:234
+#: app/routes/orders.py:237
 msgid "This seller application has already been reviewed."
 msgstr "इस विक्रेता आवेदन की पहले ही समीक्षा हो चुकी है।"
 
-#: app/routes/orders.py:241 app/routes/orders.py:268
+#: app/routes/orders.py:244 app/routes/orders.py:271
 msgid "The review note must be 500 characters or fewer."
 msgstr "समीक्षा टिप्पणी 500 अक्षरों से अधिक नहीं हो सकती।"
 
-#: app/routes/orders.py:250
+#: app/routes/orders.py:253
 msgid "Seller application approved."
 msgstr "विक्रेता आवेदन स्वीकृत हुआ।"
 
-#: app/routes/orders.py:251
+#: app/routes/orders.py:254
 msgid "Seller application rejected."
 msgstr "विक्रेता आवेदन अस्वीकार किया गया।"
 
-#: app/routes/orders.py:278
+#: app/routes/orders.py:281
 msgid "Product listing approved."
 msgstr "उत्पाद लिस्टिंग स्वीकृत है।"
 
-#: app/routes/orders.py:279
+#: app/routes/orders.py:282
 msgid "Product listing rejected."
 msgstr "उत्पाद लिस्टिंग अस्वीकृत है।"
 
-#: app/routes/orders.py:626
+#: app/routes/orders.py:385
+msgid "The primary Admin account cannot be deleted."
+msgstr "प्राथमिक एडमिन खाता हटाया नहीं जा सकता।"
+
+#: app/routes/orders.py:388
+msgid "You cannot delete your own account here."
+msgstr "आप यहाँ अपना खाता नहीं हटा सकते।"
+
+#: app/routes/orders.py:394
+#, fuzzy
+msgid "Account removed."
+msgstr "खाते की भूमिका"
+
+#: app/routes/orders.py:650
 msgid "Choose an active delivery rider."
 msgstr "एक सक्रिय डिलीवरी राइडर चुनें।"
 
-#: app/routes/orders.py:632
+#: app/routes/orders.py:656
 msgid "Rider assigned to this delivery."
 msgstr "इस डिलीवरी के लिए राइडर असाइन किया गया।"
 
-#: app/routes/orders.py:640
+#: app/routes/orders.py:664
 #, fuzzy
 msgid "Delivery unassigned."
 msgstr "ईमेल पता"
@@ -390,14 +412,14 @@ msgstr "राइडर"
 msgid "Subtotal"
 msgstr "कुल"
 
-#: app/services/invoice.py:158 app/templates/admin/dashboard.html:136
+#: app/services/invoice.py:158 app/templates/admin/dashboard.html:157
 #: app/templates/orders/cart.html:23 app/templates/orders/checkout.html:21
 #: app/templates/orders/confirmation.html:10
 #: app/templates/orders/my_orders.html:6
 msgid "Delivery"
 msgstr "डिलीवरी"
 
-#: app/services/invoice.py:159 app/templates/admin/dashboard.html:136
+#: app/services/invoice.py:159 app/templates/admin/dashboard.html:157
 #: app/templates/admin/order_detail.html:5
 #: app/templates/email/admin_order.html:23
 #: app/templates/email/admin_order.txt:8
@@ -511,7 +533,7 @@ msgstr "कार्ट"
 msgid "Account"
 msgstr "खाते की भूमिका"
 
-#: app/templates/admin/dashboard.html:164 app/templates/auth/account.html:62
+#: app/templates/admin/dashboard.html:185 app/templates/auth/account.html:69
 #: app/templates/auth/admin_account.html:27 app/templates/base.html:52
 msgid "Sign out"
 msgstr "साइन आउट"
@@ -708,7 +730,8 @@ msgstr "फ़ोन नंबर"
 
 #: app/templates/admin/customer_form.html:8
 #: app/templates/admin/dashboard.html:92 app/templates/admin/dashboard.html:116
-#: app/templates/auth/_auth_card.html:14 app/templates/auth/_auth_card.html:69
+#: app/templates/admin/dashboard.html:133 app/templates/auth/_auth_card.html:14
+#: app/templates/auth/_auth_card.html:69
 #: app/templates/auth/_seller_application_panel.html:35
 #: app/templates/auth/account.html:23 app/templates/auth/admin_account.html:16
 #: app/templates/auth/admin_login.html:12
@@ -878,6 +901,7 @@ msgid "No pending invitations."
 msgstr "कोई लंबित आमंत्रण नहीं है।"
 
 #: app/templates/admin/dashboard.html:116
+#: app/templates/admin/dashboard.html:133
 #, fuzzy
 msgid "Name"
 msgstr "पूरा नाम"
@@ -887,21 +911,25 @@ msgid "Phone"
 msgstr "फ़ोन"
 
 #: app/templates/admin/dashboard.html:116
-#: app/templates/admin/dashboard.html:136 app/templates/orders/my_orders.html:6
+#: app/templates/admin/dashboard.html:133
+#: app/templates/admin/dashboard.html:157 app/templates/orders/my_orders.html:6
 #: app/templates/rider/dashboard.html:50
 msgid "Status"
 msgstr "स्थिति"
 
 #: app/templates/admin/dashboard.html:116
-#: app/templates/admin/dashboard.html:136
+#: app/templates/admin/dashboard.html:133
+#: app/templates/admin/dashboard.html:157
 msgid "Actions"
 msgstr "कार्रवाई"
 
 #: app/templates/admin/dashboard.html:119
+#: app/templates/admin/dashboard.html:138
 msgid "Active"
 msgstr "सक्रिय"
 
 #: app/templates/admin/dashboard.html:119
+#: app/templates/admin/dashboard.html:138
 msgid "Deactivated"
 msgstr "निष्क्रिय"
 
@@ -922,40 +950,75 @@ msgid "Customer pages"
 msgstr "ग्राहक पृष्ठ"
 
 #: app/templates/admin/dashboard.html:124
-#: app/templates/admin/dashboard.html:147
+#: app/templates/admin/dashboard.html:168
 #, python-format
 msgid "Page %(current)s of %(total)s"
 msgstr "पृष्ठ %(current)s / %(total)s"
 
 #: app/templates/admin/dashboard.html:125
-#: app/templates/admin/dashboard.html:148
+#: app/templates/admin/dashboard.html:169
 msgid "Previous"
 msgstr "पिछला"
 
 #: app/templates/admin/dashboard.html:126
-#: app/templates/admin/dashboard.html:149
+#: app/templates/admin/dashboard.html:170
 msgid "Next"
 msgstr "अगला"
 
 #: app/templates/admin/dashboard.html:131
+#, fuzzy
+msgid "TEAM"
+msgstr "आइटम"
+
+#: app/templates/admin/dashboard.html:131
+msgid "Seller, Rider and Admin accounts"
+msgstr "विक्रेता, राइडर और एडमिन खाते"
+
+#: app/templates/admin/dashboard.html:133
+msgid "Role"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:137
+msgid "(primary Admin)"
+msgstr "(प्राथमिक एडमिन)"
+
+#: app/templates/admin/dashboard.html:141
+#, fuzzy
+msgid "Protected"
+msgstr "उत्पाद"
+
+#: app/templates/admin/dashboard.html:143
+msgid "Delete this account permanently?"
+msgstr "इस खाते को स्थायी रूप से हटाएं?"
+
+#: app/templates/admin/dashboard.html:143
+#, fuzzy
+msgid "Delete"
+msgstr "डिलीवरी संचालन"
+
+#: app/templates/admin/dashboard.html:148
+msgid "No seller, rider, or Admin accounts yet."
+msgstr "अभी तक कोई विक्रेता, राइडर या एडमिन खाता नहीं है।"
+
+#: app/templates/admin/dashboard.html:152
 msgid "Orders"
 msgstr "ऑर्डर"
 
-#: app/templates/admin/dashboard.html:132
+#: app/templates/admin/dashboard.html:153
 msgid "Confirm all pending"
 msgstr "सभी लंबित ऑर्डर की पुष्टि करें"
 
-#: app/templates/admin/dashboard.html:133
+#: app/templates/admin/dashboard.html:154
 msgid "Decline all pending"
 msgstr "सभी लंबित ऑर्डर अस्वीकार करें"
 
-#: app/templates/admin/dashboard.html:136
+#: app/templates/admin/dashboard.html:157
 #: app/templates/admin/order_detail.html:4
 #: app/templates/orders/my_orders.html:6 app/templates/rider/dashboard.html:50
 msgid "Order"
 msgstr "ऑर्डर"
 
-#: app/templates/admin/dashboard.html:136 app/templates/auth/account.html:5
+#: app/templates/admin/dashboard.html:157 app/templates/auth/account.html:5
 #: app/templates/auth/account.html:9 app/templates/auth/account.html:12
 #: app/templates/auth/account.html:44 app/templates/customer/dashboard.html:7
 #: app/templates/customer/dashboard.html:10
@@ -963,71 +1026,71 @@ msgstr "ऑर्डर"
 msgid "Customer"
 msgstr "ग्राहक"
 
-#: app/templates/admin/dashboard.html:141
+#: app/templates/admin/dashboard.html:162
 msgid "Order status"
 msgstr "ऑर्डर की स्थिति"
 
-#: app/templates/admin/dashboard.html:141 app/templates/auth/account.html:46
+#: app/templates/admin/dashboard.html:162 app/templates/auth/account.html:46
 #: app/templates/auth/admin_account.html:23
 msgid "Save"
 msgstr "सहेजें"
 
-#: app/templates/admin/dashboard.html:142
+#: app/templates/admin/dashboard.html:163
 #, fuzzy
 msgid "Delivery rider"
 msgstr "डिलीवरी संचालन"
 
-#: app/templates/admin/dashboard.html:142
+#: app/templates/admin/dashboard.html:163
 msgid "Unassigned"
 msgstr "अनिर्धारित"
 
-#: app/templates/admin/dashboard.html:142
+#: app/templates/admin/dashboard.html:163
 #, fuzzy
 msgid "Assign"
 msgstr "साइन इन"
 
-#: app/templates/admin/dashboard.html:146
+#: app/templates/admin/dashboard.html:167
 msgid "No orders yet."
 msgstr "अभी कोई ऑर्डर नहीं है।"
 
-#: app/templates/admin/dashboard.html:147
+#: app/templates/admin/dashboard.html:168
 msgid "Order pages"
 msgstr "ऑर्डर पृष्ठ"
 
-#: app/templates/admin/dashboard.html:154
+#: app/templates/admin/dashboard.html:175
 #, fuzzy
 msgid "SECURITY"
 msgstr "शहर"
 
-#: app/templates/admin/dashboard.html:154
+#: app/templates/admin/dashboard.html:175
 msgid "Recent audit activity"
 msgstr "हाल की ऑडिट गतिविधि"
 
-#: app/templates/admin/dashboard.html:156
+#: app/templates/admin/dashboard.html:177
 msgid "When"
 msgstr "कब"
 
-#: app/templates/admin/dashboard.html:156
+#: app/templates/admin/dashboard.html:177
 #, fuzzy
 msgid "Action"
 msgstr "कार्रवाई"
 
-#: app/templates/admin/dashboard.html:156
+#: app/templates/admin/dashboard.html:177
 #, fuzzy
 msgid "Actor"
 msgstr "कार्रवाई"
 
-#: app/templates/admin/dashboard.html:156
+#: app/templates/admin/dashboard.html:177
 #, fuzzy
 msgid "Target"
 msgstr "कार्ट"
 
-#: app/templates/admin/dashboard.html:156
+#: app/templates/admin/dashboard.html:177
 #, fuzzy
 msgid "Detail"
 msgstr "ऑर्डर की स्थिति"
 
-#: app/templates/admin/dashboard.html:159
+#: app/templates/admin/dashboard.html:180
 #, fuzzy
 msgid "No audit activity recorded yet."
 msgstr "उत्पाद वेरिएंट जोड़ दिया गया।"
@@ -1372,6 +1435,29 @@ msgstr "नया पासवर्ड"
 #: app/templates/auth/account.html:58 app/templates/auth/reset_password.html:41
 msgid "Update password"
 msgstr "पासवर्ड अपडेट करें"
+
+#: app/templates/auth/account.html:61
+#, fuzzy
+msgid "Delete your account"
+msgstr "अपना खाता बनाएँ"
+
+#: app/templates/auth/account.html:62
+msgid ""
+"This permanently removes your NexHaat account and profile. This cannot be"
+" undone."
+msgstr ""
+"यह आपका NexHaat खाता और प्रोफ़ाइल स्थायी रूप से हटा देगा। इसे पूर्ववत "
+"नहीं किया जा सकता।"
+
+#: app/templates/auth/account.html:63
+#, fuzzy
+msgid "Delete your account permanently?"
+msgstr "अपना खाता बनाएँ"
+
+#: app/templates/auth/account.html:65
+#, fuzzy
+msgid "Delete my account"
+msgstr "अपना खाता बनाएँ"
 
 #: app/templates/auth/admin_login.html:2 app/templates/auth/admin_login.html:6
 #, fuzzy

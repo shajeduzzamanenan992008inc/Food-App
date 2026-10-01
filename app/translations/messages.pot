@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-10-01 17:50+0600\n"
+"POT-Creation-Date: 2026-10-01 18:46+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,8 +21,8 @@ msgstr ""
 msgid "Please provide valid name, email, and phone details."
 msgstr ""
 
-#: app/routes/auth.py:123 app/routes/auth.py:163 app/routes/auth.py:488
-#: app/routes/auth.py:740 app/routes/auth.py:814
+#: app/routes/auth.py:123 app/routes/auth.py:163 app/routes/auth.py:497
+#: app/routes/auth.py:749 app/routes/auth.py:823
 #: app/templates/auth/_auth_card.html:108
 #: app/templates/auth/_seller_application_panel.html:57
 #: app/templates/auth/accept_invitation.html:41
@@ -30,7 +30,7 @@ msgstr ""
 msgid "Passwords do not match."
 msgstr ""
 
-#: app/routes/auth.py:125 app/routes/auth.py:165 app/routes/auth.py:533
+#: app/routes/auth.py:125 app/routes/auth.py:165 app/routes/auth.py:542
 msgid "An account with this email already exists."
 msgstr ""
 
@@ -66,152 +66,160 @@ msgstr ""
 msgid "Invalid email or password."
 msgstr ""
 
-#: app/routes/auth.py:326
+#: app/routes/auth.py:330
+msgid "That email is not an Admin account."
+msgstr ""
+
+#: app/routes/auth.py:335
 msgid ""
 "If an active Admin account matches that email, a sign-in code will be "
 "sent."
 msgstr ""
 
-#: app/routes/auth.py:339
+#: app/routes/auth.py:348
 msgid "Too many attempts. Request a new sign-in code and try again."
 msgstr ""
 
-#: app/routes/auth.py:385
+#: app/routes/auth.py:394
 msgid "Too many incorrect codes. Request a new sign-in code."
 msgstr ""
 
-#: app/routes/auth.py:389 app/templates/auth/verify_admin_login.html:20
+#: app/routes/auth.py:398 app/templates/auth/verify_admin_login.html:20
 msgid "The sign-in code is incorrect or has expired."
 msgstr ""
 
-#: app/routes/auth.py:425
+#: app/routes/auth.py:434
 msgid "If your Admin sign-in request is active, a new code has been sent."
 msgstr ""
 
-#: app/routes/auth.py:427
+#: app/routes/auth.py:436
 msgid ""
 "If your Admin sign-in request is active, a new code will be sent when "
 "available."
 msgstr ""
 
-#: app/routes/auth.py:471
+#: app/routes/auth.py:480
 msgid "This invitation is invalid, expired, or already used."
 msgstr ""
 
-#: app/routes/auth.py:482
+#: app/routes/auth.py:491
 msgid "Please provide a valid name for this account."
 msgstr ""
 
-#: app/routes/auth.py:484
+#: app/routes/auth.py:493
 msgid "Please provide a valid phone number."
 msgstr ""
 
-#: app/routes/auth.py:491
+#: app/routes/auth.py:500
 msgid ""
 "An account with this email already exists. Ask an administrator to resend"
 " the invitation."
 msgstr ""
 
-#: app/routes/auth.py:511
+#: app/routes/auth.py:520
 msgid "Your account is ready. Sign in to continue."
 msgstr ""
 
-#: app/routes/auth.py:530
+#: app/routes/auth.py:539
 msgid "Enter a valid email and choose Rider or Admin."
 msgstr ""
 
-#: app/routes/auth.py:536 app/routes/auth.py:580
+#: app/routes/auth.py:545 app/routes/auth.py:589
 msgid "Staff invitations need a configured email provider and sender address."
 msgstr ""
 
-#: app/routes/auth.py:548
+#: app/routes/auth.py:557
 msgid "A valid invitation already exists for this email and role."
 msgstr ""
 
-#: app/routes/auth.py:563 app/routes/auth.py:593
+#: app/routes/auth.py:572 app/routes/auth.py:602
 msgid "Staff invitations are unavailable until the public site URL is configured."
 msgstr ""
 
-#: app/routes/auth.py:568
+#: app/routes/auth.py:577
 msgid "The account invitation was created and queued for email."
 msgstr ""
 
-#: app/routes/auth.py:585
+#: app/routes/auth.py:594
 msgid "This invitation was closed because an account already exists."
 msgstr ""
 
-#: app/routes/auth.py:599
+#: app/routes/auth.py:608
 msgid "A fresh invitation link was queued for email."
 msgstr ""
 
-#: app/routes/auth.py:611
+#: app/routes/auth.py:620
 msgid "The account invitation was revoked."
 msgstr ""
 
-#: app/routes/auth.py:653
+#: app/routes/auth.py:662
 msgid ""
 "If an active account exists for that email, a verification code has been "
 "sent."
 msgstr ""
 
-#: app/routes/auth.py:666 app/routes/auth.py:669
+#: app/routes/auth.py:675 app/routes/auth.py:678
 msgid "This password reset code is invalid or has expired."
 msgstr ""
 
-#: app/routes/auth.py:692 app/routes/auth.py:695
+#: app/routes/auth.py:701 app/routes/auth.py:704
 msgid "Too many incorrect codes. Request a new verification code."
 msgstr ""
 
-#: app/routes/auth.py:701 app/routes/auth.py:703
+#: app/routes/auth.py:710 app/routes/auth.py:712
 #: app/templates/auth/verify_reset_code.html:20
 msgid "The verification code is incorrect."
 msgstr ""
 
-#: app/routes/auth.py:727
+#: app/routes/auth.py:736
 msgid "Please verify a valid password reset code first."
 msgstr ""
 
-#: app/routes/auth.py:731
+#: app/routes/auth.py:740
 msgid "This password reset request is invalid or has expired."
 msgstr ""
 
-#: app/routes/auth.py:749
+#: app/routes/auth.py:758
 msgid "Password updated. You can now sign in."
 msgstr ""
 
-#: app/routes/auth.py:765
+#: app/routes/auth.py:774
 msgid "Please provide a valid name and phone number."
 msgstr ""
 
-#: app/routes/auth.py:767
+#: app/routes/auth.py:776
 msgid "Please provide a complete address."
 msgstr ""
 
-#: app/routes/auth.py:769
+#: app/routes/auth.py:778
 msgid "Please provide a valid city."
 msgstr ""
 
-#: app/routes/auth.py:794
+#: app/routes/auth.py:803
 msgid "Your account details were updated."
 msgstr ""
 
-#: app/routes/auth.py:810
+#: app/routes/auth.py:819
 msgid "Your current password is incorrect."
 msgstr ""
 
-#: app/routes/auth.py:820
+#: app/routes/auth.py:829
 msgid "Your password was changed. Sign in again on this device."
 msgstr ""
 
-#: app/routes/auth.py:838
+#: app/routes/auth.py:847
+msgid "Your account has been deleted."
+msgstr ""
+
+#: app/routes/auth.py:864
 msgid "Please provide a valid admin name."
 msgstr ""
 
-#: app/routes/auth.py:852
+#: app/routes/auth.py:878
 msgid "Admin profile updated."
 msgstr ""
 
-#: app/routes/auth.py:865
+#: app/routes/auth.py:891
 msgid "You have been signed out."
 msgstr ""
 
@@ -223,39 +231,51 @@ msgstr ""
 msgid "Language preference updated."
 msgstr ""
 
-#: app/routes/orders.py:234
+#: app/routes/orders.py:237
 msgid "This seller application has already been reviewed."
 msgstr ""
 
-#: app/routes/orders.py:241 app/routes/orders.py:268
+#: app/routes/orders.py:244 app/routes/orders.py:271
 msgid "The review note must be 500 characters or fewer."
 msgstr ""
 
-#: app/routes/orders.py:250
+#: app/routes/orders.py:253
 msgid "Seller application approved."
 msgstr ""
 
-#: app/routes/orders.py:251
+#: app/routes/orders.py:254
 msgid "Seller application rejected."
 msgstr ""
 
-#: app/routes/orders.py:278
+#: app/routes/orders.py:281
 msgid "Product listing approved."
 msgstr ""
 
-#: app/routes/orders.py:279
+#: app/routes/orders.py:282
 msgid "Product listing rejected."
 msgstr ""
 
-#: app/routes/orders.py:626
+#: app/routes/orders.py:385
+msgid "The primary Admin account cannot be deleted."
+msgstr ""
+
+#: app/routes/orders.py:388
+msgid "You cannot delete your own account here."
+msgstr ""
+
+#: app/routes/orders.py:394
+msgid "Account removed."
+msgstr ""
+
+#: app/routes/orders.py:650
 msgid "Choose an active delivery rider."
 msgstr ""
 
-#: app/routes/orders.py:632
+#: app/routes/orders.py:656
 msgid "Rider assigned to this delivery."
 msgstr ""
 
-#: app/routes/orders.py:640
+#: app/routes/orders.py:664
 msgid "Delivery unassigned."
 msgstr ""
 
@@ -374,14 +394,14 @@ msgstr ""
 msgid "Subtotal"
 msgstr ""
 
-#: app/services/invoice.py:158 app/templates/admin/dashboard.html:136
+#: app/services/invoice.py:158 app/templates/admin/dashboard.html:157
 #: app/templates/orders/cart.html:23 app/templates/orders/checkout.html:21
 #: app/templates/orders/confirmation.html:10
 #: app/templates/orders/my_orders.html:6
 msgid "Delivery"
 msgstr ""
 
-#: app/services/invoice.py:159 app/templates/admin/dashboard.html:136
+#: app/services/invoice.py:159 app/templates/admin/dashboard.html:157
 #: app/templates/admin/order_detail.html:5
 #: app/templates/email/admin_order.html:23
 #: app/templates/email/admin_order.txt:8
@@ -487,7 +507,7 @@ msgstr ""
 msgid "Account"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:164 app/templates/auth/account.html:62
+#: app/templates/admin/dashboard.html:185 app/templates/auth/account.html:69
 #: app/templates/auth/admin_account.html:27 app/templates/base.html:52
 msgid "Sign out"
 msgstr ""
@@ -674,7 +694,8 @@ msgstr ""
 
 #: app/templates/admin/customer_form.html:8
 #: app/templates/admin/dashboard.html:92 app/templates/admin/dashboard.html:116
-#: app/templates/auth/_auth_card.html:14 app/templates/auth/_auth_card.html:69
+#: app/templates/admin/dashboard.html:133 app/templates/auth/_auth_card.html:14
+#: app/templates/auth/_auth_card.html:69
 #: app/templates/auth/_seller_application_panel.html:35
 #: app/templates/auth/account.html:23 app/templates/auth/admin_account.html:16
 #: app/templates/auth/admin_login.html:12
@@ -840,6 +861,7 @@ msgid "No pending invitations."
 msgstr ""
 
 #: app/templates/admin/dashboard.html:116
+#: app/templates/admin/dashboard.html:133
 msgid "Name"
 msgstr ""
 
@@ -848,21 +870,25 @@ msgid "Phone"
 msgstr ""
 
 #: app/templates/admin/dashboard.html:116
-#: app/templates/admin/dashboard.html:136 app/templates/orders/my_orders.html:6
+#: app/templates/admin/dashboard.html:133
+#: app/templates/admin/dashboard.html:157 app/templates/orders/my_orders.html:6
 #: app/templates/rider/dashboard.html:50
 msgid "Status"
 msgstr ""
 
 #: app/templates/admin/dashboard.html:116
-#: app/templates/admin/dashboard.html:136
+#: app/templates/admin/dashboard.html:133
+#: app/templates/admin/dashboard.html:157
 msgid "Actions"
 msgstr ""
 
 #: app/templates/admin/dashboard.html:119
+#: app/templates/admin/dashboard.html:138
 msgid "Active"
 msgstr ""
 
 #: app/templates/admin/dashboard.html:119
+#: app/templates/admin/dashboard.html:138
 msgid "Deactivated"
 msgstr ""
 
@@ -883,40 +909,72 @@ msgid "Customer pages"
 msgstr ""
 
 #: app/templates/admin/dashboard.html:124
-#: app/templates/admin/dashboard.html:147
+#: app/templates/admin/dashboard.html:168
 #, python-format
 msgid "Page %(current)s of %(total)s"
 msgstr ""
 
 #: app/templates/admin/dashboard.html:125
-#: app/templates/admin/dashboard.html:148
+#: app/templates/admin/dashboard.html:169
 msgid "Previous"
 msgstr ""
 
 #: app/templates/admin/dashboard.html:126
-#: app/templates/admin/dashboard.html:149
+#: app/templates/admin/dashboard.html:170
 msgid "Next"
 msgstr ""
 
 #: app/templates/admin/dashboard.html:131
-msgid "Orders"
+msgid "TEAM"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:132
-msgid "Confirm all pending"
+#: app/templates/admin/dashboard.html:131
+msgid "Seller, Rider and Admin accounts"
 msgstr ""
 
 #: app/templates/admin/dashboard.html:133
+msgid "Role"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:137
+msgid "(primary Admin)"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:141
+msgid "Protected"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:143
+msgid "Delete this account permanently?"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:143
+msgid "Delete"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:148
+msgid "No seller, rider, or Admin accounts yet."
+msgstr ""
+
+#: app/templates/admin/dashboard.html:152
+msgid "Orders"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:153
+msgid "Confirm all pending"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:154
 msgid "Decline all pending"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:136
+#: app/templates/admin/dashboard.html:157
 #: app/templates/admin/order_detail.html:4
 #: app/templates/orders/my_orders.html:6 app/templates/rider/dashboard.html:50
 msgid "Order"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:136 app/templates/auth/account.html:5
+#: app/templates/admin/dashboard.html:157 app/templates/auth/account.html:5
 #: app/templates/auth/account.html:9 app/templates/auth/account.html:12
 #: app/templates/auth/account.html:44 app/templates/customer/dashboard.html:7
 #: app/templates/customer/dashboard.html:10
@@ -924,64 +982,64 @@ msgstr ""
 msgid "Customer"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:141
+#: app/templates/admin/dashboard.html:162
 msgid "Order status"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:141 app/templates/auth/account.html:46
+#: app/templates/admin/dashboard.html:162 app/templates/auth/account.html:46
 #: app/templates/auth/admin_account.html:23
 msgid "Save"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:142
+#: app/templates/admin/dashboard.html:163
 msgid "Delivery rider"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:142
+#: app/templates/admin/dashboard.html:163
 msgid "Unassigned"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:142
+#: app/templates/admin/dashboard.html:163
 msgid "Assign"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:146
+#: app/templates/admin/dashboard.html:167
 msgid "No orders yet."
 msgstr ""
 
-#: app/templates/admin/dashboard.html:147
+#: app/templates/admin/dashboard.html:168
 msgid "Order pages"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:154
+#: app/templates/admin/dashboard.html:175
 msgid "SECURITY"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:154
+#: app/templates/admin/dashboard.html:175
 msgid "Recent audit activity"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:156
+#: app/templates/admin/dashboard.html:177
 msgid "When"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:156
+#: app/templates/admin/dashboard.html:177
 msgid "Action"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:156
+#: app/templates/admin/dashboard.html:177
 msgid "Actor"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:156
+#: app/templates/admin/dashboard.html:177
 msgid "Target"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:156
+#: app/templates/admin/dashboard.html:177
 msgid "Detail"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:159
+#: app/templates/admin/dashboard.html:180
 msgid "No audit activity recorded yet."
 msgstr ""
 
@@ -1312,6 +1370,24 @@ msgstr ""
 
 #: app/templates/auth/account.html:58 app/templates/auth/reset_password.html:41
 msgid "Update password"
+msgstr ""
+
+#: app/templates/auth/account.html:61
+msgid "Delete your account"
+msgstr ""
+
+#: app/templates/auth/account.html:62
+msgid ""
+"This permanently removes your NexHaat account and profile. This cannot be"
+" undone."
+msgstr ""
+
+#: app/templates/auth/account.html:63
+msgid "Delete your account permanently?"
+msgstr ""
+
+#: app/templates/auth/account.html:65
+msgid "Delete my account"
 msgstr ""
 
 #: app/templates/auth/admin_login.html:2 app/templates/auth/admin_login.html:6

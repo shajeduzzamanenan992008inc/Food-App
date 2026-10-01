@@ -13,7 +13,10 @@ from ..models import (
     AppSetting, Category, CustomerAddress, CustomerProfile,
     Order, OrderItem, Product, SellerProfile, User,
 )
-from ..security import admin_required, customer_or_guest_required, current_session_user, save_raster_upload
+from ..security import (
+    admin_required, customer_or_guest_required, current_session_user,
+    is_primary_admin, primary_admin_required, save_raster_upload,
+)
 from ..services.audit import record_audit
 from ..services.mail import (
     enqueue_order_emails,
@@ -368,6 +371,27 @@ def admin_customer_toggle_active(user_id):
     user.auth_version += 1
     db.session.commit()
     flash(f"Customer account {'activated' if user.is_active else 'deactivated'}.", "success")
+    return redirect(url_for("admin.dashboard"))
+
+
+@orders_bp.post("/admin/accounts/<int:user_id>/remove")
+@primary_admin_required
+def admin_account_remove(user_id):
+    """Delete a Seller, Rider, or sub-Admin. The primary Admin is protected."""
+    user = db.session.get(User, user_id)
+    if not user or user.role not in {"seller", "rider", "admin"}:
+        abort(404)
+    if is_primary_admin(user):
+        flash(gettext("The primary Admin account cannot be deleted."), "error")
+        return redirect(url_for("admin.dashboard"))
+    if user.id == session.get("user_id"):
+        flash(gettext("You cannot delete your own account here."), "error")
+        return redirect(url_for("admin.dashboard"))
+    detail = f"{user.role}:{user.email}"
+    db.session.delete(user)
+    db.session.commit()
+    record_audit("account.remove", target_type="user", target_id=user_id, detail=detail)
+    flash(gettext("Account removed."), "success")
     return redirect(url_for("admin.dashboard"))
 
 

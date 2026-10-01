@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-10-01 17:50+0600\n"
+"POT-Creation-Date: 2026-10-01 18:46+0600\n"
 "PO-Revision-Date: 2026-09-29 15:24+0600\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ar\n"
@@ -23,8 +23,8 @@ msgstr ""
 msgid "Please provide valid name, email, and phone details."
 msgstr "يرجى إدخال اسم وبريد إلكتروني ورقم هاتف صحيح."
 
-#: app/routes/auth.py:123 app/routes/auth.py:163 app/routes/auth.py:488
-#: app/routes/auth.py:740 app/routes/auth.py:814
+#: app/routes/auth.py:123 app/routes/auth.py:163 app/routes/auth.py:497
+#: app/routes/auth.py:749 app/routes/auth.py:823
 #: app/templates/auth/_auth_card.html:108
 #: app/templates/auth/_seller_application_panel.html:57
 #: app/templates/auth/accept_invitation.html:41
@@ -32,7 +32,7 @@ msgstr "يرجى إدخال اسم وبريد إلكتروني ورقم هاتف
 msgid "Passwords do not match."
 msgstr "كلمتا المرور غير متطابقتين."
 
-#: app/routes/auth.py:125 app/routes/auth.py:165 app/routes/auth.py:533
+#: app/routes/auth.py:125 app/routes/auth.py:165 app/routes/auth.py:542
 msgid "An account with this email already exists."
 msgstr "يوجد حساب بهذا البريد الإلكتروني بالفعل."
 
@@ -68,156 +68,165 @@ msgstr "يجب ألا يزيد طول كلمة المرور عن %(maximum)s ح�
 msgid "Invalid email or password."
 msgstr "البريد الإلكتروني أو كلمة المرور غير صحيحة."
 
-#: app/routes/auth.py:326
+#: app/routes/auth.py:330
+msgid "That email is not an Admin account."
+msgstr "هذا البريد ليس حساب مسؤول."
+
+#: app/routes/auth.py:335
 #, fuzzy
 msgid ""
 "If an active Admin account matches that email, a sign-in code will be "
 "sent."
 msgstr "إذا كان هناك حساب نشط بهذا البريد، فقد أُرسل رمز التحقق."
 
-#: app/routes/auth.py:339
+#: app/routes/auth.py:348
 #, fuzzy
 msgid "Too many attempts. Request a new sign-in code and try again."
 msgstr "أُدخلت رموز خاطئة مرات كثيرة. اطلب رمز تحقق جديدًا."
 
-#: app/routes/auth.py:385
+#: app/routes/auth.py:394
 #, fuzzy
 msgid "Too many incorrect codes. Request a new sign-in code."
 msgstr "أُدخلت رموز خاطئة مرات كثيرة. اطلب رمز تحقق جديدًا."
 
-#: app/routes/auth.py:389 app/templates/auth/verify_admin_login.html:20
+#: app/routes/auth.py:398 app/templates/auth/verify_admin_login.html:20
 #, fuzzy
 msgid "The sign-in code is incorrect or has expired."
 msgstr "رمز التحقق غير صحيح."
 
-#: app/routes/auth.py:425
+#: app/routes/auth.py:434
 msgid "If your Admin sign-in request is active, a new code has been sent."
 msgstr ""
 
-#: app/routes/auth.py:427
+#: app/routes/auth.py:436
 msgid ""
 "If your Admin sign-in request is active, a new code will be sent when "
 "available."
 msgstr ""
 
-#: app/routes/auth.py:471
+#: app/routes/auth.py:480
 msgid "This invitation is invalid, expired, or already used."
 msgstr "هذه الدعوة غير صالحة أو منتهية الصلاحية أو مستخدمة بالفعل."
 
-#: app/routes/auth.py:482
+#: app/routes/auth.py:491
 msgid "Please provide a valid name for this account."
 msgstr "أدخل اسمًا صالحًا لهذا الحساب."
 
-#: app/routes/auth.py:484
+#: app/routes/auth.py:493
 msgid "Please provide a valid phone number."
 msgstr "أدخل رقم هاتف صالحًا."
 
-#: app/routes/auth.py:491
+#: app/routes/auth.py:500
 msgid ""
 "An account with this email already exists. Ask an administrator to resend"
 " the invitation."
 msgstr "يوجد حساب بهذا البريد بالفعل. اطلب من المدير إعادة إرسال الدعوة."
 
-#: app/routes/auth.py:511
+#: app/routes/auth.py:520
 msgid "Your account is ready. Sign in to continue."
 msgstr "أصبح حسابك جاهزًا. سجّل الدخول للمتابعة."
 
-#: app/routes/auth.py:530
+#: app/routes/auth.py:539
 msgid "Enter a valid email and choose Rider or Admin."
 msgstr "أدخل بريدًا إلكترونيًا صالحًا واختر مندوب توصيل أو مديرًا."
 
-#: app/routes/auth.py:536 app/routes/auth.py:580
+#: app/routes/auth.py:545 app/routes/auth.py:589
 msgid "Staff invitations need a configured email provider and sender address."
 msgstr "تتطلب دعوات الفريق إعداد مزود البريد الإلكتروني وعنوان المرسل."
 
-#: app/routes/auth.py:548
+#: app/routes/auth.py:557
 msgid "A valid invitation already exists for this email and role."
 msgstr "توجد دعوة صالحة بالفعل لهذا البريد والدور."
 
-#: app/routes/auth.py:563 app/routes/auth.py:593
+#: app/routes/auth.py:572 app/routes/auth.py:602
 msgid "Staff invitations are unavailable until the public site URL is configured."
 msgstr "لن تتوفر دعوات الفريق حتى يتم إعداد رابط الموقع العام."
 
-#: app/routes/auth.py:568
+#: app/routes/auth.py:577
 msgid "The account invitation was created and queued for email."
 msgstr "تم إنشاء دعوة الحساب وإضافتها إلى قائمة إرسال البريد."
 
-#: app/routes/auth.py:585
+#: app/routes/auth.py:594
 msgid "This invitation was closed because an account already exists."
 msgstr "أُغلقت الدعوة لوجود حساب بهذا البريد بالفعل."
 
-#: app/routes/auth.py:599
+#: app/routes/auth.py:608
 msgid "A fresh invitation link was queued for email."
 msgstr "تمت إضافة رابط دعوة جديد إلى قائمة إرسال البريد."
 
-#: app/routes/auth.py:611
+#: app/routes/auth.py:620
 msgid "The account invitation was revoked."
 msgstr "تم إلغاء دعوة الحساب."
 
-#: app/routes/auth.py:653
+#: app/routes/auth.py:662
 msgid ""
 "If an active account exists for that email, a verification code has been "
 "sent."
 msgstr "إذا كان هناك حساب نشط بهذا البريد، فقد أُرسل رمز التحقق."
 
-#: app/routes/auth.py:666 app/routes/auth.py:669
+#: app/routes/auth.py:675 app/routes/auth.py:678
 msgid "This password reset code is invalid or has expired."
 msgstr "رمز إعادة تعيين كلمة المرور غير صالح أو انتهت صلاحيته."
 
-#: app/routes/auth.py:692 app/routes/auth.py:695
+#: app/routes/auth.py:701 app/routes/auth.py:704
 msgid "Too many incorrect codes. Request a new verification code."
 msgstr "أُدخلت رموز خاطئة مرات كثيرة. اطلب رمز تحقق جديدًا."
 
-#: app/routes/auth.py:701 app/routes/auth.py:703
+#: app/routes/auth.py:710 app/routes/auth.py:712
 #: app/templates/auth/verify_reset_code.html:20
 msgid "The verification code is incorrect."
 msgstr "رمز التحقق غير صحيح."
 
-#: app/routes/auth.py:727
+#: app/routes/auth.py:736
 msgid "Please verify a valid password reset code first."
 msgstr "يرجى التحقق أولًا من رمز صالح لإعادة تعيين كلمة المرور."
 
-#: app/routes/auth.py:731
+#: app/routes/auth.py:740
 msgid "This password reset request is invalid or has expired."
 msgstr "طلب إعادة تعيين كلمة المرور غير صالح أو انتهت صلاحيته."
 
-#: app/routes/auth.py:749
+#: app/routes/auth.py:758
 msgid "Password updated. You can now sign in."
 msgstr "تم تحديث كلمة المرور. يمكنك تسجيل الدخول الآن."
 
-#: app/routes/auth.py:765
+#: app/routes/auth.py:774
 msgid "Please provide a valid name and phone number."
 msgstr "يرجى إدخال اسم ورقم هاتف صحيحين."
 
-#: app/routes/auth.py:767
+#: app/routes/auth.py:776
 msgid "Please provide a complete address."
 msgstr "يرجى إدخال عنوان كامل."
 
-#: app/routes/auth.py:769
+#: app/routes/auth.py:778
 msgid "Please provide a valid city."
 msgstr "يرجى إدخال اسم مدينة صحيح."
 
-#: app/routes/auth.py:794
+#: app/routes/auth.py:803
 msgid "Your account details were updated."
 msgstr "تم تحديث تفاصيل حسابك."
 
-#: app/routes/auth.py:810
+#: app/routes/auth.py:819
 msgid "Your current password is incorrect."
 msgstr "كلمة المرور الحالية غير صحيحة."
 
-#: app/routes/auth.py:820
+#: app/routes/auth.py:829
 msgid "Your password was changed. Sign in again on this device."
 msgstr "تم تغيير كلمة المرور. سجّل الدخول مجددًا على هذا الجهاز."
 
-#: app/routes/auth.py:838
+#: app/routes/auth.py:847
+#, fuzzy
+msgid "Your account has been deleted."
+msgstr "تم تحديث تفاصيل حسابك."
+
+#: app/routes/auth.py:864
 msgid "Please provide a valid admin name."
 msgstr "يرجى إدخال اسم مسؤول صحيح."
 
-#: app/routes/auth.py:852
+#: app/routes/auth.py:878
 msgid "Admin profile updated."
 msgstr "تم تحديث ملف المسؤول."
 
-#: app/routes/auth.py:865
+#: app/routes/auth.py:891
 msgid "You have been signed out."
 msgstr "تم تسجيل خروجك."
 
@@ -229,39 +238,52 @@ msgstr "تعذر حفظ اللغة المفضلة. يرجى المحاولة م�
 msgid "Language preference updated."
 msgstr "تم تحديث اللغة المفضلة."
 
-#: app/routes/orders.py:234
+#: app/routes/orders.py:237
 msgid "This seller application has already been reviewed."
 msgstr "تمت مراجعة طلب البائع هذا بالفعل."
 
-#: app/routes/orders.py:241 app/routes/orders.py:268
+#: app/routes/orders.py:244 app/routes/orders.py:271
 msgid "The review note must be 500 characters or fewer."
 msgstr "يجب ألا يتجاوز تعليق المراجعة 500 حرف."
 
-#: app/routes/orders.py:250
+#: app/routes/orders.py:253
 msgid "Seller application approved."
 msgstr "تمت الموافقة على طلب البائع."
 
-#: app/routes/orders.py:251
+#: app/routes/orders.py:254
 msgid "Seller application rejected."
 msgstr "تم رفض طلب البائع."
 
-#: app/routes/orders.py:278
+#: app/routes/orders.py:281
 msgid "Product listing approved."
 msgstr "تمت الموافقة على قائمة المنتج。"
 
-#: app/routes/orders.py:279
+#: app/routes/orders.py:282
 msgid "Product listing rejected."
 msgstr "تم رفض قائمة المنتج。"
 
-#: app/routes/orders.py:626
+#: app/routes/orders.py:385
+msgid "The primary Admin account cannot be deleted."
+msgstr "لا يمكن حذف حساب المسؤول الرئيسي."
+
+#: app/routes/orders.py:388
+msgid "You cannot delete your own account here."
+msgstr "لا يمكنك حذف حسابك الخاص من هنا."
+
+#: app/routes/orders.py:394
+#, fuzzy
+msgid "Account removed."
+msgstr "دور الحساب"
+
+#: app/routes/orders.py:650
 msgid "Choose an active delivery rider."
 msgstr "اختر مندوب توصيل نشطًا."
 
-#: app/routes/orders.py:632
+#: app/routes/orders.py:656
 msgid "Rider assigned to this delivery."
 msgstr "تم تعيين مندوب لهذا التوصيل."
 
-#: app/routes/orders.py:640
+#: app/routes/orders.py:664
 #, fuzzy
 msgid "Delivery unassigned."
 msgstr "عنوان البريد الإلكتروني"
@@ -387,14 +409,14 @@ msgstr "مندوب توصيل"
 msgid "Subtotal"
 msgstr "الإجمالي"
 
-#: app/services/invoice.py:158 app/templates/admin/dashboard.html:136
+#: app/services/invoice.py:158 app/templates/admin/dashboard.html:157
 #: app/templates/orders/cart.html:23 app/templates/orders/checkout.html:21
 #: app/templates/orders/confirmation.html:10
 #: app/templates/orders/my_orders.html:6
 msgid "Delivery"
 msgstr "التوصيل"
 
-#: app/services/invoice.py:159 app/templates/admin/dashboard.html:136
+#: app/services/invoice.py:159 app/templates/admin/dashboard.html:157
 #: app/templates/admin/order_detail.html:5
 #: app/templates/email/admin_order.html:23
 #: app/templates/email/admin_order.txt:8
@@ -508,7 +530,7 @@ msgstr "السلة"
 msgid "Account"
 msgstr "دور الحساب"
 
-#: app/templates/admin/dashboard.html:164 app/templates/auth/account.html:62
+#: app/templates/admin/dashboard.html:185 app/templates/auth/account.html:69
 #: app/templates/auth/admin_account.html:27 app/templates/base.html:52
 msgid "Sign out"
 msgstr "تسجيل الخروج"
@@ -705,7 +727,8 @@ msgstr "رقم الهاتف"
 
 #: app/templates/admin/customer_form.html:8
 #: app/templates/admin/dashboard.html:92 app/templates/admin/dashboard.html:116
-#: app/templates/auth/_auth_card.html:14 app/templates/auth/_auth_card.html:69
+#: app/templates/admin/dashboard.html:133 app/templates/auth/_auth_card.html:14
+#: app/templates/auth/_auth_card.html:69
 #: app/templates/auth/_seller_application_panel.html:35
 #: app/templates/auth/account.html:23 app/templates/auth/admin_account.html:16
 #: app/templates/auth/admin_login.html:12
@@ -875,6 +898,7 @@ msgid "No pending invitations."
 msgstr "لا توجد دعوات معلقة."
 
 #: app/templates/admin/dashboard.html:116
+#: app/templates/admin/dashboard.html:133
 #, fuzzy
 msgid "Name"
 msgstr "الاسم الكامل"
@@ -884,21 +908,25 @@ msgid "Phone"
 msgstr "الهاتف"
 
 #: app/templates/admin/dashboard.html:116
-#: app/templates/admin/dashboard.html:136 app/templates/orders/my_orders.html:6
+#: app/templates/admin/dashboard.html:133
+#: app/templates/admin/dashboard.html:157 app/templates/orders/my_orders.html:6
 #: app/templates/rider/dashboard.html:50
 msgid "Status"
 msgstr "الحالة"
 
 #: app/templates/admin/dashboard.html:116
-#: app/templates/admin/dashboard.html:136
+#: app/templates/admin/dashboard.html:133
+#: app/templates/admin/dashboard.html:157
 msgid "Actions"
 msgstr "الإجراءات"
 
 #: app/templates/admin/dashboard.html:119
+#: app/templates/admin/dashboard.html:138
 msgid "Active"
 msgstr "نشط"
 
 #: app/templates/admin/dashboard.html:119
+#: app/templates/admin/dashboard.html:138
 msgid "Deactivated"
 msgstr "معطل"
 
@@ -919,40 +947,75 @@ msgid "Customer pages"
 msgstr "صفحات العملاء"
 
 #: app/templates/admin/dashboard.html:124
-#: app/templates/admin/dashboard.html:147
+#: app/templates/admin/dashboard.html:168
 #, python-format
 msgid "Page %(current)s of %(total)s"
 msgstr "الصفحة %(current)s من %(total)s"
 
 #: app/templates/admin/dashboard.html:125
-#: app/templates/admin/dashboard.html:148
+#: app/templates/admin/dashboard.html:169
 msgid "Previous"
 msgstr "السابق"
 
 #: app/templates/admin/dashboard.html:126
-#: app/templates/admin/dashboard.html:149
+#: app/templates/admin/dashboard.html:170
 msgid "Next"
 msgstr "التالي"
 
 #: app/templates/admin/dashboard.html:131
+#, fuzzy
+msgid "TEAM"
+msgstr "العنصر"
+
+#: app/templates/admin/dashboard.html:131
+msgid "Seller, Rider and Admin accounts"
+msgstr "حسابات البائعين والمندوبين والمسؤولين"
+
+#: app/templates/admin/dashboard.html:133
+msgid "Role"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:137
+msgid "(primary Admin)"
+msgstr "(المسؤول الرئيسي)"
+
+#: app/templates/admin/dashboard.html:141
+#, fuzzy
+msgid "Protected"
+msgstr "المنتج"
+
+#: app/templates/admin/dashboard.html:143
+msgid "Delete this account permanently?"
+msgstr "هل تريد حذف هذا الحساب نهائيًا؟"
+
+#: app/templates/admin/dashboard.html:143
+#, fuzzy
+msgid "Delete"
+msgstr "عمليات التوصيل"
+
+#: app/templates/admin/dashboard.html:148
+msgid "No seller, rider, or Admin accounts yet."
+msgstr "لا توجد بعد حسابات بائعين أو مندوبين أو مسؤولين."
+
+#: app/templates/admin/dashboard.html:152
 msgid "Orders"
 msgstr "الطلبات"
 
-#: app/templates/admin/dashboard.html:132
+#: app/templates/admin/dashboard.html:153
 msgid "Confirm all pending"
 msgstr "تأكيد كل الطلبات المعلقة"
 
-#: app/templates/admin/dashboard.html:133
+#: app/templates/admin/dashboard.html:154
 msgid "Decline all pending"
 msgstr "رفض كل الطلبات المعلقة"
 
-#: app/templates/admin/dashboard.html:136
+#: app/templates/admin/dashboard.html:157
 #: app/templates/admin/order_detail.html:4
 #: app/templates/orders/my_orders.html:6 app/templates/rider/dashboard.html:50
 msgid "Order"
 msgstr "الطلب"
 
-#: app/templates/admin/dashboard.html:136 app/templates/auth/account.html:5
+#: app/templates/admin/dashboard.html:157 app/templates/auth/account.html:5
 #: app/templates/auth/account.html:9 app/templates/auth/account.html:12
 #: app/templates/auth/account.html:44 app/templates/customer/dashboard.html:7
 #: app/templates/customer/dashboard.html:10
@@ -960,71 +1023,71 @@ msgstr "الطلب"
 msgid "Customer"
 msgstr "العميل"
 
-#: app/templates/admin/dashboard.html:141
+#: app/templates/admin/dashboard.html:162
 msgid "Order status"
 msgstr "حالة الطلب"
 
-#: app/templates/admin/dashboard.html:141 app/templates/auth/account.html:46
+#: app/templates/admin/dashboard.html:162 app/templates/auth/account.html:46
 #: app/templates/auth/admin_account.html:23
 msgid "Save"
 msgstr "حفظ"
 
-#: app/templates/admin/dashboard.html:142
+#: app/templates/admin/dashboard.html:163
 #, fuzzy
 msgid "Delivery rider"
 msgstr "عمليات التوصيل"
 
-#: app/templates/admin/dashboard.html:142
+#: app/templates/admin/dashboard.html:163
 msgid "Unassigned"
 msgstr "غير مُخصص"
 
-#: app/templates/admin/dashboard.html:142
+#: app/templates/admin/dashboard.html:163
 #, fuzzy
 msgid "Assign"
 msgstr "تسجيل الدخول"
 
-#: app/templates/admin/dashboard.html:146
+#: app/templates/admin/dashboard.html:167
 msgid "No orders yet."
 msgstr "لا توجد طلبات حتى الآن."
 
-#: app/templates/admin/dashboard.html:147
+#: app/templates/admin/dashboard.html:168
 msgid "Order pages"
 msgstr "صفحات الطلبات"
 
-#: app/templates/admin/dashboard.html:154
+#: app/templates/admin/dashboard.html:175
 #, fuzzy
 msgid "SECURITY"
 msgstr "المدينة"
 
-#: app/templates/admin/dashboard.html:154
+#: app/templates/admin/dashboard.html:175
 msgid "Recent audit activity"
 msgstr "نشاط التدقيق الأخير"
 
-#: app/templates/admin/dashboard.html:156
+#: app/templates/admin/dashboard.html:177
 msgid "When"
 msgstr "الوقت"
 
-#: app/templates/admin/dashboard.html:156
+#: app/templates/admin/dashboard.html:177
 #, fuzzy
 msgid "Action"
 msgstr "الإجراءات"
 
-#: app/templates/admin/dashboard.html:156
+#: app/templates/admin/dashboard.html:177
 #, fuzzy
 msgid "Actor"
 msgstr "الإجراءات"
 
-#: app/templates/admin/dashboard.html:156
+#: app/templates/admin/dashboard.html:177
 #, fuzzy
 msgid "Target"
 msgstr "السلة"
 
-#: app/templates/admin/dashboard.html:156
+#: app/templates/admin/dashboard.html:177
 #, fuzzy
 msgid "Detail"
 msgstr "حالة الطلب"
 
-#: app/templates/admin/dashboard.html:159
+#: app/templates/admin/dashboard.html:180
 #, fuzzy
 msgid "No audit activity recorded yet."
 msgstr "تمت إضافة خيار المنتج。"
@@ -1367,6 +1430,29 @@ msgstr "كلمة المرور الجديدة"
 #: app/templates/auth/account.html:58 app/templates/auth/reset_password.html:41
 msgid "Update password"
 msgstr "تحديث كلمة المرور"
+
+#: app/templates/auth/account.html:61
+#, fuzzy
+msgid "Delete your account"
+msgstr "أنشئ حسابك"
+
+#: app/templates/auth/account.html:62
+msgid ""
+"This permanently removes your NexHaat account and profile. This cannot be"
+" undone."
+msgstr ""
+"سيؤدي هذا إلى حذف حسابك وملفك الشخصي في NexHaat نهائيًا. لا يمكن التراجع "
+"عن ذلك."
+
+#: app/templates/auth/account.html:63
+#, fuzzy
+msgid "Delete your account permanently?"
+msgstr "أنشئ حسابك"
+
+#: app/templates/auth/account.html:65
+#, fuzzy
+msgid "Delete my account"
+msgstr "أنشئ حسابك"
 
 #: app/templates/auth/admin_login.html:2 app/templates/auth/admin_login.html:6
 #, fuzzy
