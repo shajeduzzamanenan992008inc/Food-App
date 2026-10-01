@@ -6,7 +6,18 @@ The `users` table stores normalized email addresses and Werkzeug password hashes
 
 Phase 2 adds `categories` and `products`. Category slugs and product slugs are unique and indexed. Product category references use a foreign key with restricted deletion, and active/availability/search fields are indexed. Prices use `Numeric(10, 2)` with database check constraints and Python `Decimal` validation. Customer queries join active categories and available products so unpublished catalog records are not displayed.
 
-The app uses `users`, `customers`, `admins`, `addresses`, `app_settings`, `categories`, `products`, `orders`, and `order_items`. Order items snapshot product name, price, quantity, and subtotal so later catalog edits do not change historical orders. Confirmed and declined orders remain in the database for customer history and audit; removal is available only through the explicit admin action. Cart state remains in the signed Flask session; no persistent cart table is needed.
+Beyond the core `users`, `customers`, `admins`, `addresses`, and `app_settings` tables, the schema now includes:
+
+- `seller_profiles`, `rider_profiles`, and `account_invitations` for role onboarding, approval state, and single-use staff setup links.
+- `categories`, `products`, `product_translations`, and `product_variants` for the catalog, seller-authored multilingual text, and SKU stock.
+- `orders` and `order_items`. Each order may belong to a `seller` and a `rider`, carries a `checkout_group` and `delivery_fee`, and tracks the delivery workflow through `delivery_status` with per-stage timestamps, proof of delivery, and a note. Order items snapshot product name, price, quantity, and subtotal so later catalog edits do not change historical orders.
+- `admin_login_challenges` for passwordless Admin email-OTP challenges (hashed code, expiry, attempts, single use).
+- `auth_throttles` for keyed login throttling.
+- `outbound_emails` for the durable transactional-email outbox with attempt counts and retry state.
+- `audit_events` for the security audit trail (action, actor snapshot, target, detail, and a keyed client-address hash).
+- `fdc_*` and `foodon_categories` for the imported reference vocabulary.
+
+Cart state remains in the signed Flask session; no persistent cart table is needed. Confirmed and declined orders remain in the database for customer history and audit; removal is only available through the explicit admin action.
 
 ## Food reference data
 

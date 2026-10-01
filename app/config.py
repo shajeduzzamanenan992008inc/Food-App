@@ -33,7 +33,7 @@ class Config:
         SQLALCHEMY_ENGINE_OPTIONS.update(pool_recycle=1800, pool_size=5, max_overflow=10)
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SAMESITE = "Lax"
-    SESSION_COOKIE_NAME = "freshbite_session"
+    SESSION_COOKIE_NAME = "nexhaat_session"
     SESSION_REFRESH_EACH_REQUEST = False
     PERMANENT_SESSION_LIFETIME = 60 * 60 * 12
     SESSION_COOKIE_SECURE = os.getenv(

@@ -12,7 +12,7 @@ from sqlalchemy import select
 
 from ..extensions import db
 from ..i18n import SUPPORTED_LOCALES
-from ..models import Order, OutboundEmail
+from ..models import OutboundEmail
 from .invoice import build_invoice_pdf
 
 logger = logging.getLogger(__name__)
@@ -62,44 +62,14 @@ def _send_for_locale(template, subject, recipients, attachments, context):
     except Exception:
         html_content = render_template(f"email/{template}.txt", **context)
 
-    # Prepare Payload for Brevo API
-    payload = {
-        "sender": {"email": sender_email, "name": "NexHaat"},
-        "to": recipients_list,
-        "subject": subject,
-        "htmlContent": html_content
-    }
-
-    if attachments:
-        brevo_attachments = []
-        for filename, content, content_type in attachments:
-            if isinstance(content, str):
-                content = content.encode("utf-8")
-            b64_content = base64.b64encode(content).decode("utf-8")
-            brevo_attachments.append({
-                "name": filename,
-                "content": b64_content
-            })
-        payload["attachment"] = brevo_attachments
-
-    headers = {
-        "accept": "application/json",
-        "api-key": api_key,
-        "content-type": "application/json"
-    }
-
-    try:
-        response = requests.post(
-            "https://api.brevo.com/v3/smtp/email",
-            json=payload,
-            headers=headers,
-            timeout=current_app.config.get("MAIL_TIMEOUT", 15),
-        )
-        response.raise_for_status()
-        return True
-    except Exception as e:
-        logger.exception("Email delivery failed for template %s: %s", template, e)
-        return False
+    return _post_brevo(
+        subject,
+        [item["email"] for item in recipients_list],
+        html_content,
+        attachments,
+        api_key,
+        sender_email,
+    )
 
 def send_order_confirmation(order):
     sent = send_order_pending(order)

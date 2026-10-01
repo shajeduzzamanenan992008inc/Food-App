@@ -693,7 +693,7 @@ def test_customer_can_update_account_details_and_password(client, app):
             data={
                 "full_name": "New Name",
                 "phone": "01999999999",
-                "address_line": "12 FreshBite Street",
+                "address_line": "12 NexHaat Street",
                 "city": "Dhaka",
                 "profile_image": (BytesIO(tiny_png()), "profile.png"),
             },
