@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block extra_head %}
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css', v='20261001_authflip4') }}">
-  <script src="{{ url_for('static', filename='js/auth.js', v='20261001_profilepreview1') }}" defer></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css', v='20261006_passwordtoggle1') }}">
+  <script src="{{ url_for('static', filename='js/auth.js', v='20261006_passwordtoggle1') }}" defer></script>
 {% endblock %}
 {% block site_header %}
   {% if request.endpoint in ('auth.login', 'auth.admin_login', 'auth.verify_admin_login', 'auth.register', 'auth.forgot_password', 'auth.verify_reset_code', 'auth.reset_password', 'auth.seller_application', 'auth.accept_invitation') %}

@@ -20,6 +20,14 @@ from ..services.catalog import (
     search_products,
     search_suggestions,
 )
+from ..services.reviews import (
+    ReviewError,
+    create_review,
+    eligible_order_id,
+    rating_summary,
+    reviews_for_product,
+)
+from ..services.wishlist import has as wishlist_has
 
 
 main_bp = Blueprint("main", __name__)
@@ -65,6 +73,18 @@ def health():
     except SQLAlchemyError:
         db.session.rollback()
         current_app.logger.exception("Readiness check could not reach the database.")
+        return {"status": "unavailable"}, 503
+    return {"status": "ok"}, 200
+
+
+@main_bp.get("/health/db")
+def health_db():
+    """Dedicated database readiness probe for deployment checks."""
+    try:
+        db.session.execute(text("SELECT 1"))
+    except SQLAlchemyError:
+        db.session.rollback()
+        current_app.logger.exception("Database readiness check failed.")
         return {"status": "unavailable"}, 503
     return {"status": "ok"}, 200
 
@@ -136,7 +156,39 @@ def food(slug):
     product = get_product_by_slug(slug)
     if product is None:
         abort(404)
-    return render_template("catalog/food.html", product=product)
+    user = getattr(g, "current_user", None)
+    return render_template(
+        "catalog/food.html",
+        product=product,
+        reviews=reviews_for_product(product.id),
+        rating=rating_summary(product.id),
+        is_saved=bool(user and user.role == "customer" and wishlist_has(user, product.id)),
+        can_review=(
+            user is not None
+            and user.role == "customer"
+            and eligible_order_id(user, product.id) is not None
+        ),
+    )
+
+
+@main_bp.post("/food/<slug>/reviews")
+def submit_review(slug):
+    """Accept a purchase-verified product review for moderation."""
+    product = get_product_by_slug(slug)
+    if product is None:
+        abort(404)
+    user = getattr(g, "current_user", None)
+    if user is None or user.role != "customer":
+        flash(gettext("Sign in to review this product."), "error")
+        return redirect(url_for("auth.login"))
+    try:
+        create_review(user, product, request.form.get("rating"), request.form.get("comment", ""))
+    except ReviewError as error:
+        db.session.rollback()
+        flash(str(error), "error")
+    else:
+        flash(gettext("Thanks! Your review is waiting for moderation."), "success")
+    return redirect(url_for("main.food", slug=slug))
 
 
 @main_bp.get("/search")

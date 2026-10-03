@@ -1,0 +1,16 @@
+{% extends "email/base.html" %}
+{% block email_page_title %}{{ _('Your NexHaat account verification code') }}{% endblock %}
+{% block email_preheader %}{{ _('Use this code to verify your NexHaat account:') }} {{ code }}{% endblock %}
+{% block email_heading %}{{ _('Verify your NexHaat account') }}{% endblock %}
+{% block email_content %}
+<p style="margin:0 0 18px;color:#59636e;font-size:14px;line-height:1.6;text-align:center;">
+    {{ _('Enter this code to finish creating your customer or seller account:') }}
+</p>
+<p
+    style="margin:0 auto 20px;max-width:320px;padding:18px;border:1px solid #d9dfe4;border-radius:8px;background:#f5f7f8;color:#142832;font-family:monospace;font-size:32px;font-weight:700;letter-spacing:8px;text-align:center;">
+    {{ code }}
+</p>
+<p style="margin:0;color:#59636e;font-size:13px;line-height:1.6;text-align:center;">
+    {{ _('This code expires in 10 minutes. If you did not request an account, you can ignore this email.') }}
+</p>
+{% endblock %}

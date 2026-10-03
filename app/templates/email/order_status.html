@@ -1,12 +1,57 @@
-<!doctype html>
-<html lang="{{ current_locale|replace('_', '-') }}" dir="{{ 'rtl' if current_locale == 'ar' else 'ltr' }}">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{ _('Order update') }}</title></head>
-<body style="margin:0;background:#f2f5f7;color:#172b36;font-family:Arial,sans-serif;padding:32px 16px">
-  <main style="max-width:560px;margin:0 auto;background:#fff;border-radius:20px;padding:32px">
-    <p style="color:#08765b;font-weight:700">{{ restaurant_name }}</p>
-    <h1 style="font-size:24px">{{ _('Order update') }}</h1>
-    <p>{{ _('Hello %(name)s, your order %(number)s is now %(status)s.', name=order.customer_name, number=order.order_number, status=order.status|capitalize) }}</p>
-    <p>{{ _('Thank you for ordering with NexHaat.') }}</p>
-  </main>
-</body>
-</html>
+{% extends "email/base.html" %}
+{% block email_page_title %}{{ _('Order update') }}{% endblock %}
+{% block email_preheader %}{{ _('Hello %(name)s, your order %(number)s is now %(status)s.', name=order.customer_name, number=order.order_number, status=order.status|capitalize) }}{% endblock %}
+{% block email_logo_icon %}🚚{% endblock %}
+{% block email_heading %}{{ _('Order update') }}{% endblock %}
+{% block email_content %}
+  <p style="margin:0 0 18px;color:#303943;font-size:13px;line-height:1.55;text-align:center;">
+    {{ _('Hello %(name)s, your order %(number)s is now %(status)s.', name=order.customer_name, number=order.order_number, status=order.status|capitalize) }}
+  </p>
+
+  <!-- 4-Stage Neumorphic Stepper -->
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#e7ebf0;border-radius:20px;box-shadow:inset 5px 5px 10px rgba(163,177,198,0.55), inset -5px -5px 10px rgba(255,255,255,0.95);padding:18px 12px;margin-bottom:20px;">
+    <tr>
+      <td align="center" style="width:25%;">
+        <div style="width:28px;height:28px;line-height:28px;border-radius:50%;background:#10b981;color:#ffffff;font-size:13px;font-weight:700;margin:0 auto 4px;">✓</div>
+        <span style="display:block;color:#10b981;font-size:10px;font-weight:700;">{{ _('Placed') }}</span>
+      </td>
+      <td align="center" style="width:25%;">
+        <div style="width:28px;height:28px;line-height:28px;border-radius:50%;background:{% if order.status in ['confirmed', 'processing', 'picked_up', 'out_for_delivery', 'delivered'] %}#10b981{% else %}#e7ebf0{% endif %};color:{% if order.status in ['confirmed', 'processing', 'picked_up', 'out_for_delivery', 'delivered'] %}#ffffff{% else %}#7c858e{% endif %};box-shadow:3px 3px 6px rgba(163,177,198,0.6), -3px -3px 6px rgba(255,255,255,0.9);font-size:13px;font-weight:700;margin:0 auto 4px;">
+          {% if order.status in ['confirmed', 'processing', 'picked_up', 'out_for_delivery', 'delivered'] %}✓{% else %}2{% endif %}
+        </div>
+        <span style="display:block;color:{% if order.status in ['confirmed', 'processing', 'picked_up', 'out_for_delivery', 'delivered'] %}#10b981{% else %}#7c858e{% endif %};font-size:10px;font-weight:700;">{{ _('Confirmed') }}</span>
+      </td>
+      <td align="center" style="width:25%;">
+        <div style="width:28px;height:28px;line-height:28px;border-radius:50%;background:{% if order.status in ['picked_up', 'out_for_delivery', 'delivered'] %}#006cff{% else %}#e7ebf0{% endif %};color:{% if order.status in ['picked_up', 'out_for_delivery', 'delivered'] %}#ffffff{% else %}#7c858e{% endif %};box-shadow:3px 3px 6px rgba(163,177,198,0.6), -3px -3px 6px rgba(255,255,255,0.9);font-size:13px;font-weight:700;margin:0 auto 4px;">
+          {% if order.status in ['picked_up', 'out_for_delivery', 'delivered'] %}🛵{% else %}3{% endif %}
+        </div>
+        <span style="display:block;color:{% if order.status in ['picked_up', 'out_for_delivery', 'delivered'] %}#006cff{% else %}#7c858e{% endif %};font-size:10px;font-weight:700;">{{ _('On Way') }}</span>
+      </td>
+      <td align="center" style="width:25%;">
+        <div style="width:28px;height:28px;line-height:28px;border-radius:50%;background:{% if order.status == 'delivered' %}#10b981{% else %}#e7ebf0{% endif %};color:{% if order.status == 'delivered' %}#ffffff{% else %}#7c858e{% endif %};box-shadow:3px 3px 6px rgba(163,177,198,0.6), -3px -3px 6px rgba(255,255,255,0.9);font-size:13px;font-weight:700;margin:0 auto 4px;">
+          {% if order.status == 'delivered' %}✓{% else %}4{% endif %}
+        </div>
+        <span style="display:block;color:{% if order.status == 'delivered' %}#10b981{% else %}#7c858e{% endif %};font-size:10px;font-weight:700;">{{ _('Delivered') }}</span>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Electric Glowing Status Badge -->
+  <div style="position:relative;width:100%;max-width:380px;margin:0 auto 16px;">
+    <div class="electric-glow-anim" style="position:absolute;inset:-6px;border-radius:24px;filter:blur(8px);opacity:0.6;pointer-events:none;"></div>
+    <div class="electric-border-anim" style="position:absolute;inset:-2px;border-radius:20px;overflow:hidden;pointer-events:none;"></div>
+    
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="position:relative;z-index:10;background-color:#e7ebf0;border-radius:18px;box-shadow:inset 6px 6px 12px rgba(163,177,198,0.55), inset -6px -6px 12px rgba(255,255,255,0.95);padding:16px 20px;">
+      <tr>
+        <td align="center">
+          <span style="display:block;color:#006cff;font-size:15px;font-weight:800;letter-spacing:0.04em;">
+            {{ order.status|capitalize }} · {{ order.order_number }}
+          </span>
+        </td>
+      </tr>
+    </table>
+  </div>
+{% endblock %}
+{% block email_footer_note %}
+  {{ _('Thank you for ordering with NexHaat.') }}
+{% endblock %}

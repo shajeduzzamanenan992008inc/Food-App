@@ -111,13 +111,45 @@
   </section>
 
   <section class="admin-section" aria-labelledby="customers-title">
-    <header class="admin-section__header"><h2 id="customers-title">{{ _('Customers') }}</h2></header>
+    <header class="admin-section__header">
+      <div>
+        <p class="eyebrow">{{ _('USER MANAGEMENT') }}</p>
+        <h2 id="customers-title">{{ _('Customers') }}</h2>
+      </div>
+      <a class="button-secondary button-small" href="{{ url_for('orders.admin_customer_new') }}">＋ {{ _('Add customer') }}</a>
+    </header>
     {% if customers %}
       <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>{{ _('Name') }}</th><th>{{ _('Email address') }}</th><th>{{ _('Phone') }}</th><th>{{ _('Status') }}</th><th>{{ _('Actions') }}</th></tr></thead><tbody>
       {% for customer in customers %}<tr>
-        <td>{{ customer.customer_profile.full_name if customer.customer_profile else '—' }}</td><td>{{ customer.email }}</td><td>{{ customer.customer_profile.phone if customer.customer_profile else '—' }}</td>
-        <td>{{ _('Active') if customer.is_active else _('Deactivated') }}</td>
-        <td><form method="post" action="{{ url_for('orders.admin_customer_toggle_active', user_id=customer.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="text-button" type="submit">{{ _('Deactivate') if customer.is_active else _('Activate') }}</button></form></td>
+        <td>{{ customer.customer_profile.full_name if customer.customer_profile else '—' }}</td>
+        <td>{{ customer.email }}</td>
+        <td>{{ customer.customer_profile.phone if customer.customer_profile else '—' }}</td>
+        <td>
+          {% if customer.is_active %}
+            <span class="status-pill status-pill--approved">{{ _('Active') }}</span>
+          {% else %}
+            <span class="status-pill status-pill--suspended">{{ _('Deactivated') }}</span>
+          {% endif %}
+        </td>
+        <td>
+          <div class="admin-table-actions">
+            {% if customer.is_active %}
+              <form method="post" action="{{ url_for('orders.admin_customer_deactivate', user_id=customer.id) }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button class="admin-button admin-button--quiet admin-button--small" type="submit">{{ _('Deactivate') }}</button>
+              </form>
+            {% else %}
+              <form method="post" action="{{ url_for('orders.admin_customer_activate', user_id=customer.id) }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <button class="admin-button admin-button--small" type="submit">{{ _('Activate') }}</button>
+              </form>
+            {% endif %}
+            <form method="post" action="{{ url_for('orders.admin_customer_remove', user_id=customer.id) }}" onsubmit="return confirm('{{ _('Delete this account permanently?') }}');">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+              <button class="admin-button admin-button--danger admin-button--small" type="submit">{{ _('Delete') }}</button>
+            </form>
+          </div>
+        </td>
       </tr>{% endfor %}
       </tbody></table></div>
     {% else %}<p class="admin-empty">{{ _('No customers yet.') }}</p>{% endif %}
@@ -169,6 +201,35 @@
       {% if order_page > 1 %}<a href="{{ url_for('admin.dashboard', orders_page=order_page - 1, customers_page=customer_page) }}">{{ _('Previous') }}</a>{% endif %}
       {% if order_page < order_pages %}<a href="{{ url_for('admin.dashboard', orders_page=order_page + 1, customers_page=customer_page) }}">{{ _('Next') }}</a>{% endif %}
     </nav>
+  </section>
+
+  <section class="admin-section" aria-labelledby="review-moderation-title">
+    <header class="admin-section__header">
+      <div><p class="eyebrow">{{ _('REVIEW MODERATION') }}</p><h2 id="review-moderation-title">{{ _('Product reviews awaiting review') }}</h2></div>
+      <span class="status-pill status-pill--pending">{{ pending_review_count }} {{ _('pending') }}</span>
+    </header>
+    {% if pending_reviews %}
+      <div class="admin-record-list">
+      {% for review in pending_reviews %}
+        <article class="admin-record">
+          <div class="admin-record__details">
+            <h3>{{ review.product.localized_name(current_locale) if review.product else _('Product removed') }}</h3>
+            <p>{{ review.author_name }} · <span class="review-stars" aria-hidden="true">{% for _s in range(review.rating) %}★{% endfor %}</span> {{ _('%(value)s out of 5', value=review.rating) }}</p>
+            {% if review.comment %}<p>{{ review.comment }}</p>{% endif %}
+          </div>
+          <form class="admin-review-form" method="post" action="{{ url_for('orders.admin_moderate_review', review_id=review.id) }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <label class="visually-hidden" for="review-note-{{ review.id }}">{{ _('Moderation note') }}</label>
+            <input id="review-note-{{ review.id }}" name="review_note" maxlength="500" placeholder="{{ _('Optional note') }}">
+            <button class="admin-button" type="submit" name="decision" value="approved">{{ _('Approve') }}</button>
+            <button class="admin-button admin-button--quiet" type="submit" name="decision" value="rejected">{{ _('Reject') }}</button>
+          </form>
+        </article>
+      {% endfor %}
+      </div>
+    {% else %}
+      <p class="admin-empty">{{ _('No product reviews are waiting for review.') }}</p>
+    {% endif %}
   </section>
 
   <section class="admin-section" aria-labelledby="audit-title">

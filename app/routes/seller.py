@@ -1,7 +1,8 @@
 from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation
+import re
 
-from flask import Blueprint, abort, flash, g, redirect, render_template, request, url_for
+from flask import Blueprint, abort, flash, g, redirect, render_template, request, session, url_for
 from flask_babel import gettext
 from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
@@ -11,6 +12,7 @@ from ..extensions import db
 from ..i18n import SUPPORTED_LOCALES
 from ..models import Category, Product, ProductTranslation, ProductVariant, User
 from ..services.catalog_media import CatalogMediaError, store_catalog_image
+from ..services.profiles import apply_password_change, password_change_error
 from ..security import (
     approved_seller_required,
     current_approved_seller,
@@ -36,6 +38,17 @@ def _seller_product_or_404(product_id, seller_id):
     if product is None:
         abort(404)
     return product
+
+
+def _product_form_error(error):
+    """Turn a validation failure into a specific, translatable message."""
+    if isinstance(error, ValueError) and str(error).strip():
+        return gettext(str(error))
+    if isinstance(error, (InvalidOperation, ArithmeticError)):
+        return gettext("Enter a valid price amount.")
+    if isinstance(error, IntegrityError):
+        return gettext("That page address is already in use. Choose a different one.")
+    return gettext("Please check the product details and try again.")
 
 
 def _catalog_form(product=None, status=200):
@@ -70,7 +83,16 @@ def _parse_product_form(seller, product=None):
     category = db.session.get(Category, category_id) if category_id else None
     if not category or not category.is_active:
         raise ValueError("Choose an active category.")
-    stock = int(raw_stock)
+    # The page address is optional: derive it from the product name when blank so
+    # sellers never have to understand slugs to publish a listing.
+    if not slug:
+        slug = re.sub(r"[^a-z0-9-]+", "-", name.strip().lower()).strip("-")
+        if not slug:
+            raise ValueError("Add a page address using letters or numbers.")
+    try:
+        stock = int(raw_stock)
+    except (TypeError, ValueError) as error:
+        raise ValueError("Stock must be a non-negative whole number.") from error
     if not 0 <= stock <= MAX_STOCK:
         raise ValueError("Stock must be a non-negative whole number.")
     price = Decimal(request.form.get("price", ""))
@@ -158,6 +180,53 @@ def _parse_product_form(seller, product=None):
     return target
 
 
+@seller_bp.route("/seller/account", methods=["GET", "POST"])
+@role_required("seller")
+def account():
+    """Seller profile settings so the header Account link works for sellers."""
+    user = current_session_user("seller")
+    profile = user.seller_profile
+    if profile is None:
+        abort(403)
+    if request.method == "POST":
+        store_name = request.form.get("store_name", "").strip()
+        contact_name = request.form.get("contact_name", "").strip()
+        phone = request.form.get("phone", "").strip()
+        business_address = request.form.get("business_address", "").strip()
+        if not 2 <= len(store_name) <= 120 or not 2 <= len(contact_name) <= 120 or not 7 <= len(phone) <= 30:
+            flash(gettext("Provide a store name, contact name, and a valid phone number."), "error")
+        elif len(business_address) > 500:
+            flash(gettext("The business address must be 500 characters or fewer."), "error")
+        else:
+            profile.store_name = store_name
+            profile.contact_name = contact_name
+            profile.phone = phone
+            profile.business_address = business_address or None
+            db.session.commit()
+            flash(gettext("Your store details were updated."), "success")
+            return redirect(url_for("seller.account"))
+    return render_template("seller/account.html", user=user, profile=profile)
+
+
+@seller_bp.post("/seller/account/password")
+@role_required("seller")
+def change_password():
+    user = current_session_user("seller")
+    error = password_change_error(
+        user,
+        request.form.get("current_password", ""),
+        request.form.get("password", ""),
+        request.form.get("password_confirmation", ""),
+    )
+    if error:
+        flash(error, "error")
+        return redirect(url_for("seller.account"))
+    apply_password_change(user, request.form.get("password", ""))
+    session.clear()
+    flash(gettext("Your password was changed. Sign in again on this device."), "success")
+    return redirect(url_for("auth.login"))
+
+
 @seller_bp.get("/seller/dashboard")
 @role_required("seller")
 def dashboard():
@@ -194,9 +263,9 @@ def product_new():
             db.session.rollback()
             flash(gettext("Image could not be approved or stored. It remains private and was not published."), "error")
             return _catalog_form(status=400)
-        except (KeyError, TypeError, ValueError, InvalidOperation, ArithmeticError, IntegrityError):
+        except (KeyError, TypeError, ValueError, InvalidOperation, ArithmeticError, IntegrityError) as error:
             db.session.rollback()
-            flash(gettext("Please check the product details and try again."), "error")
+            flash(_product_form_error(error), "error")
             return _catalog_form(status=400)
         flash(gettext("Product submitted for Admin review."), "success")
         return redirect(url_for("seller.catalog"))
@@ -216,9 +285,9 @@ def product_edit(product_id):
             db.session.rollback()
             flash(gettext("Image could not be approved or stored. It remains private and was not published."), "error")
             return _catalog_form(product, 400)
-        except (KeyError, TypeError, ValueError, InvalidOperation, ArithmeticError, IntegrityError):
+        except (KeyError, TypeError, ValueError, InvalidOperation, ArithmeticError, IntegrityError) as error:
             db.session.rollback()
-            flash(gettext("Please check the product details and try again."), "error")
+            flash(_product_form_error(error), "error")
             return _catalog_form(product, 400)
         flash(gettext("Updated product details were sent for Admin review."), "success")
         return redirect(url_for("seller.catalog"))

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-10-01 18:46+0600\n"
+"POT-Creation-Date: 2026-10-03 16:55+0600\n"
 "PO-Revision-Date: 2026-09-29 15:30+0600\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_US\n"
@@ -18,45 +18,79 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
-#: app/routes/auth.py:119
+#: app/routes/auth.py:120
 msgid "Please provide valid name, email, and phone details."
 msgstr "Please provide valid name, email, and phone details."
 
-#: app/routes/auth.py:123 app/routes/auth.py:163 app/routes/auth.py:497
-#: app/routes/auth.py:749 app/routes/auth.py:823
+#: app/routes/auth.py:124 app/routes/auth.py:162 app/routes/auth.py:609
+#: app/routes/auth.py:861 app/routes/auth.py:935 app/services/profiles.py:26
 #: app/templates/auth/_auth_card.html:108
 #: app/templates/auth/_seller_application_panel.html:57
 #: app/templates/auth/accept_invitation.html:41
 #: app/templates/auth/account.html:57 app/templates/auth/reset_password.html:32
+#: app/templates/rider/account.html:61 app/templates/seller/account.html:67
 msgid "Passwords do not match."
 msgstr "Passwords do not match."
 
-#: app/routes/auth.py:125 app/routes/auth.py:165 app/routes/auth.py:542
+#: app/routes/auth.py:126 app/routes/auth.py:164 app/routes/auth.py:251
+#: app/routes/auth.py:654
 msgid "An account with this email already exists."
 msgstr "An account with this email already exists."
 
-#: app/routes/auth.py:136
-msgid "Account created. You can now sign in."
-msgstr "Account created. You can now sign in."
+#: app/routes/auth.py:128 app/routes/auth.py:166
+msgid "Account verification is unavailable until email delivery is configured."
+msgstr ""
 
-#: app/routes/auth.py:159
+#: app/routes/auth.py:158
 #, fuzzy
 msgid "Please provide valid store, contact, email, and phone details."
 msgstr "Please provide valid name, email, and phone details."
 
-#: app/routes/auth.py:182
+#: app/routes/auth.py:210
+msgid "A verification code was sent to your email address."
+msgstr ""
+
+#: app/routes/auth.py:229
+#, fuzzy
+msgid "This registration code is invalid or has expired."
+msgstr "This password reset code is invalid or has expired."
+
+#: app/routes/auth.py:244
+#, fuzzy
+msgid "Too many incorrect codes. Start registration again."
+msgstr "Too many incorrect codes. Request a new verification code."
+
+#: app/routes/auth.py:246 app/routes/auth.py:822 app/routes/auth.py:824
+#: app/templates/auth/verify_reset_code.html:20
+msgid "The verification code is incorrect."
+msgstr "The verification code is incorrect."
+
+#: app/routes/auth.py:262
+msgid "Account created. You can now sign in."
+msgstr "Account created. You can now sign in."
+
+#: app/routes/auth.py:268
 msgid "Your seller application is submitted. Sign in to check its review status."
 msgstr ""
 
-#: app/routes/auth.py:204 app/templates/auth/_auth_card.html:91
+#: app/routes/auth.py:295
+msgid ""
+"If your registration is active, a new verification code has been sent "
+"when available."
+msgstr ""
+
+#: app/routes/auth.py:316 app/services/profiles.py:22
+#: app/templates/auth/_auth_card.html:91
 #: app/templates/auth/_seller_application_panel.html:47
 #: app/templates/auth/accept_invitation.html:31
 #: app/templates/auth/reset_password.html:17
+#: app/templates/rider/account.html:53 app/templates/seller/account.html:59
 #, python-format
 msgid "Password must contain at least %(minimum)s characters."
 msgstr "Password must contain at least %(minimum)s characters."
 
-#: app/routes/auth.py:206 app/templates/auth/_auth_card.html:92
+#: app/routes/auth.py:318 app/services/profiles.py:24
+#: app/templates/auth/_auth_card.html:92
 #: app/templates/auth/_seller_application_panel.html:48
 #: app/templates/auth/accept_invitation.html:32
 #: app/templates/auth/reset_password.html:18
@@ -64,15 +98,15 @@ msgstr "Password must contain at least %(minimum)s characters."
 msgid "Password must contain no more than %(maximum)s characters."
 msgstr "Password must contain no more than %(maximum)s characters."
 
-#: app/routes/auth.py:234
+#: app/routes/auth.py:346
 msgid "Invalid email or password."
 msgstr "Invalid email or password."
 
-#: app/routes/auth.py:330
+#: app/routes/auth.py:442
 msgid "That email is not an Admin account."
 msgstr ""
 
-#: app/routes/auth.py:335
+#: app/routes/auth.py:447
 #, fuzzy
 msgid ""
 "If an active Admin account matches that email, a sign-in code will be "
@@ -81,89 +115,89 @@ msgstr ""
 "If a customer account exists for that email, a verification code has been"
 " sent."
 
-#: app/routes/auth.py:348
+#: app/routes/auth.py:460
 #, fuzzy
 msgid "Too many attempts. Request a new sign-in code and try again."
 msgstr "Too many incorrect codes. Request a new verification code."
 
-#: app/routes/auth.py:394
+#: app/routes/auth.py:506
 #, fuzzy
 msgid "Too many incorrect codes. Request a new sign-in code."
 msgstr "Too many incorrect codes. Request a new verification code."
 
-#: app/routes/auth.py:398 app/templates/auth/verify_admin_login.html:20
+#: app/routes/auth.py:510 app/templates/auth/verify_admin_login.html:20
 #, fuzzy
 msgid "The sign-in code is incorrect or has expired."
 msgstr "The verification code is incorrect."
 
-#: app/routes/auth.py:434
+#: app/routes/auth.py:546
 msgid "If your Admin sign-in request is active, a new code has been sent."
 msgstr ""
 
-#: app/routes/auth.py:436
+#: app/routes/auth.py:548
 msgid ""
 "If your Admin sign-in request is active, a new code will be sent when "
 "available."
 msgstr ""
 
-#: app/routes/auth.py:480
+#: app/routes/auth.py:592
 msgid "This invitation is invalid, expired, or already used."
 msgstr ""
 
-#: app/routes/auth.py:491
+#: app/routes/auth.py:603
 #, fuzzy
 msgid "Please provide a valid name for this account."
 msgstr "Please provide a valid city."
 
-#: app/routes/auth.py:493
+#: app/routes/auth.py:605
 #, fuzzy
 msgid "Please provide a valid phone number."
 msgstr "Please provide a valid name and phone number."
 
-#: app/routes/auth.py:500
+#: app/routes/auth.py:612
 #, fuzzy
 msgid ""
 "An account with this email already exists. Ask an administrator to resend"
 " the invitation."
 msgstr "An account with this email already exists."
 
-#: app/routes/auth.py:520
+#: app/routes/auth.py:632
 msgid "Your account is ready. Sign in to continue."
 msgstr ""
 
-#: app/routes/auth.py:539
+#: app/routes/auth.py:651
 msgid "Enter a valid email and choose Rider or Admin."
 msgstr ""
 
-#: app/routes/auth.py:545 app/routes/auth.py:589
+#: app/routes/auth.py:657 app/routes/auth.py:701
 msgid "Staff invitations need a configured email provider and sender address."
 msgstr ""
 
-#: app/routes/auth.py:557
+#: app/routes/auth.py:669
 msgid "A valid invitation already exists for this email and role."
 msgstr ""
 
-#: app/routes/auth.py:572 app/routes/auth.py:602
+#: app/routes/auth.py:684 app/routes/auth.py:714
 msgid "Staff invitations are unavailable until the public site URL is configured."
 msgstr ""
 
-#: app/routes/auth.py:577
+#: app/routes/auth.py:689
 msgid "The account invitation was created and queued for email."
 msgstr ""
 
-#: app/routes/auth.py:594
+#: app/routes/auth.py:706
 msgid "This invitation was closed because an account already exists."
 msgstr ""
 
-#: app/routes/auth.py:608
+#: app/routes/auth.py:720
 msgid "A fresh invitation link was queued for email."
 msgstr ""
 
-#: app/routes/auth.py:620
+#: app/routes/auth.py:732
 msgid "The account invitation was revoked."
 msgstr ""
 
-#: app/routes/auth.py:662
+#: app/routes/auth.py:774
 #, fuzzy
 msgid ""
 "If an active account exists for that email, a verification code has been "
@@ -172,190 +206,287 @@ msgstr ""
 "If a customer account exists for that email, a verification code has been"
 " sent."
 
-#: app/routes/auth.py:675 app/routes/auth.py:678
+#: app/routes/auth.py:787 app/routes/auth.py:790
 msgid "This password reset code is invalid or has expired."
 msgstr "This password reset code is invalid or has expired."
 
-#: app/routes/auth.py:701 app/routes/auth.py:704
+#: app/routes/auth.py:813 app/routes/auth.py:816
 msgid "Too many incorrect codes. Request a new verification code."
 msgstr "Too many incorrect codes. Request a new verification code."
 
-#: app/routes/auth.py:710 app/routes/auth.py:712
-#: app/templates/auth/verify_reset_code.html:20
-msgid "The verification code is incorrect."
-msgstr "The verification code is incorrect."
-
-#: app/routes/auth.py:736
+#: app/routes/auth.py:848
 msgid "Please verify a valid password reset code first."
 msgstr "Please verify a valid password reset code first."
 
-#: app/routes/auth.py:740
+#: app/routes/auth.py:852
 msgid "This password reset request is invalid or has expired."
 msgstr "This password reset request is invalid or has expired."
 
-#: app/routes/auth.py:758
+#: app/routes/auth.py:870
 msgid "Password updated. You can now sign in."
 msgstr "Password updated. You can now sign in."
 
-#: app/routes/auth.py:774
+#: app/routes/auth.py:886 app/routes/portals.py:54
 msgid "Please provide a valid name and phone number."
 msgstr "Please provide a valid name and phone number."
 
-#: app/routes/auth.py:776
+#: app/routes/auth.py:888
 msgid "Please provide a complete address."
 msgstr "Please provide a complete address."
 
-#: app/routes/auth.py:778
+#: app/routes/auth.py:890
 msgid "Please provide a valid city."
 msgstr "Please provide a valid city."
 
-#: app/routes/auth.py:803
+#: app/routes/auth.py:915
 msgid "Your account details were updated."
 msgstr "Your account details were updated."
 
-#: app/routes/auth.py:819
+#: app/routes/auth.py:931 app/services/profiles.py:18
 msgid "Your current password is incorrect."
 msgstr "Your current password is incorrect."
 
-#: app/routes/auth.py:829
+#: app/routes/auth.py:941 app/routes/portals.py:99 app/routes/seller.py:226
 msgid "Your password was changed. Sign in again on this device."
 msgstr "Your password was changed. Sign in again on this device."
 
-#: app/routes/auth.py:847
+#: app/routes/auth.py:959
 #, fuzzy
 msgid "Your account has been deleted."
 msgstr "Your account details were updated."
 
-#: app/routes/auth.py:864
+#: app/routes/auth.py:976
 msgid "Please provide a valid admin name."
 msgstr "Please provide a valid admin name."
 
-#: app/routes/auth.py:878
+#: app/routes/auth.py:990
 msgid "Admin profile updated."
 msgstr "Admin profile updated."
 
-#: app/routes/auth.py:891
+#: app/routes/auth.py:1003
 msgid "You have been signed out."
 msgstr "You have been signed out."
 
-#: app/routes/main.py:53
+#: app/routes/main.py:61
 msgid "We could not save your language preference. Please try again."
 msgstr "We could not save your language preference. Please try again."
 
-#: app/routes/main.py:57
+#: app/routes/main.py:65
 msgid "Language preference updated."
 msgstr "Language preference updated."
 
-#: app/routes/orders.py:237
-msgid "This seller application has already been reviewed."
+#: app/routes/main.py:182 app/services/reviews.py:75
+msgid "Sign in to review this product."
 msgstr ""
 
-#: app/routes/orders.py:244 app/routes/orders.py:271
-msgid "The review note must be 500 characters or fewer."
+#: app/routes/main.py:190
+msgid "Thanks! Your review is waiting for moderation."
+msgstr ""
+
+#: app/routes/orders.py:189
+#, python-format
+msgid "Order %(number)s was received."
+msgstr ""
+
+#: app/routes/orders.py:196
+#, python-format
+msgid "New order %(number)s for your store."
 msgstr ""
 
 #: app/routes/orders.py:253
+msgid "This seller application has already been reviewed."
+msgstr ""
+
+#: app/routes/orders.py:260 app/routes/orders.py:294 app/routes/orders.py:322
+msgid "The review note must be 500 characters or fewer."
+msgstr ""
+
+#: app/routes/orders.py:271
+msgid "Your store was approved. You can now publish products."
+msgstr ""
+
+#: app/routes/orders.py:276
 msgid "Seller application approved."
 msgstr ""
 
-#: app/routes/orders.py:254
+#: app/routes/orders.py:277
 msgid "Seller application rejected."
 msgstr ""
 
-#: app/routes/orders.py:281
+#: app/routes/orders.py:304
 msgid "Product listing approved."
 msgstr ""
 
-#: app/routes/orders.py:282
+#: app/routes/orders.py:305
 msgid "Product listing rejected."
 msgstr ""
 
-#: app/routes/orders.py:385
+#: app/routes/orders.py:331
+msgid "Review approved."
+msgstr ""
+
+#: app/routes/orders.py:331
+msgid "Review rejected."
+msgstr ""
+
+#: app/routes/orders.py:411
+msgid "Customer removed."
+msgstr "Customer removed."
+
+#: app/routes/orders.py:433 app/routes/orders.py:449
+msgid "Customer account activated."
+msgstr "Customer account activated."
+
+#: app/routes/orders.py:435 app/routes/orders.py:463
+msgid "Customer account deactivated."
+msgstr "Customer account deactivated."
+
+#: app/routes/orders.py:475
 msgid "The primary Admin account cannot be deleted."
 msgstr ""
 
-#: app/routes/orders.py:388
+#: app/routes/orders.py:478
 msgid "You cannot delete your own account here."
 msgstr ""
 
-#: app/routes/orders.py:394
+#: app/routes/orders.py:484
 #, fuzzy
 msgid "Account removed."
 msgstr "Account"
 
-#: app/routes/orders.py:650
+#: app/routes/orders.py:731
+#, python-format
+msgid "Order %(number)s is now %(status)s."
+msgstr ""
+
+#: app/routes/orders.py:751
 msgid "Choose an active delivery rider."
 msgstr ""
 
-#: app/routes/orders.py:656
+#: app/routes/orders.py:757
 msgid "Rider assigned to this delivery."
 msgstr ""
 
-#: app/routes/orders.py:664
+#: app/routes/orders.py:765
 #, fuzzy
 msgid "Delivery unassigned."
 msgstr "Email address"
 
-#: app/routes/portals.py:72
+#: app/routes/orders.py:776
+#, python-format
+msgid "A new delivery was assigned to you: %(number)s."
+msgstr ""
+
+#: app/routes/portals.py:56
+#, fuzzy
+msgid "Choose a valid availability status."
+msgstr "Admin profile updated."
+
+#: app/routes/portals.py:74
+#, fuzzy
+msgid "Your rider profile was updated."
+msgstr "Admin profile updated."
+
+#: app/routes/portals.py:135
 msgid "That delivery update is not allowed."
 msgstr ""
 
-#: app/routes/portals.py:86
+#: app/routes/portals.py:149
 msgid "The delivery note must be 500 characters or fewer."
 msgstr ""
 
-#: app/routes/portals.py:98
+#: app/routes/portals.py:161
 msgid "Add a delivery photo or a note as proof of delivery."
 msgstr ""
 
-#: app/routes/portals.py:111
+#: app/routes/portals.py:177
+#, python-format
+msgid "Order %(number)s was delivered."
+msgstr ""
+
+#: app/routes/portals.py:181
 #, fuzzy
 msgid "Delivery status updated."
 msgstr "Admin profile updated."
 
-#: app/routes/seller.py:195 app/routes/seller.py:217
+#: app/routes/seller.py:48
+#, fuzzy
+msgid "Enter a valid price amount."
+msgstr "Enter a valid email address."
+
+#: app/routes/seller.py:50
+msgid "That page address is already in use. Choose a different one."
+msgstr ""
+
+#: app/routes/seller.py:51
+msgid "Please check the product details and try again."
+msgstr ""
+
+#: app/routes/seller.py:197
+#, fuzzy
+msgid "Provide a store name, contact name, and a valid phone number."
+msgstr "Please provide valid name, email, and phone details."
+
+#: app/routes/seller.py:199
+msgid "The business address must be 500 characters or fewer."
+msgstr ""
+
+#: app/routes/seller.py:206
+#, fuzzy
+msgid "Your store details were updated."
+msgstr "Your account details were updated."
+
+#: app/routes/seller.py:264 app/routes/seller.py:286
 msgid ""
 "Image could not be approved or stored. It remains private and was not "
 "published."
 msgstr ""
 
-#: app/routes/seller.py:199 app/routes/seller.py:221
-msgid "Please check the product details and try again."
-msgstr ""
-
-#: app/routes/seller.py:201
+#: app/routes/seller.py:270
 msgid "Product submitted for Admin review."
 msgstr ""
 
-#: app/routes/seller.py:223
+#: app/routes/seller.py:292
 msgid "Updated product details were sent for Admin review."
 msgstr ""
 
-#: app/routes/seller.py:236
+#: app/routes/seller.py:305
 msgid "The product is no longer visible in the marketplace."
 msgstr ""
 
-#: app/routes/seller.py:267
+#: app/routes/seller.py:336
 msgid "Please check the variant details and try again."
 msgstr ""
 
-#: app/routes/seller.py:269
+#: app/routes/seller.py:338
 msgid "Product variant added."
 msgstr ""
 
-#: app/routes/seller.py:284
+#: app/routes/seller.py:353
 #, fuzzy
 msgid "Variant availability updated."
 msgstr "Admin profile updated."
 
-#: app/routes/seller.py:301
+#: app/routes/seller.py:370
 msgid "Enter a valid non-negative stock quantity."
 msgstr ""
 
-#: app/routes/seller.py:305
+#: app/routes/seller.py:374
 #, fuzzy
 msgid "Variant stock updated."
 msgstr "Admin profile updated."
+
+#: app/routes/wishlist.py:59
+msgid "Saved to your wishlist."
+msgstr ""
+
+#: app/routes/wishlist.py:59
+msgid "Already in your wishlist."
+msgstr ""
+
+#: app/routes/wishlist.py:73
+msgid "Removed from your wishlist."
+msgstr ""
 
 #: app/services/invoice.py:105
 msgid "INVOICE"
@@ -390,15 +521,11 @@ msgstr ""
 msgid "Bill to"
 msgstr ""
 
-#: app/services/invoice.py:128 app/templates/email/admin_order.html:11
-#: app/templates/email/order_pending.html:11
-#: app/templates/email/order_receipt.html:11 app/templates/orders/cart.html:10
+#: app/services/invoice.py:128 app/templates/orders/cart.html:10
 msgid "Item"
 msgstr ""
 
-#: app/services/invoice.py:129 app/templates/email/admin_order.html:12
-#: app/templates/email/order_pending.html:12
-#: app/templates/email/order_receipt.html:12
+#: app/services/invoice.py:129
 msgid "Qty"
 msgstr ""
 
@@ -408,62 +535,92 @@ msgid "Price"
 msgstr ""
 
 #: app/services/invoice.py:131 app/services/invoice.py:157
-#: app/templates/email/admin_order.html:13
-#: app/templates/email/order_pending.html:13
-#: app/templates/email/order_receipt.html:13 app/templates/orders/cart.html:23
-#: app/templates/orders/checkout.html:21
+#: app/templates/orders/cart.html:23 app/templates/orders/checkout.html:21
 msgid "Subtotal"
 msgstr ""
 
-#: app/services/invoice.py:158 app/templates/admin/dashboard.html:157
-#: app/templates/orders/cart.html:23 app/templates/orders/checkout.html:21
+#: app/services/invoice.py:158 app/templates/admin/dashboard.html:189
+#: app/templates/email/order_receipt.html:28 app/templates/orders/cart.html:23
+#: app/templates/orders/checkout.html:21
 #: app/templates/orders/confirmation.html:10
 #: app/templates/orders/my_orders.html:6
 msgid "Delivery"
 msgstr ""
 
-#: app/services/invoice.py:159 app/templates/admin/dashboard.html:157
+#: app/services/invoice.py:159 app/templates/admin/dashboard.html:189
 #: app/templates/admin/order_detail.html:5
-#: app/templates/email/admin_order.html:23
+#: app/templates/email/admin_order.html:33
 #: app/templates/email/admin_order.txt:8
-#: app/templates/email/order_pending.html:23
+#: app/templates/email/order_pending.html:33
 #: app/templates/email/order_pending.txt:8
-#: app/templates/email/order_receipt.html:23
+#: app/templates/email/order_receipt.html:44
 #: app/templates/email/order_receipt.txt:8 app/templates/orders/cart.html:10
 #: app/templates/orders/cart.html:23 app/templates/orders/confirmation.html:10
 #: app/templates/orders/my_orders.html:6
 msgid "Total"
 msgstr ""
 
-#: app/services/invoice.py:163 app/templates/email/order_status.html:9
+#: app/services/invoice.py:163 app/templates/email/order_status.html:56
 #: app/templates/email/order_status.txt:6
 #, fuzzy
 msgid "Thank you for ordering with NexHaat."
 msgstr "Start your journey with NexHaat"
 
-#: app/services/mail.py:409 app/templates/email/password_reset_code.html:3
-#: app/templates/email/password_reset_code.html:7
+#: app/services/mail.py:379 app/templates/email/password_reset_code.html:2
+#: app/templates/email/password_reset_code.html:5
 #: app/templates/email/password_reset_code.txt:3
 msgid "Your NexHaat password reset code"
 msgstr "Your NexHaat password reset code"
 
-#: app/services/mail.py:434 app/templates/email/admin_login_code.html:3
-#: app/templates/email/admin_login_code.html:7
+#: app/services/mail.py:404 app/templates/email/admin_login_code.html:2
+#: app/templates/email/admin_login_code.html:5
 #: app/templates/email/admin_login_code.txt:3
 #, fuzzy
 msgid "Your NexHaat admin sign-in code"
 msgstr "Your NexHaat password reset code"
 
-#: app/templates/_product_card.html:12 app/templates/catalog/food.html:12
+#: app/services/mail.py:435 app/templates/email/registration_code.html:2
+#, fuzzy
+msgid "Your NexHaat account verification code"
+msgstr "Your NexHaat password reset code"
+
+#: app/services/reviews.py:78
+msgid "You can review a product after your order is delivered."
+msgstr ""
+
+#: app/services/reviews.py:82 app/services/reviews.py:84
+msgid "Choose a rating from 1 to 5 stars."
+msgstr ""
+
+#: app/services/reviews.py:87
+msgid "Your review must be 2000 characters or fewer."
+msgstr ""
+
+#: app/templates/_product_card.html:14
+#, python-format
+msgid "Remove %(name)s from your wishlist"
+msgstr ""
+
+#: app/templates/_product_card.html:20
+#, python-format
+msgid "Save %(name)s to your wishlist"
+msgstr ""
+
+#: app/templates/_product_card.html:28 app/templates/catalog/food.html:12
 #: app/templates/orders/cart.html:12 app/templates/orders/checkout.html:21
 #, fuzzy, python-format
 msgid "Original language: %(language)s"
 msgstr "Apply language"
 
-#: app/templates/_product_card.html:19
+#: app/templates/_product_card.html:36
 #, python-format
 msgid "Add %(name)s to cart"
 msgstr ""
+
+#: app/templates/_product_card.html:39 app/templates/catalog/food.html:22
+#, fuzzy
+msgid "Sign in to order"
+msgstr "Sign in"
 
 #: app/templates/base.html:7
 msgid "Discover neighborhood food, groceries, and local stores on NexHaat."
@@ -496,6 +653,10 @@ msgstr ""
 msgid "My orders"
 msgstr "My orders"
 
+#: app/templates/base.html:28 app/templates/wishlist/index.html:2
+msgid "Wishlist"
+msgstr ""
+
 #: app/templates/admin/settings.html:4 app/templates/base.html:29
 msgid "Operations"
 msgstr ""
@@ -519,35 +680,43 @@ msgstr "Language"
 msgid "Go"
 msgstr ""
 
-#: app/templates/base.html:46 app/templates/customer/dashboard.html:15
+#: app/templates/base.html:47 app/templates/customer/dashboard.html:15
 #: app/templates/orders/cart.html:2 app/templates/portals/dashboard.html:12
 msgid "Shopping cart"
 msgstr ""
 
-#: app/templates/base.html:47
+#: app/templates/base.html:48
 msgid "Cart"
 msgstr ""
 
-#: app/templates/base.html:51
+#: app/templates/base.html:53 app/templates/base.html:54
+#: app/templates/notifications/index.html:2
+#: app/templates/notifications/index.html:8
+msgid "Notifications"
+msgstr ""
+
+#: app/templates/base.html:58
 #, fuzzy
 msgid "Account"
 msgstr "Account"
 
-#: app/templates/admin/dashboard.html:185 app/templates/auth/account.html:69
-#: app/templates/auth/admin_account.html:27 app/templates/base.html:52
+#: app/templates/admin/dashboard.html:246 app/templates/auth/account.html:69
+#: app/templates/auth/admin_account.html:27 app/templates/base.html:59
+#: app/templates/rider/account.html:70 app/templates/seller/account.html:76
 #, fuzzy
 msgid "Sign out"
 msgstr "Sign in"
 
-#: app/templates/auth/login.html:2 app/templates/base.html:54
+#: app/templates/auth/login.html:2 app/templates/base.html:61
 msgid "Sign in"
 msgstr "Sign in"
 
-#: app/templates/base.html:70
+#: app/templates/base.html:77
 msgid "Good food and thoughtful finds, close to home."
 msgstr ""
 
-#: app/templates/auth/base.html:31 app/templates/base.html:71
+#: app/templates/auth/base.html:31 app/templates/base.html:78
+#: app/templates/email/base.html:179
 msgid "All rights reserved."
 msgstr "All rights reserved."
 
@@ -672,7 +841,7 @@ msgstr "Store name"
 
 #: app/templates/admin/category_form.html:8
 #: app/templates/admin/product_form.html:8
-#: app/templates/seller/product_form.html:11
+#: app/templates/seller/product_form.html:23
 #, fuzzy
 msgid "Page address slug"
 msgstr "Email address"
@@ -688,13 +857,13 @@ msgstr ""
 #: app/templates/admin/category_form.html:10
 #: app/templates/admin/customer_form.html:10
 #: app/templates/admin/product_form.html:14 app/templates/admin/settings.html:8
-#: app/templates/seller/product_form.html:31
+#: app/templates/seller/product_form.html:78
 msgid "Cancel"
 msgstr ""
 
 #: app/templates/admin/customer_form.html:2
 #: app/templates/admin/customer_form.html:4
-#: app/templates/admin/dashboard.html:18
+#: app/templates/admin/dashboard.html:18 app/templates/admin/dashboard.html:119
 #, fuzzy
 msgid "Add customer"
 msgstr "Customer"
@@ -712,7 +881,7 @@ msgstr ""
 #: app/templates/auth/_auth_card.html:61
 #: app/templates/auth/accept_invitation.html:12
 #: app/templates/auth/account.html:17 app/templates/auth/admin_account.html:10
-#: app/templates/orders/checkout.html:11
+#: app/templates/orders/checkout.html:11 app/templates/rider/account.html:13
 msgid "Full name"
 msgstr "Full name"
 
@@ -721,17 +890,19 @@ msgstr "Full name"
 #: app/templates/auth/_seller_application_panel.html:24
 #: app/templates/auth/accept_invitation.html:19
 #: app/templates/auth/account.html:27 app/templates/orders/checkout.html:12
+#: app/templates/rider/account.html:23 app/templates/seller/account.html:31
 msgid "Phone number"
 msgstr "Phone number"
 
 #: app/templates/admin/customer_form.html:8
-#: app/templates/admin/dashboard.html:92 app/templates/admin/dashboard.html:116
-#: app/templates/admin/dashboard.html:133 app/templates/auth/_auth_card.html:14
+#: app/templates/admin/dashboard.html:92 app/templates/admin/dashboard.html:122
+#: app/templates/admin/dashboard.html:165 app/templates/auth/_auth_card.html:14
 #: app/templates/auth/_auth_card.html:69
 #: app/templates/auth/_seller_application_panel.html:35
 #: app/templates/auth/account.html:23 app/templates/auth/admin_account.html:16
 #: app/templates/auth/admin_login.html:12
 #: app/templates/auth/forgot_password.html:12
+#: app/templates/rider/account.html:19 app/templates/seller/account.html:21
 msgid "Email address"
 msgstr "Email address"
 
@@ -787,7 +958,7 @@ msgstr ""
 msgid "Marketplace settings"
 msgstr "Account"
 
-#: app/templates/admin/dashboard.html:23 app/templates/admin/dashboard.html:114
+#: app/templates/admin/dashboard.html:23 app/templates/admin/dashboard.html:117
 #, fuzzy
 msgid "Customers"
 msgstr "Customer"
@@ -812,12 +983,13 @@ msgid "Applications awaiting review"
 msgstr ""
 
 #: app/templates/admin/dashboard.html:31 app/templates/admin/dashboard.html:60
+#: app/templates/admin/dashboard.html:209
 #, fuzzy
 msgid "pending"
 msgstr "Sending…"
 
 #: app/templates/admin/dashboard.html:44 app/templates/admin/dashboard.html:73
-#: app/templates/seller/dashboard.html:10
+#: app/templates/seller/account.html:9 app/templates/seller/dashboard.html:10
 msgid "Review note"
 msgstr ""
 
@@ -826,10 +998,12 @@ msgid "Optional review note"
 msgstr ""
 
 #: app/templates/admin/dashboard.html:46 app/templates/admin/dashboard.html:75
+#: app/templates/admin/dashboard.html:224
 msgid "Approve"
 msgstr ""
 
 #: app/templates/admin/dashboard.html:47 app/templates/admin/dashboard.html:76
+#: app/templates/admin/dashboard.html:225
 msgid "Reject"
 msgstr ""
 
@@ -862,7 +1036,7 @@ msgstr ""
 msgid "Account role"
 msgstr "Account"
 
-#: app/templates/admin/dashboard.html:93
+#: app/templates/admin/dashboard.html:93 app/templates/rider/account.html:5
 msgid "Rider"
 msgstr ""
 
@@ -905,126 +1079,132 @@ msgid "No pending invitations."
 msgstr ""
 
 #: app/templates/admin/dashboard.html:116
-#: app/templates/admin/dashboard.html:133
+msgid "USER MANAGEMENT"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:122
+#: app/templates/admin/dashboard.html:165
 #, fuzzy
 msgid "Name"
 msgstr "Full name"
 
-#: app/templates/admin/dashboard.html:116
+#: app/templates/admin/dashboard.html:122
 msgid "Phone"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:116
-#: app/templates/admin/dashboard.html:133
-#: app/templates/admin/dashboard.html:157 app/templates/orders/my_orders.html:6
+#: app/templates/admin/dashboard.html:122
+#: app/templates/admin/dashboard.html:165
+#: app/templates/admin/dashboard.html:189 app/templates/orders/my_orders.html:6
 #: app/templates/rider/dashboard.html:50
 msgid "Status"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:116
-#: app/templates/admin/dashboard.html:133
-#: app/templates/admin/dashboard.html:157
+#: app/templates/admin/dashboard.html:122
+#: app/templates/admin/dashboard.html:165
+#: app/templates/admin/dashboard.html:189
 msgid "Actions"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:119
-#: app/templates/admin/dashboard.html:138
+#: app/templates/admin/dashboard.html:129
+#: app/templates/admin/dashboard.html:170
 msgid "Active"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:119
-#: app/templates/admin/dashboard.html:138
+#: app/templates/admin/dashboard.html:131
+#: app/templates/admin/dashboard.html:170
 msgid "Deactivated"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:120
+#: app/templates/admin/dashboard.html:139
 msgid "Deactivate"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:120
+#: app/templates/admin/dashboard.html:144
 msgid "Activate"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:123
-#, fuzzy
-msgid "No customers yet."
-msgstr "Customer"
-
-#: app/templates/admin/dashboard.html:124
-#, fuzzy
-msgid "Customer pages"
-msgstr "Customer"
-
-#: app/templates/admin/dashboard.html:124
-#: app/templates/admin/dashboard.html:168
-#, python-format
-msgid "Page %(current)s of %(total)s"
-msgstr ""
-
-#: app/templates/admin/dashboard.html:125
-#: app/templates/admin/dashboard.html:169
-msgid "Previous"
-msgstr ""
-
-#: app/templates/admin/dashboard.html:126
-#: app/templates/admin/dashboard.html:170
-msgid "Next"
-msgstr ""
-
-#: app/templates/admin/dashboard.html:131
-msgid "TEAM"
-msgstr ""
-
-#: app/templates/admin/dashboard.html:131
-msgid "Seller, Rider and Admin accounts"
-msgstr ""
-
-#: app/templates/admin/dashboard.html:133
-msgid "Role"
-msgstr ""
-
-#: app/templates/admin/dashboard.html:137
-msgid "(primary Admin)"
-msgstr ""
-
-#: app/templates/admin/dashboard.html:141
-msgid "Protected"
-msgstr ""
-
-#: app/templates/admin/dashboard.html:143
+#: app/templates/admin/dashboard.html:147
+#: app/templates/admin/dashboard.html:175
 msgid "Delete this account permanently?"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:143
+#: app/templates/admin/dashboard.html:149
+#: app/templates/admin/dashboard.html:175
 #, fuzzy
 msgid "Delete"
 msgstr "Email address"
 
-#: app/templates/admin/dashboard.html:148
+#: app/templates/admin/dashboard.html:155
+#, fuzzy
+msgid "No customers yet."
+msgstr "Customer"
+
+#: app/templates/admin/dashboard.html:156
+#, fuzzy
+msgid "Customer pages"
+msgstr "Customer"
+
+#: app/templates/admin/dashboard.html:156
+#: app/templates/admin/dashboard.html:200
+#, python-format
+msgid "Page %(current)s of %(total)s"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:157
+#: app/templates/admin/dashboard.html:201
+msgid "Previous"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:158
+#: app/templates/admin/dashboard.html:202
+msgid "Next"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:163
+msgid "TEAM"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:163
+msgid "Seller, Rider and Admin accounts"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:165
+msgid "Role"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:169
+msgid "(primary Admin)"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:173
+msgid "Protected"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:180
 msgid "No seller, rider, or Admin accounts yet."
 msgstr ""
 
-#: app/templates/admin/dashboard.html:152
+#: app/templates/admin/dashboard.html:184
 #, fuzzy
 msgid "Orders"
 msgstr "My orders"
 
-#: app/templates/admin/dashboard.html:153
+#: app/templates/admin/dashboard.html:185
 msgid "Confirm all pending"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:154
+#: app/templates/admin/dashboard.html:186
 msgid "Decline all pending"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:157
+#: app/templates/admin/dashboard.html:189
 #: app/templates/admin/order_detail.html:4
 #: app/templates/orders/my_orders.html:6 app/templates/rider/dashboard.html:50
 #, fuzzy
 msgid "Order"
 msgstr "My orders"
 
-#: app/templates/admin/dashboard.html:157 app/templates/auth/account.html:5
+#: app/templates/admin/dashboard.html:189 app/templates/auth/account.html:5
 #: app/templates/auth/account.html:9 app/templates/auth/account.html:12
 #: app/templates/auth/account.html:44 app/templates/customer/dashboard.html:7
 #: app/templates/customer/dashboard.html:10
@@ -1032,72 +1212,105 @@ msgstr "My orders"
 msgid "Customer"
 msgstr "Customer"
 
-#: app/templates/admin/dashboard.html:162
+#: app/templates/admin/dashboard.html:194
 msgid "Order status"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:162 app/templates/auth/account.html:46
+#: app/templates/admin/dashboard.html:194 app/templates/auth/account.html:46
 #: app/templates/auth/admin_account.html:23
 msgid "Save"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:163
+#: app/templates/admin/dashboard.html:195
 #, fuzzy
 msgid "Delivery rider"
 msgstr "Email address"
 
-#: app/templates/admin/dashboard.html:163
+#: app/templates/admin/dashboard.html:195
 msgid "Unassigned"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:163
+#: app/templates/admin/dashboard.html:195
 #, fuzzy
 msgid "Assign"
 msgstr "Sign in"
 
-#: app/templates/admin/dashboard.html:167
+#: app/templates/admin/dashboard.html:199
 #, fuzzy
 msgid "No orders yet."
 msgstr "My orders"
 
-#: app/templates/admin/dashboard.html:168
+#: app/templates/admin/dashboard.html:200
 #, fuzzy
 msgid "Order pages"
 msgstr "My orders"
 
-#: app/templates/admin/dashboard.html:175
+#: app/templates/admin/dashboard.html:208
+#, fuzzy
+msgid "REVIEW MODERATION"
+msgstr "My orders"
+
+#: app/templates/admin/dashboard.html:208
+msgid "Product reviews awaiting review"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:216
+#, fuzzy
+msgid "Product removed"
+msgstr "Contact name"
+
+#: app/templates/admin/dashboard.html:217
+#, python-format
+msgid "%(value)s out of 5"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:222
+#, fuzzy
+msgid "Moderation note"
+msgstr "Store name"
+
+#: app/templates/admin/dashboard.html:223
+#, fuzzy
+msgid "Optional note"
+msgstr "Store name"
+
+#: app/templates/admin/dashboard.html:231
+msgid "No product reviews are waiting for review."
+msgstr ""
+
+#: app/templates/admin/dashboard.html:236
 #, fuzzy
 msgid "SECURITY"
 msgstr "City"
 
-#: app/templates/admin/dashboard.html:175
+#: app/templates/admin/dashboard.html:236
 msgid "Recent audit activity"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:177
+#: app/templates/admin/dashboard.html:238
 msgid "When"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:177
+#: app/templates/admin/dashboard.html:238
 #, fuzzy
 msgid "Action"
 msgstr "Account"
 
-#: app/templates/admin/dashboard.html:177
+#: app/templates/admin/dashboard.html:238
 #, fuzzy
 msgid "Actor"
 msgstr "Customer"
 
-#: app/templates/admin/dashboard.html:177
+#: app/templates/admin/dashboard.html:238
 msgid "Target"
 msgstr ""
 
-#: app/templates/admin/dashboard.html:177
+#: app/templates/admin/dashboard.html:238
 #, fuzzy
 msgid "Detail"
 msgstr "My orders"
 
-#: app/templates/admin/dashboard.html:180
+#: app/templates/admin/dashboard.html:241
 #, fuzzy
 msgid "No audit activity recorded yet."
 msgstr "My orders"
@@ -1120,7 +1333,7 @@ msgstr ""
 msgid "Product"
 msgstr ""
 
-#: app/templates/admin/order_detail.html:5 app/templates/catalog/food.html:16
+#: app/templates/admin/order_detail.html:5 app/templates/catalog/food.html:17
 #: app/templates/orders/cart.html:10
 msgid "Quantity"
 msgstr ""
@@ -1163,29 +1376,29 @@ msgid "New product"
 msgstr "New password"
 
 #: app/templates/admin/product_form.html:7
-#: app/templates/seller/product_form.html:10
+#: app/templates/seller/product_form.html:14
 #, fuzzy
 msgid "Product name"
 msgstr "Contact name"
 
 #: app/templates/admin/product_form.html:9
 #: app/templates/catalog/category.html:5 app/templates/catalog/menu.html:27
-#: app/templates/seller/product_form.html:12
+#: app/templates/seller/product_form.html:29
 msgid "Category"
 msgstr ""
 
 #: app/templates/admin/product_form.html:10
-#: app/templates/seller/product_form.html:14
+#: app/templates/seller/product_form.html:39
 msgid "Price (BDT)"
 msgstr ""
 
 #: app/templates/admin/product_form.html:11
-#: app/templates/seller/product_form.html:15
+#: app/templates/seller/product_form.html:46
 msgid "Discount price (optional)"
 msgstr ""
 
 #: app/templates/admin/product_form.html:12
-#: app/templates/seller/product_form.html:20
+#: app/templates/seller/product_form.html:63
 msgid "Description"
 msgstr ""
 
@@ -1249,6 +1462,16 @@ msgstr "Sign in to continue your journey"
 #: app/templates/auth/forgot_password.html:14
 #: app/templates/auth/reset_password.html:16
 #: app/templates/auth/reset_password.html:31
+#: app/templates/rider/account.html:15 app/templates/rider/account.html:25
+#: app/templates/rider/account.html:46 app/templates/rider/account.html:52
+#: app/templates/rider/account.html:60 app/templates/seller/account.html:17
+#: app/templates/seller/account.html:27 app/templates/seller/account.html:33
+#: app/templates/seller/account.html:52 app/templates/seller/account.html:58
+#: app/templates/seller/account.html:66
+#: app/templates/seller/product_form.html:17
+#: app/templates/seller/product_form.html:41
+#: app/templates/seller/product_form.html:55
+#: app/templates/seller/product_form.html:65
 msgid "This field is required."
 msgstr "This field is required."
 
@@ -1325,6 +1548,7 @@ msgstr "Start your journey with NexHaat"
 #: app/templates/auth/_seller_application_panel.html:53
 #: app/templates/auth/accept_invitation.html:37
 #: app/templates/auth/account.html:56 app/templates/auth/reset_password.html:27
+#: app/templates/rider/account.html:58 app/templates/seller/account.html:64
 msgid "Confirm password"
 msgstr "Confirm password"
 
@@ -1352,10 +1576,12 @@ msgid ""
 msgstr ""
 
 #: app/templates/auth/_seller_application_panel.html:10
+#: app/templates/seller/account.html:15
 msgid "Store name"
 msgstr "Store name"
 
 #: app/templates/auth/_seller_application_panel.html:17
+#: app/templates/seller/account.html:25
 msgid "Contact name"
 msgstr "Contact name"
 
@@ -1380,8 +1606,8 @@ msgstr "Back to sign in"
 
 #: app/templates/auth/accept_invitation.html:2
 #: app/templates/auth/accept_invitation.html:49
-#: app/templates/email/account_invitation.html:3
-#: app/templates/email/account_invitation.html:7
+#: app/templates/email/account_invitation.html:2
+#: app/templates/email/account_invitation.html:5
 msgid "Accept invitation"
 msgstr ""
 
@@ -1391,7 +1617,8 @@ msgid "SECURE TEAM INVITATION"
 msgstr "Secure verification"
 
 #: app/templates/auth/accept_invitation.html:6
-#: app/templates/email/account_invitation.html:10
+#: app/templates/email/account_invitation.html:43
+#: app/templates/email/account_invitation.html:48
 #, fuzzy
 msgid "Set up your account"
 msgstr "Create your account"
@@ -1427,15 +1654,18 @@ msgstr "Profile image"
 msgid "Update your profile, address, and password."
 msgstr ""
 
-#: app/templates/auth/account.html:52
+#: app/templates/auth/account.html:52 app/templates/rider/account.html:44
+#: app/templates/seller/account.html:50
 msgid "Current password"
 msgstr "Current password"
 
-#: app/templates/auth/account.html:54
+#: app/templates/auth/account.html:54 app/templates/rider/account.html:50
+#: app/templates/seller/account.html:56
 msgid "New password"
 msgstr "New password"
 
 #: app/templates/auth/account.html:58 app/templates/auth/reset_password.html:41
+#: app/templates/rider/account.html:64 app/templates/seller/account.html:70
 msgid "Update password"
 msgstr "Update password"
 
@@ -1495,6 +1725,7 @@ msgstr "Forgot password"
 
 #: app/templates/auth/forgot_password.html:5
 #: app/templates/auth/reset_password.html:5
+#: app/templates/auth/verify_registration.html:8
 #: app/templates/auth/verify_reset_code.html:28
 msgid "Secure verification"
 msgstr "Secure verification"
@@ -1599,6 +1830,7 @@ msgstr "Verification code"
 
 #: app/templates/auth/verify_admin_login.html:35
 #: app/templates/auth/verify_admin_login.html:36
+#: app/templates/auth/verify_registration.html:15
 #: app/templates/auth/verify_reset_code.html:35
 #: app/templates/auth/verify_reset_code.html:37
 msgid "6-digit verification code"
@@ -1637,6 +1869,33 @@ msgstr "Sending…"
 msgid "Use a different email"
 msgstr ""
 
+#: app/templates/auth/verify_registration.html:2
+#, fuzzy
+msgid "Verify your email"
+msgstr "Check your email"
+
+#: app/templates/auth/verify_registration.html:9
+#: app/templates/auth/verify_reset_code.html:29
+msgid "Check your email"
+msgstr "Check your email"
+
+#: app/templates/auth/verify_registration.html:10
+#, fuzzy, python-format
+msgid "Enter the 6-digit code sent to %(email)s. It expires in 10 minutes."
+msgstr ""
+"Enter the 6-digit code sent to your customer email. It expires in 10 "
+"minutes."
+
+#: app/templates/auth/verify_registration.html:19
+#, fuzzy
+msgid "Verify and create account"
+msgstr "Create account"
+
+#: app/templates/auth/verify_registration.html:23
+#, fuzzy
+msgid "Resend verification code"
+msgstr "Send verification code"
+
 #: app/templates/auth/verify_reset_code.html:15
 msgid "Securely checking your code."
 msgstr ""
@@ -1652,10 +1911,6 @@ msgstr ""
 #: app/templates/auth/verify_reset_code.html:19
 msgid "The code is incorrect. Check it and try again."
 msgstr ""
-
-#: app/templates/auth/verify_reset_code.html:29
-msgid "Check your email"
-msgstr "Check your email"
 
 #: app/templates/auth/verify_reset_code.html:30
 #, fuzzy
@@ -1691,13 +1946,71 @@ msgstr "Customer"
 msgid "Local listing"
 msgstr ""
 
-#: app/templates/catalog/food.html:17
+#: app/templates/catalog/food.html:18
 msgid "Add to cart"
 msgstr ""
 
-#: app/templates/catalog/food.html:19
+#: app/templates/catalog/food.html:31
+msgid "♥ Saved"
+msgstr ""
+
+#: app/templates/catalog/food.html:31
+msgid "♡ Save to wishlist"
+msgstr ""
+
+#: app/templates/catalog/food.html:35
 #, python-format
 msgid "In stock: %(count)s"
+msgstr ""
+
+#: app/templates/catalog/food.html:42
+#, fuzzy
+msgid "CUSTOMER REVIEWS"
+msgstr "Customer removed."
+
+#: app/templates/catalog/food.html:43
+msgid "Ratings and reviews"
+msgstr ""
+
+#: app/templates/catalog/food.html:46
+#, fuzzy, python-format
+msgid "%(count)s reviews"
+msgstr "Account"
+
+#: app/templates/catalog/food.html:47
+#, fuzzy
+msgid "No reviews yet."
+msgstr "My orders"
+
+#: app/templates/catalog/food.html:55
+#, fuzzy
+msgid "Your rating"
+msgstr "Updating…"
+
+#: app/templates/catalog/food.html:57
+#, python-format
+msgid "%(value)s stars"
+msgstr ""
+
+#: app/templates/catalog/food.html:61
+msgid "Your review"
+msgstr ""
+
+#: app/templates/catalog/food.html:62
+msgid "Share your experience (optional)"
+msgstr ""
+
+#: app/templates/catalog/food.html:64
+msgid "Submit review"
+msgstr ""
+
+#: app/templates/catalog/food.html:67
+msgid "Sign in after a delivered order to review this product."
+msgstr ""
+
+#: app/templates/catalog/food.html:77
+#, python-format
+msgid "%(value)s out of 5 stars"
 msgstr ""
 
 #: app/templates/catalog/menu.html:6
@@ -1803,7 +2116,7 @@ msgid "Customer shortcuts"
 msgstr "Customer"
 
 #: app/templates/customer/dashboard.html:13 app/templates/orders/cart.html:30
-#: app/templates/orders/my_orders.html:9
+#: app/templates/orders/my_orders.html:9 app/templates/wishlist/index.html:23
 msgid "Explore marketplace"
 msgstr ""
 
@@ -1819,13 +2132,19 @@ msgstr ""
 msgid "Review saved items and continue to checkout."
 msgstr ""
 
+#: app/templates/email/account_invitation.html:3
 #: app/templates/email/account_invitation.html:8
 #: app/templates/email/account_invitation.txt:1
 #, python-format
 msgid "You have been invited to join the NexHaat team as %(role)s."
 msgstr ""
 
-#: app/templates/email/account_invitation.html:9
+#: app/templates/email/account_invitation.html:19
+#, fuzzy
+msgid "Assigned Role"
+msgstr "Sign in"
+
+#: app/templates/email/account_invitation.html:30
 #: app/templates/email/account_invitation.txt:2
 msgid ""
 "Use the secure link below to activate your Admin account. Admin sign-in "
@@ -1833,14 +2152,14 @@ msgid ""
 "only be used once."
 msgstr ""
 
-#: app/templates/email/account_invitation.html:9
+#: app/templates/email/account_invitation.html:32
 #: app/templates/email/account_invitation.txt:2
 msgid ""
 "Use the secure link below to create your account password. This "
 "invitation expires in 24 hours and can only be used once."
 msgstr ""
 
-#: app/templates/email/account_invitation.html:11
+#: app/templates/email/account_invitation.html:58
 #: app/templates/email/account_invitation.txt:6
 #, fuzzy
 msgid "If you were not expecting this invitation, you can ignore this email."
@@ -1848,15 +2167,34 @@ msgstr ""
 "This code expires in 10 minutes. If you did not request this, you can "
 "ignore this email."
 
+#: app/templates/email/admin_login_code.html:3
 #: app/templates/email/admin_login_code.html:8
 #: app/templates/email/admin_login_code.txt:4
 #, fuzzy
 msgid "Use this code to sign in to the NexHaat admin account:"
 msgstr "Use this code to create a new customer account password:"
 
-#: app/templates/email/admin_login_code.html:10
+#: app/templates/email/admin_login_code.html:30
+#: app/templates/email/password_reset_code.html:30
+msgid "Expires in 10 minutes"
+msgstr ""
+
+#: app/templates/email/admin_login_code.html:33
+#, fuzzy
+msgid "Secure Vault"
+msgstr "Secure verification"
+
+#: app/templates/email/admin_login_code.html:38
+#: app/templates/email/password_reset_code.html:38
+#, fuzzy
+msgid ""
+"Select the code above to copy it. This code expires in 10 minutes. If you"
+" did not request this, you can ignore this email."
+msgstr ""
+"This code expires in 10 minutes. If you did not request this, you can "
+"ignore this email."
+
 #: app/templates/email/admin_login_code.txt:8
-#: app/templates/email/password_reset_code.html:10
 #: app/templates/email/password_reset_code.txt:8
 msgid ""
 "This code expires in 10 minutes. If you did not request this, you can "
@@ -1865,85 +2203,160 @@ msgstr ""
 "This code expires in 10 minutes. If you did not request this, you can "
 "ignore this email."
 
-#: app/templates/email/admin_order.html:3
-#: app/templates/email/admin_order.html:7 app/templates/email/admin_order.txt:3
+#: app/templates/email/admin_order.html:2
+#: app/templates/email/admin_order.html:5 app/templates/email/admin_order.txt:3
 msgid "New order received"
 msgstr ""
 
+#: app/templates/email/admin_order.html:3
 #: app/templates/email/admin_order.html:8 app/templates/email/admin_order.txt:4
 #, python-format
 msgid "Order %(number)s from %(name)s (%(phone)s)."
 msgstr ""
 
-#: app/templates/email/admin_order.html:24
+#: app/templates/email/admin_order.html:47
+#: app/templates/email/order_pending.html:47
+#: app/templates/email/order_receipt.html:58
+#, fuzzy
+msgid "Delivery Destination"
+msgstr "Email address"
+
+#: app/templates/email/admin_order.html:54
+#, fuzzy
+msgid "Customer Email"
+msgstr "Customer"
+
+#: app/templates/email/admin_order.html:61
+msgid ""
+"Operations notification: review incoming order in your Admin operations "
+"console."
+msgstr ""
+
 #: app/templates/email/admin_order.txt:10
-#: app/templates/email/order_pending.html:24
 #: app/templates/email/order_pending.txt:10
 #, fuzzy, python-format
 msgid "Delivery address: %(address)s"
 msgstr "Email address"
 
-#: app/templates/email/admin_order.html:25
 #: app/templates/email/admin_order.txt:11
 #, fuzzy, python-format
 msgid "Customer email: %(email)s"
 msgstr "Customer"
 
-#: app/templates/email/order_pending.html:3
-#: app/templates/email/order_pending.html:7
+#: app/templates/email/base.html:169
+msgid "You are receiving this email because of activity on your NexHaat account."
+msgstr ""
+
+#: app/templates/email/order_pending.html:2
+#: app/templates/email/order_pending.html:5
 #: app/templates/email/order_pending.txt:3
 msgid "We received your order"
 msgstr ""
 
+#: app/templates/email/order_pending.html:3
 #: app/templates/email/order_pending.html:8
 #: app/templates/email/order_pending.txt:4
 #, python-format
 msgid "Thank you, %(name)s. Your order %(number)s is pending confirmation."
 msgstr ""
 
-#: app/templates/email/order_pending.html:25
+#: app/templates/email/order_pending.html:54
 #: app/templates/email/order_pending.txt:11
 msgid ""
 "Payment method: cash on delivery. We will email you again once your order"
 " is confirmed."
 msgstr ""
 
-#: app/templates/email/order_receipt.html:3
-#: app/templates/email/order_receipt.html:7
+#: app/templates/email/order_receipt.html:2
+#: app/templates/email/order_receipt.html:5
 #: app/templates/email/order_receipt.txt:3
 #, fuzzy
 msgid "Your NexHaat receipt"
 msgstr "Your NexHaat password reset code"
 
+#: app/templates/email/order_receipt.html:3
 #: app/templates/email/order_receipt.html:8
 #: app/templates/email/order_receipt.txt:4
 #, python-format
 msgid "Thank you, %(name)s. Here is the receipt for order %(number)s."
 msgstr ""
 
-#: app/templates/email/order_receipt.html:24
+#: app/templates/email/order_receipt.html:11
+#, fuzzy, python-format
+msgid "Placed on %(date)s"
+msgstr "Sending…"
+
+#: app/templates/email/order_receipt.html:65
 #: app/templates/email/order_receipt.txt:10
 msgid "Your invoice is attached to this email as a PDF."
 msgstr ""
 
-#: app/templates/email/order_status.html:3
-#: app/templates/email/order_status.html:7
+#: app/templates/email/order_status.html:2
+#: app/templates/email/order_status.html:5
 #: app/templates/email/order_status.txt:3
 #, fuzzy
 msgid "Order update"
 msgstr "My orders"
 
+#: app/templates/email/order_status.html:3
 #: app/templates/email/order_status.html:8
 #: app/templates/email/order_status.txt:4
 #, python-format
 msgid "Hello %(name)s, your order %(number)s is now %(status)s."
 msgstr ""
 
+#: app/templates/email/order_status.html:16
+#: app/templates/orders/my_orders.html:6
+msgid "Placed"
+msgstr ""
+
+#: app/templates/email/order_status.html:22
+#, fuzzy
+msgid "Confirmed"
+msgstr "Confirm password"
+
+#: app/templates/email/order_status.html:28
+msgid "On Way"
+msgstr ""
+
+#: app/templates/email/order_status.html:34
+#, fuzzy
+msgid "Delivered"
+msgstr "Email address"
+
+#: app/templates/email/password_reset_code.html:3
 #: app/templates/email/password_reset_code.html:8
 #: app/templates/email/password_reset_code.txt:4
 #, fuzzy
 msgid "Use this code to create a new NexHaat account password:"
 msgstr "Use this code to create a new customer account password:"
+
+#: app/templates/email/password_reset_code.html:33
+msgid "One-Time Code"
+msgstr ""
+
+#: app/templates/email/registration_code.html:3
+#, fuzzy
+msgid "Use this code to verify your NexHaat account:"
+msgstr "Use this code to create a new customer account password:"
+
+#: app/templates/email/registration_code.html:4
+#, fuzzy
+msgid "Verify your NexHaat account"
+msgstr "Your NexHaat password reset code"
+
+#: app/templates/email/registration_code.html:7
+msgid "Enter this code to finish creating your customer or seller account:"
+msgstr ""
+
+#: app/templates/email/registration_code.html:13
+#, fuzzy
+msgid ""
+"This code expires in 10 minutes. If you did not request an account, you "
+"can ignore this email."
+msgstr ""
+"This code expires in 10 minutes. If you did not request this, you can "
+"ignore this email."
 
 #: app/templates/errors/404.html:2 app/templates/errors/404.html:7
 msgid "Page not found"
@@ -1960,6 +2373,32 @@ msgstr "Return to home"
 #: app/templates/errors/500.html:2 app/templates/errors/500.html:7
 msgid "An unexpected error occurred. Please try again later."
 msgstr "An unexpected error occurred. Please try again later."
+
+#: app/templates/notifications/index.html:7
+#: app/templates/orders/my_orders.html:5
+msgid "Your NexHaat activity"
+msgstr ""
+
+#: app/templates/notifications/index.html:9
+msgid "Order, delivery, and account updates appear here."
+msgstr ""
+
+#: app/templates/notifications/index.html:14
+msgid "Mark all as read"
+msgstr ""
+
+#: app/templates/notifications/index.html:35
+msgid "Mark as read"
+msgstr ""
+
+#: app/templates/notifications/index.html:43
+#, fuzzy
+msgid "No notifications yet"
+msgstr "Send verification code"
+
+#: app/templates/notifications/index.html:44
+msgid "We will let you know when your orders and account change."
+msgstr ""
 
 #: app/templates/orders/cart.html:5
 msgid "Ready when you are"
@@ -2088,15 +2527,7 @@ msgid "View my orders"
 msgstr "My orders"
 
 #: app/templates/orders/my_orders.html:5
-msgid "Your NexHaat activity"
-msgstr ""
-
-#: app/templates/orders/my_orders.html:5
 msgid "Keep track of recent purchases and delivery updates."
-msgstr ""
-
-#: app/templates/orders/my_orders.html:6
-msgid "Placed"
 msgstr ""
 
 #: app/templates/orders/my_orders.html:9
@@ -2186,9 +2617,38 @@ msgid ""
 "rider operations phase."
 msgstr ""
 
-#: app/templates/portals/dashboard.html:20
+#: app/templates/portals/dashboard.html:20 app/templates/rider/account.html:29
 msgid "Availability"
 msgstr ""
+
+#: app/templates/rider/account.html:2 app/templates/rider/account.html:6
+#, fuzzy
+msgid "Rider account"
+msgstr "Create account"
+
+#: app/templates/rider/account.html:7
+msgid "Keep your contact details and availability up to date for dispatch."
+msgstr ""
+
+#: app/templates/rider/account.html:35 app/templates/seller/account.html:41
+#, fuzzy
+msgid "Saving…"
+msgstr "Sending…"
+
+#: app/templates/rider/account.html:35
+#, fuzzy
+msgid "Save rider details"
+msgstr "My orders"
+
+#: app/templates/rider/account.html:36 app/templates/seller/account.html:42
+#, fuzzy
+msgid "Back to dashboard"
+msgstr "Customer"
+
+#: app/templates/rider/account.html:40 app/templates/seller/account.html:46
+#, fuzzy
+msgid "Change password"
+msgstr "New password"
 
 #: app/templates/rider/dashboard.html:2
 #, fuzzy
@@ -2262,6 +2722,31 @@ msgstr ""
 #: app/templates/rider/dashboard.html:53
 msgid "Completed deliveries will appear here."
 msgstr ""
+
+#: app/templates/seller/account.html:2 app/templates/seller/account.html:6
+#, fuzzy
+msgid "Seller account"
+msgstr "Create your account"
+
+#: app/templates/seller/account.html:5
+msgid "Seller"
+msgstr ""
+
+#: app/templates/seller/account.html:7
+msgid ""
+"Keep your store contact details current. Admin controls your approval "
+"status."
+msgstr ""
+
+#: app/templates/seller/account.html:37
+#, fuzzy
+msgid "Business address"
+msgstr "Business address (optional)"
+
+#: app/templates/seller/account.html:41
+#, fuzzy
+msgid "Save store details"
+msgstr "My orders"
 
 #: app/templates/seller/catalog.html:2 app/templates/seller/product_form.html:6
 msgid "Seller catalog"
@@ -2352,58 +2837,82 @@ msgstr ""
 msgid "Every new listing and edit is reviewed before customers can see it."
 msgstr ""
 
-#: app/templates/seller/product_form.html:11
-msgid "Use lowercase letters, numbers, and hyphens."
+#: app/templates/seller/product_form.html:10
+msgid ""
+"No active category exists yet, so a product cannot be published. Ask an "
+"Admin to create a category first."
 msgstr ""
 
-#: app/templates/seller/product_form.html:12
+#: app/templates/seller/product_form.html:18
+#, fuzzy, python-format
+msgid "Use at least %(minimum)s characters."
+msgstr "Password must contain at least %(minimum)s characters."
+
+#: app/templates/seller/product_form.html:26
+msgid "Optional. Leave blank and we will build it from the product name."
+msgstr ""
+
+#: app/templates/seller/product_form.html:31
+msgid "Choose a category."
+msgstr ""
+
+#: app/templates/seller/product_form.html:31
 msgid "Choose a category"
 msgstr ""
 
-#: app/templates/seller/product_form.html:13
+#: app/templates/seller/product_form.html:35
 #, fuzzy
 msgid "Original language"
 msgstr "Apply language"
 
-#: app/templates/seller/product_form.html:16
+#: app/templates/seller/product_form.html:50
+msgid "Must be lower than the regular price."
+msgstr ""
+
+#: app/templates/seller/product_form.html:53
 msgid "Available stock"
 msgstr ""
 
-#: app/templates/seller/product_form.html:17
+#: app/templates/seller/product_form.html:59
 #, fuzzy
 msgid "Product image (optional)"
 msgstr "Business address (optional)"
 
-#: app/templates/seller/product_form.html:17
+#: app/templates/seller/product_form.html:59
 msgid ""
 "JPEG, PNG, or WEBP. Maximum 3 MB. Images are scanned and checked before "
 "storage."
 msgstr ""
 
-#: app/templates/seller/product_form.html:18
+#: app/templates/seller/product_form.html:60
 msgid "Remove current image"
 msgstr ""
 
-#: app/templates/seller/product_form.html:23
+#: app/templates/seller/product_form.html:70
 msgid "Optional seller-written translations"
 msgstr ""
 
-#: app/templates/seller/product_form.html:23
+#: app/templates/seller/product_form.html:70
 msgid ""
 "We do not machine-translate product details. Leave a language blank to "
 "show the original text with its language label."
 msgstr ""
 
-#: app/templates/seller/product_form.html:26
+#: app/templates/seller/product_form.html:73
 #, fuzzy
 msgid "Translated name"
 msgstr "Store name"
 
-#: app/templates/seller/product_form.html:27
+#: app/templates/seller/product_form.html:74
 msgid "Translated description"
 msgstr ""
 
-#: app/templates/seller/product_form.html:31
+#: app/templates/seller/product_form.html:78
+#, fuzzy
+msgid "Submitting…"
+msgstr "Updating…"
+
+#: app/templates/seller/product_form.html:78
 msgid "Send for Admin review"
 msgstr ""
 
@@ -2484,6 +2993,26 @@ msgstr ""
 #, fuzzy
 msgid "No variants added yet."
 msgstr "My orders"
+
+#: app/templates/wishlist/index.html:7
+msgid "Saved for later"
+msgstr ""
+
+#: app/templates/wishlist/index.html:8
+msgid "Your wishlist"
+msgstr ""
+
+#: app/templates/wishlist/index.html:9
+msgid "Keep products here and move them to your cart when you are ready."
+msgstr ""
+
+#: app/templates/wishlist/index.html:21
+msgid "Your wishlist is empty"
+msgstr ""
+
+#: app/templates/wishlist/index.html:22
+msgid "Save products you like and they will appear here."
+msgstr ""
 
 #~ msgid "Invalid admin email or password."
 #~ msgstr "Invalid admin email or password."
@@ -2772,5 +3301,8 @@ msgstr "My orders"
 #~ "Delivery assignments and handoff updates "
 #~ "will appear here when rider operations"
 #~ " are enabled."
+#~ msgstr ""
+
+#~ msgid "Use lowercase letters, numbers, and hyphens."
 #~ msgstr ""
 

@@ -46,6 +46,26 @@
     [160, 480, 1000].forEach((delay) => window.setTimeout(() => syncFloatingField(field, control), delay));
   });
 
+  // Fill an optional slug field from its source field while the user has not typed one.
+  document.querySelectorAll("[data-slug-source]").forEach((source) => {
+    const target = document.getElementById(source.dataset.slugSource);
+    if (!target) return;
+    let touched = Boolean(target.value);
+    target.addEventListener("input", () => { touched = true; });
+    const sync = () => {
+      if (touched) return;
+      target.value = source.value
+        .normalize("NFKD")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "")
+        .slice(0, 180);
+    };
+    source.addEventListener("input", sync);
+    source.addEventListener("blur", sync);
+    sync();
+  });
+
   if (!reducedMotion.matches && finePointer.matches) {
     document.querySelectorAll(".product-card, .category-tile, .stat-card, .workspace-card").forEach((card) => {
       card.setAttribute("data-3d-tilt", "true");

@@ -1,10 +1,37 @@
 from pathlib import Path
 
 from flask import current_app, url_for
+from flask_babel import gettext
 from sqlalchemy import select
 
 from ..extensions import db
 from ..models import CustomerProfile, Order
+
+
+def password_change_error(user, current_password, password, confirmation):
+    """Validate a self-service password change; return an error message or None.
+
+    Shared by the customer, seller, and rider account pages so the rules and
+    wording stay identical everywhere.
+    """
+    if not user.check_password(current_password):
+        return gettext("Your current password is incorrect.")
+    minimum = current_app.config["MIN_PASSWORD_LENGTH"]
+    maximum = current_app.config["MAX_PASSWORD_LENGTH"]
+    if len(password) < minimum:
+        return gettext("Password must contain at least %(minimum)s characters.", minimum=minimum)
+    if len(password) > maximum:
+        return gettext("Password must contain no more than %(maximum)s characters.", maximum=maximum)
+    if password != confirmation:
+        return gettext("Passwords do not match.")
+    return None
+
+
+def apply_password_change(user, password):
+    """Store a new password, revoke other sessions, and clear the current session."""
+    user.set_password(password)
+    user.auth_version += 1
+    db.session.commit()
 
 
 def ensure_customer_profile(user):

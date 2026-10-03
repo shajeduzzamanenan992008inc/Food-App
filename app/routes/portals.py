@@ -12,10 +12,16 @@ from sqlalchemy.orm import selectinload
 
 from ..extensions import db
 from ..models import (
-    AccountInvitation, AuditEvent, Order, Product, SellerProfile, User, delivery_transition_valid,
+    AccountInvitation, AuditEvent, Order, Product, Review, SellerProfile, User, delivery_transition_valid,
 )
-from ..services.profiles import customer_profile_image_url, ensure_customer_profile
+from ..services.profiles import (
+    apply_password_change,
+    customer_profile_image_url,
+    ensure_customer_profile,
+    password_change_error,
+)
 from ..services.audit import record_audit
+from ..services.notifications import notify
 from ..security import (
     admin_required, customer_required, current_session_user, role_required, save_raster_upload,
 )
@@ -35,6 +41,63 @@ def dashboard():
         "customer/dashboard.html", user=user, profile=profile,
         profile_image_url=customer_profile_image_url(profile),
     )
+
+
+RIDER_AVAILABILITY_CHOICES = ("offline", "available", "busy")
+
+
+def _rider_account_payload():
+    full_name = request.form.get("full_name", "").strip()
+    phone = request.form.get("phone", "").strip()
+    availability = request.form.get("availability_status", "").strip()
+    if not 2 <= len(full_name) <= 120 or not 7 <= len(phone) <= 30:
+        return None, gettext("Please provide a valid name and phone number.")
+    if availability not in RIDER_AVAILABILITY_CHOICES:
+        return None, gettext("Choose a valid availability status.")
+    return (full_name, phone, availability), None
+
+
+@rider_bp.route("/account", methods=["GET", "POST"])
+@role_required("rider")
+def account():
+    user = current_session_user("rider")
+    profile = user.rider_profile
+    if profile is None:
+        abort(403)
+    if request.method == "POST":
+        payload, error = _rider_account_payload()
+        if error:
+            flash(error, "error")
+        else:
+            profile.full_name, profile.phone, profile.availability_status = payload
+            db.session.commit()
+            flash(gettext("Your rider profile was updated."), "success")
+            return redirect(url_for("rider.account"))
+    return render_template(
+        "rider/account.html",
+        user=user,
+        profile=profile,
+        availability_choices=RIDER_AVAILABILITY_CHOICES,
+    )
+
+
+@rider_bp.post("/account/password")
+@role_required("rider")
+def change_password():
+    user = current_session_user("rider")
+    error = password_change_error(
+        user,
+        request.form.get("current_password", ""),
+        request.form.get("password", ""),
+        request.form.get("password_confirmation", ""),
+    )
+    if error:
+        flash(error, "error")
+        return redirect(url_for("rider.account"))
+    apply_password_change(user, request.form.get("password", ""))
+    session.clear()
+    flash(gettext("Your password was changed. Sign in again on this device."), "success")
+    return redirect(url_for("auth.login"))
 
 
 @rider_bp.get("/dashboard")
@@ -108,6 +171,13 @@ def update_delivery(order_id):
     order.delivery_status = target
     db.session.commit()
     record_audit("delivery.update", target_type="order", target_id=order.id, detail=target)
+    if target == "delivered" and order.user_id:
+        notify(
+            order.user_id,
+            gettext("Order %(number)s was delivered.", number=order.order_number),
+            type="delivery",
+            link=url_for("orders.confirmation", order_number=order.order_number),
+        )
     flash(gettext("Delivery status updated."), "success")
     return redirect(url_for("rider.dashboard"))
 
@@ -166,6 +236,16 @@ def dashboard():
             select(func.count(Product.id)).where(
                 Product.seller_id.is_not(None), Product.moderation_status == "pending"
             )
+        ) or 0,
+        pending_reviews=db.session.scalars(
+            select(Review)
+            .options(selectinload(Review.product))
+            .where(Review.status == "pending")
+            .order_by(Review.created_at.asc())
+            .limit(100)
+        ).all(),
+        pending_review_count=db.session.scalar(
+            select(func.count(Review.id)).where(Review.status == "pending")
         ) or 0,
         invitations=db.session.scalars(
             select(AccountInvitation)

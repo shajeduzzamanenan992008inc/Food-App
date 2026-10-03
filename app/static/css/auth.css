@@ -235,6 +235,7 @@ button, select { cursor: pointer; }
 .password-control input { padding-inline-end: 54px; }
 .password-toggle {
   position: absolute;
+  z-index: 2;
   inset-block: 0;
   inset-inline-end: 7px;
   display: grid;
@@ -244,6 +245,7 @@ button, select { cursor: pointer; }
   border-radius: 10px;
   background: transparent;
   color: var(--auth-muted);
+  cursor: pointer;
 }
 .password-toggle:hover:not(:disabled) { color: var(--auth-accent-deep); background: var(--auth-accent-soft); }
 .password-toggle:disabled { cursor: not-allowed; opacity: 0.55; }
@@ -768,3 +770,6 @@ body.auth-body .auth-main { perspective: 1600px; }
   .auth-main.auth-page-flip-out .auth-card,
   .auth-main.auth-page-flip-out .simple-auth-card { animation: none !important; }
 }
+
+.admin-table-actions { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.admin-button--small { min-height: 32px; padding: 4px 10px; font-size: 0.78rem; border-radius: 8px; cursor: pointer; }

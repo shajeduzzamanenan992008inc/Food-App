@@ -6,7 +6,8 @@ import zlib
 from pathlib import Path
 
 from app.models import (
-    AccountInvitation, AdminLoginChallenge, AdminProfile, CustomerAddress, CustomerProfile,
+    AccountInvitation, AdminLoginChallenge, AdminProfile, Category, CustomerAddress, CustomerProfile,
+    Product,
     RiderProfile, SellerProfile, User,
 )
 from unittest.mock import patch
@@ -26,20 +27,36 @@ def tiny_png():
 
 
 def test_customer_can_register_and_login(client, app):
-    client.application.config["WTF_CSRF_ENABLED"] = False
-    response = client.post(
-        "/auth/register",
-        data={
-            "full_name": "Test Customer",
-            "phone": "01234567890",
-            "email": "test@example.com",
-            "password": "password123",
-            "password_confirmation": "password123",
-            "locale": "bn_BD",
-        },
-        follow_redirects=True,
+    client.application.config.update(
+        WTF_CSRF_ENABLED=False,
+        BREVO_API_KEY="test-key",
+        MAIL_DEFAULT_SENDER="noreply@example.com",
     )
-    assert response.status_code == 200
+    with patch("app.routes.auth.secrets.randbelow", return_value=123456), patch(
+        "app.routes.auth.queue_registration_code"
+    ):
+        response = client.post(
+            "/auth/register",
+            data={
+                "full_name": "Test Customer",
+                "phone": "01234567890",
+                "email": "test@example.com",
+                "password": "password123",
+                "password_confirmation": "password123",
+                "locale": "bn_BD",
+            },
+        )
+        assert response.status_code == 302
+        assert response.headers["Location"].endswith("/auth/verify-registration")
+        with app.app_context():
+            assert db.session.query(User).filter_by(email="test@example.com").first() is None
+        wrong_code = client.post("/auth/verify-registration", data={"code": "000000"})
+        assert wrong_code.status_code == 200
+        with app.app_context():
+            assert db.session.query(User).filter_by(email="test@example.com").first() is None
+        response = client.post("/auth/verify-registration", data={"code": "123456"})
+    assert response.status_code == 302
+    assert response.headers["Location"].endswith("/auth/login")
     with app.app_context():
         user = db.session.query(User).filter_by(email="test@example.com").one()
         assert user.role == "customer"
@@ -417,20 +434,31 @@ def test_password_reset_ajax_accepts_valid_code_and_opens_new_password_page(clie
 
 
 def test_seller_application_waits_for_admin_review(client, app, login_admin):
-    client.application.config["WTF_CSRF_ENABLED"] = False
-    response = client.post(
-        "/auth/seller-application",
-        data={
-            "store_name": "Green Basket",
-            "contact_name": "Sadia Seller",
-            "phone": "01712345678",
-            "business_address": "Dhaka",
-            "email": "seller@example.com",
-            "password": "password123",
-            "password_confirmation": "password123",
-            "locale": "bn_BD",
-        },
+    client.application.config.update(
+        WTF_CSRF_ENABLED=False,
+        BREVO_API_KEY="test-key",
+        MAIL_DEFAULT_SENDER="noreply@example.com",
     )
+    with patch("app.routes.auth.secrets.randbelow", return_value=654321), patch(
+        "app.routes.auth.queue_registration_code"
+    ):
+        response = client.post(
+            "/auth/seller-application",
+            data={
+                "store_name": "Green Basket",
+                "contact_name": "Sadia Seller",
+                "phone": "01712345678",
+                "business_address": "Dhaka",
+                "email": "seller@example.com",
+                "password": "password123",
+                "password_confirmation": "password123",
+                "locale": "bn_BD",
+            },
+        )
+        assert response.status_code == 302
+        with app.app_context():
+            assert db.session.query(User).filter_by(email="seller@example.com").first() is None
+        response = client.post("/auth/verify-registration", data={"code": "654321"})
     assert response.status_code == 302
     with app.app_context():
         user = db.session.query(User).filter_by(email="seller@example.com").one()
@@ -438,6 +466,10 @@ def test_seller_application_waits_for_admin_review(client, app, login_admin):
         assert user.seller_profile.approval_status == "pending"
         seller_id = user.id
         seller_profile_id = user.seller_profile.id
+        category = Category(name="Seller test goods", slug="seller-test-goods", is_active=True)
+        db.session.add(category)
+        db.session.commit()
+        category_id = category.id
     response = client.post("/auth/login", data={"email": "seller@example.com", "password": "password123"})
     assert response.status_code == 302
     assert response.headers["Location"].endswith("/seller/dashboard")
@@ -462,6 +494,25 @@ def test_seller_application_waits_for_admin_review(client, app, login_admin):
     with app.app_context():
         profile = db.session.get(User, seller_id).seller_profile
         assert profile.approval_status == "approved"
+
+    client.post("/auth/login", data={"email": "seller@example.com", "password": "password123"})
+    upload = client.post(
+        "/seller/products/new",
+        data={
+            "name": "Seller Test Mango",
+            "category_id": str(category_id),
+            "original_locale": "bn_BD",
+            "price": "12.50",
+            "stock_quantity": "8",
+            "description": "Fresh mango submitted by the verified seller.",
+        },
+    )
+    assert upload.status_code == 302
+    with app.app_context():
+        product = db.session.query(Product).filter_by(slug="seller-test-mango").one()
+        assert product.seller_id == seller_id
+        assert product.moderation_status == "pending"
+        assert product.is_available is False
 
 
 def test_admin_invited_rider_uses_expiring_single_use_setup_link(client, app, login_admin):

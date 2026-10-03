@@ -26,8 +26,21 @@ def csrf_off(client):
     client.application.config["WTF_CSRF_ENABLED"] = False
 
 
+def login_customer(client, app, email="cart-customer@example.com"):
+    customer = User(email=email, role="customer")
+    customer.set_password("password123")
+    customer.customer_profile = CustomerProfile(full_name="Cart Customer", phone="01234567890")
+    with app.app_context():
+        db.session.add(customer)
+        db.session.commit()
+    response = client.post("/auth/login", data={"email": email, "password": "password123"})
+    assert response.status_code == 302
+    return customer
+
+
 def test_cart_and_checkout_create_order(client, app):
     csrf_off(client)
+    login_customer(client, app)
     item = product()
     client.post(f"/cart/add/{item.id}", data={"quantity": "2"})
     response = client.get("/cart")
@@ -50,6 +63,7 @@ def test_cart_and_checkout_create_order(client, app):
 
 def test_cart_update_remove_and_unavailable_item(client, app):
     csrf_off(client)
+    login_customer(client, app)
     item = product()
     client.post(f"/cart/add/{item.id}", data={"quantity": "1"})
     client.post("/cart/update", data={f"quantity_{item.id}": "3"})
@@ -82,13 +96,30 @@ def test_signed_in_customer_checkout_is_prefilled_and_uses_account_email(client,
     assert order.email == "prefill@example.com"
 
 
-def test_guest_checkout_requires_and_saves_email(client, app):
+def test_only_customers_can_access_cart_and_checkout(client, app):
     csrf_off(client)
     item = product()
-    client.post(f"/cart/add/{item.id}", data={"quantity": "1"})
-    response = client.post("/checkout", data={"customer_name": "Guest User", "phone": "01234567890", "address": "12 Main Street", "email": "guest@example.com", "payment_method": "cod"})
-    assert response.status_code == 302
-    assert db.session.query(Order).one().email == "guest@example.com"
+    guest_add = client.post(f"/cart/add/{item.id}", data={"quantity": "1"})
+    assert guest_add.status_code == 302
+    assert guest_add.headers["Location"].startswith("/auth/login?next=")
+    assert client.get("/cart").status_code == 302
+    assert client.post("/checkout").status_code == 302
+    assert db.session.query(Order).count() == 0
+
+    seller = User(email="cart-seller@example.com", role="seller")
+    seller.set_password("password123")
+    seller.seller_profile = SellerProfile(
+        store_name="Seller Store", contact_name="Seller", phone="01234567890",
+        approval_status="approved",
+    )
+    db.session.add(seller)
+    db.session.commit()
+    assert client.post(
+        "/auth/login", data={"email": seller.email, "password": "password123"}
+    ).status_code == 302
+    assert client.get("/cart").status_code == 403
+    assert client.post(f"/cart/add/{item.id}").status_code == 403
+    assert client.post("/checkout").status_code == 403
 
 
 def test_admin_can_change_order_status(client, app, login_admin):
@@ -105,6 +136,8 @@ def test_admin_can_change_order_status(client, app, login_admin):
 def test_admin_page_is_protected_and_invalid_quantity_is_safe(client):
     csrf_off(client)
     assert client.get("/admin").status_code == 403
+    assert client.get("/cart").status_code == 302
+    login_customer(client, client.application)
     client.post("/cart/update", data={"quantity_invalid": "not-a-number"})
     assert client.get("/cart").status_code == 200
 
@@ -181,6 +214,7 @@ def make_seller_product(email, name, slug, price="10.00"):
 
 def test_checkout_splits_a_multi_seller_cart_into_sub_orders(client, app):
     csrf_off(client)
+    login_customer(client, app, email="split-customer@example.com")
     first = make_seller_product("split-seller-one@example.com", "Seller One Dish", "seller-one-dish")
     second = make_seller_product("split-seller-two@example.com", "Seller Two Dish", "seller-two-dish")
     client.post(f"/cart/add/{first.id}", data={"quantity": "1"})

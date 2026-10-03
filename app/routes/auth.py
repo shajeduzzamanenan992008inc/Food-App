@@ -16,6 +16,7 @@ from ..extensions import db
 from ..i18n import SUPPORTED_LOCALES
 from ..models import (
     AccountInvitation, AdminLoginChallenge, AdminProfile, CustomerAddress, CustomerProfile,
+    RegistrationChallenge,
     RiderProfile, SellerProfile, User,
 )
 from ..services.profiles import customer_profile_image_url, ensure_customer_profile
@@ -33,6 +34,7 @@ from ..security import (
 from ..services.audit import record_audit
 from ..services.mail import (
     queue_account_invitation, queue_admin_login_code, queue_password_reset_code,
+    queue_registration_code,
 )
 
 
@@ -103,7 +105,6 @@ def _staff_email_ready():
 def register():
     if request.method == "POST":
         _capture_request_locale()
-        previous_challenge_id = session.pop("admin_login_challenge_id", None)
         email = request.form.get("email", "").strip().lower()
         full_name = request.form.get("full_name", "").strip()
         phone = request.form.get("phone", "").strip()
@@ -123,18 +124,16 @@ def register():
             flash(gettext("Passwords do not match."), "error")
         elif db.session.scalar(select(User).where(User.email == email)):
             flash(gettext("An account with this email already exists."), "error")
+        elif not _staff_email_ready():
+            flash(gettext("Account verification is unavailable until email delivery is configured."), "error")
         else:
-            user = User(
+            challenge = _create_registration_challenge(
                 email=email,
                 role="customer",
-                preferred_locale=session.get("locale") if session.get("locale") in SUPPORTED_LOCALES else None,
+                password=password,
+                profile_data={"full_name": full_name, "phone": phone},
             )
-            user.set_password(password)
-            user.customer_profile = CustomerProfile(full_name=full_name, phone=phone)
-            db.session.add(user)
-            db.session.commit()
-            flash(gettext("Account created. You can now sign in."), "success")
-            return redirect(url_for("auth.login"))
+            return _registration_started(challenge)
     return render_template("auth/register.html")
 
 
@@ -163,25 +162,147 @@ def seller_application():
             flash(gettext("Passwords do not match."), "error")
         elif db.session.scalar(select(User).where(User.email == email)):
             flash(gettext("An account with this email already exists."), "error")
+        elif not _staff_email_ready():
+            flash(gettext("Account verification is unavailable until email delivery is configured."), "error")
         else:
-            user = User(
+            challenge = _create_registration_challenge(
                 email=email,
                 role="seller",
-                preferred_locale=session.get("locale") if session.get("locale") in SUPPORTED_LOCALES else None,
+                password=password,
+                profile_data={
+                    "store_name": store_name,
+                    "contact_name": contact_name,
+                    "phone": phone,
+                    "business_address": business_address or None,
+                },
             )
-            user.set_password(password)
-            user.seller_profile = SellerProfile(
-                store_name=store_name,
-                contact_name=contact_name,
-                phone=phone,
-                business_address=business_address or None,
-                approval_status="pending",
+            return _registration_started(challenge)
+    return render_template("auth/seller_application.html")
+
+
+REGISTRATION_CODE_TTL = timedelta(minutes=10)
+REGISTRATION_CODE_RESEND_SECONDS = 60
+REGISTRATION_CODE_MAX_ATTEMPTS = 5
+
+
+def _create_registration_challenge(email, role, password, profile_data):
+    now = datetime.now(timezone.utc)
+    db.session.execute(
+        delete(RegistrationChallenge).where(
+            (RegistrationChallenge.expires_at < now)
+            | RegistrationChallenge.consumed_at.is_not(None)
+        )
+    )
+    code = f"{secrets.randbelow(1_000_000):06d}"
+    challenge = RegistrationChallenge(
+        id=secrets.token_urlsafe(32),
+        email=email,
+        role=role,
+        password_hash=generate_password_hash(password),
+        profile_data=profile_data,
+        locale=session.get("locale") if session.get("locale") in SUPPORTED_LOCALES else None,
+        code_hash=_reset_code_digest(code),
+        sent_at=now,
+        expires_at=now + REGISTRATION_CODE_TTL,
+    )
+    db.session.add(challenge)
+    db.session.commit()
+    session["registration_challenge_id"] = challenge.id
+    queue_registration_code(email, code, locale=challenge.locale)
+    return challenge
+
+
+def _registration_started(challenge):
+    flash(gettext("A verification code was sent to your email address."), "success")
+    return redirect(url_for("auth.verify_registration"))
+
+
+def _registration_challenge():
+    challenge_id = session.get("registration_challenge_id")
+    if not isinstance(challenge_id, str) or not challenge_id or len(challenge_id) > 64:
+        return None
+    return db.session.get(RegistrationChallenge, challenge_id)
+
+
+@auth_bp.route("/verify-registration", methods=["GET", "POST"])
+def verify_registration():
+    challenge = _registration_challenge()
+    now = datetime.now(timezone.utc)
+    expires = _as_utc(challenge.expires_at) if challenge else None
+    active = bool(challenge and challenge.consumed_at is None and expires and expires >= now)
+    if not active:
+        if challenge:
+            db.session.delete(challenge)
+            db.session.commit()
+        session.pop("registration_challenge_id", None)
+        flash(gettext("This registration code is invalid or has expired."), "error")
+        return redirect(url_for("auth.register"))
+
+    if request.method == "POST":
+        _capture_request_locale()
+        code = request.form.get("code", "").strip()
+        digest = _reset_code_digest(code)
+        if not re.fullmatch(r"[0-9]{6}", code) or not hmac.compare_digest(digest, challenge.code_hash):
+            challenge.failed_attempts += 1
+            locked = challenge.failed_attempts >= REGISTRATION_CODE_MAX_ATTEMPTS
+            if locked:
+                db.session.delete(challenge)
+                session.pop("registration_challenge_id", None)
+            db.session.commit()
+            if locked:
+                flash(gettext("Too many incorrect codes. Start registration again."), "error")
+                return redirect(url_for("auth.register"))
+            flash(gettext("The verification code is incorrect."), "error")
+        elif db.session.scalar(select(User.id).where(User.email == challenge.email)):
+            db.session.delete(challenge)
+            db.session.commit()
+            session.pop("registration_challenge_id", None)
+            flash(gettext("An account with this email already exists."), "error")
+            return redirect(url_for("auth.login"))
+        else:
+            user = User(
+                email=challenge.email,
+                role=challenge.role,
+                password_hash=challenge.password_hash,
+                preferred_locale=challenge.locale,
             )
+            if challenge.role == "customer":
+                user.customer_profile = CustomerProfile(**challenge.profile_data)
+                success_message = gettext("Account created. You can now sign in.")
+            else:
+                user.seller_profile = SellerProfile(
+                    **challenge.profile_data,
+                    approval_status="pending",
+                )
+                success_message = gettext("Your seller application is submitted. Sign in to check its review status.")
+            db.session.delete(challenge)
             db.session.add(user)
             db.session.commit()
-            flash(gettext("Your seller application is submitted. Sign in to check its review status."), "success")
+            session.pop("registration_challenge_id", None)
+            flash(success_message, "success")
             return redirect(url_for("auth.login"))
-    return render_template("auth/seller_application.html")
+    return render_template("auth/verify_registration.html", challenge=challenge)
+
+
+@auth_bp.post("/resend-registration-code")
+def resend_registration_code():
+    challenge = _registration_challenge()
+    now = datetime.now(timezone.utc)
+    if (
+        challenge and challenge.consumed_at is None
+        and _as_utc(challenge.expires_at) >= now
+        and (now - _as_utc(challenge.sent_at)).total_seconds() >= REGISTRATION_CODE_RESEND_SECONDS
+        and _staff_email_ready()
+    ):
+        code = f"{secrets.randbelow(1_000_000):06d}"
+        challenge.code_hash = _reset_code_digest(code)
+        challenge.sent_at = now
+        challenge.expires_at = now + REGISTRATION_CODE_TTL
+        challenge.failed_attempts = 0
+        db.session.commit()
+        queue_registration_code(challenge.email, code, locale=challenge.locale)
+    flash(gettext("If your registration is active, a new verification code has been sent when available."), "success")
+    return redirect(url_for("auth.verify_registration"))
 
 
 def _reset_code_digest(code):

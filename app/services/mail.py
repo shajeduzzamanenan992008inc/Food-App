@@ -423,6 +423,27 @@ def queue_admin_login_code(recipient, code, locale=None):
     Thread(target=deliver, name="admin-login-email", daemon=True).start()
 
 
+def queue_registration_code(recipient, code, locale=None):
+    """Deliver a customer or seller registration verification code."""
+    app = current_app._get_current_object()
+
+    def deliver():
+        with app.app_context():
+            try:
+                _send(
+                    "registration_code",
+                    lazy_gettext("Your NexHaat account verification code"),
+                    [recipient],
+                    code=code,
+                    restaurant_name="NexHaat",
+                    locale=locale,
+                )
+            finally:
+                db.session.remove()
+
+    Thread(target=deliver, name="registration-verification-email", daemon=True).start()
+
+
 def queue_account_invitation(recipient, invitation_url, role, locale=None):
     """Deliver a short-lived staff setup link without exposing its token in logs."""
     app = current_app._get_current_object()

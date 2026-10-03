@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}{{ _('Notifications') }} · {{ app_name }}{% endblock %}
+{% block page_content %}
+<div class="page-shell">
+  <header class="page-heading">
+    <div>
+      <p class="eyebrow">{{ _('Your NexHaat activity') }}</p>
+      <h1>{{ _('Notifications') }}</h1>
+      <p>{{ _('Order, delivery, and account updates appear here.') }}</p>
+    </div>
+    {% if unread_count %}
+      <form method="post" action="{{ url_for('notifications.read_all') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button class="button-secondary" type="submit">{{ _('Mark all as read') }}</button>
+      </form>
+    {% endif %}
+  </header>
+
+  {% if notifications %}
+    <ul class="notification-list">
+      {% for note in notifications %}
+        <li class="notification-item surface surface-card{% if not note.is_read %} notification-item--unread{% endif %}">
+          <div>
+            <p class="notification-item__meta">
+              <span class="status-pill status-pill--{{ note.type }}">{{ _(note.type|capitalize) }}</span>
+              <time datetime="{{ note.created_at.isoformat() }}">{{ note.created_at.strftime('%b %d, %Y · %H:%M') }}</time>
+            </p>
+            <p class="notification-item__message">
+              {% if note.link %}<a href="{{ note.link }}">{{ note.message }}</a>{% else %}{{ note.message }}{% endif %}
+            </p>
+          </div>
+          {% if not note.is_read %}
+            <form method="post" action="{{ url_for('notifications.read_one', notification_id=note.id) }}">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+              <button class="button-secondary button-small" type="submit">{{ _('Mark as read') }}</button>
+            </form>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="empty-state">
+      <strong>{{ _('No notifications yet') }}</strong>
+      {{ _('We will let you know when your orders and account change.') }}
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

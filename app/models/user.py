@@ -52,7 +52,15 @@ class User(UserMixin, TimestampMixin, db.Model):
         "RiderProfile", back_populates="user", uselist=False, cascade="all, delete-orphan"
     )
     orders = db.relationship(
-        "Order", backref="user", lazy="dynamic", foreign_keys="Order.user_id"
+        "Order", backref="user", lazy="dynamic", foreign_keys="Order.user_id", passive_deletes=True
+    )
+    notifications = db.relationship(
+        "Notification", back_populates="user", cascade="all, delete-orphan",
+        order_by="Notification.created_at.desc()",
+    )
+    wishlist_items = db.relationship(
+        "WishlistItem", back_populates="user", cascade="all, delete-orphan",
+        order_by="WishlistItem.created_at.desc()",
     )
 
     def set_password(self, password):

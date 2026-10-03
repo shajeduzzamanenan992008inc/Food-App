@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}{{ _('Wishlist') }} · {{ app_name }}{% endblock %}
+{% block page_content %}
+<div class="page-shell">
+  <header class="page-heading">
+    <div>
+      <p class="eyebrow">{{ _('Saved for later') }}</p>
+      <h1>{{ _('Your wishlist') }}</h1>
+      <p>{{ _('Keep products here and move them to your cart when you are ready.') }}</p>
+    </div>
+  </header>
+
+  {% if products %}
+    <div class="product-grid">
+      {% for product in products %}
+        {% include "_product_card.html" %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty-state">
+      <strong>{{ _('Your wishlist is empty') }}</strong>
+      {{ _('Save products you like and they will appear here.') }}
+      <p><a class="button" href="{{ url_for('main.menu') }}">{{ _('Explore marketplace') }}</a></p>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

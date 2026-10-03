@@ -106,6 +106,13 @@ class Product(CatalogTimestampMixin, db.Model):
         "ProductVariant", back_populates="product", cascade="all, delete-orphan", lazy="selectin",
         order_by="ProductVariant.id",
     )
+    reviews = db.relationship(
+        "Review", back_populates="product", cascade="all, delete-orphan",
+        order_by="Review.created_at.desc()",
+    )
+    wishlist_items = db.relationship(
+        "WishlistItem", back_populates="product", cascade="all, delete-orphan",
+    )
 
     _locale_labels = {
         "en_US": "English (US)", "bn_BD": "বাংলা", "hi_IN": "हिन्दी", "ar": "العربية",

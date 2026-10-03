@@ -1,0 +1,261 @@
+<!doctype html>
+<!--
+  NexHaat Transactional Email: 3D Neumorphic OTP Verification
+  Exact aesthetic match to docs/design-references (Login & Sign Up Form UI)
+  - Color palette: #e7ebf0, #006cff, #00eaff, #303943, #7c858e
+  - 3D Neumorphic dual shadows (inset and outset)
+  - Animated Electric Rotating Conic-Gradient border
+  - Animated liquid gradient button
+  - Outlook / Gmail safe table architecture with VML fallback
+-->
+<html lang="en" dir="ltr" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="color-scheme" content="light">
+  <meta name="supported-color-schemes" content="light">
+  <title>NexHaat | Security Verification Code</title>
+  <style type="text/css">
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+    
+    * {
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #e7ebf0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Ambient floating spheres */
+    .bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      background: #e7ebf0;
+      box-shadow: 15px 15px 30px rgba(163, 177, 198, .55), -15px -15px 30px rgba(255, 255, 255, .9);
+      pointer-events: none;
+      animation: floating 6s ease-in-out infinite;
+    }
+    @keyframes floating {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-16px); }
+    }
+
+    /* Electric Rotating Conic Gradient Animation */
+    @keyframes electricRotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .electric-border-anim::before {
+      content: "";
+      position: absolute;
+      width: 180%;
+      height: 180%;
+      left: -40%;
+      top: -40%;
+      background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        transparent 30deg,
+        #00eaff 45deg,
+        #00aaff 65deg,
+        #006cff 80deg,
+        transparent 105deg,
+        transparent 360deg
+      );
+      animation: electricRotate 1.2s linear infinite;
+    }
+
+    .electric-glow-anim {
+      background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        transparent 30deg,
+        #00eaff 45deg,
+        #00aaff 65deg,
+        #006cff 80deg,
+        transparent 105deg,
+        transparent 360deg
+      );
+      animation: electricRotate 1.2s linear infinite;
+    }
+
+    /* Animated Liquid Button */
+    @keyframes buttonMove {
+      from { background-position: 0 50%; }
+      to { background-position: 200% 50%; }
+    }
+
+    .main-btn:hover {
+      color: #ffffff !important;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 114, 255, .35) !important;
+    }
+
+    @media only screen and (max-width: 540px) {
+      .neumorphic-card {
+        padding: 30px 20px !important;
+        border-radius: 26px !important;
+      }
+      .code-digit-text {
+        font-size: 28px !important;
+        letter-spacing: 0.22em !important;
+      }
+    }
+  </style>
+  <!--[if mso]>
+  <noscript>
+    <xml>
+      <o:OfficeDocumentSettings>
+        <o:AllowPNG/>
+        <o:PixelsPerInch>96</o:PixelsPerInch>
+      </o:OfficeDocumentSettings>
+    </xml>
+  </noscript>
+  <![endif]-->
+</head>
+<body style="margin:0;padding:0;background-color:#e7ebf0;">
+  <!-- Preheader text -->
+  <div style="display:none;font-size:1px;color:#e7ebf0;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">
+    Your NexHaat 3D security verification code is 482913. Valid for 10 minutes.
+  </div>
+
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#e7ebf0;padding:40px 14px;">
+    <tr>
+      <td align="center" style="vertical-align:top;">
+        
+        <!-- Outer 3D Neumorphic Card -->
+        <!--[if mso]>
+        <table role="presentation" align="center" border="0" cellspacing="0" cellpadding="0" width="460">
+        <tr>
+        <td>
+        <![endif]-->
+        <table role="presentation" class="neumorphic-card" cellpadding="0" cellspacing="0" border="0" width="460" style="width:100%;max-width:460px;background-color:#e7ebf0;border-radius:35px;box-shadow:20px 20px 40px rgba(163,177,198,0.65), -20px -20px 40px rgba(255,255,255,0.95);border:1px solid #d6dfe7;overflow:hidden;padding:42px 36px 36px;">
+          
+          <!-- Neumorphic 3D Logo (from docs/design-references) -->
+          <tr>
+            <td align="center" style="padding-bottom:18px;">
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td align="center" style="width:86px;height:86px;border-radius:50%;background:#e7ebf0;box-shadow:9px 9px 18px rgba(163,177,198,0.65), -9px -9px 18px rgba(255,255,255,0.95);vertical-align:middle;text-align:center;">
+                    <span style="font-size:32px;color:#087cff;line-height:86px;display:inline-block;">🔒</span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Heading & Subtitle -->
+          <tr>
+            <td align="center" style="padding-bottom:22px;">
+              <h1 style="margin:0 0 6px;color:#303943;font-size:24px;font-weight:800;letter-spacing:-0.02em;line-height:1.2;">
+                Enter Access Code
+              </h1>
+              <p style="margin:0;color:#7c858e;font-size:13px;line-height:1.55;">
+                A 6-digit one-time code has been issued for your NexHaat security sign-in:
+              </p>
+            </td>
+          </tr>
+
+          <!-- Electric Glowing Border Container -->
+          <tr>
+            <td align="center" style="padding-bottom:24px;">
+              <div style="position:relative;width:100%;max-width:380px;">
+                <!-- Animated electric glow background -->
+                <div class="electric-glow-anim" style="position:absolute;inset:-6px;border-radius:24px;filter:blur(8px);opacity:0.6;pointer-events:none;"></div>
+                
+                <!-- Rotating border mask -->
+                <div class="electric-border-anim" style="position:absolute;inset:-2px;border-radius:20px;overflow:hidden;pointer-events:none;"></div>
+                
+                <!-- Inset Neumorphic Code Display Surface -->
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="position:relative;z-index:10;background-color:#e7ebf0;border-radius:18px;box-shadow:inset 6px 6px 12px rgba(163,177,198,0.55), inset -6px -6px 12px rgba(255,255,255,0.95);">
+                  <tr>
+                    <td align="center" style="padding:22px 16px;">
+                      <span class="code-digit-text" style="display:block;font-family:'Courier New',Courier,monospace;font-size:36px;font-weight:800;color:#006cff;letter-spacing:0.32em;text-indent:0.32em;user-select:all;-webkit-user-select:all;">
+                        482913
+                      </span>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Neumorphic Pill Badges -->
+          <tr>
+            <td align="center" style="padding-bottom:24px;">
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="padding:6px 14px;border-radius:999px;background:#e7ebf0;box-shadow:4px 4px 8px rgba(163,177,198,0.5), -4px -4px 8px rgba(255,255,255,0.9);color:#303943;font-size:11px;font-weight:700;">
+                    ⏱️ Expires in 10 mins
+                  </td>
+                  <td style="width:10px;"></td>
+                  <td style="padding:6px 14px;border-radius:999px;background:#e7ebf0;box-shadow:4px 4px 8px rgba(163,177,198,0.5), -4px -4px 8px rgba(255,255,255,0.9);color:#087cff;font-size:11px;font-weight:700;">
+                    🛡️ Secure Vault
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Main 3D Neumorphic Button (with liquid wave gradient) -->
+          <tr>
+            <td align="center" style="padding-bottom:26px;">
+              <!--[if mso]>
+              <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="#" style="height:52px;v-text-anchor:middle;width:340px;" arcsize="32%" stroke="f" fillcolor="#006cff">
+              <w:anchorlock/>
+              <center>
+              <span style="color:#ffffff;font-family:sans-serif;font-size:14px;font-weight:bold;">Copy Access Code & Sign In</span>
+              </center>
+              </v:roundrect>
+              <![endif]-->
+              <a href="#" class="main-btn" style="display:block;width:100%;max-width:360px;height:52px;line-height:52px;text-align:center;text-decoration:none;border-radius:17px;background:#e7ebf0;color:#006cff;font-size:14px;font-weight:700;letter-spacing:0.4px;box-shadow:8px 8px 16px rgba(163,177,198,0.65), -8px -8px 16px rgba(255,255,255,0.95);transition:0.3s ease;">
+                Copy Access Code & Continue →
+              </a>
+            </td>
+          </tr>
+
+          <!-- Security Tip Footer (Neumorphic Inset) -->
+          <tr>
+            <td style="padding:16px 20px;border-radius:18px;background:#e7ebf0;box-shadow:inset 3px 3px 7px rgba(163,177,198,0.45), inset -3px -3px 7px rgba(255,255,255,0.9);">
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                  <td style="vertical-align:top;width:24px;font-size:16px;">💡</td>
+                  <td style="padding-left:10px;vertical-align:top;">
+                    <p style="margin:0 0 2px;color:#303943;font-size:12px;font-weight:700;">
+                      Security Verification
+                    </p>
+                    <p style="margin:0;color:#7c858e;font-size:11px;line-height:1.5;">
+                      Never share this code with anyone. NexHaat administrators will never request your one-time password.
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Bottom Trademark -->
+          <tr>
+            <td align="center" style="padding-top:24px;">
+              <p style="margin:0;color:#89929c;font-size:11px;font-weight:500;">
+                © 2026 NexHaat · 3D Neumorphic Security Layer
+              </p>
+            </td>
+          </tr>
+
+        </table>
+        <!--[if mso]>
+        </td>
+        </tr>
+        </table>
+        <![endif]-->
+
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

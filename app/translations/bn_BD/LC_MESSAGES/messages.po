@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-10-01 18:46+0600\n"
+"POT-Creation-Date: 2026-10-03 16:55+0600\n"
 "PO-Revision-Date: 2026-09-29 15:24+0600\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: bn_BD\n"
@@ -18,44 +18,74 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
 
-#: app/routes/auth.py:119
+#: app/routes/auth.py:120
 msgid "Please provide valid name, email, and phone details."
 msgstr "সঠিক নাম, ইমেইল ও ফোন নম্বর দিন।"
 
-#: app/routes/auth.py:123 app/routes/auth.py:163 app/routes/auth.py:497
-#: app/routes/auth.py:749 app/routes/auth.py:823
+#: app/routes/auth.py:124 app/routes/auth.py:162 app/routes/auth.py:609
+#: app/routes/auth.py:861 app/routes/auth.py:935 app/services/profiles.py:26
 #: app/templates/auth/_auth_card.html:108
 #: app/templates/auth/_seller_application_panel.html:57
 #: app/templates/auth/accept_invitation.html:41
 #: app/templates/auth/account.html:57 app/templates/auth/reset_password.html:32
+#: app/templates/rider/account.html:61 app/templates/seller/account.html:67
 msgid "Passwords do not match."
 msgstr "পাসওয়ার্ড দুটি মেলেনি।"
 
-#: app/routes/auth.py:125 app/routes/auth.py:165 app/routes/auth.py:542
+#: app/routes/auth.py:126 app/routes/auth.py:164 app/routes/auth.py:251
+#: app/routes/auth.py:654
 msgid "An account with this email already exists."
 msgstr "এই ইমেইল দিয়ে একটি অ্যাকাউন্ট আগে থেকেই আছে।"
 
-#: app/routes/auth.py:136
-msgid "Account created. You can now sign in."
-msgstr "অ্যাকাউন্ট তৈরি হয়েছে। এখন সাইন ইন করতে পারেন।"
+#: app/routes/auth.py:128 app/routes/auth.py:166
+msgid "Account verification is unavailable until email delivery is configured."
+msgstr "ইমেইল পাঠানোর ব্যবস্থা না করা পর্যন্ত অ্যাকাউন্ট যাচাই করা যাবে না।"
 
-#: app/routes/auth.py:159
+#: app/routes/auth.py:158
 msgid "Please provide valid store, contact, email, and phone details."
 msgstr "দোকান, যোগাযোগ, ইমেইল ও ফোনের সঠিক তথ্য দিন।"
 
-#: app/routes/auth.py:182
+#: app/routes/auth.py:210
+msgid "A verification code was sent to your email address."
+msgstr "আপনার ইমেইল ঠিকানায় একটি যাচাইকরণ কোড পাঠানো হয়েছে।"
+
+#: app/routes/auth.py:229
+msgid "This registration code is invalid or has expired."
+msgstr "নিবন্ধনের কোডটি ভুল অথবা এর মেয়াদ শেষ হয়েছে।"
+
+#: app/routes/auth.py:244
+msgid "Too many incorrect codes. Start registration again."
+msgstr "অনেকবার ভুল কোড দিয়েছেন। নিবন্ধন আবার শুরু করুন।"
+
+#: app/routes/auth.py:246 app/routes/auth.py:822 app/routes/auth.py:824
+#: app/templates/auth/verify_reset_code.html:20
+msgid "The verification code is incorrect."
+msgstr "যাচাইকরণ কোডটি সঠিক নয়।"
+
+#: app/routes/auth.py:262
+msgid "Account created. You can now sign in."
+msgstr "অ্যাকাউন্ট তৈরি হয়েছে। এখন সাইন ইন করতে পারেন।"
+
+#: app/routes/auth.py:268
 msgid "Your seller application is submitted. Sign in to check its review status."
 msgstr "আপনার বিক্রেতা আবেদন জমা হয়েছে। পর্যালোচনার অবস্থা দেখতে সাইন ইন করুন।"
 
-#: app/routes/auth.py:204 app/templates/auth/_auth_card.html:91
+#: app/routes/auth.py:295
+msgid "If your registration is active, a new verification code has been sent when available."
+msgstr "আপনার নিবন্ধন চালু থাকলে, নতুন যাচাইকরণ কোড পাওয়া গেলে পাঠানো হবে।"
+
+#: app/routes/auth.py:316 app/services/profiles.py:22
+#: app/templates/auth/_auth_card.html:91
 #: app/templates/auth/_seller_application_panel.html:47
 #: app/templates/auth/accept_invitation.html:31
 #: app/templates/auth/reset_password.html:17
+#: app/templates/rider/account.html:53 app/templates/seller/account.html:59
 #, python-format
 msgid "Password must contain at least %(minimum)s characters."
 msgstr "পাসওয়ার্ডে অন্তত %(minimum)sটি অক্ষর থাকতে হবে।"
 
-#: app/routes/auth.py:206 app/templates/auth/_auth_card.html:92
+#: app/routes/auth.py:318 app/services/profiles.py:24
+#: app/templates/auth/_auth_card.html:92
 #: app/templates/auth/_seller_application_panel.html:48
 #: app/templates/auth/accept_invitation.html:32
 #: app/templates/auth/reset_password.html:18
@@ -63,249 +93,341 @@ msgstr "পাসওয়ার্ডে অন্তত %(minimum)sটি অ�
 msgid "Password must contain no more than %(maximum)s characters."
 msgstr "পাসওয়ার্ডে %(maximum)sটির বেশি অক্ষর রাখা যাবে না।"
 
-#: app/routes/auth.py:234
+#: app/routes/auth.py:346
 msgid "Invalid email or password."
 msgstr "ইমেইল বা পাসওয়ার্ড সঠিক নয়।"
 
-#: app/routes/auth.py:330
+#: app/routes/auth.py:442
 msgid "That email is not an Admin account."
 msgstr "এই ইমেইলটি কোনো অ্যাডমিন অ্যাকাউন্ট নয়।"
 
-#: app/routes/auth.py:335
+#: app/routes/auth.py:447
 #, fuzzy
 msgid ""
 "If an active Admin account matches that email, a sign-in code will be "
 "sent."
 msgstr "এই ইমেইলে সক্রিয় অ্যাকাউন্ট থাকলে একটি যাচাইকরণ কোড পাঠানো হয়েছে।"
 
-#: app/routes/auth.py:348
+#: app/routes/auth.py:460
 #, fuzzy
 msgid "Too many attempts. Request a new sign-in code and try again."
 msgstr "অনেকবার ভুল কোড দিয়েছেন। নতুন যাচাইকরণ কোডের অনুরোধ করুন।"
 
-#: app/routes/auth.py:394
+#: app/routes/auth.py:506
 #, fuzzy
 msgid "Too many incorrect codes. Request a new sign-in code."
 msgstr "অনেকবার ভুল কোড দিয়েছেন। নতুন যাচাইকরণ কোডের অনুরোধ করুন।"
 
-#: app/routes/auth.py:398 app/templates/auth/verify_admin_login.html:20
+#: app/routes/auth.py:510 app/templates/auth/verify_admin_login.html:20
 #, fuzzy
 msgid "The sign-in code is incorrect or has expired."
 msgstr "যাচাইকরণ কোডটি সঠিক নয়।"
 
-#: app/routes/auth.py:434
+#: app/routes/auth.py:546
 msgid "If your Admin sign-in request is active, a new code has been sent."
 msgstr ""
 
-#: app/routes/auth.py:436
+#: app/routes/auth.py:548
 msgid ""
 "If your Admin sign-in request is active, a new code will be sent when "
 "available."
 msgstr ""
 
-#: app/routes/auth.py:480
+#: app/routes/auth.py:592
 msgid "This invitation is invalid, expired, or already used."
 msgstr "এই আমন্ত্রণটি অবৈধ, মেয়াদোত্তীর্ণ বা ইতিমধ্যে ব্যবহৃত হয়েছে।"
 
-#: app/routes/auth.py:491
+#: app/routes/auth.py:603
 msgid "Please provide a valid name for this account."
 msgstr "এই অ্যাকাউন্টের জন্য সঠিক নাম দিন।"
 
-#: app/routes/auth.py:493
+#: app/routes/auth.py:605
 msgid "Please provide a valid phone number."
 msgstr "সঠিক ফোন নম্বর দিন।"
 
-#: app/routes/auth.py:500
+#: app/routes/auth.py:612
 msgid ""
 "An account with this email already exists. Ask an administrator to resend"
 " the invitation."
 msgstr "এই ইমেইলে অ্যাকাউন্ট আছে। অ্যাডমিনকে আমন্ত্রণটি আবার পাঠাতে বলুন।"
 
-#: app/routes/auth.py:520
+#: app/routes/auth.py:632
 msgid "Your account is ready. Sign in to continue."
 msgstr "আপনার অ্যাকাউন্ট প্রস্তুত। এগিয়ে যেতে সাইন ইন করুন।"
 
-#: app/routes/auth.py:539
+#: app/routes/auth.py:651
 msgid "Enter a valid email and choose Rider or Admin."
 msgstr "সঠিক ইমেইল দিন এবং রাইডার বা অ্যাডমিন নির্বাচন করুন।"
 
-#: app/routes/auth.py:545 app/routes/auth.py:589
+#: app/routes/auth.py:657 app/routes/auth.py:701
 msgid "Staff invitations need a configured email provider and sender address."
 msgstr "কর্মী আমন্ত্রণ পাঠাতে ইমেইল সেবা ও প্রেরকের ঠিকানা কনফিগার করতে হবে।"
 
-#: app/routes/auth.py:557
+#: app/routes/auth.py:669
 msgid "A valid invitation already exists for this email and role."
 msgstr "এই ইমেইল ও ভূমিকার জন্য একটি কার্যকর আমন্ত্রণ ইতিমধ্যে আছে।"
 
-#: app/routes/auth.py:572 app/routes/auth.py:602
+#: app/routes/auth.py:684 app/routes/auth.py:714
 msgid "Staff invitations are unavailable until the public site URL is configured."
 msgstr "সাইটের পাবলিক URL সেট না করা পর্যন্ত কর্মী আমন্ত্রণ পাঠানো যাবে না।"
 
-#: app/routes/auth.py:577
+#: app/routes/auth.py:689
 msgid "The account invitation was created and queued for email."
 msgstr "অ্যাকাউন্টের আমন্ত্রণ তৈরি হয়েছে এবং ইমেইলে পাঠানোর জন্য রাখা হয়েছে।"
 
-#: app/routes/auth.py:594
+#: app/routes/auth.py:706
 msgid "This invitation was closed because an account already exists."
 msgstr "এই ইমেইলে অ্যাকাউন্ট থাকায় আমন্ত্রণটি বন্ধ করা হয়েছে।"
 
-#: app/routes/auth.py:608
+#: app/routes/auth.py:720
 msgid "A fresh invitation link was queued for email."
 msgstr "নতুন আমন্ত্রণ লিংক ইমেইলে পাঠানোর জন্য রাখা হয়েছে।"
 
-#: app/routes/auth.py:620
+#: app/routes/auth.py:732
 msgid "The account invitation was revoked."
 msgstr "অ্যাকাউন্টের আমন্ত্রণ বাতিল করা হয়েছে।"
 
-#: app/routes/auth.py:662
+#: app/routes/auth.py:774
 msgid ""
 "If an active account exists for that email, a verification code has been "
 "sent."
 msgstr "এই ইমেইলে সক্রিয় অ্যাকাউন্ট থাকলে একটি যাচাইকরণ কোড পাঠানো হয়েছে।"
 
-#: app/routes/auth.py:675 app/routes/auth.py:678
+#: app/routes/auth.py:787 app/routes/auth.py:790
 msgid "This password reset code is invalid or has expired."
 msgstr "পাসওয়ার্ড রিসেট কোডটি ভুল অথবা মেয়াদ শেষ হয়েছে।"
 
-#: app/routes/auth.py:701 app/routes/auth.py:704
+#: app/routes/auth.py:813 app/routes/auth.py:816
 msgid "Too many incorrect codes. Request a new verification code."
 msgstr "অনেকবার ভুল কোড দিয়েছেন। নতুন যাচাইকরণ কোডের অনুরোধ করুন।"
 
-#: app/routes/auth.py:710 app/routes/auth.py:712
-#: app/templates/auth/verify_reset_code.html:20
-msgid "The verification code is incorrect."
-msgstr "যাচাইকরণ কোডটি সঠিক নয়।"
-
-#: app/routes/auth.py:736
+#: app/routes/auth.py:848
 msgid "Please verify a valid password reset code first."
 msgstr "আগে একটি বৈধ পাসওয়ার্ড রিসেট কোড যাচাই করুন।"
 
-#: app/routes/auth.py:740
+#: app/routes/auth.py:852
 msgid "This password reset request is invalid or has expired."
 msgstr "পাসওয়ার্ড রিসেটের অনুরোধটি ভুল অথবা মেয়াদ শেষ হয়েছে।"
 
-#: app/routes/auth.py:758
+#: app/routes/auth.py:870
 msgid "Password updated. You can now sign in."
 msgstr "পাসওয়ার্ড আপডেট হয়েছে। এখন সাইন ইন করতে পারেন।"
 
-#: app/routes/auth.py:774
+#: app/routes/auth.py:886 app/routes/portals.py:54
 msgid "Please provide a valid name and phone number."
 msgstr "সঠিক নাম ও ফোন নম্বর দিন।"
 
-#: app/routes/auth.py:776
+#: app/routes/auth.py:888
 msgid "Please provide a complete address."
 msgstr "সম্পূর্ণ ঠিকানা দিন।"
 
-#: app/routes/auth.py:778
+#: app/routes/auth.py:890
 msgid "Please provide a valid city."
 msgstr "সঠিক শহরের নাম দিন।"
 
-#: app/routes/auth.py:803
+#: app/routes/auth.py:915
 msgid "Your account details were updated."
 msgstr "আপনার অ্যাকাউন্টের তথ্য আপডেট হয়েছে।"
 
-#: app/routes/auth.py:819
+#: app/routes/auth.py:931 app/services/profiles.py:18
 msgid "Your current password is incorrect."
 msgstr "আপনার বর্তমান পাসওয়ার্ডটি সঠিক নয়।"
 
-#: app/routes/auth.py:829
+#: app/routes/auth.py:941 app/routes/portals.py:99 app/routes/seller.py:226
 msgid "Your password was changed. Sign in again on this device."
 msgstr "পাসওয়ার্ড পরিবর্তন হয়েছে। এই ডিভাইসে আবার সাইন ইন করুন।"
 
-#: app/routes/auth.py:847
+#: app/routes/auth.py:959
 #, fuzzy
 msgid "Your account has been deleted."
 msgstr "আপনার অ্যাকাউন্টের তথ্য আপডেট হয়েছে।"
 
-#: app/routes/auth.py:864
+#: app/routes/auth.py:976
 msgid "Please provide a valid admin name."
 msgstr "সঠিক অ্যাডমিন নাম দিন।"
 
-#: app/routes/auth.py:878
+#: app/routes/auth.py:990
 msgid "Admin profile updated."
 msgstr "অ্যাডমিন প্রোফাইল আপডেট হয়েছে।"
 
-#: app/routes/auth.py:891
+#: app/routes/auth.py:1003
 msgid "You have been signed out."
 msgstr "আপনি সাইন আউট করেছেন।"
 
-#: app/routes/main.py:53
+#: app/routes/main.py:61
 msgid "We could not save your language preference. Please try again."
 msgstr "আপনার ভাষার পছন্দ সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।"
 
-#: app/routes/main.py:57
+#: app/routes/main.py:65
 msgid "Language preference updated."
 msgstr "ভাষার পছন্দ আপডেট হয়েছে।"
 
-#: app/routes/orders.py:237
+#: app/routes/main.py:182 app/services/reviews.py:75
+msgid "Sign in to review this product."
+msgstr ""
+
+#: app/routes/main.py:190
+msgid "Thanks! Your review is waiting for moderation."
+msgstr ""
+
+#: app/routes/orders.py:189
+#, fuzzy, python-format
+msgid "Order %(number)s was received."
+msgstr "দোকান পর্যালোচনা"
+
+#: app/routes/orders.py:196
+#, python-format
+msgid "New order %(number)s for your store."
+msgstr ""
+
+#: app/routes/orders.py:253
 msgid "This seller application has already been reviewed."
 msgstr "এই বিক্রেতা আবেদনটি ইতিমধ্যে পর্যালোচনা করা হয়েছে।"
 
-#: app/routes/orders.py:244 app/routes/orders.py:271
+#: app/routes/orders.py:260 app/routes/orders.py:294 app/routes/orders.py:322
 msgid "The review note must be 500 characters or fewer."
 msgstr "পর্যালোচনা নোট ৫০০ অক্ষরের বেশি হতে পারবে না।"
 
-#: app/routes/orders.py:253
+#: app/routes/orders.py:271
+msgid "Your store was approved. You can now publish products."
+msgstr ""
+
+#: app/routes/orders.py:276
 msgid "Seller application approved."
 msgstr "বিক্রেতার আবেদন অনুমোদিত হয়েছে।"
 
-#: app/routes/orders.py:254
+#: app/routes/orders.py:277
 msgid "Seller application rejected."
 msgstr "বিক্রেতার আবেদন প্রত্যাখ্যান করা হয়েছে।"
 
-#: app/routes/orders.py:281
+#: app/routes/orders.py:304
 msgid "Product listing approved."
 msgstr "পণ্যের তালিকা অনুমোদিত হয়েছে।"
 
-#: app/routes/orders.py:282
+#: app/routes/orders.py:305
 msgid "Product listing rejected."
 msgstr "পণ্যের তালিকা প্রত্যাখ্যান করা হয়েছে।"
 
-#: app/routes/orders.py:385
+#: app/routes/orders.py:331
+#, fuzzy
+msgid "Review approved."
+msgstr "পর্যালোচনা মন্তব্য"
+
+#: app/routes/orders.py:331
+#, fuzzy
+msgid "Review rejected."
+msgstr "পর্যালোচনা মন্তব্য"
+
+#: app/routes/orders.py:411
+msgid "Customer removed."
+msgstr "গ্রাহক মুছে ফেলা হয়েছে।"
+
+#: app/routes/orders.py:433 app/routes/orders.py:449
+msgid "Customer account activated."
+msgstr "গ্রাহক অ্যাকাউন্ট সক্রিয় করা হয়েছে।"
+
+#: app/routes/orders.py:435 app/routes/orders.py:463
+msgid "Customer account deactivated."
+msgstr "গ্রাহক অ্যাকাউন্ট নিষ্ক্রিয় করা হয়েছে।"
+
+#: app/routes/orders.py:475
 msgid "The primary Admin account cannot be deleted."
 msgstr "প্রধান অ্যাডমিন অ্যাকাউন্ট মুছে ফেলা যাবে না।"
 
-#: app/routes/orders.py:388
+#: app/routes/orders.py:478
 msgid "You cannot delete your own account here."
 msgstr "এখান থেকে আপনি নিজের অ্যাকাউন্ট মুছতে পারবেন না।"
 
-#: app/routes/orders.py:394
+#: app/routes/orders.py:484
 #, fuzzy
 msgid "Account removed."
 msgstr "অ্যাকাউন্টের ভূমিকা"
 
-#: app/routes/orders.py:650
+#: app/routes/orders.py:731
+#, python-format
+msgid "Order %(number)s is now %(status)s."
+msgstr "অর্ডার %(number)s এখন %(status)s।"
+
+#: app/routes/orders.py:751
 msgid "Choose an active delivery rider."
 msgstr "একজন সক্রিয় ডেলিভারি রাইডার বেছে নিন।"
 
-#: app/routes/orders.py:656
+#: app/routes/orders.py:757
 msgid "Rider assigned to this delivery."
 msgstr "এই ডেলিভারিতে রাইডার নিয়োগ করা হয়েছে।"
 
-#: app/routes/orders.py:664
+#: app/routes/orders.py:765
 #, fuzzy
 msgid "Delivery unassigned."
 msgstr "ইমেইল ঠিকানা"
 
-#: app/routes/portals.py:72
+#: app/routes/orders.py:776
+#, python-format
+msgid "A new delivery was assigned to you: %(number)s."
+msgstr ""
+
+#: app/routes/portals.py:56
+#, fuzzy
+msgid "Choose a valid availability status."
+msgstr "ভ্যারিয়েন্টের সক্রিয়তা হালনাগাদ হয়েছে।"
+
+#: app/routes/portals.py:74
+#, fuzzy
+msgid "Your rider profile was updated."
+msgstr "অ্যাডমিন প্রোফাইল আপডেট হয়েছে।"
+
+#: app/routes/portals.py:135
 msgid "That delivery update is not allowed."
 msgstr "এই ডেলিভারি আপডেট অনুমোদিত নয়।"
 
-#: app/routes/portals.py:86
+#: app/routes/portals.py:149
 #, fuzzy
 msgid "The delivery note must be 500 characters or fewer."
 msgstr "পর্যালোচনা নোট ৫০০ অক্ষরের বেশি হতে পারবে না।"
 
-#: app/routes/portals.py:98
+#: app/routes/portals.py:161
 msgid "Add a delivery photo or a note as proof of delivery."
 msgstr "ডেলিভারির প্রমাণ হিসেবে একটি ছবি বা নোট দিন।"
 
-#: app/routes/portals.py:111
+#: app/routes/portals.py:177
+#, python-format
+msgid "Order %(number)s was delivered."
+msgstr ""
+
+#: app/routes/portals.py:181
 #, fuzzy
 msgid "Delivery status updated."
 msgstr "ভ্যারিয়েন্টের মজুদ হালনাগাদ হয়েছে।"
 
-#: app/routes/seller.py:195 app/routes/seller.py:217
+#: app/routes/seller.py:48
+#, fuzzy
+msgid "Enter a valid price amount."
+msgstr "সঠিক ইমেইল ঠিকানা লিখুন।"
+
+#: app/routes/seller.py:50
+msgid "That page address is already in use. Choose a different one."
+msgstr ""
+
+#: app/routes/seller.py:51
+msgid "Please check the product details and try again."
+msgstr "পণ্যের তথ্য যাচাই করে আবার চেষ্টা করুন।"
+
+#: app/routes/seller.py:197
+#, fuzzy
+msgid "Provide a store name, contact name, and a valid phone number."
+msgstr "দোকান, যোগাযোগ, ইমেইল ও ফোনের সঠিক তথ্য দিন।"
+
+#: app/routes/seller.py:199
+#, fuzzy
+msgid "The business address must be 500 characters or fewer."
+msgstr "পর্যালোচনা নোট ৫০০ অক্ষরের বেশি হতে পারবে না।"
+
+#: app/routes/seller.py:206
+#, fuzzy
+msgid "Your store details were updated."
+msgstr "আপনার অ্যাকাউন্টের তথ্য আপডেট হয়েছে।"
+
+#: app/routes/seller.py:264 app/routes/seller.py:286
 msgid ""
 "Image could not be approved or stored. It remains private and was not "
 "published."
@@ -313,41 +435,49 @@ msgstr ""
 "ছবিটি যাচাই বা সংরক্ষণ করা যায়নি। এটি ব্যক্তিগত কোয়ারেন্টাইনে আছে, "
 "প্রকাশ করা হয়নি।"
 
-#: app/routes/seller.py:199 app/routes/seller.py:221
-msgid "Please check the product details and try again."
-msgstr "পণ্যের তথ্য যাচাই করে আবার চেষ্টা করুন।"
-
-#: app/routes/seller.py:201
+#: app/routes/seller.py:270
 msgid "Product submitted for Admin review."
 msgstr "পণ্যটি অ্যাডমিনের পর্যালোচনার জন্য জমা হয়েছে।"
 
-#: app/routes/seller.py:223
+#: app/routes/seller.py:292
 msgid "Updated product details were sent for Admin review."
 msgstr "পণ্যের হালনাগাদ তথ্য অ্যাডমিনের পর্যালোচনার জন্য পাঠানো হয়েছে।"
 
-#: app/routes/seller.py:236
+#: app/routes/seller.py:305
 msgid "The product is no longer visible in the marketplace."
 msgstr "পণ্যটি এখন মার্কেটপ্লেসে দেখা যাবে না।"
 
-#: app/routes/seller.py:267
+#: app/routes/seller.py:336
 msgid "Please check the variant details and try again."
 msgstr "ভ্যারিয়েন্টের তথ্য যাচাই করে আবার চেষ্টা করুন।"
 
-#: app/routes/seller.py:269
+#: app/routes/seller.py:338
 msgid "Product variant added."
 msgstr "পণ্যের ভ্যারিয়েন্ট যোগ হয়েছে।"
 
-#: app/routes/seller.py:284
+#: app/routes/seller.py:353
 msgid "Variant availability updated."
 msgstr "ভ্যারিয়েন্টের সক্রিয়তা হালনাগাদ হয়েছে।"
 
-#: app/routes/seller.py:301
+#: app/routes/seller.py:370
 msgid "Enter a valid non-negative stock quantity."
 msgstr "শূন্য বা তার বেশি সঠিক মজুদের পরিমাণ লিখুন।"
 
-#: app/routes/seller.py:305
+#: app/routes/seller.py:374
 msgid "Variant stock updated."
 msgstr "ভ্যারিয়েন্টের মজুদ হালনাগাদ হয়েছে।"
+
+#: app/routes/wishlist.py:59
+msgid "Saved to your wishlist."
+msgstr ""
+
+#: app/routes/wishlist.py:59
+msgid "Already in your wishlist."
+msgstr ""
+
+#: app/routes/wishlist.py:73
+msgid "Removed from your wishlist."
+msgstr ""
 
 #: app/services/invoice.py:105
 msgid "INVOICE"
@@ -383,15 +513,11 @@ msgstr "ক্যাশ অন ডেলিভারি"
 msgid "Bill to"
 msgstr "বিল প্রাপক"
 
-#: app/services/invoice.py:128 app/templates/email/admin_order.html:11
-#: app/templates/email/order_pending.html:11
-#: app/templates/email/order_receipt.html:11 app/templates/orders/cart.html:10
+#: app/services/invoice.py:128 app/templates/orders/cart.html:10
 msgid "Item"
 msgstr "আইটেম"
 
-#: app/services/invoice.py:129 app/templates/email/admin_order.html:12
-#: app/templates/email/order_pending.html:12
-#: app/templates/email/order_receipt.html:12
+#: app/services/invoice.py:129
 msgid "Qty"
 msgstr "পরিমাণ"
 
@@ -402,63 +528,93 @@ msgid "Price"
 msgstr "রাইডার"
 
 #: app/services/invoice.py:131 app/services/invoice.py:157
-#: app/templates/email/admin_order.html:13
-#: app/templates/email/order_pending.html:13
-#: app/templates/email/order_receipt.html:13 app/templates/orders/cart.html:23
-#: app/templates/orders/checkout.html:21
+#: app/templates/orders/cart.html:23 app/templates/orders/checkout.html:21
 #, fuzzy
 msgid "Subtotal"
 msgstr "মোট"
 
-#: app/services/invoice.py:158 app/templates/admin/dashboard.html:157
-#: app/templates/orders/cart.html:23 app/templates/orders/checkout.html:21
+#: app/services/invoice.py:158 app/templates/admin/dashboard.html:189
+#: app/templates/email/order_receipt.html:28 app/templates/orders/cart.html:23
+#: app/templates/orders/checkout.html:21
 #: app/templates/orders/confirmation.html:10
 #: app/templates/orders/my_orders.html:6
 msgid "Delivery"
 msgstr "ডেলিভারি"
 
-#: app/services/invoice.py:159 app/templates/admin/dashboard.html:157
+#: app/services/invoice.py:159 app/templates/admin/dashboard.html:189
 #: app/templates/admin/order_detail.html:5
-#: app/templates/email/admin_order.html:23
+#: app/templates/email/admin_order.html:33
 #: app/templates/email/admin_order.txt:8
-#: app/templates/email/order_pending.html:23
+#: app/templates/email/order_pending.html:33
 #: app/templates/email/order_pending.txt:8
-#: app/templates/email/order_receipt.html:23
+#: app/templates/email/order_receipt.html:44
 #: app/templates/email/order_receipt.txt:8 app/templates/orders/cart.html:10
 #: app/templates/orders/cart.html:23 app/templates/orders/confirmation.html:10
 #: app/templates/orders/my_orders.html:6
 msgid "Total"
 msgstr "মোট"
 
-#: app/services/invoice.py:163 app/templates/email/order_status.html:9
+#: app/services/invoice.py:163 app/templates/email/order_status.html:56
 #: app/templates/email/order_status.txt:6
 #, fuzzy
 msgid "Thank you for ordering with NexHaat."
 msgstr "NexHaat-এর সঙ্গে আপনার যাত্রা শুরু করুন"
 
-#: app/services/mail.py:409 app/templates/email/password_reset_code.html:3
-#: app/templates/email/password_reset_code.html:7
+#: app/services/mail.py:379 app/templates/email/password_reset_code.html:2
+#: app/templates/email/password_reset_code.html:5
 #: app/templates/email/password_reset_code.txt:3
 msgid "Your NexHaat password reset code"
 msgstr "NexHaat পাসওয়ার্ড রিসেট কোড"
 
-#: app/services/mail.py:434 app/templates/email/admin_login_code.html:3
-#: app/templates/email/admin_login_code.html:7
+#: app/services/mail.py:404 app/templates/email/admin_login_code.html:2
+#: app/templates/email/admin_login_code.html:5
 #: app/templates/email/admin_login_code.txt:3
 #, fuzzy
 msgid "Your NexHaat admin sign-in code"
 msgstr "নেক্সহাট মার্কেটপ্লেস"
 
-#: app/templates/_product_card.html:12 app/templates/catalog/food.html:12
+#: app/services/mail.py:435 app/templates/email/registration_code.html:2
+msgid "Your NexHaat account verification code"
+msgstr "আপনার নেক্সহাট অ্যাকাউন্ট যাচাইকরণ কোড"
+
+#: app/services/reviews.py:78
+msgid "You can review a product after your order is delivered."
+msgstr ""
+
+#: app/services/reviews.py:82 app/services/reviews.py:84
+msgid "Choose a rating from 1 to 5 stars."
+msgstr ""
+
+#: app/services/reviews.py:87
+#, fuzzy
+msgid "Your review must be 2000 characters or fewer."
+msgstr "পর্যালোচনা নোট ৫০০ অক্ষরের বেশি হতে পারবে না।"
+
+#: app/templates/_product_card.html:14
+#, python-format
+msgid "Remove %(name)s from your wishlist"
+msgstr ""
+
+#: app/templates/_product_card.html:20
+#, fuzzy, python-format
+msgid "Save %(name)s to your wishlist"
+msgstr "কার্টে %(name)s যোগ করুন"
+
+#: app/templates/_product_card.html:28 app/templates/catalog/food.html:12
 #: app/templates/orders/cart.html:12 app/templates/orders/checkout.html:21
 #, python-format
 msgid "Original language: %(language)s"
 msgstr "মূল ভাষা: %(language)s"
 
-#: app/templates/_product_card.html:19
+#: app/templates/_product_card.html:36
 #, python-format
 msgid "Add %(name)s to cart"
 msgstr "কার্টে %(name)s যোগ করুন"
+
+#: app/templates/_product_card.html:39 app/templates/catalog/food.html:22
+#, fuzzy
+msgid "Sign in to order"
+msgstr "সাইন ইন"
 
 #: app/templates/base.html:7
 msgid "Discover neighborhood food, groceries, and local stores on NexHaat."
@@ -493,6 +649,10 @@ msgstr "মেয়াদ শেষ"
 msgid "My orders"
 msgstr "আমার অর্ডার"
 
+#: app/templates/base.html:28 app/templates/wishlist/index.html:2
+msgid "Wishlist"
+msgstr ""
+
 #: app/templates/admin/settings.html:4 app/templates/base.html:29
 #, fuzzy
 msgid "Operations"
@@ -517,34 +677,43 @@ msgstr "ভাষা"
 msgid "Go"
 msgstr "যান"
 
-#: app/templates/base.html:46 app/templates/customer/dashboard.html:15
+#: app/templates/base.html:47 app/templates/customer/dashboard.html:15
 #: app/templates/orders/cart.html:2 app/templates/portals/dashboard.html:12
 msgid "Shopping cart"
 msgstr "শপিং কার্ট"
 
-#: app/templates/base.html:47
+#: app/templates/base.html:48
 msgid "Cart"
 msgstr "কার্ট"
 
-#: app/templates/base.html:51
+#: app/templates/base.html:53 app/templates/base.html:54
+#: app/templates/notifications/index.html:2
+#: app/templates/notifications/index.html:8
+#, fuzzy
+msgid "Notifications"
+msgstr "নেক্সহাট পরিচালনা"
+
+#: app/templates/base.html:58
 #, fuzzy
 msgid "Account"
 msgstr "অ্যাকাউন্টের ভূমিকা"
 
-#: app/templates/admin/dashboard.html:185 app/templates/auth/account.html:69
-#: app/templates/auth/admin_account.html:27 app/templates/base.html:52
+#: app/templates/admin/dashboard.html:246 app/templates/auth/account.html:69
+#: app/templates/auth/admin_account.html:27 app/templates/base.html:59
+#: app/templates/rider/account.html:70 app/templates/seller/account.html:76
 msgid "Sign out"
 msgstr "সাইন আউট"
 
-#: app/templates/auth/login.html:2 app/templates/base.html:54
+#: app/templates/auth/login.html:2 app/templates/base.html:61
 msgid "Sign in"
 msgstr "সাইন ইন"
 
-#: app/templates/base.html:70
+#: app/templates/base.html:77
 msgid "Good food and thoughtful finds, close to home."
 msgstr ""
 
-#: app/templates/auth/base.html:31 app/templates/base.html:71
+#: app/templates/auth/base.html:31 app/templates/base.html:78
+#: app/templates/email/base.html:179
 msgid "All rights reserved."
 msgstr "সর্বস্বত্ব সংরক্ষিত।"
 
@@ -674,7 +843,7 @@ msgstr "দোকানের নাম"
 
 #: app/templates/admin/category_form.html:8
 #: app/templates/admin/product_form.html:8
-#: app/templates/seller/product_form.html:11
+#: app/templates/seller/product_form.html:23
 #, fuzzy
 msgid "Page address slug"
 msgstr "ইমেইল ঠিকানা"
@@ -690,13 +859,13 @@ msgstr "ক্যাটাগরি সংরক্ষণ"
 #: app/templates/admin/category_form.html:10
 #: app/templates/admin/customer_form.html:10
 #: app/templates/admin/product_form.html:14 app/templates/admin/settings.html:8
-#: app/templates/seller/product_form.html:31
+#: app/templates/seller/product_form.html:78
 msgid "Cancel"
 msgstr "বাতিল"
 
 #: app/templates/admin/customer_form.html:2
 #: app/templates/admin/customer_form.html:4
-#: app/templates/admin/dashboard.html:18
+#: app/templates/admin/dashboard.html:18 app/templates/admin/dashboard.html:119
 #, fuzzy
 msgid "Add customer"
 msgstr "গ্রাহক"
@@ -714,7 +883,7 @@ msgstr ""
 #: app/templates/auth/_auth_card.html:61
 #: app/templates/auth/accept_invitation.html:12
 #: app/templates/auth/account.html:17 app/templates/auth/admin_account.html:10
-#: app/templates/orders/checkout.html:11
+#: app/templates/orders/checkout.html:11 app/templates/rider/account.html:13
 msgid "Full name"
 msgstr "পুরো নাম"
 
@@ -723,17 +892,19 @@ msgstr "পুরো নাম"
 #: app/templates/auth/_seller_application_panel.html:24
 #: app/templates/auth/accept_invitation.html:19
 #: app/templates/auth/account.html:27 app/templates/orders/checkout.html:12
+#: app/templates/rider/account.html:23 app/templates/seller/account.html:31
 msgid "Phone number"
 msgstr "ফোন নম্বর"
 
 #: app/templates/admin/customer_form.html:8
-#: app/templates/admin/dashboard.html:92 app/templates/admin/dashboard.html:116
-#: app/templates/admin/dashboard.html:133 app/templates/auth/_auth_card.html:14
+#: app/templates/admin/dashboard.html:92 app/templates/admin/dashboard.html:122
+#: app/templates/admin/dashboard.html:165 app/templates/auth/_auth_card.html:14
 #: app/templates/auth/_auth_card.html:69
 #: app/templates/auth/_seller_application_panel.html:35
 #: app/templates/auth/account.html:23 app/templates/auth/admin_account.html:16
 #: app/templates/auth/admin_login.html:12
 #: app/templates/auth/forgot_password.html:12
+#: app/templates/rider/account.html:19 app/templates/seller/account.html:21
 msgid "Email address"
 msgstr "ইমেইল ঠিকানা"
 
@@ -787,7 +958,7 @@ msgstr "পণ্য যোগ করুন"
 msgid "Marketplace settings"
 msgstr "অ্যাকাউন্ট সেটিংস"
 
-#: app/templates/admin/dashboard.html:23 app/templates/admin/dashboard.html:114
+#: app/templates/admin/dashboard.html:23 app/templates/admin/dashboard.html:117
 msgid "Customers"
 msgstr "গ্রাহক"
 
@@ -809,11 +980,12 @@ msgid "Applications awaiting review"
 msgstr "পর্যালোচনার অপেক্ষায় আবেদন"
 
 #: app/templates/admin/dashboard.html:31 app/templates/admin/dashboard.html:60
+#: app/templates/admin/dashboard.html:209
 msgid "pending"
 msgstr "অপেক্ষমাণ"
 
 #: app/templates/admin/dashboard.html:44 app/templates/admin/dashboard.html:73
-#: app/templates/seller/dashboard.html:10
+#: app/templates/seller/account.html:9 app/templates/seller/dashboard.html:10
 msgid "Review note"
 msgstr "পর্যালোচনা মন্তব্য"
 
@@ -822,10 +994,12 @@ msgid "Optional review note"
 msgstr "ঐচ্ছিক পর্যালোচনা মন্তব্য"
 
 #: app/templates/admin/dashboard.html:46 app/templates/admin/dashboard.html:75
+#: app/templates/admin/dashboard.html:224
 msgid "Approve"
 msgstr "অনুমোদন"
 
 #: app/templates/admin/dashboard.html:47 app/templates/admin/dashboard.html:76
+#: app/templates/admin/dashboard.html:225
 msgid "Reject"
 msgstr "প্রত্যাখ্যান"
 
@@ -857,7 +1031,7 @@ msgstr "রাইডার বা অ্যাডমিনকে আমন্ত
 msgid "Account role"
 msgstr "অ্যাকাউন্টের ভূমিকা"
 
-#: app/templates/admin/dashboard.html:93
+#: app/templates/admin/dashboard.html:93 app/templates/rider/account.html:5
 msgid "Rider"
 msgstr "রাইডার"
 
@@ -899,124 +1073,131 @@ msgid "No pending invitations."
 msgstr "কোনো অপেক্ষমাণ আমন্ত্রণ নেই।"
 
 #: app/templates/admin/dashboard.html:116
-#: app/templates/admin/dashboard.html:133
+#, fuzzy
+msgid "USER MANAGEMENT"
+msgstr "পণ্য তালিকা পর্যালোচনা"
+
+#: app/templates/admin/dashboard.html:122
+#: app/templates/admin/dashboard.html:165
 #, fuzzy
 msgid "Name"
 msgstr "পুরো নাম"
 
-#: app/templates/admin/dashboard.html:116
+#: app/templates/admin/dashboard.html:122
 msgid "Phone"
 msgstr "ফোন"
 
-#: app/templates/admin/dashboard.html:116
-#: app/templates/admin/dashboard.html:133
-#: app/templates/admin/dashboard.html:157 app/templates/orders/my_orders.html:6
+#: app/templates/admin/dashboard.html:122
+#: app/templates/admin/dashboard.html:165
+#: app/templates/admin/dashboard.html:189 app/templates/orders/my_orders.html:6
 #: app/templates/rider/dashboard.html:50
 msgid "Status"
 msgstr "অবস্থা"
 
-#: app/templates/admin/dashboard.html:116
-#: app/templates/admin/dashboard.html:133
-#: app/templates/admin/dashboard.html:157
+#: app/templates/admin/dashboard.html:122
+#: app/templates/admin/dashboard.html:165
+#: app/templates/admin/dashboard.html:189
 msgid "Actions"
 msgstr "কার্যক্রম"
 
-#: app/templates/admin/dashboard.html:119
-#: app/templates/admin/dashboard.html:138
+#: app/templates/admin/dashboard.html:129
+#: app/templates/admin/dashboard.html:170
 msgid "Active"
 msgstr "সক্রিয়"
 
-#: app/templates/admin/dashboard.html:119
-#: app/templates/admin/dashboard.html:138
+#: app/templates/admin/dashboard.html:131
+#: app/templates/admin/dashboard.html:170
 msgid "Deactivated"
 msgstr "নিষ্ক্রিয়"
 
-#: app/templates/admin/dashboard.html:120
+#: app/templates/admin/dashboard.html:139
 msgid "Deactivate"
 msgstr "নিষ্ক্রিয় করুন"
 
-#: app/templates/admin/dashboard.html:120
+#: app/templates/admin/dashboard.html:144
 msgid "Activate"
 msgstr "সক্রিয় করুন"
 
-#: app/templates/admin/dashboard.html:123
-msgid "No customers yet."
-msgstr "এখনো কোনো গ্রাহক নেই।"
-
-#: app/templates/admin/dashboard.html:124
-msgid "Customer pages"
-msgstr "গ্রাহক পৃষ্ঠা"
-
-#: app/templates/admin/dashboard.html:124
-#: app/templates/admin/dashboard.html:168
-#, python-format
-msgid "Page %(current)s of %(total)s"
-msgstr "পৃষ্ঠা %(current)s / %(total)s"
-
-#: app/templates/admin/dashboard.html:125
-#: app/templates/admin/dashboard.html:169
-msgid "Previous"
-msgstr "আগের"
-
-#: app/templates/admin/dashboard.html:126
-#: app/templates/admin/dashboard.html:170
-msgid "Next"
-msgstr "পরের"
-
-#: app/templates/admin/dashboard.html:131
-#, fuzzy
-msgid "TEAM"
-msgstr "আইটেম"
-
-#: app/templates/admin/dashboard.html:131
-msgid "Seller, Rider and Admin accounts"
-msgstr "বিক্রেতা, রাইডার ও অ্যাডমিন অ্যাকাউন্ট"
-
-#: app/templates/admin/dashboard.html:133
-msgid "Role"
-msgstr ""
-
-#: app/templates/admin/dashboard.html:137
-msgid "(primary Admin)"
-msgstr "(প্রধান অ্যাডমিন)"
-
-#: app/templates/admin/dashboard.html:141
-#, fuzzy
-msgid "Protected"
-msgstr "পণ্য"
-
-#: app/templates/admin/dashboard.html:143
+#: app/templates/admin/dashboard.html:147
+#: app/templates/admin/dashboard.html:175
 msgid "Delete this account permanently?"
 msgstr "এই অ্যাকাউন্ট স্থায়ীভাবে মুছবেন?"
 
-#: app/templates/admin/dashboard.html:143
+#: app/templates/admin/dashboard.html:149
+#: app/templates/admin/dashboard.html:175
 #, fuzzy
 msgid "Delete"
 msgstr "ডেলিভারি কার্যক্রম"
 
-#: app/templates/admin/dashboard.html:148
+#: app/templates/admin/dashboard.html:155
+msgid "No customers yet."
+msgstr "এখনো কোনো গ্রাহক নেই।"
+
+#: app/templates/admin/dashboard.html:156
+msgid "Customer pages"
+msgstr "গ্রাহক পৃষ্ঠা"
+
+#: app/templates/admin/dashboard.html:156
+#: app/templates/admin/dashboard.html:200
+#, python-format
+msgid "Page %(current)s of %(total)s"
+msgstr "পৃষ্ঠা %(current)s / %(total)s"
+
+#: app/templates/admin/dashboard.html:157
+#: app/templates/admin/dashboard.html:201
+msgid "Previous"
+msgstr "আগের"
+
+#: app/templates/admin/dashboard.html:158
+#: app/templates/admin/dashboard.html:202
+msgid "Next"
+msgstr "পরের"
+
+#: app/templates/admin/dashboard.html:163
+#, fuzzy
+msgid "TEAM"
+msgstr "আইটেম"
+
+#: app/templates/admin/dashboard.html:163
+msgid "Seller, Rider and Admin accounts"
+msgstr "বিক্রেতা, রাইডার ও অ্যাডমিন অ্যাকাউন্ট"
+
+#: app/templates/admin/dashboard.html:165
+msgid "Role"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:169
+msgid "(primary Admin)"
+msgstr "(প্রধান অ্যাডমিন)"
+
+#: app/templates/admin/dashboard.html:173
+#, fuzzy
+msgid "Protected"
+msgstr "পণ্য"
+
+#: app/templates/admin/dashboard.html:180
 msgid "No seller, rider, or Admin accounts yet."
 msgstr "এখনো কোনো বিক্রেতা, রাইডার বা অ্যাডমিন অ্যাকাউন্ট নেই।"
 
-#: app/templates/admin/dashboard.html:152
+#: app/templates/admin/dashboard.html:184
 msgid "Orders"
 msgstr "অর্ডারসমূহ"
 
-#: app/templates/admin/dashboard.html:153
+#: app/templates/admin/dashboard.html:185
 msgid "Confirm all pending"
 msgstr "সব অপেক্ষমাণ অর্ডার নিশ্চিত করুন"
 
-#: app/templates/admin/dashboard.html:154
+#: app/templates/admin/dashboard.html:186
 msgid "Decline all pending"
 msgstr "সব অপেক্ষমাণ অর্ডার বাতিল করুন"
 
-#: app/templates/admin/dashboard.html:157
+#: app/templates/admin/dashboard.html:189
 #: app/templates/admin/order_detail.html:4
 #: app/templates/orders/my_orders.html:6 app/templates/rider/dashboard.html:50
 msgid "Order"
 msgstr "অর্ডার"
 
-#: app/templates/admin/dashboard.html:157 app/templates/auth/account.html:5
+#: app/templates/admin/dashboard.html:189 app/templates/auth/account.html:5
 #: app/templates/auth/account.html:9 app/templates/auth/account.html:12
 #: app/templates/auth/account.html:44 app/templates/customer/dashboard.html:7
 #: app/templates/customer/dashboard.html:10
@@ -1024,71 +1205,106 @@ msgstr "অর্ডার"
 msgid "Customer"
 msgstr "গ্রাহক"
 
-#: app/templates/admin/dashboard.html:162
+#: app/templates/admin/dashboard.html:194
 msgid "Order status"
 msgstr "অর্ডারের অবস্থা"
 
-#: app/templates/admin/dashboard.html:162 app/templates/auth/account.html:46
+#: app/templates/admin/dashboard.html:194 app/templates/auth/account.html:46
 #: app/templates/auth/admin_account.html:23
 msgid "Save"
 msgstr "সংরক্ষণ করুন"
 
-#: app/templates/admin/dashboard.html:163
+#: app/templates/admin/dashboard.html:195
 #, fuzzy
 msgid "Delivery rider"
 msgstr "ডেলিভারি কার্যক্রম"
 
-#: app/templates/admin/dashboard.html:163
+#: app/templates/admin/dashboard.html:195
 msgid "Unassigned"
 msgstr "নির্ধারিত নয়"
 
-#: app/templates/admin/dashboard.html:163
+#: app/templates/admin/dashboard.html:195
 #, fuzzy
 msgid "Assign"
 msgstr "সাইন ইন"
 
-#: app/templates/admin/dashboard.html:167
+#: app/templates/admin/dashboard.html:199
 msgid "No orders yet."
 msgstr "এখনো কোনো অর্ডার নেই।"
 
-#: app/templates/admin/dashboard.html:168
+#: app/templates/admin/dashboard.html:200
 msgid "Order pages"
 msgstr "অর্ডার পৃষ্ঠা"
 
-#: app/templates/admin/dashboard.html:175
+#: app/templates/admin/dashboard.html:208
+#, fuzzy
+msgid "REVIEW MODERATION"
+msgstr "আমার অর্ডার"
+
+#: app/templates/admin/dashboard.html:208
+#, fuzzy
+msgid "Product reviews awaiting review"
+msgstr "পর্যালোচনার অপেক্ষায় থাকা পণ্য তালিকা"
+
+#: app/templates/admin/dashboard.html:216
+#, fuzzy
+msgid "Product removed"
+msgstr "যোগাযোগকারীর নাম"
+
+#: app/templates/admin/dashboard.html:217
+#, python-format
+msgid "%(value)s out of 5"
+msgstr ""
+
+#: app/templates/admin/dashboard.html:222
+#, fuzzy
+msgid "Moderation note"
+msgstr "নেক্সহাট পরিচালনা"
+
+#: app/templates/admin/dashboard.html:223
+#, fuzzy
+msgid "Optional note"
+msgstr "ঐচ্ছিক পর্যালোচনা মন্তব্য"
+
+#: app/templates/admin/dashboard.html:231
+#, fuzzy
+msgid "No product reviews are waiting for review."
+msgstr "পর্যালোচনার অপেক্ষায় কোনো পণ্য নেই।"
+
+#: app/templates/admin/dashboard.html:236
 #, fuzzy
 msgid "SECURITY"
 msgstr "শহর"
 
-#: app/templates/admin/dashboard.html:175
+#: app/templates/admin/dashboard.html:236
 msgid "Recent audit activity"
 msgstr "সাম্প্রতিক অডিট কার্যক্রম"
 
-#: app/templates/admin/dashboard.html:177
+#: app/templates/admin/dashboard.html:238
 msgid "When"
 msgstr "কখন"
 
-#: app/templates/admin/dashboard.html:177
+#: app/templates/admin/dashboard.html:238
 #, fuzzy
 msgid "Action"
 msgstr "কার্যক্রম"
 
-#: app/templates/admin/dashboard.html:177
+#: app/templates/admin/dashboard.html:238
 #, fuzzy
 msgid "Actor"
 msgstr "কার্যক্রম"
 
-#: app/templates/admin/dashboard.html:177
+#: app/templates/admin/dashboard.html:238
 #, fuzzy
 msgid "Target"
 msgstr "কার্ট"
 
-#: app/templates/admin/dashboard.html:177
+#: app/templates/admin/dashboard.html:238
 #, fuzzy
 msgid "Detail"
 msgstr "অর্ডারের অবস্থা"
 
-#: app/templates/admin/dashboard.html:180
+#: app/templates/admin/dashboard.html:241
 #, fuzzy
 msgid "No audit activity recorded yet."
 msgstr "পণ্যের ভ্যারিয়েন্ট যোগ হয়েছে।"
@@ -1112,7 +1328,7 @@ msgstr "আইটেম"
 msgid "Product"
 msgstr "পণ্য"
 
-#: app/templates/admin/order_detail.html:5 app/templates/catalog/food.html:16
+#: app/templates/admin/order_detail.html:5 app/templates/catalog/food.html:17
 #: app/templates/orders/cart.html:10
 msgid "Quantity"
 msgstr ""
@@ -1157,29 +1373,29 @@ msgid "New product"
 msgstr "নতুন পাসওয়ার্ড"
 
 #: app/templates/admin/product_form.html:7
-#: app/templates/seller/product_form.html:10
+#: app/templates/seller/product_form.html:14
 #, fuzzy
 msgid "Product name"
 msgstr "যোগাযোগকারীর নাম"
 
 #: app/templates/admin/product_form.html:9
 #: app/templates/catalog/category.html:5 app/templates/catalog/menu.html:27
-#: app/templates/seller/product_form.html:12
+#: app/templates/seller/product_form.html:29
 msgid "Category"
 msgstr "ক্যাটাগরি"
 
 #: app/templates/admin/product_form.html:10
-#: app/templates/seller/product_form.html:14
+#: app/templates/seller/product_form.html:39
 msgid "Price (BDT)"
 msgstr "দাম (BDT)"
 
 #: app/templates/admin/product_form.html:11
-#: app/templates/seller/product_form.html:15
+#: app/templates/seller/product_form.html:46
 msgid "Discount price (optional)"
 msgstr "ছাড়ের দাম (ঐচ্ছিক)"
 
 #: app/templates/admin/product_form.html:12
-#: app/templates/seller/product_form.html:20
+#: app/templates/seller/product_form.html:63
 msgid "Description"
 msgstr "বিবরণ"
 
@@ -1244,6 +1460,16 @@ msgstr "আপনার যাত্রা চালিয়ে যেতে �
 #: app/templates/auth/forgot_password.html:14
 #: app/templates/auth/reset_password.html:16
 #: app/templates/auth/reset_password.html:31
+#: app/templates/rider/account.html:15 app/templates/rider/account.html:25
+#: app/templates/rider/account.html:46 app/templates/rider/account.html:52
+#: app/templates/rider/account.html:60 app/templates/seller/account.html:17
+#: app/templates/seller/account.html:27 app/templates/seller/account.html:33
+#: app/templates/seller/account.html:52 app/templates/seller/account.html:58
+#: app/templates/seller/account.html:66
+#: app/templates/seller/product_form.html:17
+#: app/templates/seller/product_form.html:41
+#: app/templates/seller/product_form.html:55
+#: app/templates/seller/product_form.html:65
 msgid "This field is required."
 msgstr "এই ঘরটি পূরণ করুন।"
 
@@ -1320,6 +1546,7 @@ msgstr "NexHaat-এর সঙ্গে আপনার যাত্রা শু
 #: app/templates/auth/_seller_application_panel.html:53
 #: app/templates/auth/accept_invitation.html:37
 #: app/templates/auth/account.html:56 app/templates/auth/reset_password.html:27
+#: app/templates/rider/account.html:58 app/templates/seller/account.html:64
 msgid "Confirm password"
 msgstr "পাসওয়ার্ড নিশ্চিত করুন"
 
@@ -1349,10 +1576,12 @@ msgstr ""
 " পর্যালোচনা করবে।"
 
 #: app/templates/auth/_seller_application_panel.html:10
+#: app/templates/seller/account.html:15
 msgid "Store name"
 msgstr "দোকানের নাম"
 
 #: app/templates/auth/_seller_application_panel.html:17
+#: app/templates/seller/account.html:25
 msgid "Contact name"
 msgstr "যোগাযোগকারীর নাম"
 
@@ -1377,8 +1606,8 @@ msgstr "সাইন ইন-এ ফিরে যান"
 
 #: app/templates/auth/accept_invitation.html:2
 #: app/templates/auth/accept_invitation.html:49
-#: app/templates/email/account_invitation.html:3
-#: app/templates/email/account_invitation.html:7
+#: app/templates/email/account_invitation.html:2
+#: app/templates/email/account_invitation.html:5
 msgid "Accept invitation"
 msgstr "আমন্ত্রণ গ্রহণ করুন"
 
@@ -1387,7 +1616,8 @@ msgid "SECURE TEAM INVITATION"
 msgstr "নিরাপদ টিম আমন্ত্রণ"
 
 #: app/templates/auth/accept_invitation.html:6
-#: app/templates/email/account_invitation.html:10
+#: app/templates/email/account_invitation.html:43
+#: app/templates/email/account_invitation.html:48
 msgid "Set up your account"
 msgstr "আপনার অ্যাকাউন্ট তৈরি করুন"
 
@@ -1422,15 +1652,18 @@ msgstr "প্রোফাইল ছবি"
 msgid "Update your profile, address, and password."
 msgstr "আপনার প্রোফাইল, ঠিকানা ও পাসওয়ার্ড হালনাগাদ করুন।"
 
-#: app/templates/auth/account.html:52
+#: app/templates/auth/account.html:52 app/templates/rider/account.html:44
+#: app/templates/seller/account.html:50
 msgid "Current password"
 msgstr "বর্তমান পাসওয়ার্ড"
 
-#: app/templates/auth/account.html:54
+#: app/templates/auth/account.html:54 app/templates/rider/account.html:50
+#: app/templates/seller/account.html:56
 msgid "New password"
 msgstr "নতুন পাসওয়ার্ড"
 
 #: app/templates/auth/account.html:58 app/templates/auth/reset_password.html:41
+#: app/templates/rider/account.html:64 app/templates/seller/account.html:70
 msgid "Update password"
 msgstr "পাসওয়ার্ড আপডেট করুন"
 
@@ -1493,6 +1726,7 @@ msgstr "পাসওয়ার্ড ভুলে গেছেন"
 
 #: app/templates/auth/forgot_password.html:5
 #: app/templates/auth/reset_password.html:5
+#: app/templates/auth/verify_registration.html:8
 #: app/templates/auth/verify_reset_code.html:28
 msgid "Secure verification"
 msgstr "নিরাপদ যাচাইকরণ"
@@ -1594,6 +1828,7 @@ msgstr "যাচাইকরণ কোড লিখুন"
 
 #: app/templates/auth/verify_admin_login.html:35
 #: app/templates/auth/verify_admin_login.html:36
+#: app/templates/auth/verify_registration.html:15
 #: app/templates/auth/verify_reset_code.html:35
 #: app/templates/auth/verify_reset_code.html:37
 msgid "6-digit verification code"
@@ -1631,6 +1866,28 @@ msgstr "লিংক আবার পাঠান"
 msgid "Use a different email"
 msgstr ""
 
+#: app/templates/auth/verify_registration.html:2
+msgid "Verify your email"
+msgstr "আপনার ইমেইল যাচাই করুন"
+
+#: app/templates/auth/verify_registration.html:9
+#: app/templates/auth/verify_reset_code.html:29
+msgid "Check your email"
+msgstr "আপনার ইমেইল দেখুন"
+
+#: app/templates/auth/verify_registration.html:10
+#, python-format
+msgid "Enter the 6-digit code sent to %(email)s. It expires in 10 minutes."
+msgstr "%(email)s ঠিকানায় পাঠানো ৬ সংখ্যার কোড দিন। এর মেয়াদ ১০ মিনিট।"
+
+#: app/templates/auth/verify_registration.html:19
+msgid "Verify and create account"
+msgstr "যাচাই করে অ্যাকাউন্ট তৈরি করুন"
+
+#: app/templates/auth/verify_registration.html:23
+msgid "Resend verification code"
+msgstr "যাচাইকরণ কোড আবার পাঠান"
+
 #: app/templates/auth/verify_reset_code.html:15
 msgid "Securely checking your code."
 msgstr "আপনার কোডটি নিরাপদে যাচাই করা হচ্ছে।"
@@ -1646,10 +1903,6 @@ msgstr "আপনার কোড যাচাই হয়েছে। নত�
 #: app/templates/auth/verify_reset_code.html:19
 msgid "The code is incorrect. Check it and try again."
 msgstr "কোডটি ভুল। ঠিক করে আবার চেষ্টা করুন।"
-
-#: app/templates/auth/verify_reset_code.html:29
-msgid "Check your email"
-msgstr "আপনার ইমেইল দেখুন"
 
 #: app/templates/auth/verify_reset_code.html:30
 msgid ""
@@ -1682,14 +1935,77 @@ msgstr "গ্রাহক পৃষ্ঠা"
 msgid "Local listing"
 msgstr "স্থানীয় পণ্য"
 
-#: app/templates/catalog/food.html:17
+#: app/templates/catalog/food.html:18
 msgid "Add to cart"
 msgstr "কার্টে যোগ করুন"
 
-#: app/templates/catalog/food.html:19
+#: app/templates/catalog/food.html:31
+#, fuzzy
+msgid "♥ Saved"
+msgstr "সংরক্ষণ করুন"
+
+#: app/templates/catalog/food.html:31
+msgid "♡ Save to wishlist"
+msgstr ""
+
+#: app/templates/catalog/food.html:35
 #, python-format
 msgid "In stock: %(count)s"
 msgstr "মজুদ আছে: %(count)s"
+
+#: app/templates/catalog/food.html:42
+#, fuzzy
+msgid "CUSTOMER REVIEWS"
+msgstr "গ্রাহক মুছে ফেলা হয়েছে।"
+
+#: app/templates/catalog/food.html:43
+#, fuzzy
+msgid "Ratings and reviews"
+msgstr "পর্যালোচনার অপেক্ষায় থাকা পণ্য তালিকা"
+
+#: app/templates/catalog/food.html:46
+#, fuzzy, python-format
+msgid "%(count)s reviews"
+msgstr "অ্যাকাউন্টের ভূমিকা"
+
+#: app/templates/catalog/food.html:47
+#, fuzzy
+msgid "No reviews yet."
+msgstr "এখনো কোনো অর্ডার নেই।"
+
+#: app/templates/catalog/food.html:55
+#, fuzzy
+msgid "Your rating"
+msgstr "বিক্রেতার পণ্য তালিকা খুলুন"
+
+#: app/templates/catalog/food.html:57
+#, python-format
+msgid "%(value)s stars"
+msgstr ""
+
+#: app/templates/catalog/food.html:61
+#, fuzzy
+msgid "Your review"
+msgstr "দোকান পর্যালোচনা"
+
+#: app/templates/catalog/food.html:62
+#, fuzzy
+msgid "Share your experience (optional)"
+msgstr "ছাড়ের দাম (ঐচ্ছিক)"
+
+#: app/templates/catalog/food.html:64
+#, fuzzy
+msgid "Submit review"
+msgstr "দোকান পর্যালোচনা"
+
+#: app/templates/catalog/food.html:67
+msgid "Sign in after a delivered order to review this product."
+msgstr ""
+
+#: app/templates/catalog/food.html:77
+#, python-format
+msgid "%(value)s out of 5 stars"
+msgstr ""
 
 #: app/templates/catalog/menu.html:6
 msgid "Find your next favorite"
@@ -1800,7 +2116,7 @@ msgid "Customer shortcuts"
 msgstr "গ্রাহক"
 
 #: app/templates/customer/dashboard.html:13 app/templates/orders/cart.html:30
-#: app/templates/orders/my_orders.html:9
+#: app/templates/orders/my_orders.html:9 app/templates/wishlist/index.html:23
 #, fuzzy
 msgid "Explore marketplace"
 msgstr "মার্কেটপ্লেস ঘুরে দেখুন"
@@ -1818,13 +2134,19 @@ msgstr "আপনার অর্ডারের ইতিহাস ও আপ�
 msgid "Review saved items and continue to checkout."
 msgstr ""
 
+#: app/templates/email/account_invitation.html:3
 #: app/templates/email/account_invitation.html:8
 #: app/templates/email/account_invitation.txt:1
 #, python-format
 msgid "You have been invited to join the NexHaat team as %(role)s."
 msgstr "আপনাকে নেক্সহাট টিমে %(role)s হিসেবে যোগ দেওয়ার আমন্ত্রণ জানানো হয়েছে।"
 
-#: app/templates/email/account_invitation.html:9
+#: app/templates/email/account_invitation.html:19
+#, fuzzy
+msgid "Assigned Role"
+msgstr "নির্ধারিত নয়"
+
+#: app/templates/email/account_invitation.html:30
 #: app/templates/email/account_invitation.txt:2
 #, fuzzy
 msgid ""
@@ -1835,7 +2157,7 @@ msgstr ""
 "নিচের নিরাপদ লিংক ব্যবহার করে অ্যাকাউন্টের পাসওয়ার্ড তৈরি করুন। "
 "আমন্ত্রণটির মেয়াদ ২৪ ঘণ্টা এবং এটি একবারই ব্যবহার করা যাবে।"
 
-#: app/templates/email/account_invitation.html:9
+#: app/templates/email/account_invitation.html:32
 #: app/templates/email/account_invitation.txt:2
 msgid ""
 "Use the secure link below to create your account password. This "
@@ -1844,20 +2166,39 @@ msgstr ""
 "নিচের নিরাপদ লিংক ব্যবহার করে অ্যাকাউন্টের পাসওয়ার্ড তৈরি করুন। "
 "আমন্ত্রণটির মেয়াদ ২৪ ঘণ্টা এবং এটি একবারই ব্যবহার করা যাবে।"
 
-#: app/templates/email/account_invitation.html:11
+#: app/templates/email/account_invitation.html:58
 #: app/templates/email/account_invitation.txt:6
 msgid "If you were not expecting this invitation, you can ignore this email."
 msgstr "এই আমন্ত্রণের প্রত্যাশা না করলে ইমেইলটি উপেক্ষা করুন।"
 
+#: app/templates/email/admin_login_code.html:3
 #: app/templates/email/admin_login_code.html:8
 #: app/templates/email/admin_login_code.txt:4
 #, fuzzy
 msgid "Use this code to sign in to the NexHaat admin account:"
 msgstr "নেক্সহাট অ্যাকাউন্টের নতুন পাসওয়ার্ড তৈরি করতে এই কোডটি ব্যবহার করুন:"
 
-#: app/templates/email/admin_login_code.html:10
+#: app/templates/email/admin_login_code.html:30
+#: app/templates/email/password_reset_code.html:30
+msgid "Expires in 10 minutes"
+msgstr ""
+
+#: app/templates/email/admin_login_code.html:33
+#, fuzzy
+msgid "Secure Vault"
+msgstr "নিরাপদ যাচাইকরণ"
+
+#: app/templates/email/admin_login_code.html:38
+#: app/templates/email/password_reset_code.html:38
+#, fuzzy
+msgid ""
+"Select the code above to copy it. This code expires in 10 minutes. If you"
+" did not request this, you can ignore this email."
+msgstr ""
+"এই কোডের মেয়াদ ১০ মিনিট। আপনি অনুরোধ না করলে এই ইমেইলটি উপেক্ষা করতে "
+"পারেন।"
+
 #: app/templates/email/admin_login_code.txt:8
-#: app/templates/email/password_reset_code.html:10
 #: app/templates/email/password_reset_code.txt:8
 msgid ""
 "This code expires in 10 minutes. If you did not request this, you can "
@@ -1866,44 +2207,65 @@ msgstr ""
 "এই কোডের মেয়াদ ১০ মিনিট। আপনি অনুরোধ না করলে এই ইমেইলটি উপেক্ষা করতে "
 "পারেন।"
 
-#: app/templates/email/admin_order.html:3
-#: app/templates/email/admin_order.html:7 app/templates/email/admin_order.txt:3
+#: app/templates/email/admin_order.html:2
+#: app/templates/email/admin_order.html:5 app/templates/email/admin_order.txt:3
 #, fuzzy
 msgid "New order received"
 msgstr "দোকান পর্যালোচনা"
 
+#: app/templates/email/admin_order.html:3
 #: app/templates/email/admin_order.html:8 app/templates/email/admin_order.txt:4
 #, python-format
 msgid "Order %(number)s from %(name)s (%(phone)s)."
 msgstr "%(name)s (%(phone)s) থেকে অর্ডার %(number)s।"
 
-#: app/templates/email/admin_order.html:24
+#: app/templates/email/admin_order.html:47
+#: app/templates/email/order_pending.html:47
+#: app/templates/email/order_receipt.html:58
+#, fuzzy
+msgid "Delivery Destination"
+msgstr "ডেলিভারি কার্যক্রম"
+
+#: app/templates/email/admin_order.html:54
+#, fuzzy
+msgid "Customer Email"
+msgstr "গ্রাহক"
+
+#: app/templates/email/admin_order.html:61
+msgid ""
+"Operations notification: review incoming order in your Admin operations "
+"console."
+msgstr ""
+
 #: app/templates/email/admin_order.txt:10
-#: app/templates/email/order_pending.html:24
 #: app/templates/email/order_pending.txt:10
 #, fuzzy, python-format
 msgid "Delivery address: %(address)s"
 msgstr "ইমেইল ঠিকানা"
 
-#: app/templates/email/admin_order.html:25
 #: app/templates/email/admin_order.txt:11
 #, fuzzy, python-format
 msgid "Customer email: %(email)s"
 msgstr "গ্রাহক পৃষ্ঠা"
 
-#: app/templates/email/order_pending.html:3
-#: app/templates/email/order_pending.html:7
+#: app/templates/email/base.html:169
+msgid "You are receiving this email because of activity on your NexHaat account."
+msgstr ""
+
+#: app/templates/email/order_pending.html:2
+#: app/templates/email/order_pending.html:5
 #: app/templates/email/order_pending.txt:3
 msgid "We received your order"
 msgstr "আপনার অর্ডার পেয়েছি"
 
+#: app/templates/email/order_pending.html:3
 #: app/templates/email/order_pending.html:8
 #: app/templates/email/order_pending.txt:4
 #, python-format
 msgid "Thank you, %(name)s. Your order %(number)s is pending confirmation."
 msgstr "ধন্যবাদ, %(name)s। আপনার অর্ডার %(number)s নিশ্চিতকরণের অপেক্ষায় আছে।"
 
-#: app/templates/email/order_pending.html:25
+#: app/templates/email/order_pending.html:54
 #: app/templates/email/order_pending.txt:11
 msgid ""
 "Payment method: cash on delivery. We will email you again once your order"
@@ -1912,41 +2274,90 @@ msgstr ""
 "পরিশোধের পদ্ধতি: ক্যাশ অন ডেলিভারি। অর্ডার নিশ্চিত হলে আমরা আবার ইমেইল "
 "করব।"
 
-#: app/templates/email/order_receipt.html:3
-#: app/templates/email/order_receipt.html:7
+#: app/templates/email/order_receipt.html:2
+#: app/templates/email/order_receipt.html:5
 #: app/templates/email/order_receipt.txt:3
 #, fuzzy
 msgid "Your NexHaat receipt"
 msgstr "নেক্সহাট মার্কেটপ্লেস"
 
+#: app/templates/email/order_receipt.html:3
 #: app/templates/email/order_receipt.html:8
 #: app/templates/email/order_receipt.txt:4
 #, python-format
 msgid "Thank you, %(name)s. Here is the receipt for order %(number)s."
 msgstr "ধন্যবাদ, %(name)s। এটা অর্ডার %(number)s-এর রসিদ।"
 
-#: app/templates/email/order_receipt.html:24
+#: app/templates/email/order_receipt.html:11
+#, fuzzy, python-format
+msgid "Placed on %(date)s"
+msgstr "অপেক্ষমাণ অর্ডার"
+
+#: app/templates/email/order_receipt.html:65
 #: app/templates/email/order_receipt.txt:10
 msgid "Your invoice is attached to this email as a PDF."
 msgstr "আপনার ইনভয়েস এই ইমেইলে PDF হিসেবে সংযুক্ত করা হয়েছে।"
 
-#: app/templates/email/order_status.html:3
-#: app/templates/email/order_status.html:7
+#: app/templates/email/order_status.html:2
+#: app/templates/email/order_status.html:5
 #: app/templates/email/order_status.txt:3
 #, fuzzy
 msgid "Order update"
 msgstr "অর্ডার পৃষ্ঠা"
 
+#: app/templates/email/order_status.html:3
 #: app/templates/email/order_status.html:8
 #: app/templates/email/order_status.txt:4
 #, python-format
 msgid "Hello %(name)s, your order %(number)s is now %(status)s."
 msgstr "হ্যালো %(name)s, আপনার অর্ডার %(number)s এখন %(status)s।"
 
+#: app/templates/email/order_status.html:16
+#: app/templates/orders/my_orders.html:6
+msgid "Placed"
+msgstr ""
+
+#: app/templates/email/order_status.html:22
+#, fuzzy
+msgid "Confirmed"
+msgstr "সব অপেক্ষমাণ অর্ডার নিশ্চিত করুন"
+
+#: app/templates/email/order_status.html:28
+msgid "On Way"
+msgstr ""
+
+#: app/templates/email/order_status.html:34
+#, fuzzy
+msgid "Delivered"
+msgstr "ডেলিভারি"
+
+#: app/templates/email/password_reset_code.html:3
 #: app/templates/email/password_reset_code.html:8
 #: app/templates/email/password_reset_code.txt:4
 msgid "Use this code to create a new NexHaat account password:"
 msgstr "নেক্সহাট অ্যাকাউন্টের নতুন পাসওয়ার্ড তৈরি করতে এই কোডটি ব্যবহার করুন:"
+
+#: app/templates/email/password_reset_code.html:33
+msgid "One-Time Code"
+msgstr ""
+
+#: app/templates/email/registration_code.html:3
+msgid "Use this code to verify your NexHaat account:"
+msgstr "আপনার নেক্সহাট অ্যাকাউন্ট যাচাই করতে এই কোডটি ব্যবহার করুন:"
+
+#: app/templates/email/registration_code.html:4
+msgid "Verify your NexHaat account"
+msgstr "আপনার নেক্সহাট অ্যাকাউন্ট যাচাই করুন"
+
+#: app/templates/email/registration_code.html:7
+msgid "Enter this code to finish creating your customer or seller account:"
+msgstr "গ্রাহক বা বিক্রেতা অ্যাকাউন্ট তৈরি সম্পন্ন করতে এই কোডটি দিন:"
+
+#: app/templates/email/registration_code.html:13
+msgid ""
+"This code expires in 10 minutes. If you did not request an account, you "
+"can ignore this email."
+msgstr "এই কোডের মেয়াদ ১০ মিনিট। আপনি অ্যাকাউন্ট খোলার অনুরোধ না করলে ইমেইলটি উপেক্ষা করুন।"
 
 #: app/templates/errors/404.html:2 app/templates/errors/404.html:7
 msgid "Page not found"
@@ -1963,6 +2374,35 @@ msgstr "হোম পেজে ফিরুন"
 #: app/templates/errors/500.html:2 app/templates/errors/500.html:7
 msgid "An unexpected error occurred. Please try again later."
 msgstr "একটি অপ্রত্যাশিত ত্রুটি হয়েছে। পরে আবার চেষ্টা করুন।"
+
+#: app/templates/notifications/index.html:7
+#: app/templates/orders/my_orders.html:5
+msgid "Your NexHaat activity"
+msgstr ""
+
+#: app/templates/notifications/index.html:9
+#, fuzzy
+msgid "Order, delivery, and account updates appear here."
+msgstr "আপনার নির্ধারিত ডেলিভারি ও হ্যান্ডঅফ আপডেট এখানে দেখা যাবে।"
+
+#: app/templates/notifications/index.html:14
+#, fuzzy
+msgid "Mark all as read"
+msgstr "ডেলিভারড চিহ্নিত করুন"
+
+#: app/templates/notifications/index.html:35
+#, fuzzy
+msgid "Mark as read"
+msgstr "ডেলিভারড চিহ্নিত করুন"
+
+#: app/templates/notifications/index.html:43
+#, fuzzy
+msgid "No notifications yet"
+msgstr "যাচাইকরণ কোড পাঠান"
+
+#: app/templates/notifications/index.html:44
+msgid "We will let you know when your orders and account change."
+msgstr ""
 
 #: app/templates/orders/cart.html:5
 msgid "Ready when you are"
@@ -2095,15 +2535,7 @@ msgid "View my orders"
 msgstr "আমার অর্ডার"
 
 #: app/templates/orders/my_orders.html:5
-msgid "Your NexHaat activity"
-msgstr ""
-
-#: app/templates/orders/my_orders.html:5
 msgid "Keep track of recent purchases and delivery updates."
-msgstr ""
-
-#: app/templates/orders/my_orders.html:6
-msgid "Placed"
 msgstr ""
 
 #: app/templates/orders/my_orders.html:9
@@ -2197,9 +2629,38 @@ msgstr ""
 "আপনার অ্যাকাউন্ট প্রস্তুত। রাইডার কার্যক্রম ধাপে ডেলিভারি বরাদ্দ ও "
 "ডেলিভারি প্রমাণের টুল চালু হবে।"
 
-#: app/templates/portals/dashboard.html:20
+#: app/templates/portals/dashboard.html:20 app/templates/rider/account.html:29
 msgid "Availability"
 msgstr "প্রাপ্যতা"
+
+#: app/templates/rider/account.html:2 app/templates/rider/account.html:6
+#, fuzzy
+msgid "Rider account"
+msgstr "অ্যাকাউন্ট তৈরি করুন"
+
+#: app/templates/rider/account.html:7
+msgid "Keep your contact details and availability up to date for dispatch."
+msgstr ""
+
+#: app/templates/rider/account.html:35 app/templates/seller/account.html:41
+#, fuzzy
+msgid "Saving…"
+msgstr "পাঠানো হচ্ছে…"
+
+#: app/templates/rider/account.html:35
+#, fuzzy
+msgid "Save rider details"
+msgstr "অর্ডারের অবস্থা"
+
+#: app/templates/rider/account.html:36 app/templates/seller/account.html:42
+#, fuzzy
+msgid "Back to dashboard"
+msgstr "গ্রাহক পৃষ্ঠা"
+
+#: app/templates/rider/account.html:40 app/templates/seller/account.html:46
+#, fuzzy
+msgid "Change password"
+msgstr "নতুন পাসওয়ার্ড"
 
 #: app/templates/rider/dashboard.html:2
 #, fuzzy
@@ -2274,6 +2735,32 @@ msgstr "ছবি সংরক্ষিত আছে"
 #: app/templates/rider/dashboard.html:53
 msgid "Completed deliveries will appear here."
 msgstr "সম্পন্ন ডেলিভারি এখানে দেখা যাবে।"
+
+#: app/templates/seller/account.html:2 app/templates/seller/account.html:6
+#, fuzzy
+msgid "Seller account"
+msgstr "আপনার অ্যাকাউন্ট তৈরি করুন"
+
+#: app/templates/seller/account.html:5
+#, fuzzy
+msgid "Seller"
+msgstr "বিক্রেতা প্যানেল"
+
+#: app/templates/seller/account.html:7
+msgid ""
+"Keep your store contact details current. Admin controls your approval "
+"status."
+msgstr ""
+
+#: app/templates/seller/account.html:37
+#, fuzzy
+msgid "Business address"
+msgstr "ব্যবসার ঠিকানা (ঐচ্ছিক)"
+
+#: app/templates/seller/account.html:41
+#, fuzzy
+msgid "Save store details"
+msgstr "অর্ডারের অবস্থা"
 
 #: app/templates/seller/catalog.html:2 app/templates/seller/product_form.html:6
 #, fuzzy
@@ -2371,29 +2858,49 @@ msgstr "নতুন পণ্যতালিকা পর্যালোচন�
 msgid "Every new listing and edit is reviewed before customers can see it."
 msgstr "ক্রেতারা দেখার আগে প্রতিটি নতুন পণ্য ও সম্পাদনা পর্যালোচনা করা হয়।"
 
-#: app/templates/seller/product_form.html:11
-msgid "Use lowercase letters, numbers, and hyphens."
-msgstr "ছোট হাতের অক্ষর, সংখ্যা ও হাইফেন ব্যবহার করুন।"
+#: app/templates/seller/product_form.html:10
+msgid ""
+"No active category exists yet, so a product cannot be published. Ask an "
+"Admin to create a category first."
+msgstr ""
 
-#: app/templates/seller/product_form.html:12
+#: app/templates/seller/product_form.html:18
+#, fuzzy, python-format
+msgid "Use at least %(minimum)s characters."
+msgstr "পাসওয়ার্ডে অন্তত %(minimum)sটি অক্ষর থাকতে হবে।"
+
+#: app/templates/seller/product_form.html:26
+msgid "Optional. Leave blank and we will build it from the product name."
+msgstr ""
+
+#: app/templates/seller/product_form.html:31
+#, fuzzy
+msgid "Choose a category."
+msgstr "ক্যাটাগরি নির্বাচন করুন"
+
+#: app/templates/seller/product_form.html:31
 msgid "Choose a category"
 msgstr "ক্যাটাগরি নির্বাচন করুন"
 
-#: app/templates/seller/product_form.html:13
+#: app/templates/seller/product_form.html:35
 msgid "Original language"
 msgstr "মূল ভাষা"
 
-#: app/templates/seller/product_form.html:16
+#: app/templates/seller/product_form.html:50
+msgid "Must be lower than the regular price."
+msgstr ""
+
+#: app/templates/seller/product_form.html:53
 #, fuzzy
 msgid "Available stock"
 msgstr "প্রাপ্যতা"
 
-#: app/templates/seller/product_form.html:17
+#: app/templates/seller/product_form.html:59
 #, fuzzy
 msgid "Product image (optional)"
 msgstr "ব্যবসার ঠিকানা (ঐচ্ছিক)"
 
-#: app/templates/seller/product_form.html:17
+#: app/templates/seller/product_form.html:59
 msgid ""
 "JPEG, PNG, or WEBP. Maximum 3 MB. Images are scanned and checked before "
 "storage."
@@ -2401,15 +2908,15 @@ msgstr ""
 "JPEG, PNG বা WEBP। সর্বোচ্চ ৩ MB। সংরক্ষণের আগে ছবি স্ক্যান ও যাচাই করা "
 "হয়।"
 
-#: app/templates/seller/product_form.html:18
+#: app/templates/seller/product_form.html:60
 msgid "Remove current image"
 msgstr "বর্তমান ছবি সরান"
 
-#: app/templates/seller/product_form.html:23
+#: app/templates/seller/product_form.html:70
 msgid "Optional seller-written translations"
 msgstr "ঐচ্ছিক বিক্রেতা-লিখিত অনুবাদ"
 
-#: app/templates/seller/product_form.html:23
+#: app/templates/seller/product_form.html:70
 msgid ""
 "We do not machine-translate product details. Leave a language blank to "
 "show the original text with its language label."
@@ -2417,16 +2924,21 @@ msgstr ""
 "পণ্যের বিবরণ স্বয়ংক্রিয়ভাবে অনুবাদ করা হয় না। কোনো ভাষা ফাঁকা রাখলে "
 "মূল লেখা ও ভাষার নাম দেখানো হবে।"
 
-#: app/templates/seller/product_form.html:26
+#: app/templates/seller/product_form.html:73
 #, fuzzy
 msgid "Translated name"
 msgstr "দোকানের নাম"
 
-#: app/templates/seller/product_form.html:27
+#: app/templates/seller/product_form.html:74
 msgid "Translated description"
 msgstr "অনূদিত বিবরণ"
 
-#: app/templates/seller/product_form.html:31
+#: app/templates/seller/product_form.html:78
+#, fuzzy
+msgid "Submitting…"
+msgstr "আবেদন জমা হচ্ছে…"
+
+#: app/templates/seller/product_form.html:78
 #, fuzzy
 msgid "Send for Admin review"
 msgstr "পণ্যটি অ্যাডমিনের পর্যালোচনার জন্য জমা হয়েছে।"
@@ -2504,6 +3016,27 @@ msgstr "সক্রিয়"
 #: app/templates/seller/variants.html:19
 msgid "No variants added yet."
 msgstr "পণ্যের ভ্যারিয়েন্ট যোগ হয়েছে।"
+
+#: app/templates/wishlist/index.html:7
+#, fuzzy
+msgid "Saved for later"
+msgstr "ক্যাটাগরি সংরক্ষণ"
+
+#: app/templates/wishlist/index.html:8
+msgid "Your wishlist"
+msgstr ""
+
+#: app/templates/wishlist/index.html:9
+msgid "Keep products here and move them to your cart when you are ready."
+msgstr ""
+
+#: app/templates/wishlist/index.html:21
+msgid "Your wishlist is empty"
+msgstr ""
+
+#: app/templates/wishlist/index.html:22
+msgid "Save products you like and they will appear here."
+msgstr ""
 
 #~ msgid "Invalid admin email or password."
 #~ msgstr "অ্যাডমিন ইমেইল বা পাসওয়ার্ড সঠিক নয়।"
@@ -2797,4 +3330,7 @@ msgstr "পণ্যের ভ্যারিয়েন্ট যোগ হয
 #~ "will appear here when rider operations"
 #~ " are enabled."
 #~ msgstr ""
+
+#~ msgid "Use lowercase letters, numbers, and hyphens."
+#~ msgstr "ছোট হাতের অক্ষর, সংখ্যা ও হাইফেন ব্যবহার করুন।"
 

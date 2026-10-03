@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}{{ _('Rider account') }} · {{ app_name }}{% endblock %}
+{% block page_content %}
+<div class="form-page"><section class="surface form-page__panel">
+  <p class="eyebrow">{{ _('Rider') }}</p>
+  <h1>{{ _('Rider account') }}</h1>
+  <p>{{ _('Keep your contact details and availability up to date for dispatch.') }}</p>
+
+  <form class="auth-form" method="post" action="{{ url_for('rider.account') }}" data-validate-form>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="field-grid">
+      <div class="form-field">
+        <label for="rider-name">{{ _('Full name') }}</label>
+        <input id="rider-name" name="full_name" type="text" value="{{ profile.full_name }}" minlength="2" maxlength="120" required data-validate
+               data-required-message="{{ _('This field is required.') }}" aria-describedby="rider-name-error">
+        <span class="field-error" id="rider-name-error" data-field-error aria-live="polite"></span>
+      </div>
+      <div class="form-field">
+        <label for="rider-email">{{ _('Email address') }}</label>
+        <input id="rider-email" type="email" value="{{ user.email }}" readonly>
+      </div>
+      <div class="form-field">
+        <label for="rider-phone">{{ _('Phone number') }}</label>
+        <input id="rider-phone" name="phone" type="tel" value="{{ profile.phone }}" minlength="7" maxlength="30" required data-validate
+               data-required-message="{{ _('This field is required.') }}" aria-describedby="rider-phone-error">
+        <span class="field-error" id="rider-phone-error" data-field-error aria-live="polite"></span>
+      </div>
+      <div class="form-field">
+        <label for="rider-availability">{{ _('Availability') }}</label>
+        <select id="rider-availability" name="availability_status" required>
+          {% for choice in availability_choices %}<option value="{{ choice }}" {% if profile.availability_status == choice %}selected{% endif %}>{{ _(choice|capitalize) }}</option>{% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="form-actions"><button class="button" type="submit" data-loading-label="{{ _('Saving…') }}"><span data-submit-label>{{ _('Save rider details') }}</span></button>
+      <a class="button-secondary" href="{{ url_for('rider.dashboard') }}">{{ _('Back to dashboard') }}</a></div>
+  </form>
+
+  <section class="product-form-translations">
+    <h2>{{ _('Change password') }}</h2>
+    <form class="auth-form" method="post" action="{{ url_for('rider.change_password') }}" data-validate-form>
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <div class="form-field">
+        <label for="rider-current-password">{{ _('Current password') }}</label>
+        <input id="rider-current-password" name="current_password" type="password" autocomplete="current-password" required data-validate
+               data-required-message="{{ _('This field is required.') }}" aria-describedby="rider-current-password-error">
+        <span class="field-error" id="rider-current-password-error" data-field-error aria-live="polite"></span>
+      </div>
+      <div class="form-field">
+        <label for="rider-new-password">{{ _('New password') }}</label>
+        <input id="rider-new-password" name="password" type="password" autocomplete="new-password" minlength="{{ min_password_length }}" maxlength="{{ max_password_length }}" required data-validate
+               data-required-message="{{ _('This field is required.') }}"
+               data-too-short-message="{{ _('Password must contain at least %(minimum)s characters.', minimum=min_password_length) }}"
+               aria-describedby="rider-new-password-error">
+        <span class="field-error" id="rider-new-password-error" data-field-error aria-live="polite"></span>
+      </div>
+      <div class="form-field">
+        <label for="rider-confirm-password">{{ _('Confirm password') }}</label>
+        <input id="rider-confirm-password" name="password_confirmation" type="password" autocomplete="new-password" required data-validate
+               data-confirm-for="rider-new-password" data-required-message="{{ _('This field is required.') }}"
+               data-mismatch-message="{{ _('Passwords do not match.') }}" aria-describedby="rider-confirm-password-error">
+        <span class="field-error" id="rider-confirm-password-error" data-field-error aria-live="polite"></span>
+      </div>
+      <div class="form-actions"><button class="button-secondary" type="submit"><span data-submit-label>{{ _('Update password') }}</span></button></div>
+    </form>
+  </section>
+
+  <form class="logout-form" method="post" action="{{ url_for('auth.logout') }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <button class="text-button" type="submit">{{ _('Sign out') }}</button>
+  </form>
+</section></div>
+{% endblock %}

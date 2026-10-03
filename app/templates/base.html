@@ -25,7 +25,7 @@
         <a href="{{ url_for('main.index') }}" {% if request.endpoint == 'main.index' %}aria-current="page"{% endif %}>{{ _('Home') }}</a>
         <a href="{{ url_for('main.menu') }}" {% if request.endpoint in ('main.menu', 'main.search', 'main.category', 'main.food') %}aria-current="page"{% endif %}>{{ _('Explore') }}</a>
         {% if g.current_user %}
-          {% if g.current_user.role == 'customer' %}<a href="{{ url_for('orders.my_orders') }}">{{ _('My orders') }}</a>{% endif %}
+          {% if g.current_user.role == 'customer' %}<a href="{{ url_for('orders.my_orders') }}">{{ _('My orders') }}</a><a href="{{ url_for('wishlist.index') }}">{{ _('Wishlist') }}</a>{% endif %}
           {% if g.current_user.role == 'admin' %}<a href="{{ url_for('admin.dashboard') }}">{{ _('Operations') }}</a>{% endif %}
           {% if g.current_user.role == 'seller' %}<a href="{{ url_for('seller.dashboard') }}">{{ _('Seller space') }}</a>{% endif %}
           {% if g.current_user.role == 'rider' %}<a href="{{ url_for('rider.dashboard') }}">{{ _('Rider space') }}</a>{% endif %}
@@ -43,12 +43,19 @@
           </select>
           <button class="language-picker__submit" type="submit">{{ _('Go') }}</button>
         </form>
+        {% if g.current_user and g.current_user.role == 'customer' %}
         <a class="cart-link" href="{{ url_for('orders.cart') }}" aria-label="{{ _('Shopping cart') }}">
           <span aria-hidden="true">▱</span><span class="cart-link__label">{{ _('Cart') }}</span>
           <span class="cart-count">{{ session.get('cart', {}).values()|sum }}</span>
         </a>
+        {% endif %}
         {% if g.current_user %}
-          <a class="header-account" href="{{ url_for('auth.admin_account' if g.current_user.role == 'admin' else 'auth.account') }}">{{ _('Account') }}</a>
+          <a class="notification-link" href="{{ url_for('notifications.index') }}" aria-label="{{ _('Notifications') }}">
+            <span aria-hidden="true">🔔</span><span class="visually-hidden">{{ _('Notifications') }}</span>
+            {% if unread_notifications %}<span class="notification-count">{{ unread_notifications }}</span>{% endif %}
+          </a>
+          {% set account_endpoint = {'admin': 'auth.admin_account', 'seller': 'seller.account', 'rider': 'rider.account'}.get(g.current_user.role, 'auth.account') %}
+          <a class="header-account" href="{{ url_for(account_endpoint) }}">{{ _('Account') }}</a>
           <form method="post" action="{{ url_for('auth.logout') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="header-logout" type="submit">{{ _('Sign out') }}</button></form>
         {% else %}
           <a class="header-account" href="{{ url_for('auth.login') }}">{{ _('Sign in') }}</a>

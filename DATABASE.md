@@ -12,12 +12,16 @@ Beyond the core `users`, `customers`, `admins`, `addresses`, and `app_settings` 
 - `categories`, `products`, `product_translations`, and `product_variants` for the catalog, seller-authored multilingual text, and SKU stock.
 - `orders` and `order_items`. Each order may belong to a `seller` and a `rider`, carries a `checkout_group` and `delivery_fee`, and tracks the delivery workflow through `delivery_status` with per-stage timestamps, proof of delivery, and a note. Order items snapshot product name, price, quantity, and subtotal so later catalog edits do not change historical orders.
 - `admin_login_challenges` for passwordless Admin email-OTP challenges (hashed code, expiry, attempts, single use).
+- `registration_challenges` for customer and seller signup OTPs. Challenges keep only a hashed code and password hash plus pending profile details, expire after 10 minutes, allow five verification attempts, and are consumed when the account is created.
 - `auth_throttles` for keyed login throttling.
 - `outbound_emails` for the durable transactional-email outbox with attempt counts and retry state.
 - `audit_events` for the security audit trail (action, actor snapshot, target, detail, and a keyed client-address hash).
 - `fdc_*` and `foodon_categories` for the imported reference vocabulary.
+- `reviews` for purchase-verified product reviews: a 1–5 rating, an optional comment, an author-name snapshot, the delivered `order_id` that proves the purchase, and an Admin moderation `status` (`pending`/`approved`/`rejected`) with `moderated_at`/`moderated_by_id`. A unique constraint on (`product_id`, `user_id`, `order_id`) stops duplicate reviews of the same purchase. Only `approved` reviews are shown on the storefront.
+- `notifications` for the in-app inbox: a `type` (`order`/`delivery`/`account`/`system`), a message, an optional in-app `link`, and an `is_read` flag. Rows cascade-delete with the owning account.
+- `wishlist_items` for the customer wishlist: one row per saved product with a `created_at` timestamp and a unique (`user_id`, `product_id`) pair so a product can only be saved once per customer. Rows cascade-delete with the owning account and product.
 
-Cart state remains in the signed Flask session; no persistent cart table is needed. Confirmed and declined orders remain in the database for customer history and audit; removal is only available through the explicit admin action.
+Cart state remains in the signed Flask session; no persistent cart table is needed. Only authenticated customer accounts can add items or place orders. The starter taxonomy includes food, clothing, electronics, and household categories; it does not invent products, prices, or stock. Sellers create real listings, which remain unavailable until Admin moderation. Confirmed and declined orders remain in the database for customer history and audit; removal is only available through the explicit admin action.
 
 ## Food reference data
 

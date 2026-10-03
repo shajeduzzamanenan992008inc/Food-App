@@ -11,13 +11,77 @@
       <p>{{ product.localized_description(current_locale) }}</p>
       {% if product.needs_original_language_label(current_locale, 'name') or product.needs_original_language_label(current_locale, 'description') %}<p class="source-caption">{{ _('Original language: %(language)s', language=product.original_language_label) }}</p>{% endif %}
       <p class="product-detail__price">৳{{ '%.2f'|format(product.display_price) }}{% if product.discount_price %}<del>৳{{ '%.2f'|format(product.price) }}</del>{% endif %}</p>
+      {% if g.current_user and g.current_user.role == 'customer' %}
       <form method="post" action="{{ url_for('orders.add_to_cart', product_id=product.id) }}" class="form-actions">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="next" value="{{ url_for('orders.cart') }}">
         <label class="quantity-control"><span>{{ _('Quantity') }}</span><input type="number" name="quantity" value="1" min="1" max="20" inputmode="numeric"></label>
         <button class="button" type="submit">{{ _('Add to cart') }} <span aria-hidden="true">＋</span></button>
       </form>
+      {% else %}
+      <div class="form-actions">
+        <a class="button" href="{{ url_for('auth.login') }}">{{ _('Sign in to order') }}</a>
+      </div>
+      {% endif %}
+      {% if g.current_user and g.current_user.role == 'customer' %}
+        <form method="post" class="wishlist-detail-form"
+              action="{{ url_for('wishlist.remove_item' if is_saved else 'wishlist.add_item', product_id=product.id) }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <input type="hidden" name="next" value="{{ url_for('main.food', slug=product.slug) }}">
+          <button class="button-secondary" type="submit" aria-pressed="{{ 'true' if is_saved else 'false' }}">
+            {{ _('♥ Saved') if is_saved else _('♡ Save to wishlist') }}
+          </button>
+        </form>
+      {% endif %}
       <p class="source-caption">{{ _('In stock: %(count)s', count=product.available_stock) }}</p>
     </div>
   </article>
+
+  <section class="product-reviews" aria-labelledby="reviews-title">
+    <header class="product-reviews__header">
+      <div>
+        <p class="eyebrow">{{ _('CUSTOMER REVIEWS') }}</p>
+        <h2 id="reviews-title">{{ _('Ratings and reviews') }}</h2>
+      </div>
+      <p class="review-summary" aria-live="polite">
+        {% if rating.count %}<span class="review-stars" aria-hidden="true">{% for _s in range(rating.average|round(0, 'floor')|int) %}★{% endfor %}</span> <strong>{{ '%.1f'|format(rating.average) }}</strong> · {{ _('%(count)s reviews', count=rating.count) }}
+        {% else %}{{ _('No reviews yet.') }}{% endif %}
+      </p>
+    </header>
+
+    {% if can_review %}
+      <form class="review-form surface surface-card" method="post" action="{{ url_for('main.submit_review', slug=product.slug) }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="form-field">
+          <label for="review-rating">{{ _('Your rating') }}</label>
+          <select id="review-rating" name="rating" required>
+            {% for value in (5, 4, 3, 2, 1) %}<option value="{{ value }}">{{ _('%(value)s stars', value=value) }}</option>{% endfor %}
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="review-comment">{{ _('Your review') }}</label>
+          <textarea id="review-comment" name="comment" rows="3" maxlength="2000" placeholder="{{ _('Share your experience (optional)') }}"></textarea>
+        </div>
+        <div class="form-actions"><button class="button" type="submit">{{ _('Submit review') }}</button></div>
+      </form>
+    {% elif not g.current_user %}
+      <p class="source-caption">{{ _('Sign in after a delivered order to review this product.') }}</p>
+    {% endif %}
+
+    {% if reviews %}
+      <ul class="review-list">
+        {% for review in reviews %}
+          <li class="review-item surface surface-card">
+            <p class="review-item__meta">
+              <strong>{{ review.author_name }}</strong>
+              <span class="review-stars" aria-hidden="true">{% for _s in range(review.rating) %}★{% endfor %}</span>
+              <span class="visually-hidden">{{ _('%(value)s out of 5 stars', value=review.rating) }}</span>
+              <time datetime="{{ review.created_at.isoformat() }}">{{ review.created_at.strftime('%Y-%m-%d') }}</time>
+            </p>
+            {% if review.comment %}<p class="review-item__body">{{ review.comment }}</p>{% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </section>
 </div>
 {% endblock %}

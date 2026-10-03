@@ -76,12 +76,15 @@
   document.querySelectorAll("[data-password-toggle]").forEach((button) => {
     const input = document.getElementById(button.getAttribute("aria-controls"));
     if (!input) return;
+    // Progressive enhancement: reveal and enable the control once JS is running.
     button.hidden = false;
+    button.disabled = false;
     button.addEventListener("click", () => {
       const reveal = input.type === "password";
       input.type = reveal ? "text" : "password";
       button.setAttribute("aria-pressed", String(reveal));
       button.setAttribute("aria-label", reveal ? button.dataset.hideLabel : button.dataset.showLabel);
+      input.focus({ preventScroll: true });
     });
   });
 

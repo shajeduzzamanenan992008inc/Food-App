@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NexHaat | 3D Neumorphic Email Studio</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      background: #e7ebf0;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Ambient Floating 3D Spheres (Exact from docs/design-references/style.css) */
+    .bg-circle {
+      position: fixed;
+      border-radius: 50%;
+      background: #e7ebf0;
+      box-shadow: 15px 15px 30px rgba(163, 177, 198, .55), -15px -15px 30px rgba(255, 255, 255, .9);
+      z-index: -5;
+      animation: floating 6s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .bg1 {
+      width: 190px;
+      height: 190px;
+      top: 6%;
+      left: 6%;
+    }
+
+    .bg2 {
+      width: 130px;
+      height: 130px;
+      right: 6%;
+      bottom: 8%;
+      animation-delay: 1.5s;
+    }
+
+    .bg3 {
+      width: 65px;
+      height: 65px;
+      right: 18%;
+      top: 20%;
+      animation-delay: 3s;
+    }
+
+    .bg4 {
+      width: 90px;
+      height: 90px;
+      left: 15%;
+      bottom: 12%;
+      animation-delay: 2.5s;
+    }
+
+    @keyframes floating {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-18px);
+      }
+    }
+
+    /* Top Studio Controls Bar */
+    .studio-bar {
+      width: 100%;
+      max-width: 1100px;
+      margin: 22px auto 14px;
+      padding: 12px 24px;
+      background: #e7ebf0;
+      border-radius: 28px;
+      box-shadow: 10px 10px 24px rgba(163, 177, 198, .55), -10px -10px 24px rgba(255, 255, 255, .95);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      z-index: 50;
+    }
+
+    .brand-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .mini-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #e7ebf0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #087cff;
+      font-size: 18px;
+      box-shadow: 5px 5px 12px rgba(163, 177, 198, .6), -5px -5px 12px rgba(255, 255, 255, .95);
+    }
+
+    .brand-title h2 {
+      font-size: 17px;
+      color: #303943;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .brand-title span {
+      font-size: 11px;
+      color: #7c858e;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-pills {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn {
+      padding: 8px 18px;
+      border: none;
+      border-radius: 20px;
+      background: #e7ebf0;
+      color: #7c858e;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 4px 4px 10px rgba(163, 177, 198, .6), -4px -4px 10px rgba(255, 255, 255, .95);
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .nav-btn:hover {
+      color: #006cff;
+      transform: translateY(-2px);
+    }
+
+    .nav-btn.active {
+      color: #006cff;
+      box-shadow: inset 4px 4px 8px rgba(163, 177, 198, .6), inset -4px -4px 8px rgba(255, 255, 255, .95);
+    }
+
+    .action-btn {
+      padding: 8px 18px;
+      border: none;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #087cff, #065cc0);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(8, 124, 255, 0.35);
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(8, 124, 255, 0.45);
+    }
+
+    /* 3D Auth Wrapper with exact perspective */
+    .auth-wrapper {
+      width: 480px;
+      max-width: 94%;
+      perspective: 1600px;
+      margin: 18px auto 40px;
+      position: relative;
+    }
+
+    .auth-card {
+      position: relative;
+      width: 100%;
+      min-height: 640px;
+      transform-style: preserve-3d;
+      transition: transform 1s cubic-bezier(.68, -0.55, .27, 1.55);
+    }
+
+    .auth-card.flipped {
+      transform: rotateY(180deg);
+    }
+
+    /* Neumorphic 3D Form Panels */
+    .form-panel {
+      position: absolute;
+      inset: 0;
+      padding: 38px 34px;
+      border-radius: 35px;
+      background: #e7ebf0;
+      box-shadow: 20px 20px 40px rgba(163, 177, 198, .65), -20px -20px 40px rgba(255, 255, 255, .95);
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .back-panel {
+      transform: rotateY(180deg);
+    }
+
+    /* Circular 3D Logo */
+    .logo {
+      width: 86px;
+      height: 86px;
+      margin: 0 auto 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      font-size: 32px;
+      color: #087cff;
+      background: #e7ebf0;
+      box-shadow: 9px 9px 18px rgba(163, 177, 198, .65), -9px -9px 18px rgba(255, 255, 255, .95);
+      transition: 0.4s ease;
+      cursor: pointer;
+    }
+
+    .logo:hover {
+      transform: translateY(-5px) rotate(10deg);
+      box-shadow: 12px 12px 24px rgba(163, 177, 198, .7), -12px -12px 24px rgba(255, 255, 255, 1);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 24px;
+      color: #303943;
+      margin-bottom: 6px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #7c858e;
+      font-size: 13px;
+      margin-bottom: 22px;
+      line-height: 1.5;
+    }
+
+    /* Electric Border & Glow (Exact from docs/design-references/style.css) */
+    .electric-box {
+      position: relative;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .electric-border {
+      position: absolute;
+      inset: -3px;
+      border-radius: 22px;
+      overflow: hidden;
+      pointer-events: none;
+      opacity: 1;
+    }
+
+    .electric-border::before {
+      content: "";
+      position: absolute;
+      width: 180%;
+      height: 180%;
+      left: -40%;
+      top: -40%;
+      background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        transparent 30deg,
+        #00eaff 45deg,
+        #00aaff 65deg,
+        #006cff 80deg,
+        transparent 105deg,
+        transparent 360deg
+      );
+      animation: electricRotate 1.2s linear infinite;
+    }
+
+    .electric-border::after {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      border-radius: 20px;
+      background: #e7ebf0;
+    }
+
+    .electric-glow {
+      position: absolute;
+      inset: -6px;
+      border-radius: 24px;
+      pointer-events: none;
+      opacity: .65;
+      filter: blur(8px);
+      animation: electricRotate 1.2s linear infinite;
+      background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        transparent 30deg,
+        #00eaff 45deg,
+        #00aaff 65deg,
+        #006cff 80deg,
+        transparent 105deg,
+        transparent 360deg
+      );
+    }
+
+    @keyframes electricRotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Inset Neumorphic Code Display */
+    .inset-display {
+      position: relative;
+      z-index: 10;
+      padding: 20px 16px;
+      border-radius: 19px;
+      background: #e7ebf0;
+      box-shadow: inset 6px 6px 12px rgba(163, 177, 198, .55), inset -6px -6px 12px rgba(255, 255, 255, .95);
+      text-align: center;
+    }
+
+    .otp-digits {
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 34px;
+      font-weight: 800;
+      color: #006cff;
+      letter-spacing: 0.3em;
+      text-indent: 0.3em;
+      user-select: all;
+    }
+
+    /* Pill Badges */
+    .pill-badge-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .pill-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: #e7ebf0;
+      box-shadow: 4px 4px 8px rgba(163, 177, 198, .5), -4px -4px 8px rgba(255, 255, 255, .9);
+      font-size: 11px;
+      font-weight: 700;
+      color: #303943;
+    }
+
+    /* Itemized Receipt Table (Neumorphic Inset) */
+    .receipt-inset-table {
+      background: #e7ebf0;
+      border-radius: 18px;
+      box-shadow: inset 5px 5px 10px rgba(163, 177, 198, .5), inset -5px -5px 10px rgba(255, 255, 255, .9);
+      padding: 16px;
+      margin-bottom: 18px;
+      font-size: 12px;
+    }
+
+    .receipt-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      color: #556270;
+      border-bottom: 1px dashed #cbd5e1;
+    }
+
+    .receipt-row:last-child {
+      border-bottom: none;
+      padding-top: 10px;
+      font-size: 14px;
+      font-weight: 800;
+      color: #006cff;
+    }
+
+    /* Stepper Timeline */
+    .stepper-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 10px;
+      background: #e7ebf0;
+      border-radius: 18px;
+      box-shadow: inset 4px 4px 8px rgba(163, 177, 198, .5), inset -4px -4px 8px rgba(255, 255, 255, .9);
+      margin-bottom: 20px;
+    }
+
+    .step-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #7c858e;
+    }
+
+    .step-item.active {
+      color: #006cff;
+    }
+
+    .step-circle {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #e7ebf0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 11px;
+      box-shadow: 3px 3px 6px rgba(163, 177, 198, .6), -3px -3px 6px rgba(255, 255, 255, .95);
+    }
+
+    .step-item.active .step-circle {
+      background: #006cff;
+      color: #ffffff;
+      box-shadow: 0 4px 10px rgba(0, 108, 255, 0.4);
+    }
+
+    /* Main Button with Liquid Wave Hover (Exact from docs/design-references/style.css) */
+    .main-btn {
+      position: relative;
+      isolation: isolate;
+      width: 100%;
+      height: 55px;
+      border: none;
+      border-radius: 17px;
+      background: #e7ebf0;
+      color: #006cff;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .4px;
+      cursor: pointer;
+      overflow: hidden;
+      box-shadow: 8px 8px 16px rgba(163, 177, 198, .65), -8px -8px 16px rgba(255, 255, 255, .95);
+      transition: .3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .main-btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(110deg, #006cff, #00cfff, #006cff);
+      background-size: 200% 100%;
+      transform: translateY(100%);
+      transition: transform .35s ease;
+      z-index: -1;
+    }
+
+    .main-btn:hover::before {
+      transform: translateY(0);
+      animation: buttonMove 1.5s linear infinite;
+    }
+
+    @keyframes buttonMove {
+      from { background-position: 0 50%; }
+      to { background-position: 200% 50%; }
+    }
+
+    .main-btn:hover {
+      color: #fff;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 114, 255, .35);
+    }
+
+    .main-btn:active {
+      transform: scale(.97);
+    }
+
+    /* Switch Area & 3D Switch Circle (Exact from docs/design-references/style.css) */
+    .switch-area {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 18px;
+      font-size: 12px;
+      color: #7d8790;
+    }
+
+    .switch-circle {
+      width: 49px;
+      height: 49px;
+      border: none;
+      border-radius: 50%;
+      background: #e7ebf0;
+      color: #0072ff;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 7px 7px 14px rgba(163, 177, 198, .65), -7px -7px 14px rgba(255, 255, 255, .95);
+      transition: .35s ease;
+      outline: none;
+    }
+
+    .switch-circle:hover {
+      color: #fff;
+      background: #0072ff;
+      transform: rotate(180deg) scale(1.08);
+      box-shadow: 0 8px 25px rgba(0, 114, 255, .35);
+    }
+
+    .switch-circle:active {
+      transform: scale(.9);
+    }
+
+    /* Raw Code Viewer on Flipped Side */
+    .code-viewer {
+      background: #e7ebf0;
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: inset 6px 6px 12px rgba(163, 177, 198, .55), inset -6px -6px 12px rgba(255, 255, 255, .95);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #303943;
+      max-height: 380px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+      line-height: 1.5;
+    }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      background: #202d39;
+      color: #ffffff;
+      padding: 12px 24px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 3D Floating Neumorphic Spheres -->
+  <div class="bg-circle bg1"></div>
+  <div class="bg-circle bg2"></div>
+  <div class="bg-circle bg3"></div>
+  <div class="bg-circle bg4"></div>
+
+  <!-- Studio Top Navigation -->
+  <div class="studio-bar">
+    <div class="brand-title">
+      <div class="mini-logo">
+        <i class="fa-solid fa-cube"></i>
+      </div>
+      <div>
+        <h2>NexHaat 3D Email Studio</h2>
+        <span>Direct 3D Neumorphic Translation</span>
+      </div>
+    </div>
+
+    <!-- Template Switchers -->
+    <div class="nav-pills">
+      <button class="nav-btn active" onclick="setTemplate('otp', this)">
+        <i class="fa-solid fa-shield-halved"></i> 1. OTP Access Code
+      </button>
+      <button class="nav-btn" onclick="setTemplate('receipt', this)">
+        <i class="fa-solid fa-receipt"></i> 2. Order Receipt
+      </button>
+      <button class="nav-btn" onclick="setTemplate('status', this)">
+        <i class="fa-solid fa-truck-fast"></i> 3. Delivery Status
+      </button>
+      <button class="nav-btn" onclick="setTemplate('invite', this)">
+        <i class="fa-solid fa-envelope-open-text"></i> 4. Staff Invite
+      </button>
+      <button class="action-btn" onclick="copyCleanEmail()">
+        <i class="fa-solid fa-copy"></i> Copy Clean HTML
+      </button>
+    </div>
+  </div>
+
+  <!-- Main 3D Card Stage -->
+  <div class="auth-wrapper">
+    <div class="auth-card" id="authCard">
+
+      <!-- FRONT PANEL (Live 3D Email Presentation) -->
+      <div class="form-panel front-panel">
+        <div>
+          <!-- Animated Neumorphic Circular Logo -->
+          <div class="logo" id="mainLogo" onclick="triggerGlow()">
+            <i class="fa-solid fa-lock" id="logoIcon"></i>
+          </div>
+
+          <h1 id="cardTitle">Enter Access Code</h1>
+          <p class="subtitle" id="cardSubtitle">A 6-digit secure authorization code has been dispatched to your email.</p>
+
+          <!-- Electric Glowing Box -->
+          <div class="electric-box" id="electricContainer">
+            <div class="electric-glow"></div>
+            <div class="electric-border"></div>
+            
+            <div class="inset-display" id="dynamicDisplay">
+              <!-- Dynamically populated per template -->
+              <span class="otp-digits" id="otpText">482913</span>
+            </div>
+          </div>
+
+          <!-- Badges or Extra Details -->
+          <div id="extraContent">
+            <div class="pill-badge-row">
+              <span class="pill-badge"><i class="fa-regular fa-clock" style="color:#006cff;"></i> Expires in 10m</span>
+              <span class="pill-badge"><i class="fa-solid fa-shield-cat" style="color:#10b981;"></i> Verified Safe</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <!-- Liquid Gradient Animated Button -->
+          <button type="button" class="main-btn" id="actionBtn" onclick="handleAction()">
+            <i class="fa-solid fa-fingerprint"></i> <span id="btnText">Verify & Continue</span>
+          </button>
+
+          <!-- 3D Card Flip Switch Area (from design-references) -->
+          <div class="switch-area">
+            <span>Want to inspect raw email HTML or details?</span>
+            <button type="button" class="switch-circle" onclick="flipCard()" title="Flip 3D Card">
+              <i class="fa-solid fa-repeat"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- BACK PANEL (Clean Email Code & Inspection) -->
+      <div class="form-panel back-panel">
+        <div>
+          <div class="logo" onclick="flipCard()">
+            <i class="fa-solid fa-code"></i>
+          </div>
+          <h1 id="backTitle">Production Email HTML</h1>
+          <p class="subtitle">Standard table-based Outlook & Gmail safe export:</p>
+
+          <!-- Inset Code Viewer -->
+          <div class="code-viewer" id="rawCodeViewer">Loading email HTML...</div>
+        </div>
+
+        <div>
+          <button type="button" class="main-btn" onclick="copyCleanEmail()">
+            <i class="fa-solid fa-clipboard-check"></i> Copy Full Code
+          </button>
+
+          <div class="switch-area">
+            <span>Return to 3D interactive view</span>
+            <button type="button" class="switch-circle" onclick="flipCard()" title="Flip back">
+              <i class="fa-solid fa-rotate-left"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <i class="fa-solid fa-circle-check" style="color:#10b981;"></i>
+    <span id="toastMsg">Template Copied!</span>
+  </div>
+
+  <script>
+    // Templates metadata and templates HTML files
+    const templateData = {
+      otp: {
+        title: "Enter Access Code",
+        subtitle: "A 6-digit secure authorization code has been dispatched to your email.",
+        icon: "fa-lock",
+        btnText: "Copy Access Code",
+        btnIcon: "fa-copy",
+        file: "otp-verification.html",
+        render: () => `
+          <div class="inset-display">
+            <span class="otp-digits">482913</span>
+          </div>
+        `,
+        extra: () => `
+          <div class="pill-badge-row">
+            <span class="pill-badge"><i class="fa-regular fa-clock" style="color:#006cff;"></i> Expires in 10m</span>
+            <span class="pill-badge"><i class="fa-solid fa-shield-halved" style="color:#10b981;"></i> 100% Encrypted</span>
+          </div>
+        `
+      },
+      receipt: {
+        title: "Order Confirmed 🎉",
+        subtitle: "Thank you for your order #NXH-89421. Seller is preparing your package.",
+        icon: "fa-receipt",
+        btnText: "Track Your Order",
+        btnIcon: "fa-truck",
+        file: "order-receipt.html",
+        render: () => `
+          <div class="receipt-inset-table">
+            <div class="receipt-row"><span>Organic Pure Honey (500g)</span><strong>৳380.00</strong></div>
+            <div class="receipt-row"><span>Delivery Charge</span><strong>৳50.00</strong></div>
+            <div class="receipt-row"><span>Cash On Delivery Total</span><strong>৳430.00</strong></div>
+          </div>
+        `,
+        extra: () => `
+          <div class="pill-badge-row">
+            <span class="pill-badge"><i class="fa-solid fa-location-dot" style="color:#006cff;"></i> Banani, Dhaka</span>
+            <span class="pill-badge"><i class="fa-solid fa-file-pdf" style="color:#e11d48;"></i> PDF Attached</span>
+          </div>
+        `
+      },
+      status: {
+        title: "Out for Delivery 🛵",
+        subtitle: "Order #NXH-89421 has been assigned to rider Tariqul (+880 1819-876543).",
+        icon: "fa-truck-fast",
+        btnText: "Contact Rider",
+        btnIcon: "fa-phone",
+        file: "order-status.html",
+        render: () => `
+          <div class="stepper-container">
+            <div class="step-item active"><div class="step-circle">✓</div>Placed</div>
+            <div class="step-item active"><div class="step-circle">✓</div>Ready</div>
+            <div class="step-item active"><div class="step-circle"><i class="fa-solid fa-motorcycle"></i></div>Rider</div>
+            <div class="step-item"><div class="step-circle">4</div>Done</div>
+          </div>
+        `,
+        extra: () => `
+          <div class="pill-badge-row">
+            <span class="pill-badge"><i class="fa-solid fa-money-bill-wave" style="color:#10b981;"></i> Keep ৳430 Cash</span>
+            <span class="pill-badge"><i class="fa-solid fa-bolt" style="color:#f59e0b;"></i> ETA: 25 Mins</span>
+          </div>
+        `
+      },
+      invite: {
+        title: "Partner Invitation",
+        subtitle: "You have been invited to manage your store and orders on NexHaat.",
+        icon: "fa-envelope-open-text",
+        btnText: "Accept & Activate Account",
+        btnIcon: "fa-arrow-right",
+        file: "account-invitation.html",
+        render: () => `
+          <div class="inset-display">
+            <div style="font-size:13px;color:#7c858e;margin-bottom:4px;">Invited Role</div>
+            <strong style="font-size:18px;color:#006cff;">Verified Store Partner</strong>
+          </div>
+        `,
+        extra: () => `
+          <div class="pill-badge-row">
+            <span class="pill-badge"><i class="fa-solid fa-user-check" style="color:#006cff;"></i> Pre-Approved</span>
+            <span class="pill-badge"><i class="fa-solid fa-hourglass-half" style="color:#e11d48;"></i> Valid 7 Days</span>
+          </div>
+        `
+      }
+    };
+
+    let currentKey = 'otp';
+    let rawTemplateCache = {};
+
+    function flipCard() {
+      const card = document.getElementById("authCard");
+      card.classList.toggle("flipped");
+    }
+
+    function triggerGlow() {
+      const logo = document.getElementById("mainLogo");
+      logo.style.transform = "translateY(-8px) rotate(360deg)";
+      setTimeout(() => {
+        logo.style.transform = "";
+      }, 600);
+      showToast("3D Interactive Neumorphic Element Clicked!");
+    }
+
+    function setTemplate(key, btn) {
+      currentKey = key;
+      document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const data = templateData[key];
+      document.getElementById("cardTitle").innerText = data.title;
+      document.getElementById("cardSubtitle").innerText = data.subtitle;
+      document.getElementById("logoIcon").className = `fa-solid ${data.icon}`;
+      document.getElementById("btnText").innerText = data.btnText;
+      document.getElementById("dynamicDisplay").innerHTML = data.render();
+      document.getElementById("extraContent").innerHTML = data.extra();
+
+      loadRawCode(data.file);
+    }
+
+    async function loadRawCode(filename) {
+      if (rawTemplateCache[filename]) {
+        document.getElementById("rawCodeViewer").textContent = rawTemplateCache[filename];
+        return;
+      }
+      try {
+        const res = await fetch(filename);
+        const text = await res.text();
+        rawTemplateCache[filename] = text;
+        document.getElementById("rawCodeViewer").textContent = text;
+      } catch (e) {
+        document.getElementById("rawCodeViewer").textContent = "<!-- Standalone email template: " + filename + " -->";
+      }
+    }
+
+    function handleAction() {
+      const data = templateData[currentKey];
+      if (currentKey === 'otp') {
+        navigator.clipboard.writeText("482913");
+        showToast("✓ Access Code 482913 Copied to Clipboard!");
+      } else {
+        showToast(`✓ Action triggered: ${data.btnText}`);
+      }
+      const btn = document.getElementById("actionBtn");
+      btn.style.transform = "scale(0.95)";
+      setTimeout(() => {
+        btn.style.transform = "";
+      }, 200);
+    }
+
+    async function copyCleanEmail() {
+      const filename = templateData[currentKey].file;
+      await loadRawCode(filename);
+      const text = rawTemplateCache[filename] || "";
+      navigator.clipboard.writeText(text);
+      showToast(`✓ ${filename} Production HTML copied!`);
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      document.getElementById("toastMsg").innerText = msg;
+      toast.classList.add("show");
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2400);
+    }
+
+    // Initial load
+    loadRawCode("otp-verification.html");
+  </script>
+</body>
+</html>

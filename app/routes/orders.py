@@ -11,7 +11,7 @@ from sqlalchemy.orm import joinedload, selectinload
 from ..extensions import db
 from ..models import (
     AppSetting, Category, CustomerAddress, CustomerProfile,
-    Order, OrderItem, Product, SellerProfile, User,
+    Order, OrderItem, Product, Review, SellerProfile, User,
 )
 from ..security import (
     admin_required, customer_or_guest_required, current_session_user,
@@ -23,6 +23,7 @@ from ..services.mail import (
     queue_order_receipt,
     queue_order_status,
 )
+from ..services.notifications import notify
 
 
 orders_bp = Blueprint("orders", __name__)
@@ -181,6 +182,21 @@ def checkout():
             session["cart"] = {}
             for order in orders:
                 enqueue_order_emails(order)
+                confirmation_link = url_for("orders.confirmation", order_number=order.order_number)
+                if order.user_id:
+                    notify(
+                        order.user_id,
+                        gettext("Order %(number)s was received.", number=order.order_number),
+                        type="order",
+                        link=confirmation_link,
+                    )
+                if order.seller_id:
+                    notify(
+                        order.seller_id,
+                        gettext("New order %(number)s for your store.", number=order.order_number),
+                        type="order",
+                        link=url_for("seller.dashboard"),
+                    )
             return redirect(url_for("orders.confirmation", order_number=orders[0].order_number))
     customer = None
     user_email = None
@@ -249,6 +265,13 @@ def admin_review_seller(profile_id):
     profile.review_note = note or None
     db.session.commit()
     record_audit("seller.review", target_type="seller_profile", target_id=profile_id, detail=decision)
+    if decision == "approved":
+        notify(
+            profile.user_id,
+            gettext("Your store was approved. You can now publish products."),
+            type="account",
+            link=url_for("seller.dashboard"),
+        )
     flash(
         gettext("Seller application approved.") if decision == "approved"
         else gettext("Seller application rejected."),
@@ -280,6 +303,32 @@ def admin_review_product(product_id):
     flash(
         gettext("Product listing approved.") if decision == "approved"
         else gettext("Product listing rejected."),
+        "success",
+    )
+    return redirect(url_for("admin.dashboard"))
+
+
+@orders_bp.post("/admin/reviews/<int:review_id>/moderate")
+@admin_required
+def admin_moderate_review(review_id):
+    review = db.session.get(Review, review_id)
+    if not review or review.status != "pending":
+        abort(404)
+    decision = request.form.get("decision", "")
+    if decision not in {"approved", "rejected"}:
+        abort(400)
+    note = request.form.get("review_note", "").strip()
+    if len(note) > 500:
+        flash(gettext("The review note must be 500 characters or fewer."), "error")
+        return redirect(url_for("admin.dashboard"))
+    review.status = decision
+    review.moderation_note = note or None
+    review.moderated_at = datetime.now(timezone.utc)
+    review.moderated_by_id = session["user_id"]
+    db.session.commit()
+    record_audit("review.moderate", target_type="review", target_id=review_id, detail=decision)
+    flash(
+        gettext("Review approved.") if decision == "approved" else gettext("Review rejected."),
         "success",
     )
     return redirect(url_for("admin.dashboard"))
@@ -355,9 +404,11 @@ def admin_customer_remove(user_id):
     user = db.session.get(User, user_id)
     if not user or user.role != "customer":
         abort(404)
+    email = user.email
     db.session.delete(user)
     db.session.commit()
-    flash("Customer removed.", "success")
+    record_audit("customer.remove", target_type="user", target_id=user_id, detail=f"customer:{email}")
+    flash(gettext("Customer removed."), "success")
     return redirect(url_for("admin.dashboard"))
 
 
@@ -367,10 +418,49 @@ def admin_customer_toggle_active(user_id):
     user = db.session.get(User, user_id)
     if not user or user.role != "customer":
         abort(404)
-    user.is_active = not user.is_active
+    action = request.form.get("action")
+    if action == "activate":
+        user.is_active = True
+    elif action == "deactivate":
+        user.is_active = False
+    else:
+        user.is_active = not user.is_active
     user.auth_version += 1
     db.session.commit()
-    flash(f"Customer account {'activated' if user.is_active else 'deactivated'}.", "success")
+    status_key = "activated" if user.is_active else "deactivated"
+    record_audit(f"customer.{status_key}", target_type="user", target_id=user.id, detail=f"customer:{user.email}")
+    if user.is_active:
+        flash(gettext("Customer account activated."), "success")
+    else:
+        flash(gettext("Customer account deactivated."), "success")
+    return redirect(url_for("admin.dashboard"))
+
+
+@orders_bp.post("/admin/customers/<int:user_id>/activate")
+@admin_required
+def admin_customer_activate(user_id):
+    user = db.session.get(User, user_id)
+    if not user or user.role != "customer":
+        abort(404)
+    user.is_active = True
+    user.auth_version += 1
+    db.session.commit()
+    record_audit("customer.activated", target_type="user", target_id=user.id, detail=f"customer:{user.email}")
+    flash(gettext("Customer account activated."), "success")
+    return redirect(url_for("admin.dashboard"))
+
+
+@orders_bp.post("/admin/customers/<int:user_id>/deactivate")
+@admin_required
+def admin_customer_deactivate(user_id):
+    user = db.session.get(User, user_id)
+    if not user or user.role != "customer":
+        abort(404)
+    user.is_active = False
+    user.auth_version += 1
+    db.session.commit()
+    record_audit("customer.deactivated", target_type="user", target_id=user.id, detail=f"customer:{user.email}")
+    flash(gettext("Customer account deactivated."), "success")
     return redirect(url_for("admin.dashboard"))
 
 
@@ -634,6 +724,17 @@ def admin_order_status(order_id):
     queue_order_status(order)
     if status == "confirmed":
         queue_order_receipt(order)
+    if order.user_id:
+        notify(
+            order.user_id,
+            gettext(
+                "Order %(number)s is now %(status)s.",
+                number=order.order_number,
+                status=status,
+            ),
+            type="order",
+            link=url_for("orders.confirmation", order_number=order.order_number),
+        )
     return redirect(url_for("admin.dashboard"))
 
 
@@ -669,4 +770,11 @@ def admin_assign_rider(order_id):
         target_id=order.id,
         detail=f"rider={order.rider_id}" if order.rider_id else "cleared",
     )
+    if order.rider_id:
+        notify(
+            order.rider_id,
+            gettext("A new delivery was assigned to you: %(number)s.", number=order.order_number),
+            type="delivery",
+            link=url_for("rider.dashboard"),
+        )
     return redirect(url_for("admin.dashboard"))

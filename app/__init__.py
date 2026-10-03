@@ -11,6 +11,8 @@ from flask_babel import get_locale
 from werkzeug.middleware.proxy_fix import ProxyFix
 from sqlalchemy import inspect, text
 
+from .api import register_api
+from .api.responses import error_response, is_api_request
 from .config import get_config
 from .extensions import babel, csrf, db, login_manager, migrate
 from .i18n import SUPPORTED_LOCALES, get_request_locale
@@ -37,9 +39,11 @@ def create_app(config_object=None):
     from .models import AdminProfile, AppSetting, CustomerProfile, User  # noqa: F401
     from .routes.auth import admin_login, auth_bp
     from .routes.main import main_bp
+    from .routes.notifications import notifications_bp
     from .routes.orders import orders_bp
     from .routes.portals import admin_bp, customer_bp, rider_bp
     from .routes.seller import seller_bp
+    from .routes.wishlist import wishlist_bp
     from .security import current_session_user
 
     app.register_blueprint(main_bp)
@@ -51,6 +55,11 @@ def create_app(config_object=None):
     # Keep the former URL as the dedicated Admin OTP login entry point.
     app.add_url_rule("/admin/login", endpoint="auth.admin_login", view_func=admin_login, methods=["GET", "POST"])
     app.register_blueprint(orders_bp)
+    app.register_blueprint(notifications_bp)
+    app.register_blueprint(wishlist_bp)
+
+    # Versioned, frontend-independent JSON API under /api/v1.
+    register_api(app)
 
     @app.before_request
     def reject_revoked_sessions():
@@ -77,6 +86,20 @@ def create_app(config_object=None):
             "current_locale": str(get_locale() or app.config["BABEL_DEFAULT_LOCALE"]).replace("-", "_"),
             "supported_locales": SUPPORTED_LOCALES,
         }
+
+    @app.context_processor
+    def notification_badge():
+        """Expose the signed-in user's unread notification count to templates."""
+        user = getattr(g, "current_user", None)
+        if user is None:
+            return {"unread_notifications": 0}
+        from .services.notifications import unread_count
+
+        try:
+            return {"unread_notifications": unread_count(user)}
+        except Exception:  # noqa: BLE001 - a missing table must not break rendering
+            db.session.rollback()
+            return {"unread_notifications": 0}
 
     @app.after_request
     def security_headers(response):
@@ -227,11 +250,22 @@ def create_app(config_object=None):
 
     @app.errorhandler(404)
     def not_found(error):
+        if is_api_request():
+            return error_response("NOT_FOUND", "Resource not found.", 404)
         return render_template("errors/404.html"), 404
+
+    @app.errorhandler(405)
+    def method_not_allowed(error):
+        # Routing-level 405s have no matched blueprint, so handle them here.
+        if is_api_request():
+            return error_response("METHOD_NOT_ALLOWED", "Method not allowed.", 405)
+        return error.get_response()
 
     @app.errorhandler(500)
     def server_error(error):
         db.session.rollback()
+        if is_api_request():
+            return error_response("INTERNAL_ERROR", "Something went wrong.", 500)
         return render_template("errors/500.html"), 500
 
     with app.app_context():
