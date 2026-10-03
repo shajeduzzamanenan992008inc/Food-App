@@ -66,9 +66,6 @@ jobs:
     permissions:
       id-token: write
       contents: read
-    environment:
-      name: Production
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     steps:
       - name: Download deployment artifact
         uses: actions/download-artifact@v4
@@ -77,9 +74,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_CC8A5DB43839423087F933849B66F91C }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_7524CB91EB184ED69769E6673521788B }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_CD2937D5B86D4A92B15C36D63ABE0E3B }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_D74B3591509C4152BFD9D5602E227296 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_7B38771CB84B4F12ADFD52CBCC4EF985 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_661377125A6E4328AF69769EA745FA98 }}
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
