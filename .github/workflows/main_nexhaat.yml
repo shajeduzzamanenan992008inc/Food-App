@@ -1,4 +1,7 @@
+# ──────────────────────────────────────────────────────────────
 # NexHaat CD — test, build, and deploy to Azure Web App.
+# ──────────────────────────────────────────────────────────────
+
 name: CD - Deploy to Azure
 
 on:
@@ -17,15 +20,18 @@ jobs:
       DATABASE_URL: sqlite:///test.db
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
           cache: pip
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+
       - name: Run test suite
         run: python -m pytest -q --tb=short
 
@@ -36,27 +42,26 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
           cache: pip
+
       - name: Build deployment environment
         run: |
           python -m venv antenv
           source antenv/bin/activate
           pip install -r requirements.txt
+
       - name: Upload deployment artifact
         uses: actions/upload-artifact@v4
         with:
           name: python-app
           path: |
             .
-            !antenv/
-            !.venv/
-            !venv/
-            !tests/
-            !docs/
+            !.git/
             !.github/
             !*.md
 
@@ -74,12 +79,14 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: python-app
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_CC8A5DB43839423087F933849B66F91C }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_7524CB91EB184ED69769E6673521788B }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_CD2937D5B86D4A92B15C36D63ABE0E3B }}
+
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
