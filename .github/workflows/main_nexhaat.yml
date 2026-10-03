@@ -79,7 +79,7 @@ jobs:
           zip -r ../nexhaat-deploy.zip .
 
       - name: Upload deployment artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: nexhaat-deploy
           path: nexhaat-deploy.zip
