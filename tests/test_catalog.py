@@ -57,6 +57,24 @@ def test_product_detail_category_and_search(client, app):
     assert client.get("/food/unavailable-pizza").status_code == 404
 
 
+def test_marketplace_filters_listing_search_price_category_and_sort(client, app):
+    add_catalog()
+    response = client.get("/menu?q=garden&min_price=10&max_price=13&sort=price_desc")
+    assert response.status_code == 200
+    assert b"Garden Pizza" in response.data
+    assert b"Unavailable Pizza" not in response.data
+
+    category = db.session.query(Category).filter_by(slug="pizza").one()
+    response = client.get(
+        f"/menu?category_id={category.id}&min_price=12&sort=price_asc"
+    )
+    assert response.status_code == 200
+    assert b"Garden Pizza" in response.data
+
+    response = client.get("/menu?min_price=25&max_price=5")
+    assert response.status_code == 400
+
+
 def test_missing_catalog_resources_return_404(client):
     assert client.get("/food/nope").status_code == 404
     assert client.get("/category/nope").status_code == 404

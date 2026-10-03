@@ -52,6 +52,17 @@ def product_to_dict(product, locale=None):
         "display_price": _money(product.display_price),
         "stock": product.available_stock,
         "sku": _product_sku(product),
+        "variants": [
+            {
+                "id": variant.id,
+                "sku": variant.sku,
+                "option_name": variant.option_name,
+                "option_value": variant.option_value,
+                "price": _money(variant.price if variant.price is not None else product.display_price),
+                "stock": variant.stock_quantity,
+            }
+            for variant in product.variants if variant.is_active
+        ],
         "image": product.image,
         "is_available": product.is_available,
         "is_featured": product.is_featured,
@@ -67,7 +78,10 @@ def order_item_to_dict(item):
     return {
         "id": item.id,
         "product_id": item.product_id,
+        "variant_id": item.variant_id,
         "name": item.product_name,
+        "variant_label": item.variant_label,
+        "sku": item.sku_snapshot,
         "price": _money(item.price),
         "quantity": item.quantity,
         "subtotal": _money(item.subtotal),

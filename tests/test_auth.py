@@ -26,6 +26,34 @@ def tiny_png():
     )
 
 
+def test_registration_verification_page_uses_otp_card_pattern(client, app):
+    client.application.config.update(
+        WTF_CSRF_ENABLED=False,
+        BREVO_API_KEY="test-key",
+        MAIL_DEFAULT_SENDER="noreply@example.com",
+    )
+    with patch("app.routes.auth.secrets.randbelow", return_value=123456), patch(
+        "app.routes.auth.queue_registration_code"
+    ):
+        client.post(
+            "/auth/register",
+            data={
+                "full_name": "Test Customer",
+                "phone": "01234567890",
+                "email": "otp-form@example.com",
+                "password": "password123",
+                "password_confirmation": "password123",
+                "locale": "bn_BD",
+            },
+        )
+
+    response = client.get("/auth/verify-registration")
+    assert response.status_code == 200
+    assert b'form class="otp-form"' in response.data
+    assert b'data-otp-form' in response.data
+    assert b"otp-resend" in response.data
+
+
 def test_customer_can_register_and_login(client, app):
     client.application.config.update(
         WTF_CSRF_ENABLED=False,

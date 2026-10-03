@@ -6,6 +6,10 @@ on:
     branches: [main]
   workflow_dispatch:
 
+concurrency:
+  group: azure-webapp-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -13,19 +17,24 @@ jobs:
       contents: read
     env:
       FLASK_ENV: testing
+      APP_ENV: testing
       SECRET_KEY: ci-test-key-not-for-production
       DATABASE_URL: sqlite:///test.db
+      PYTHON_VERSION: "3.12"
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: ${{ env.PYTHON_VERSION }}
           cache: pip
+
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
+          python -m pip install --upgrade pip setuptools wheel
           pip install -r requirements.txt
+
       - name: Run test suite
         run: python -m pytest -q --tb=short
 
@@ -34,31 +43,43 @@ jobs:
     needs: test
     permissions:
       contents: read
+    env:
+      PYTHON_VERSION: "3.12"
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: ${{ env.PYTHON_VERSION }}
           cache: pip
-      - name: Build deployment environment
+
+      - name: Create production deployment package
         run: |
-          python -m venv antenv
-          source antenv/bin/activate
+          python -m venv .venv
+          . .venv/bin/activate
+          python -m pip install --upgrade pip setuptools wheel
           pip install -r requirements.txt
+          mkdir -p staging
+          rsync -a \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='.venv' \
+            --exclude='.pytest_cache' \
+            --exclude='__pycache__' \
+            --exclude='tests' \
+            --exclude='docs' \
+            --exclude='tmp_*' \
+            --exclude='*.md' \
+            . staging/
+          cd staging
+          zip -r ../nexhaat-deploy.zip .
+
       - name: Upload deployment artifact
         uses: actions/upload-artifact@v4
         with:
-          name: python-app
-          path: |
-            .
-            !antenv/
-            !.venv/
-            !venv/
-            !tests/
-            !docs/
-            !.github/
-            !*.md
+          name: nexhaat-deploy
+          path: nexhaat-deploy.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -69,20 +90,55 @@ jobs:
     environment:
       name: Production
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    env:
+      AZURE_WEBAPP_NAME: NexHaat
+      AZURE_RESOURCE_GROUP: nexhaat-rg
     steps:
       - name: Download deployment artifact
         uses: actions/download-artifact@v4
         with:
-          name: python-app
+          name: nexhaat-deploy
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_CC8A5DB43839423087F933849B66F91C }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_7524CB91EB184ED69769E6673521788B }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_CD2937D5B86D4A92B15C36D63ABE0E3B }}
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Configure Azure startup command
+        uses: azure/CLI@v2
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az webapp config set \
+              --resource-group "${{ secrets.AZURE_RESOURCE_GROUP || env.AZURE_RESOURCE_GROUP }}" \
+              --name "${{ secrets.AZURE_WEBAPP_NAME || env.AZURE_WEBAPP_NAME }}" \
+              --startup-file "gunicorn --bind=0.0.0.0 --timeout 600 app:app"
+
+      - name: Configure Azure app settings
+        uses: azure/CLI@v2
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az webapp config appsettings set \
+              --resource-group "${{ secrets.AZURE_RESOURCE_GROUP || env.AZURE_RESOURCE_GROUP }}" \
+              --name "${{ secrets.AZURE_WEBAPP_NAME || env.AZURE_WEBAPP_NAME }}" \
+              --settings \
+                WEBSITES_PORT=8000 \
+                APP_ENV=production \
+                FLASK_ENV=production \
+                SECRET_KEY="${{ secrets.AZURE_SECRET_KEY }}" \
+                DATABASE_URL="${{ secrets.AZURE_DATABASE_URL }}" \
+                MAIL_DEFAULT_SENDER="${{ secrets.MAIL_DEFAULT_SENDER }}" \
+                BREVO_API_KEY="${{ secrets.BREVO_API_KEY }}" \
+                ADMIN_EMAIL="${{ secrets.ADMIN_EMAIL }}" \
+                PUBLIC_BASE_URL="${{ secrets.PUBLIC_BASE_URL }}" \
+                SESSION_COOKIE_SECURE=true
+
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
-          app-name: NexHaat
-          slot-name: Production
+          app-name: ${{ secrets.AZURE_WEBAPP_NAME || env.AZURE_WEBAPP_NAME }}
+          package: nexhaat-deploy.zip

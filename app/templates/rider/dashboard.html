@@ -2,54 +2,101 @@
 {% block title %}{{ _('Rider dashboard') }} · {{ app_name }}{% endblock %}
 {% block page_content %}
 <div class="page-shell">
-  <header class="page-heading"><div><p class="eyebrow">{{ _('Rider space') }}</p><h1>{{ _('Welcome, %(name)s', name=profile.full_name) }}</h1><p>{{ _('Your assigned deliveries and handoff updates appear here.') }}</p></div><span class="status-pill">{{ _(profile.availability_status|capitalize) }}</span></header>
+  <header class="page-heading">
+    <div>
+      <p class="eyebrow">{{ _('Rider space') }}</p>
+      <h1>{{ _('Welcome, %(name)s', name=profile.full_name) }}</h1>
+      <p>{{ _('Your assigned deliveries and handoff updates appear here.') }}</p>
+    </div><span class="status-pill">{{ _(profile.availability_status|capitalize) }}</span>
+  </header>
 
   <section class="admin-section" aria-labelledby="active-deliveries-title">
-    <header class="admin-section__header"><div><p class="eyebrow">{{ _('ACTIVE') }}</p><h2 id="active-deliveries-title">{{ _('Deliveries in progress') }}</h2></div><span class="status-pill status-pill--pending">{{ active|length }}</span></header>
+    <header class="admin-section__header">
+      <div>
+        <p class="eyebrow">{{ _('ACTIVE') }}</p>
+        <h2 id="active-deliveries-title">{{ _('Deliveries in progress') }}</h2>
+      </div><span class="status-pill status-pill--pending">{{ active|length }}</span>
+    </header>
     {% if active %}
-      <div class="admin-record-list">
+    <div class="admin-record-list">
       {% for order in active %}
-        <article class="admin-record">
-          <div class="admin-record__details">
-            <h3>{{ order.order_number }} · ৳{{ '%.2f'|format(order.total) }}</h3>
-            <p>{{ order.customer_name }} · {{ order.phone }}</p>
-            <p>{{ order.address }}</p>
-            <p>{{ _('Items') }}: {% for item in order.items %}{{ item.quantity }} × {{ item.product_name }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
-            <p><span class="status-pill status-pill--{{ order.delivery_status }}">{{ _(order.delivery_status|replace('_', ' ')|capitalize) }}</span> · {{ _('Cash on delivery') }}</p>
-          </div>
-          <div class="admin-review-form">
-            {% if order.delivery_status == 'assigned' %}
-              <form method="post" action="{{ url_for('rider.update_delivery', order_id=order.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="delivery_status" value="picked_up"><button class="admin-button" type="submit">{{ _('Mark picked up') }}</button></form>
-            {% elif order.delivery_status == 'picked_up' %}
-              <form method="post" action="{{ url_for('rider.update_delivery', order_id=order.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="delivery_status" value="out_for_delivery"><button class="admin-button" type="submit">{{ _('Start delivery') }}</button></form>
-            {% elif order.delivery_status == 'out_for_delivery' %}
-              <form method="post" action="{{ url_for('rider.update_delivery', order_id=order.id) }}" enctype="multipart/form-data">
-                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="delivery_status" value="delivered">
-                <label class="visually-hidden" for="pod-note-{{ order.id }}">{{ _('Delivery note') }}</label>
-                <input id="pod-note-{{ order.id }}" name="delivery_note" maxlength="500" placeholder="{{ _('Delivery note (optional)') }}">
-                <label class="small-label" for="pod-photo-{{ order.id }}">{{ _('Proof of delivery photo') }}</label>
-                <input id="pod-photo-{{ order.id }}" name="proof" type="file" accept="image/png,image/jpeg,image/webp">
-                <button class="admin-button" type="submit">{{ _('Mark delivered') }}</button>
-              </form>
-            {% endif %}
-            {% if order.delivery_status in ['assigned', 'picked_up', 'out_for_delivery'] %}
-              <form method="post" action="{{ url_for('rider.update_delivery', order_id=order.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="delivery_status" value="failed"><input type="hidden" name="delivery_note" value="{{ _('Delivery could not be completed') }}"><button class="admin-button admin-button--quiet" type="submit">{{ _('Report failed') }}</button></form>
-            {% endif %}
-          </div>
-        </article>
+      <article class="admin-record">
+        <div class="admin-record__details">
+          <h3>{{ order.order_number }} · ৳{{ '%.2f'|format(order.total) }}</h3>
+          <p>{{ order.customer_name }} · {{ order.phone }}</p>
+          <p>{{ order.address }}</p>
+          <p>{{ _('Items') }}: {% for item in order.items %}{{ item.quantity }} × {{ item.product_name }}{% if
+            item.variant_label %} · {{ item.variant_label }}{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}
+          </p>
+          <p><span class="status-pill status-pill--{{ order.delivery_status }}">{{ _(order.delivery_status|replace('_',
+              ' ')|capitalize) }}</span> · {{ _('Cash on delivery') }}</p>
+        </div>
+        <div class="admin-review-form">
+          {% if order.delivery_status == 'assigned' %}
+          <form method="post" action="{{ url_for('rider.update_delivery', order_id=order.id) }}"><input type="hidden"
+              name="csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="delivery_status"
+              value="picked_up"><button class="admin-button" type="submit">{{ _('Mark picked up') }}</button></form>
+          {% elif order.delivery_status == 'picked_up' %}
+          <form method="post" action="{{ url_for('rider.update_delivery', order_id=order.id) }}"><input type="hidden"
+              name="csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="delivery_status"
+              value="out_for_delivery"><button class="admin-button" type="submit">{{ _('Start delivery') }}</button>
+          </form>
+          {% elif order.delivery_status == 'out_for_delivery' %}
+          <form method="post" action="{{ url_for('rider.update_delivery', order_id=order.id) }}"
+            enctype="multipart/form-data">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden"
+              name="delivery_status" value="delivered">
+            <label class="visually-hidden" for="pod-note-{{ order.id }}">{{ _('Delivery note') }}</label>
+            <input id="pod-note-{{ order.id }}" name="delivery_note" maxlength="500"
+              placeholder="{{ _('Delivery note (optional)') }}">
+            <label class="small-label" for="pod-photo-{{ order.id }}">{{ _('Proof of delivery photo') }}</label>
+            <input id="pod-photo-{{ order.id }}" name="proof" type="file" accept="image/png,image/jpeg,image/webp">
+            <button class="admin-button" type="submit">{{ _('Mark delivered') }}</button>
+          </form>
+          {% endif %}
+          {% if order.delivery_status in ['assigned', 'picked_up', 'out_for_delivery'] %}
+          <form method="post" action="{{ url_for('rider.update_delivery', order_id=order.id) }}"><input type="hidden"
+              name="csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="delivery_status"
+              value="failed"><input type="hidden" name="delivery_note"
+              value="{{ _('Delivery could not be completed') }}"><button class="admin-button admin-button--quiet"
+              type="submit">{{ _('Report failed') }}</button></form>
+          {% endif %}
+        </div>
+      </article>
       {% endfor %}
-      </div>
+    </div>
     {% else %}
-      <p class="admin-empty">{{ _('No active deliveries right now.') }}</p>
+    <p class="admin-empty">{{ _('No active deliveries right now.') }}</p>
     {% endif %}
   </section>
 
   <section class="admin-section" aria-labelledby="completed-deliveries-title">
-    <header class="admin-section__header"><h2 id="completed-deliveries-title">{{ _('Completed deliveries') }}</h2></header>
+    <header class="admin-section__header">
+      <h2 id="completed-deliveries-title">{{ _('Completed deliveries') }}</h2>
+    </header>
     {% if completed %}
-      <div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>{{ _('Order') }}</th><th>{{ _('Customer') }}</th><th>{{ _('Status') }}</th><th>{{ _('Proof') }}</th></tr></thead><tbody>
-      {% for order in completed %}<tr><td>{{ order.order_number }}</td><td>{{ order.customer_name }}</td><td><span class="status-pill status-pill--{{ order.delivery_status }}">{{ _(order.delivery_status|capitalize) }}</span></td><td>{% if order.delivery_proof %}{{ _('Photo on file') }}{% elif order.delivery_note %}{{ order.delivery_note }}{% else %}—{% endif %}</td></tr>{% endfor %}
-      </tbody></table></div>
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>{{ _('Order') }}</th>
+            <th>{{ _('Customer') }}</th>
+            <th>{{ _('Status') }}</th>
+            <th>{{ _('Proof') }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in completed %}<tr>
+            <td>{{ order.order_number }}</td>
+            <td>{{ order.customer_name }}</td>
+            <td><span class="status-pill status-pill--{{ order.delivery_status }}">{{
+                _(order.delivery_status|capitalize) }}</span></td>
+            <td>{% if order.delivery_proof %}{{ _('Photo on file') }}{% elif order.delivery_note %}{{
+              order.delivery_note }}{% else %}—{% endif %}</td>
+          </tr>{% endfor %}
+        </tbody>
+      </table>
+    </div>
     {% else %}<p class="admin-empty">{{ _('Completed deliveries will appear here.') }}</p>{% endif %}
   </section>
 

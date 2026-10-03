@@ -6,15 +6,24 @@ NexHaat হবে Customer, Seller, Rider ও Admin-এর জন্য এক�
 
 এই নথিতে পূর্ববর্তী `nexhaat-master-plan.md`, `PLAN.md` ও `PLANE 1.md`-এর পরিকল্পনা একত্র করা হয়েছে; এটিই এখন canonical merged plan। উৎসের requirement-গুলো পরিকল্পনার বিষয়বস্তু; সেগুলো নিজে থেকে application code, database data/schema, migration বা production configuration পরিবর্তনের অনুমতি নয়।
 
-### বর্তমান stage status — 2026-10-01
+### বর্তমান stage status — 2026-10-03
 
 - **Phase 1 — সম্পূর্ণ।** Authentication, language foundation ও সংশ্লিষ্ট acceptance review সম্পন্ন।
 - **Phase 2 — সম্পূর্ণ।** Role dashboards ও access-control acceptance review সম্পন্ন।
 - **Phase 3 — সম্পূর্ণ।** Seller catalog, product variant, stock, Admin moderation, seller-authored multilingual text এবং fail-closed media pipeline বাস্তবায়িত। শুধু live image publish-এর জন্য deployment-এ ClamAV executable এবং S3-compatible bucket/CDN configuration দরকার।
-- **Phase 4 — সম্পূর্ণ।** এক checkout-এ seller-wise sub-order, per-order delivery fee, প্রতি seller-এর localized ReportLab invoice PDF এবং durable email outbox (auto retry + `flask retry-emails`)।
+- **Phase 4 — সম্পূর্ণ (application code)।** এক checkout-এ seller-wise sub-order, server-side current-price validation, product/variant stock reservation, per-order delivery fee, প্রতি seller-এর localized ReportLab invoice PDF এবং durable email outbox (auto retry + `flask retry-emails`)। Eligible cancellation/decline inventory ফেরত দেয়।
 - **Phase 5 — সম্পূর্ণ।** Admin Rider assignment এবং Rider delivery workflow (assigned → picked_up → out_for_delivery → delivered) proof of delivery ও server-validated transition সহ।
 - **Phase 6 — সম্পূর্ণ (application code)।** `audit_events` audit trail, integrity-verified `backup-db`/`restore-db`, `db-size` + 400 MB ceiling, এবং `production-check` launch review যোগ করা হয়েছে। WAF/Tunnel, managed media storage, scheduled backup ও ClamAV scanner — এগুলো hosting account-এর operator ধাপ।
 - **সম্পূর্ণ stage: 6/6 (application code)।** পরের ধাপ: Hosting account-এ ingress/WAF, media bucket + ClamAV scanner ও backup schedule configure করে live smoke check এবং production launch review সম্পন্ন করা।
+
+### Repository verification update — 2026-10-03
+
+- Catalog search এখন web ও REST API-তে category, bounded price range, pagination এবং deterministic sort সমর্থন করে।
+- Customer checkout product/variant stock server-side lock ও reserve করে; stale cart quantity প্রত্যাখ্যাত হয়। Order item-এ option label/SKU snapshot থাকে। Customer pending/confirmed order cancel করতে পারে; eligible cancellation বা decline stock ফেরত দেয়।
+- Approved Seller নিজের order দেখে, pending order confirm/decline করে, confirmed order preparing-এ নিতে পারে; dashboard-এ product/order counts ও delivered sales থাকে। Seller ownership server-side query-তে প্রয়োগ হয়।
+- `/api/v1`-এ session/OTP authentication, catalog/search, cart/checkout/orders, seller ও admin operations, reviews, notifications এবং wishlist routes আছে।
+- Focused auth, catalog, checkout, seller ownership, API, OTP, cancellation, variant inventory এবং migration checks চালানো হয়েছে। পুরো repository test suite-এর pass এখনও যাচাই করা হয়নি; CI/full-suite result না পাওয়া পর্যন্ত acceptance-এ green বলা যাবে না।
+- Hosting account access ছাড়া Cloudflare WAF/Tunnel, production ClamAV+bucket/CDN, PostgreSQL live smoke test ও scheduled backup/restore rehearsal সম্পন্ন করা যায় না; এগুলো production gate-এই রইল।
 
 ### ভাষা ও localization
 
@@ -239,7 +248,7 @@ Seller category/product CRUD, seller-only ownership checks, product translation 
 ### খোলা সিদ্ধান্ত
 
 | বিষয় | উৎসে কী নির্ধারিত | পরবর্তী ধাপ |
-|---|---|---|
+| --- | --- | --- |
 | Background job | Threaded processing অথবা Celery/Redis—দুটিই বিকল্প হিসেবে আছে | Phase 4-এর আগে retry/durability ও hosting requirement দেখে পদ্ধতি স্থির |
 | Upload scanning/storage | Private antivirus ও quarantine আবশ্যক; নির্দিষ্ট product/provider নেই | Code path ClamAV CLI ও S3-compatible storage দিয়ে wired; deployment-এ ClamAV executable, bucket/CDN ও credentials configure করে live smoke check করতে হবে |
 | Production ingress | Cloudflare WAF/Tunnel ও Render private networking প্রস্তাবিত; WAF rule tier-dependent | Phase 6-এর আগে connector placement, private reachability ও Cloudflare tier যাচাই |
@@ -251,7 +260,7 @@ Seller category/product CRUD, seller-only ownership checks, product translation 
 এই merged plan-এ তিনটি project plan-এর non-duplicate requirements, architecture, database proposals, six phase gates, acceptance notes ও next-stage status একত্র করা হয়েছে:
 
 | Merged input | অন্তর্ভুক্ত বিষয় |
-|---|---|
+| --- | --- |
 | Existing `nexhaat-master-plan.md` | Architecture, phase gates ও repository acceptance notes; এটিই merged plan হিসেবে রাখা হয়েছে |
 | `PLAN.md` (merged input; removed) | Locale/default behavior, COD, buyer receipt, data constraints, conditional ingress ও launch acceptance |
 | `PLANE 1.md` (merged input; removed) | Database schema proposals, role/auth architecture, media flow, detailed phase gates ও testing strategy |

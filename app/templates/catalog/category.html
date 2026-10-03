@@ -2,9 +2,36 @@
 {% block title %}{{ category.name }} · {{ app_name }}{% endblock %}
 {% block page_content %}
 <div class="page-shell">
-  <header class="page-heading"><div><p class="eyebrow">{{ _('Category') }}</p><h1>{{ category.name }}</h1><p>{{ category.description or _('Discover local products in this category.') }}</p></div><a class="button-secondary" href="{{ url_for('main.menu') }}">← {{ _('All categories') }}</a></header>
-  {% if products %}<div class="product-grid">{% for product in products %}{% include "_product_card.html" %}{% endfor %}</div>
-  {% else %}<div class="empty-state"><strong>{{ _('No active products in this category') }}</strong>{{ _('Local sellers will appear here as approved listings become available.') }}</div>{% endif %}
-  {% if pagination.pages > 1 %}<nav class="pagination" aria-label="{{ _('Category pages') }}">{% if pagination.has_prev %}<a href="{{ url_for('main.category', slug=category.slug, page=pagination.prev_num) }}">←</a>{% endif %}<span class="is-current">{{ pagination.page }} / {{ pagination.pages }}</span>{% if pagination.has_next %}<a href="{{ url_for('main.category', slug=category.slug, page=pagination.next_num) }}">→</a>{% endif %}</nav>{% endif %}
+  <header class="page-heading">
+    <div>
+      <p class="eyebrow">{{ _('Category') }}</p>
+      <h1>{{ category.name }}</h1>
+      <p>{{ category.description or _('Discover local products in this category.') }}</p>
+    </div><a class="button-secondary" href="{{ url_for('main.menu') }}">← {{ _('All categories') }}</a>
+  </header>
+  <form class="catalog-filters" method="get" action="{{ url_for('main.category', slug=category.slug) }}"
+    aria-label="{{ _('Filter marketplace listings') }}">
+    <div class="form-field"><label for="category-min-price">{{ _('Minimum price') }}</label><input
+        id="category-min-price" name="min_price" type="number" min="0" step="0.01"
+        value="{{ min_price if min_price is not none else '' }}"></div>
+    <div class="form-field"><label for="category-max-price">{{ _('Maximum price') }}</label><input
+        id="category-max-price" name="max_price" type="number" min="0" step="0.01"
+        value="{{ max_price if max_price is not none else '' }}"></div>
+    <div class="form-field"><label for="category-sort">{{ _('Sort by') }}</label><select id="category-sort"
+        name="sort">{% for value, label in [('featured', _('Featured')), ('newest', _('Newest')), ('price_asc',
+        _('Price: low to high')), ('price_desc', _('Price: high to low'))] %}<option value="{{ value }}" {% if
+          sort==value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></div>
+    <button class="button-secondary" type="submit">{{ _('Apply filters') }}</button>
+  </form>
+  {% if products %}<div class="product-grid">{% for product in products %}{% include "_product_card.html" %}{% endfor %}
+  </div>
+  {% else %}<div class="empty-state"><strong>{{ _('No active products in this category') }}</strong>{{ _('Local sellers
+    will appear here as approved listings become available.') }}</div>{% endif %}
+  {% if pagination.pages > 1 %}<nav class="pagination" aria-label="{{ _('Category pages') }}">{% if pagination.has_prev
+    %}<a
+      href="{{ url_for('main.category', slug=category.slug, page=pagination.prev_num, min_price=min_price, max_price=max_price, sort=sort) }}">←</a>{%
+    endif %}<span class="is-current">{{ pagination.page }} / {{ pagination.pages }}</span>{% if pagination.has_next %}<a
+      href="{{ url_for('main.category', slug=category.slug, page=pagination.next_num, min_price=min_price, max_price=max_price, sort=sort) }}">→</a>{%
+    endif %}</nav>{% endif %}
 </div>
 {% endblock %}

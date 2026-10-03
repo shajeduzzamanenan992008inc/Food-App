@@ -1,6 +1,6 @@
 from math import ceil
 
-from sqlalchemy import func, select
+from sqlalchemy import case, func, select
 
 from ..extensions import db
 from ..models import Category, Product
@@ -41,6 +41,54 @@ def _paginate_products(statement, page, per_page):
 
 def get_menu_products(page=1, per_page=48):
     return _paginate_products(active_products(), page, per_page)
+
+
+def get_catalog_products(
+    page=1,
+    per_page=48,
+    query="",
+    category_id=None,
+    min_price=None,
+    max_price=None,
+    sort="featured",
+):
+    """Return a shared, bounded marketplace listing query for web and API clients."""
+    statement = active_products()
+    query = (query or "").strip()[:100]
+    if query:
+        statement = search_active_products(query)
+    if category_id is not None:
+        statement = statement.where(Product.category_id == category_id)
+
+    display_price = func.coalesce(Product.discount_price, Product.price)
+    if min_price is not None:
+        statement = statement.where(display_price >= min_price)
+    if max_price is not None:
+        statement = statement.where(display_price <= max_price)
+
+    if sort == "newest":
+        statement = statement.order_by(None).order_by(Product.created_at.desc(), Product.id.desc())
+    elif sort == "price_asc":
+        statement = statement.order_by(None).order_by(
+            display_price.asc(), Product.name.asc(), Product.id.asc()
+        )
+    elif sort == "price_desc":
+        statement = statement.order_by(None).order_by(
+            display_price.desc(), Product.name.asc(), Product.id.asc()
+        )
+    elif query:
+        pattern = f"%{query}%"
+        statement = statement.order_by(None).order_by(
+            case(
+                (Product.name.ilike(query), 0),
+                (Product.name.ilike(f"{query}%"), 1),
+                (Product.name.ilike(pattern), 2),
+                else_=3,
+            ),
+            Product.is_featured.desc(),
+            Product.name.asc(),
+        )
+    return _paginate_products(statement, page, max(1, min(per_page, 100)))
 
 
 def get_reference_food_categories():

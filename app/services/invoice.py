@@ -59,9 +59,8 @@ def _safe(text, unicode_ok):
 
 def _localized_item_name(item, products, locale):
     product = products.get(item.product_id)
-    if product is None or not locale:
-        return item.product_name
-    return product.localized_name(locale)
+    name = product.localized_name(locale) if product is not None and locale else item.product_name
+    return f"{name} · {item.variant_label}" if item.variant_label else name
 
 
 def build_invoice_pdf(order, locale=None, restaurant_name="NexHaat"):

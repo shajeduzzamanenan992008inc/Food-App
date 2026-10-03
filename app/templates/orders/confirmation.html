@@ -1,17 +1,34 @@
 {% extends "base.html" %}
 {% block title %}{{ _('Order received') }} · {{ app_name }}{% endblock %}
 {% block page_content %}
-<div class="page-shell"><section class="surface surface-card login-required">
-  <p class="eyebrow">{{ _('Thank you') }}</p><h1 style="margin:0;font:800 clamp(2rem,4vw,3rem) Manrope,sans-serif;letter-spacing:-.05em">{{ _('Your order is on its way to the team') }}</h1>
-  <p style="color:var(--muted);line-height:1.65">{{ _('We sent a confirmation to %(email)s.', email=order.email) }}{% if sub_orders|length > 1 %} {{ _('Your cart was split into %(count)s seller orders.', count=sub_orders|length) }}{% endif %}</p>
-  {% for sub in sub_orders %}
-  <div class="surface surface-card" style="margin-top:22px;text-align:start">
-    <p class="eyebrow">{{ sub.order_number }}{% if sub.seller and sub.seller.seller_profile %} · {{ sub.seller.seller_profile.store_name }}{% endif %}</p>
-    <div class="summary-list">{% for item in sub.items %}<div class="summary-row"><span>{{ item.quantity }} × {{ item.product_name }}</span><strong>৳{{ '%.2f'|format(item.subtotal) }}</strong></div>{% endfor %}<div class="summary-row"><span>{{ _('Delivery') }}</span><strong>৳{{ '%.2f'|format(sub.delivery_fee) }}</strong></div><div class="summary-row summary-total"><span>{{ _('Total') }}</span><strong>৳{{ '%.2f'|format(sub.total) }}</strong></div></div>
-    <p><span class="status-pill status-pill--{{ sub.status }}">{{ _(sub.status|capitalize) }}</span> · {{ _('Cash on delivery') }}</p>
-  </div>
-  {% endfor %}
-  {% if sub_orders|length > 1 %}<p style="font-weight:700;margin-top:16px">{{ _('Overall total') }}: ৳{{ '%.2f'|format(grand_total) }}</p>{% endif %}
-  <div class="form-actions" style="justify-content:center"><a class="button" href="{{ url_for('main.menu') }}">{{ _('Keep exploring') }}</a>{% if order.user_id %}<a class="button-secondary" href="{{ url_for('orders.my_orders') }}">{{ _('View my orders') }}</a>{% endif %}</div>
-</section></div>
+<div class="page-shell">
+  <section class="surface surface-card login-required">
+    <p class="eyebrow">{{ _('Thank you') }}</p>
+    <h1 style="margin:0;font:800 clamp(2rem,4vw,3rem) Manrope,sans-serif;letter-spacing:-.05em">{{ _('Your order is on
+      its way to the team') }}</h1>
+    <p style="color:var(--muted);line-height:1.65">{{ _('We sent a confirmation to %(email)s.', email=order.email) }}{%
+      if sub_orders|length > 1 %} {{ _('Your cart was split into %(count)s seller orders.', count=sub_orders|length)
+      }}{% endif %}</p>
+    {% for sub in sub_orders %}
+    <div class="surface surface-card" style="margin-top:22px;text-align:start">
+      <p class="eyebrow">{{ sub.order_number }}{% if sub.seller and sub.seller.seller_profile %} · {{
+        sub.seller.seller_profile.store_name }}{% endif %}</p>
+      <div class="summary-list">{% for item in sub.items %}<div class="summary-row"><span>{{ item.quantity }} × {{
+            item.product_name }}{% if item.variant_label %} · {{ item.variant_label }}{% endif %}</span><strong>৳{{
+            '%.2f'|format(item.subtotal) }}</strong></div>{% endfor %}<div class="summary-row"><span>{{ _('Delivery')
+            }}</span><strong>৳{{ '%.2f'|format(sub.delivery_fee) }}</strong></div>
+        <div class="summary-row summary-total"><span>{{ _('Total') }}</span><strong>৳{{ '%.2f'|format(sub.total)
+            }}</strong></div>
+      </div>
+      <p><span class="status-pill status-pill--{{ sub.status }}">{{ _(sub.status|capitalize) }}</span> · {{ _('Cash on
+        delivery') }}</p>
+    </div>
+    {% endfor %}
+    {% if sub_orders|length > 1 %}<p style="font-weight:700;margin-top:16px">{{ _('Overall total') }}: ৳{{
+      '%.2f'|format(grand_total) }}</p>{% endif %}
+    <div class="form-actions" style="justify-content:center"><a class="button" href="{{ url_for('main.menu') }}">{{
+        _('Keep exploring') }}</a>{% if order.user_id %}<a class="button-secondary"
+        href="{{ url_for('orders.my_orders') }}">{{ _('View my orders') }}</a>{% endif %}</div>
+  </section>
+</div>
 {% endblock %}

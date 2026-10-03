@@ -99,7 +99,12 @@ class OrderItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     order_id = db.Column(db.Integer, db.ForeignKey("orders.id", ondelete="CASCADE"), nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey("products.id", ondelete="SET NULL"), nullable=True)
+    variant_id = db.Column(
+        db.Integer, db.ForeignKey("product_variants.id", ondelete="SET NULL"), nullable=True
+    )
     product_name = db.Column(db.String(160), nullable=False)
+    variant_label = db.Column(db.String(220), nullable=True)
+    sku_snapshot = db.Column(db.String(80), nullable=True)
     price = db.Column(db.Numeric(10, 2), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     subtotal = db.Column(db.Numeric(10, 2), nullable=False)

@@ -1,10 +1,53 @@
 {% extends "base.html" %}
 {% block title %}{{ _('Order details') }} · {{ app_name }}{% endblock %}
 {% block page_content %}
-<div class="page-shell"><header class="page-heading"><div><p class="eyebrow">{{ _('Order') }}</p><h1>{{ order.order_number }}</h1><p>{{ order.created_at.strftime('%b %d, %Y · %I:%M %p') }} · <span class="status-pill status-pill--{{ order.status }}">{{ _(order.status|capitalize) }}</span></p></div><a class="button-secondary" href="{{ url_for('admin.dashboard') }}">← {{ _('Back to operations') }}</a></header>
-  <div class="product-detail" style="align-items:start;grid-template-columns:minmax(0,1.1fr) minmax(280px,.9fr)"><section class="surface surface-card"><h2 style="margin-top:0;font:800 1.2rem Manrope,sans-serif">{{ _('Items') }}</h2><div class="table-wrap"><table><thead><tr><th>{{ _('Product') }}</th><th>{{ _('Quantity') }}</th><th>{{ _('Total') }}</th></tr></thead><tbody>{% for item in order.items %}<tr><td>{{ item.product_name }}</td><td>{{ item.quantity }}</td><td>৳{{ '%.2f'|format(item.subtotal) }}</td></tr>{% endfor %}</tbody></table></div><p class="summary-row summary-total"><span>{{ _('Order total') }}</span><strong>৳{{ '%.2f'|format(order.total) }}</strong></p></section>
-    <aside class="surface surface-card"><h2 style="margin-top:0;font:800 1.2rem Manrope,sans-serif">{{ _('Delivery details') }}</h2><p><strong>{{ order.customer_name }}</strong><br>{{ order.phone }}<br><a href="mailto:{{ order.email }}">{{ order.email }}</a></p><p>{{ order.address }}</p><p>{{ _('Payment') }}: {{ _('Cash on delivery') }}</p>
-      <form method="post" action="{{ url_for('orders.admin_order_status', order_id=order.id) }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><div class="form-field"><label for="order-status">{{ _('Update status') }}</label><select id="order-status" name="status">{% for status in ('pending','confirmed','preparing','delivered','cancelled','declined') %}<option value="{{ status }}" {% if order.status == status %}selected{% endif %}>{{ _(status|capitalize) }}</option>{% endfor %}</select></div><div class="form-actions"><button class="button" type="submit">{{ _('Save status') }}</button></div></form>
+<div class="page-shell">
+  <header class="page-heading">
+    <div>
+      <p class="eyebrow">{{ _('Order') }}</p>
+      <h1>{{ order.order_number }}</h1>
+      <p>{{ order.created_at.strftime('%b %d, %Y · %I:%M %p') }} · <span
+          class="status-pill status-pill--{{ order.status }}">{{ _(order.status|capitalize) }}</span></p>
+    </div><a class="button-secondary" href="{{ url_for('admin.dashboard') }}">← {{ _('Back to operations') }}</a>
+  </header>
+  <div class="product-detail" style="align-items:start;grid-template-columns:minmax(0,1.1fr) minmax(280px,.9fr)">
+    <section class="surface surface-card">
+      <h2 style="margin-top:0;font:800 1.2rem Manrope,sans-serif">{{ _('Items') }}</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>{{ _('Product') }}</th>
+              <th>{{ _('Quantity') }}</th>
+              <th>{{ _('Total') }}</th>
+            </tr>
+          </thead>
+          <tbody>{% for item in order.items %}<tr>
+              <td>{{ item.product_name }}{% if item.variant_label %} · {{ item.variant_label }}{% endif %}{% if
+                item.sku_snapshot %}<small class="source-caption">{{ _('SKU') }} {{ item.sku_snapshot }}</small>{% endif
+                %}</td>
+              <td>{{ item.quantity }}</td>
+              <td>৳{{ '%.2f'|format(item.subtotal) }}</td>
+            </tr>{% endfor %}</tbody>
+        </table>
+      </div>
+      <p class="summary-row summary-total"><span>{{ _('Order total') }}</span><strong>৳{{ '%.2f'|format(order.total)
+          }}</strong></p>
+    </section>
+    <aside class="surface surface-card">
+      <h2 style="margin-top:0;font:800 1.2rem Manrope,sans-serif">{{ _('Delivery details') }}</h2>
+      <p><strong>{{ order.customer_name }}</strong><br>{{ order.phone }}<br><a href="mailto:{{ order.email }}">{{
+          order.email }}</a></p>
+      <p>{{ order.address }}</p>
+      <p>{{ _('Payment') }}: {{ _('Cash on delivery') }}</p>
+      <form method="post" action="{{ url_for('orders.admin_order_status', order_id=order.id) }}"><input type="hidden"
+          name="csrf_token" value="{{ csrf_token() }}">
+        <div class="form-field"><label for="order-status">{{ _('Update status') }}</label><select id="order-status"
+            name="status">{% for status in ('pending','confirmed','preparing','delivered','cancelled','declined') %}
+            <option value="{{ status }}" {% if order.status==status %}selected{% endif %}>{{ _(status|capitalize) }}
+            </option>{% endfor %}</select></div>
+        <div class="form-actions"><button class="button" type="submit">{{ _('Save status') }}</button></div>
+      </form>
     </aside>
   </div>
 </div>

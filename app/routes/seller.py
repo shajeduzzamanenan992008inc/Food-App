@@ -4,15 +4,19 @@ import re
 
 from flask import Blueprint, abort, flash, g, redirect, render_template, request, session, url_for
 from flask_babel import gettext
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import selectinload
 
 from ..extensions import db
 from ..i18n import SUPPORTED_LOCALES
-from ..models import Category, Product, ProductTranslation, ProductVariant, User
+from ..models import Category, Order, Product, ProductTranslation, ProductVariant, User
 from ..services.catalog_media import CatalogMediaError, store_catalog_image
 from ..services.profiles import apply_password_change, password_change_error
+from ..services.audit import record_audit
+from ..services.mail import queue_order_status
+from ..services.notifications import notify
+from ..services.orders import transition_order
 from ..security import (
     approved_seller_required,
     current_approved_seller,
@@ -233,7 +237,79 @@ def dashboard():
     user = current_session_user("seller")
     if not user.seller_profile:
         abort(403)
-    return render_template("seller/dashboard.html", user=user, profile=user.seller_profile)
+    metrics = None
+    if user.seller_profile.approval_status == "approved":
+        metrics = {
+            "products": db.session.scalar(
+                select(func.count(Product.id)).where(Product.seller_id == user.id)
+            ) or 0,
+            "active_products": db.session.scalar(
+                select(func.count(Product.id)).where(
+                    Product.seller_id == user.id, Product.is_available.is_(True)
+                )
+            ) or 0,
+            "pending_orders": db.session.scalar(
+                select(func.count(Order.id)).where(
+                    Order.seller_id == user.id, Order.status == "pending"
+                )
+            ) or 0,
+            "completed_orders": db.session.scalar(
+                select(func.count(Order.id)).where(
+                    Order.seller_id == user.id, Order.status == "delivered"
+                )
+            ) or 0,
+            "sales": db.session.scalar(
+                select(func.coalesce(func.sum(Order.total), 0)).where(
+                    Order.seller_id == user.id, Order.status == "delivered"
+                )
+            ) or Decimal("0.00"),
+        }
+    return render_template(
+        "seller/dashboard.html", user=user, profile=user.seller_profile, metrics=metrics
+    )
+
+
+@seller_bp.get("/seller/orders")
+@approved_seller_required
+def orders():
+    seller = _approved_seller()
+    seller_orders = db.session.scalars(
+        select(Order)
+        .options(selectinload(Order.items))
+        .where(Order.seller_id == seller.id)
+        .order_by(Order.created_at.desc())
+        .limit(100)
+    ).all()
+    return render_template("seller/orders.html", orders=seller_orders, seller=seller)
+
+
+@seller_bp.post("/seller/orders/<int:order_id>/status")
+@approved_seller_required
+def update_order_status(order_id):
+    seller = _approved_seller()
+    order = db.session.scalar(
+        select(Order)
+        .options(selectinload(Order.items))
+        .where(Order.id == order_id, Order.seller_id == seller.id)
+    )
+    if not order:
+        abort(404)
+    target = request.form.get("status", "")
+    if target not in {"confirmed", "preparing", "declined"} or not transition_order(order, target):
+        flash(gettext("That order status transition is not allowed."), "error")
+        return redirect(url_for("seller.orders"))
+    db.session.commit()
+    record_audit("order.status", actor=seller, target_type="order", target_id=order.id, detail=target)
+    queue_order_status(order)
+    if order.user_id:
+        notify(
+            order.user_id,
+            gettext("Order %(number)s is now %(status)s.", number=order.order_number, status=target),
+            type="order",
+            link=url_for("orders.confirmation", order_number=order.order_number),
+        )
+    flash(gettext("Order status updated."), "success")
+    return redirect(url_for("seller.orders"))
 
 
 @seller_bp.get("/seller/catalog")

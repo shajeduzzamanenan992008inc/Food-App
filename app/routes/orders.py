@@ -1,7 +1,6 @@
 from datetime import datetime, timezone
 from decimal import Decimal
 from urllib.parse import urlsplit
-from uuid import uuid4
 
 from flask import Blueprint, abort, current_app, flash, redirect, render_template, request, session, url_for
 from flask_babel import gettext
@@ -11,7 +10,7 @@ from sqlalchemy.orm import joinedload, selectinload
 from ..extensions import db
 from ..models import (
     AppSetting, Category, CustomerAddress, CustomerProfile,
-    Order, OrderItem, Product, Review, SellerProfile, User,
+    Order, Product, Review, SellerProfile, User,
 )
 from ..security import (
     admin_required, customer_or_guest_required, current_session_user,
@@ -24,10 +23,11 @@ from ..services.mail import (
     queue_order_status,
 )
 from ..services.notifications import notify
+from ..services.orders import release_reserved_stock, transition_order
+from ..services.checkout import CheckoutError, DELIVERY_FEE, create_checkout_orders
 
 
 orders_bp = Blueprint("orders", __name__)
-DELIVERY_FEE = Decimal("2.50")
 STATUSES = ("pending", "confirmed", "preparing", "delivered", "cancelled", "declined")
 
 
@@ -39,32 +39,69 @@ def parse_quantity(value, default=1):
     return max(1, min(quantity, 20))
 
 
+def _cart_key(product_id, variant_id=None):
+    return f"{product_id}:{variant_id}" if variant_id else str(product_id)
+
+
+def _parse_cart_key(value):
+    try:
+        product_part, separator, variant_part = str(value).partition(":")
+        product_id = int(product_part)
+        variant_id = int(variant_part) if separator else None
+    except (TypeError, ValueError):
+        return None, None
+    return product_id, variant_id
+
+
 def cart_rows():
     raw_cart = session.get("cart", {})
-    product_ids = []
-    for key in raw_cart:
-        try:
-            product_ids.append(int(key))
-        except (TypeError, ValueError):
-            continue
+    parsed_rows = [(_parse_cart_key(key), key, quantity) for key, quantity in raw_cart.items()]
+    product_ids = {parsed[0] for parsed, _key, _quantity in parsed_rows if parsed[0] is not None}
     products = db.session.scalars(
-        select(Product).options(joinedload(Product.category)).where(Product.id.in_(product_ids))
+        select(Product)
+        .options(selectinload(Product.category), selectinload(Product.variants))
+        .where(Product.id.in_(product_ids))
     ).all() if product_ids else []
+    product_by_id = {product.id: product for product in products}
     rows, total = [], Decimal("0.00")
     valid_cart = {}
-    for product in products:
-        quantity = parse_quantity(raw_cart.get(str(product.id)))
+    for (product_id, variant_id), _old_key, raw_quantity in parsed_rows:
+        product = product_by_id.get(product_id)
+        if product is None:
+            continue
         if not product.is_available or not product.category.is_active:
             continue
-        subtotal = product.display_price * quantity
+        active_variants = [variant for variant in product.variants if variant.is_active]
+        variant = next(
+            (item for item in active_variants if item.id == variant_id), None
+        ) if variant_id else None
+        if variant_id and variant is None:
+            continue
+        if not variant and active_variants:
+            if len(active_variants) != 1:
+                continue
+            variant = active_variants[0]
+        available_stock = variant.stock_quantity if variant else product.stock_quantity
+        if available_stock <= 0:
+            continue
+        quantity = parse_quantity(raw_quantity)
+        price = variant.price if variant and variant.price is not None else product.display_price
+        subtotal = price * quantity
+        key = _cart_key(product.id, variant.id if variant else None)
         rows.append({
             "product": product,
+            "variant": variant,
+            "variant_id": variant.id if variant else None,
+            "variant_label": f"{variant.option_name}: {variant.option_value}" if variant else None,
+            "cart_key": key,
+            "price": price,
+            "available_stock": available_stock,
             "quantity": quantity,
             "subtotal": subtotal,
             "seller_id": product.seller_id,
         })
         total += subtotal
-        valid_cart[str(product.id)] = quantity
+        valid_cart[key] = quantity
     session["cart"] = valid_cart
     return rows, total
 
@@ -82,9 +119,23 @@ def add_to_cart(product_id):
     product = db.session.get(Product, product_id)
     if not product or not product.is_available or not product.category.is_active:
         abort(404)
+    active_variants = [variant for variant in product.variants if variant.is_active]
+    variant_id = request.form.get("variant_id", type=int)
+    variant = next((item for item in active_variants if item.id == variant_id), None)
+    if active_variants and variant is None:
+        flash(gettext("Choose a product option before adding it to your cart."), "error")
+        return redirect(url_for("main.food", slug=product.slug))
+    stock = variant.stock_quantity if variant else product.stock_quantity
+    if stock <= 0:
+        flash(gettext("This item is out of stock."), "error")
+        return redirect(url_for("main.food", slug=product.slug))
     cart = session.get("cart", {})
-    key = str(product_id)
-    cart[key] = min(parse_quantity(cart.get(key), default=0) + parse_quantity(request.form.get("quantity")), 20)
+    key = _cart_key(product_id, variant.id if variant else None)
+    cart[key] = min(
+        parse_quantity(cart.get(key), default=0) + parse_quantity(request.form.get("quantity")),
+        stock,
+        20,
+    )
     session["cart"] = cart
     flash(f"{product.name} added to your cart.", "success")
     next_url = request.form.get("next", "")
@@ -105,16 +156,17 @@ def update_cart():
     cart = session.get("cart", {})
     for key, value in request.form.items():
         if key.startswith("quantity_"):
-            product_id = key.removeprefix("quantity_")
+            cart_key = key.removeprefix("quantity_")
             try:
                 quantity = int(value)
             except (TypeError, ValueError):
                 quantity = 0
             if quantity > 0:
-                cart[product_id] = min(quantity, 20)
+                cart[cart_key] = min(quantity, 20)
             else:
-                cart.pop(product_id, None)
+                cart.pop(cart_key, None)
     session["cart"] = cart
+    cart_rows()
     return redirect(url_for("orders.cart"))
 
 
@@ -122,7 +174,8 @@ def update_cart():
 @customer_or_guest_required
 def remove_from_cart(product_id):
     cart = session.get("cart", {})
-    cart.pop(str(product_id), None)
+    variant_id = request.form.get("variant_id", type=int)
+    cart.pop(_cart_key(product_id, variant_id), None)
     session["cart"] = cart
     return redirect(url_for("orders.cart"))
 
@@ -138,65 +191,24 @@ def checkout():
         name = request.form.get("customer_name", "").strip()
         phone = request.form.get("phone", "").strip()
         address = request.form.get("address", "").strip()
-        email = request.form.get("email", "").strip() or None
+        user = current_session_user("customer")
+        email = user.email if user else request.form.get("email", "").strip() or None
         payment_method = request.form.get("payment_method", "").strip().lower()
-        if session.get("user_id"):
-            signed_in_user = db.session.get(User, session["user_id"])
-            email = signed_in_user.email if signed_in_user else email
-        if (
-            not email or len(email) > 255 or "@" not in email
-            or "." not in email.rsplit("@", 1)[-1]
-        ):
-            flash("Please provide a valid email address for order updates.", "error")
-        elif payment_method != "cod":
-            flash("Please choose a supported payment method.", "error")
-        elif not 2 <= len(name) <= 120 or not 7 <= len(phone) <= 30 or not 8 <= len(address) <= 2000:
-            flash("Please provide a valid name, phone, and delivery address.", "error")
+        try:
+            orders = create_checkout_orders(
+                user,
+                rows,
+                name=name,
+                phone=phone,
+                address=address,
+                email=email,
+                payment_method=payment_method,
+            )
+        except CheckoutError as error:
+            db.session.rollback()
+            flash(gettext(str(error)), "error")
         else:
-            checkout_group = f"FB-{uuid4().hex.upper()}"
-            user_id = session.get("user_id")
-            seller_groups = {}
-            for row in rows:
-                seller_groups.setdefault(row["seller_id"], []).append(row)
-            orders = []
-            for index, (group_seller_id, group_rows) in enumerate(seller_groups.items(), start=1):
-                group_subtotal = sum((row["subtotal"] for row in group_rows), Decimal("0.00"))
-                order = Order(
-                    order_number=f"{checkout_group}-{index}",
-                    checkout_group=checkout_group,
-                    user_id=user_id,
-                    seller_id=group_seller_id,
-                    customer_name=name, phone=phone, email=email, address=address,
-                    delivery_fee=DELIVERY_FEE,
-                    total=group_subtotal + DELIVERY_FEE,
-                    payment_method=payment_method, status="pending",
-                )
-                for row in group_rows:
-                    order.items.append(OrderItem(
-                        product_id=row["product"].id, product_name=row["product"].name,
-                        price=row["product"].display_price, quantity=row["quantity"], subtotal=row["subtotal"],
-                    ))
-                db.session.add(order)
-                orders.append(order)
-            db.session.commit()
             session["cart"] = {}
-            for order in orders:
-                enqueue_order_emails(order)
-                confirmation_link = url_for("orders.confirmation", order_number=order.order_number)
-                if order.user_id:
-                    notify(
-                        order.user_id,
-                        gettext("Order %(number)s was received.", number=order.order_number),
-                        type="order",
-                        link=confirmation_link,
-                    )
-                if order.seller_id:
-                    notify(
-                        order.seller_id,
-                        gettext("New order %(number)s for your store.", number=order.order_number),
-                        type="order",
-                        link=url_for("seller.dashboard"),
-                    )
             return redirect(url_for("orders.confirmation", order_number=orders[0].order_number))
     customer = None
     user_email = None
@@ -241,6 +253,38 @@ def my_orders():
         .where(Order.user_id == user.id).order_by(Order.created_at.desc())
     ).all()
     return render_template("orders/my_orders.html", orders=orders)
+
+
+@orders_bp.post("/orders/<order_number>/cancel")
+def customer_order_cancel(order_number):
+    user = current_session_user("customer")
+    if not user:
+        if session.get("user_id") is not None:
+            abort(403)
+        return redirect(url_for("auth.login", next=url_for("orders.my_orders")))
+    order = db.session.scalar(
+        select(Order)
+        .options(selectinload(Order.items))
+        .where(Order.order_number == order_number, Order.user_id == user.id)
+        .with_for_update()
+    )
+    if not order:
+        abort(404)
+    if order.status not in {"pending", "confirmed"} or not transition_order(order, "cancelled"):
+        flash(gettext("This order can no longer be cancelled."), "error")
+        return redirect(url_for("orders.my_orders"))
+    db.session.commit()
+    record_audit("order.cancel", actor=user, target_type="order", target_id=order.id)
+    queue_order_status(order)
+    if order.seller_id:
+        notify(
+            order.seller_id,
+            gettext("Order %(number)s was cancelled by the customer.", number=order.order_number),
+            type="order",
+            link=url_for("seller.orders"),
+        )
+    flash(gettext("Your order was cancelled."), "success")
+    return redirect(url_for("orders.my_orders"))
 
 
 @orders_bp.post("/admin/sellers/<int:profile_id>/review")
@@ -495,10 +539,14 @@ def admin_order_detail(order_id):
 
 
 def _set_admin_order_status(order_id, status):
-    order = db.session.get(Order, order_id)
+    order = db.session.scalar(
+        select(Order).options(selectinload(Order.items)).where(Order.id == order_id)
+    )
     if not order:
         abort(404)
-    order.status = status
+    if not transition_order(order, status):
+        flash(gettext("That order status transition is not allowed."), "error")
+        return redirect(url_for("admin.dashboard"))
     db.session.commit()
     record_audit("order.status", target_type="order", target_id=order.id, detail=status)
     queue_order_status(order)
@@ -522,9 +570,13 @@ def admin_order_decline(order_id):
 @orders_bp.post("/admin/orders/<int:order_id>/remove")
 @admin_required
 def admin_order_remove(order_id):
-    order = db.session.get(Order, order_id)
+    order = db.session.scalar(
+        select(Order).options(selectinload(Order.items)).where(Order.id == order_id)
+    )
     if not order:
         abort(404)
+    if order.status in {"pending", "confirmed", "preparing"}:
+        release_reserved_stock(order)
     db.session.delete(order)
     db.session.commit()
     flash("Order removed permanently.", "success")
@@ -533,10 +585,11 @@ def admin_order_remove(order_id):
 
 def _set_all_pending_order_status(status):
     pending_orders = db.session.scalars(
-        select(Order).where(Order.status == "pending").order_by(Order.created_at)
+        select(Order).options(selectinload(Order.items))
+        .where(Order.status == "pending").order_by(Order.created_at)
     ).all()
     for order in pending_orders:
-        order.status = status
+        transition_order(order, status)
     db.session.commit()
     for order in pending_orders:
         queue_order_status(order)
@@ -715,11 +768,15 @@ def admin_category_delete(category_id):
 @orders_bp.post("/admin/orders/<int:order_id>/status")
 @admin_required
 def admin_order_status(order_id):
-    order = db.session.get(Order, order_id)
+    order = db.session.scalar(
+        select(Order).options(selectinload(Order.items)).where(Order.id == order_id)
+    )
     status = request.form.get("status")
     if not order or status not in STATUSES:
         abort(404)
-    order.status = status
+    if not transition_order(order, status):
+        flash(gettext("That order status transition is not allowed."), "error")
+        return redirect(url_for("admin.dashboard"))
     db.session.commit()
     queue_order_status(order)
     if status == "confirmed":

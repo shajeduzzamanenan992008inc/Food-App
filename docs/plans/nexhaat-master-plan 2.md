@@ -25,6 +25,7 @@ The existing project is the FOUNDATION.
 Your job is to inspect it, preserve what is useful, repair what is weak, and gradually evolve it into the Mega Marketplace.
 
 ============================================================
+
 1. CORE PROJECT PRINCIPLE
 ============================================================
 
@@ -63,6 +64,23 @@ The final result must feel like a serious modern marketplace while remaining und
 The project must NOT become unnecessarily huge.
 
 Build a strong CORE first.
+
+## Current Repository Status — 2026-10-03
+
+This plan is an aspirational V1/V2 roadmap, not a statement that every listed future feature already exists. The current repository implements the core server-rendered marketplace and a session-authenticated `/api/v1` API without replacing the existing Flask/Jinja design.
+
+Implemented and covered by focused checks:
+
+- Customer and seller OTP registration; customer/seller/Rider session login; Admin email-OTP sign-in; server-side role checks.
+- Active catalog listing/detail, multilingual text, search, category/price filters, deterministic sorting, and pagination.
+- Seller-owned products, variants/SKU stock, Admin moderation, quarantine/scan/external-media code path.
+- Customer session cart; seller-split COD checkout; current-price validation, transactional product/variant stock reservation, order snapshots, and eligible cancellation/restocking.
+- Seller-owned order actions and basic dashboard totals; Rider assignment/delivery; reviews, moderation, notifications, wishlist, audit and database operations.
+- Versioned REST endpoints for auth/OTP, catalog/search, cart/checkout/orders, seller, admin, reviews, notifications and wishlist.
+
+The focused tests exercised during this update passed, including API registration/OTP, API catalog/checkout/admin/seller scope, stock-race rejection, cancellation/restock, SKU variant checkout, and catalog filters. The entire repository suite has not yet produced a verified pass result, so do not claim full-suite green.
+
+Production completion still requires operator access/configuration: real ClamAV and S3-compatible media storage, Cloudflare ingress/WAF, production PostgreSQL smoke/restore testing, and scheduled backups. Those account-side tasks cannot be completed from repository code alone. Online payments, coupons, live GPS, AI search and advanced analytics remain out of V1 scope.
 
 ============================================================
 2. ABSOLUTE RULE — INSPECT BEFORE MODIFYING
@@ -240,6 +258,7 @@ The main objective is a SMALL-to-MEDIUM but expandable Mega Marketplace.
 CORE V1 FEATURES:
 
 CUSTOMER
+
 - Home
 - Product listing
 - Categories
@@ -262,6 +281,7 @@ CUSTOMER
 - Notifications
 
 SELLER
+
 - Seller registration
 - Seller login
 - Seller dashboard
@@ -278,6 +298,7 @@ SELLER
 - Basic sales summary
 
 ADMIN
+
 - Admin login
 - Dashboard
 - Users
@@ -657,6 +678,7 @@ audit_logs
 Suggested fields:
 
 users:
+
 - id
 - name
 - email
@@ -667,6 +689,7 @@ users:
 - created_at
 
 categories:
+
 - id
 - name
 - slug
@@ -675,6 +698,7 @@ categories:
 - is_active
 
 products:
+
 - id
 - seller_id
 - category_id
@@ -690,6 +714,7 @@ products:
 - updated_at
 
 cart_items:
+
 - id
 - user_id
 - product_id
@@ -698,6 +723,7 @@ cart_items:
 - updated_at
 
 orders:
+
 - id
 - order_number
 - user_id
@@ -711,6 +737,7 @@ orders:
 - created_at
 
 order_items:
+
 - id
 - order_id
 - product_id
@@ -719,6 +746,7 @@ order_items:
 - quantity
 
 reviews:
+
 - id
 - user_id
 - product_id
@@ -1360,8 +1388,7 @@ V2 future:
 - coupons
 - advanced seller analytics
 - email automation
-- better search
-- product variants
+- advanced search/recommendations
 - delivery integration
 
 V3 future:
@@ -1619,4 +1646,4 @@ Turn it into:
 
 # MEGA MARKETPLACE
 
-এই prompt-এর সবচেয়ে গুরুত্বপূর্ণ অংশ হলো **“existing project-কে foundation হিসেবে ব্যবহার করা”**। তাই AI agent প্রথমে audit করবে, তারপর incremental upgrade করবে—একবারে পুরো project rewrite করবে না।
+এই prompt-এর সবচেয়ে গুরুত্বপূর্ণ অংশ হলো __“existing project-কে foundation হিসেবে ব্যবহার করা”__। তাই AI agent প্রথমে audit করবে, তারপর incremental upgrade করবে—একবারে পুরো project rewrite করবে না।

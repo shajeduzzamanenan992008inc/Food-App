@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}{{ _('Store orders') }} · {{ app_name }}{% endblock %}
+{% block page_content %}
+<div class="page-shell">
+    <header class="page-heading">
+        <div>
+            <p class="eyebrow">{{ seller.store_name }}</p>
+            <h1>{{ _('Store orders') }}</h1>
+            <p>{{ _('Review orders for your store and update their preparation status.') }}</p>
+        </div><a class="button-secondary" href="{{ url_for('seller.dashboard') }}">{{ _('Seller dashboard') }}</a>
+    </header>
+    {% if orders %}
+    <div class="admin-record-list">
+        {% for order in orders %}
+        <article class="admin-record">
+            <div class="admin-record__details">
+                <h2>{{ order.order_number }} · ৳{{ '%.2f'|format(order.total) }}</h2>
+                <p>{{ order.customer_name }} · {{ order.phone }}</p>
+                <p>{{ order.address }}</p>
+                <p>{% for item in order.items %}{{ item.quantity }} × {{ item.product_name }}{% if item.variant_label %}
+                    · {{ item.variant_label }}{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+                <span class="status-pill status-pill--{{ order.status }}">{{ _(order.status|capitalize) }}</span>
+            </div>
+            {% if order.status in ('pending', 'confirmed') %}
+            <div class="admin-review-form">
+                {% if order.status == 'pending' %}
+                <form method="post" action="{{ url_for('seller.update_order_status', order_id=order.id) }}"><input
+                        type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="status"
+                        value="confirmed"><button class="admin-button" type="submit">{{ _('Confirm order') }}</button>
+                </form>
+                <form method="post" action="{{ url_for('seller.update_order_status', order_id=order.id) }}"><input
+                        type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="status"
+                        value="declined"><button class="admin-button admin-button--quiet" type="submit">{{ _('Decline
+                        order') }}</button></form>
+                {% else %}
+                <form method="post" action="{{ url_for('seller.update_order_status', order_id=order.id) }}"><input
+                        type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="status"
+                        value="preparing"><button class="admin-button" type="submit">{{ _('Start preparing') }}</button>
+                </form>
+                {% endif %}
+            </div>
+            {% endif %}
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}<p class="admin-empty">{{ _('No orders for your store yet.') }}</p>{% endif %}
+</div>
+{% endblock %}

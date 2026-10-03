@@ -249,6 +249,11 @@ def verify_registration():
                 db.session.delete(challenge)
                 session.pop("registration_challenge_id", None)
             db.session.commit()
+            if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+                message = gettext("Too many incorrect codes. Start registration again.") if locked else gettext("The verification code is incorrect.")
+                status = 429 if locked else 400
+                redirect_url = url_for("auth.register") if locked else None
+                return jsonify(verified=False, message=message, redirect=redirect_url), status
             if locked:
                 flash(gettext("Too many incorrect codes. Start registration again."), "error")
                 return redirect(url_for("auth.register"))
@@ -257,6 +262,12 @@ def verify_registration():
             db.session.delete(challenge)
             db.session.commit()
             session.pop("registration_challenge_id", None)
+            if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+                return jsonify(
+                    verified=False,
+                    message=gettext("An account with this email already exists."),
+                    redirect=url_for("auth.login"),
+                ), 409
             flash(gettext("An account with this email already exists."), "error")
             return redirect(url_for("auth.login"))
         else:
@@ -279,6 +290,8 @@ def verify_registration():
             db.session.add(user)
             db.session.commit()
             session.pop("registration_challenge_id", None)
+            if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+                return jsonify(verified=True, redirect=url_for("auth.login"))
             flash(success_message, "success")
             return redirect(url_for("auth.login"))
     return render_template("auth/verify_registration.html", challenge=challenge)

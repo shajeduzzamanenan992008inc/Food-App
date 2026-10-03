@@ -1,40 +1,52 @@
 {% set localized_title = product.localized_name(current_locale) %}
 {% set saved_ids = saved_ids|default([]) %}
 <article class="product-card">
-  <a class="product-card__media" href="{{ url_for('main.food', slug=product.slug) }}" aria-label="{{ localized_title }}">
+  <a class="product-card__media" href="{{ url_for('main.food', slug=product.slug) }}"
+    aria-label="{{ localized_title }}">
     {% if product.display_image %}
-      <img src="{{ product.display_image }}" alt="{{ localized_title }}" loading="lazy" decoding="async">
+    <img src="{{ product.display_image }}" alt="{{ localized_title }}" loading="lazy" decoding="async">
     {% else %}<span class="product-card__placeholder" aria-hidden="true">✦</span>{% endif %}
   </a>
   {% if g.current_user and g.current_user.role == 'customer' %}
-    {% if product.id in saved_ids %}
-      <form class="product-card__wish" method="post" action="{{ url_for('wishlist.remove_item', product_id=product.id) }}">
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-        <input type="hidden" name="next" value="{{ request.full_path if request.query_string else request.path }}">
-        <button class="wish-button wish-button--saved" type="submit" aria-pressed="true" aria-label="{{ _('Remove %(name)s from your wishlist', name=localized_title) }}">♥</button>
-      </form>
-    {% else %}
-      <form class="product-card__wish" method="post" action="{{ url_for('wishlist.add_item', product_id=product.id) }}">
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-        <input type="hidden" name="next" value="{{ request.full_path if request.query_string else request.path }}">
-        <button class="wish-button" type="submit" aria-pressed="false" aria-label="{{ _('Save %(name)s to your wishlist', name=localized_title) }}">♡</button>
-      </form>
-    {% endif %}
+  {% if product.id in saved_ids %}
+  <form class="product-card__wish" method="post" action="{{ url_for('wishlist.remove_item', product_id=product.id) }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="next" value="{{ request.full_path if request.query_string else request.path }}">
+    <button class="wish-button wish-button--saved" type="submit" aria-pressed="true"
+      aria-label="{{ _('Remove %(name)s from your wishlist', name=localized_title) }}">♥</button>
+  </form>
+  {% else %}
+  <form class="product-card__wish" method="post" action="{{ url_for('wishlist.add_item', product_id=product.id) }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="next" value="{{ request.full_path if request.query_string else request.path }}">
+    <button class="wish-button" type="submit" aria-pressed="false"
+      aria-label="{{ _('Save %(name)s to your wishlist', name=localized_title) }}">♡</button>
+  </form>
+  {% endif %}
   {% endif %}
   <div class="product-card__body">
     <span class="product-card__category">{{ product.category.name }}</span>
     <h3><a href="{{ url_for('main.food', slug=product.slug) }}">{{ localized_title }}</a></h3>
     <p>{{ product.localized_description(current_locale)|truncate(86) }}</p>
-    {% if product.needs_original_language_label(current_locale, 'name') or product.needs_original_language_label(current_locale, 'description') %}<small class="source-caption">{{ _('Original language: %(language)s', language=product.original_language_label) }}</small>{% endif %}
+    {% if product.needs_original_language_label(current_locale, 'name') or
+    product.needs_original_language_label(current_locale, 'description') %}<small class="source-caption">{{ _('Original
+      language: %(language)s', language=product.original_language_label) }}</small>{% endif %}
     <div class="product-card__bottom">
-      <span class="price">৳{{ '%.2f'|format(product.display_price) }}{% if product.discount_price %}<del>৳{{ '%.2f'|format(product.price) }}</del>{% endif %}</span>
+      <span class="price">৳{{ '%.2f'|format(product.display_price) }}{% if product.discount_price %}<del>৳{{
+          '%.2f'|format(product.price) }}</del>{% endif %}</span>
       {% if g.current_user and g.current_user.role == 'customer' %}
+      {% if product.variants|selectattr('is_active')|list %}
+      <a class="card-add" href="{{ url_for('main.food', slug=product.slug) }}"
+        aria-label="{{ _('Choose options for %(name)s', name=localized_title) }}">›</a>
+      {% else %}
       <form method="post" action="{{ url_for('orders.add_to_cart', product_id=product.id) }}">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <input type="hidden" name="quantity" value="1">
         <input type="hidden" name="next" value="{{ request.full_path if request.query_string else request.path }}">
-        <button class="card-add" type="submit" aria-label="{{ _('Add %(name)s to cart', name=localized_title) }}">+</button>
+        <button class="card-add" type="submit"
+          aria-label="{{ _('Add %(name)s to cart', name=localized_title) }}">+</button>
       </form>
+      {% endif %}
       {% else %}
       <a class="card-add" href="{{ url_for('auth.login') }}" aria-label="{{ _('Sign in to order') }}">+</a>
       {% endif %}

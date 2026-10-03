@@ -12,7 +12,9 @@ from flask import Blueprint
 
 from .errors import register_error_handlers
 from .routes.auth import auth_api
+from .routes.admin import admin_api
 from .routes.catalog import catalog_api
+from .routes.commerce import commerce_api
 from .routes.health import health_api
 from .routes.notifications import notifications_api
 from .routes.wishlist import wishlist_api
@@ -24,7 +26,9 @@ api_bp = Blueprint("api", __name__, url_prefix="/api/v1")
 register_error_handlers(api_bp)
 api_bp.register_blueprint(health_api)
 api_bp.register_blueprint(auth_api)
+api_bp.register_blueprint(admin_api)
 api_bp.register_blueprint(catalog_api)
+api_bp.register_blueprint(commerce_api)
 api_bp.register_blueprint(notifications_api)
 api_bp.register_blueprint(wishlist_api)
 

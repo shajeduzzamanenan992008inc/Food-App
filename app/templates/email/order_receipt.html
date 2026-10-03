@@ -1,66 +1,77 @@
 {% extends "email/base.html" %}
 {% block email_page_title %}{{ _('Your NexHaat receipt') }}{% endblock %}
-{% block email_preheader %}{{ _('Thank you, %(name)s. Here is the receipt for order %(number)s.', name=order.customer_name, number=order.order_number) }}{% endblock %}
+{% block email_preheader %}{{ _('Thank you, %(name)s. Here is the receipt for order %(number)s.',
+name=order.customer_name, number=order.order_number) }}{% endblock %}
 {% block email_logo_icon %}🧾{% endblock %}
 {% block email_heading %}{{ _('Your NexHaat receipt') }}{% endblock %}
 {% block email_content %}
-  <p style="margin:0 0 4px;color:#303943;font-size:13px;line-height:1.55;text-align:center;">
-    {{ _('Thank you, %(name)s. Here is the receipt for order %(number)s.', name=order.customer_name, number=order.order_number) }}
-  </p>
-  <p style="margin:0 0 18px;color:#7c858e;font-size:11px;text-align:center;">
-    {{ _('Placed on %(date)s', date=order.created_at.strftime('%b %d, %Y')) }}
-  </p>
+<p style="margin:0 0 4px;color:#303943;font-size:13px;line-height:1.55;text-align:center;">
+  {{ _('Thank you, %(name)s. Here is the receipt for order %(number)s.', name=order.customer_name,
+  number=order.order_number) }}
+</p>
+<p style="margin:0 0 18px;color:#7c858e;font-size:11px;text-align:center;">
+  {{ _('Placed on %(date)s', date=order.created_at.strftime('%b %d, %Y')) }}
+</p>
 
-  <!-- Inset Items Breakdown Table -->
-  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#e7ebf0;border-radius:20px;box-shadow:inset 6px 6px 12px rgba(163,177,198,0.55), inset -6px -6px 12px rgba(255,255,255,0.95);padding:16px 18px;margin-bottom:18px;">
-    {% for item in order.items %}
-    <tr>
-      <td style="padding:6px 0;color:#303943;font-size:13px;font-weight:600;">
-        {{ item.product_name }} <span style="color:#7c858e;font-weight:400;">× {{ item.quantity }}</span>
-      </td>
-      <td align="right" style="padding:6px 0;color:#303943;font-size:13px;font-weight:700;white-space:nowrap;">
-        ৳{{ '%.2f'|format(item.subtotal) }}
-      </td>
-    </tr>
-    {% endfor %}
-    <tr>
-      <td style="padding:8px 0 2px;color:#7c858e;font-size:12px;border-top:1px dashed #cbd5e1;">
-        {{ _('Delivery') }}
-      </td>
-      <td align="right" style="padding:8px 0 2px;color:#7c858e;font-size:12px;font-weight:600;border-top:1px dashed #cbd5e1;white-space:nowrap;">
-        ৳{{ '%.2f'|format(order.delivery_fee) }}
-      </td>
-    </tr>
-  </table>
+<!-- Inset Items Breakdown Table -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%"
+  style="background-color:#e7ebf0;border-radius:20px;box-shadow:inset 6px 6px 12px rgba(163,177,198,0.55), inset -6px -6px 12px rgba(255,255,255,0.95);padding:16px 18px;margin-bottom:18px;">
+  {% for item in order.items %}
+  <tr>
+    <td style="padding:6px 0;color:#303943;font-size:13px;font-weight:600;">
+      {{ item.product_name }}{% if item.variant_label %} · {{ item.variant_label }}{% endif %}{% if item.sku_snapshot %}
+      ({{ item.sku_snapshot }}){% endif %} <span style="color:#7c858e;font-weight:400;">× {{ item.quantity }}</span>
+    </td>
+    <td align="right" style="padding:6px 0;color:#303943;font-size:13px;font-weight:700;white-space:nowrap;">
+      ৳{{ '%.2f'|format(item.subtotal) }}
+    </td>
+  </tr>
+  {% endfor %}
+  <tr>
+    <td style="padding:8px 0 2px;color:#7c858e;font-size:12px;border-top:1px dashed #cbd5e1;">
+      {{ _('Delivery') }}
+    </td>
+    <td align="right"
+      style="padding:8px 0 2px;color:#7c858e;font-size:12px;font-weight:600;border-top:1px dashed #cbd5e1;white-space:nowrap;">
+      ৳{{ '%.2f'|format(order.delivery_fee) }}
+    </td>
+  </tr>
+</table>
 
-  <!-- Electric Glowing Grand Total Highlight -->
-  <div style="position:relative;width:100%;max-width:380px;margin:0 auto 20px;">
-    <div class="electric-glow-anim" style="position:absolute;inset:-6px;border-radius:24px;filter:blur(8px);opacity:0.6;pointer-events:none;"></div>
-    <div class="electric-border-anim" style="position:absolute;inset:-2px;border-radius:20px;overflow:hidden;pointer-events:none;"></div>
-    
-    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="position:relative;z-index:10;background-color:#e7ebf0;border-radius:18px;box-shadow:inset 6px 6px 12px rgba(163,177,198,0.55), inset -6px -6px 12px rgba(255,255,255,0.95);padding:14px 20px;">
-      <tr>
-        <td style="color:#303943;font-size:14px;font-weight:700;">
-          {{ _('Total') }}
-        </td>
-        <td align="right" style="color:#006cff;font-size:24px;font-weight:800;font-family:'Courier New',Courier,monospace;white-space:nowrap;">
-          ৳{{ '%.2f'|format(order.total) }}
-        </td>
-      </tr>
-    </table>
-  </div>
+<!-- Electric Glowing Grand Total Highlight -->
+<div style="position:relative;width:100%;max-width:380px;margin:0 auto 20px;">
+  <div class="electric-glow-anim"
+    style="position:absolute;inset:-6px;border-radius:24px;filter:blur(8px);opacity:0.6;pointer-events:none;"></div>
+  <div class="electric-border-anim"
+    style="position:absolute;inset:-2px;border-radius:20px;overflow:hidden;pointer-events:none;"></div>
 
-  <!-- Neumorphic Delivery Address Card -->
-  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-radius:18px;background:#e7ebf0;box-shadow:5px 5px 12px rgba(163,177,198,0.5), -5px -5px 12px rgba(255,255,255,0.9);padding:14px 18px;margin-bottom:12px;">
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%"
+    style="position:relative;z-index:10;background-color:#e7ebf0;border-radius:18px;box-shadow:inset 6px 6px 12px rgba(163,177,198,0.55), inset -6px -6px 12px rgba(255,255,255,0.95);padding:14px 20px;">
     <tr>
-      <td style="vertical-align:middle;width:24px;font-size:16px;">📍</td>
-      <td style="vertical-align:middle;padding-left:10px;">
-        <span style="display:block;color:#7c858e;font-size:10px;text-transform:uppercase;font-weight:700;">{{ _('Delivery Destination') }}</span>
-        <span style="display:block;color:#303943;font-size:12px;font-weight:600;">{{ order.address }}</span>
+      <td style="color:#303943;font-size:14px;font-weight:700;">
+        {{ _('Total') }}
+      </td>
+      <td align="right"
+        style="color:#006cff;font-size:24px;font-weight:800;font-family:'Courier New',Courier,monospace;white-space:nowrap;">
+        ৳{{ '%.2f'|format(order.total) }}
       </td>
     </tr>
   </table>
+</div>
+
+<!-- Neumorphic Delivery Address Card -->
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%"
+  style="border-radius:18px;background:#e7ebf0;box-shadow:5px 5px 12px rgba(163,177,198,0.5), -5px -5px 12px rgba(255,255,255,0.9);padding:14px 18px;margin-bottom:12px;">
+  <tr>
+    <td style="vertical-align:middle;width:24px;font-size:16px;">📍</td>
+    <td style="vertical-align:middle;padding-left:10px;">
+      <span style="display:block;color:#7c858e;font-size:10px;text-transform:uppercase;font-weight:700;">{{ _('Delivery
+        Destination') }}</span>
+      <span style="display:block;color:#303943;font-size:12px;font-weight:600;">{{ order.address }}</span>
+    </td>
+  </tr>
+</table>
 {% endblock %}
 {% block email_footer_note %}
-  {{ _('Your invoice is attached to this email as a PDF.') }}
+{{ _('Your invoice is attached to this email as a PDF.') }}
 {% endblock %}
